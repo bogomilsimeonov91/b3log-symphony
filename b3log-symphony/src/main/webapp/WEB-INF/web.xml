@@ -41,6 +41,15 @@
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
 
+        <servlet>
+        <servlet-name>AddArticleAction</servlet-name>
+        <servlet-class>org.b3log.symphony.action.AddArticleAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddArticleAction</servlet-name>
+        <url-pattern>/add-article.do</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index</welcome-file>
     </welcome-file-list>
