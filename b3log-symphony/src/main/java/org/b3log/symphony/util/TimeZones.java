@@ -19,6 +19,7 @@ package org.b3log.symphony.util;
 import java.util.Date;
 import java.util.TimeZone;
 import org.b3log.latke.util.freemarker.Templates;
+import org.b3log.symphony.model.Comment;
 
 /**
  * Time zone utilities.
@@ -59,6 +60,7 @@ public final class TimeZones {
 
         TimeZone.setDefault(timeZone);
         System.setProperty("user.timezone", timeZoneId);
+        Comment.DATE_FORMAT.setTimeZone(timeZone);
         Templates.CONFIGURATION.setTimeZone(timeZone);
     }
 
