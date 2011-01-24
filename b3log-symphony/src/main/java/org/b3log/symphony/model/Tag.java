@@ -44,6 +44,10 @@ public final class Tag {
      * Key of tag comment count.
      */
     public static final String TAG_COMMENT_COUNT = "tagCommentCount";
+    /**
+     * Key of tag refereed articles.
+     */
+    public static final String TAG_ARTICLES_REF = "tagArticles";
 
     /**
      * Private default constructor.

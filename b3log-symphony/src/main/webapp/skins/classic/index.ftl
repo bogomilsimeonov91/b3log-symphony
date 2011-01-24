@@ -14,5 +14,13 @@
     </head>
     <body>
         ${testLabel}
+        <#list tags as tag>
+            <div>"TITLE": ${tag.tagTitle}</div>
+            <#list tag.tagArticles as article>
+            &nbsp;&nbsp;&nbsp;&nbsp;"ARTICLE": ${article.articleTitle}
+            <br/>
+            </#list>
+            <br/>
+        </#list>
     </body>
 </html>
