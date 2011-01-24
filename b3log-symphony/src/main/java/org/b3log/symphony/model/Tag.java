@@ -40,6 +40,10 @@ public final class Tag {
      * Key of tag reference count.
      */
     public static final String TAG_REFERENCE_COUNT = "tagReferenceCount";
+    /**
+     * Key of tag comment count.
+     */
+    public static final String TAG_COMMENT_COUNT = "tagCommentCount";
 
     /**
      * Private default constructor.
