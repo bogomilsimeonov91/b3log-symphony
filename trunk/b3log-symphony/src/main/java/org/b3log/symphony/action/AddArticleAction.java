@@ -133,11 +133,11 @@ public final class AddArticleAction extends AbstractAction {
             final String title = originalArticle.getString(ARTICLE_TITLE);
             article.put(ARTICLE_TITLE, title);
             final String authorEmail =
-                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL);
-            article.put(ARTICLE_AUTHOR_EMAIL, authorEmail);
+                    originalArticle.getString(ARTICLE_AUTHOR_REF);
+            article.put(ARTICLE_AUTHOR_REF, authorEmail);
             final String tagString = // Get lower cased tags
-                    originalArticle.getString(ARTICLE_TAGS_REF).toLowerCase();
-            article.put(ARTICLE_TAGS_REF, tagString);
+                    originalArticle.getString(ARTICLE_TAGS).toLowerCase();
+            article.put(ARTICLE_TAGS, tagString);
             final String permalink = "http://" + soloHost + originalArticle.
                     getString(ARTICLE_PERMALINK);
 

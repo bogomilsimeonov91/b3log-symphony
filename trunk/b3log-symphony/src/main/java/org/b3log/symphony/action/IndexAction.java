@@ -18,16 +18,22 @@ package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.b3log.latke.action.AbstractCacheablePageAction;
+import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.Pagination;
+import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.symphony.model.Article;
+import org.b3log.symphony.model.Tag;
 import org.json.JSONObject;
 
 /**
@@ -36,7 +42,7 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.0, Jan 23, 2011
  */
-public final class IndexAction extends AbstractCacheablePageAction {
+public final class IndexAction extends AbstractAction {
 
     /**
      * Default serial version uid.
@@ -68,6 +74,40 @@ public final class IndexAction extends AbstractCacheablePageAction {
             final Locale locale = Locale.SIMPLIFIED_CHINESE;
             final Map<String, String> langs = langPropsService.getAll(locale);
             ret.putAll(langs);
+
+            // Tags
+            final List<JSONObject> tags = new ArrayList<JSONObject>();
+            final int maxT = 10;
+            for (int i = 0; i < maxT; i++) {
+                final JSONObject tag = new JSONObject();
+                final String tagTitle = "tag title " + i;
+                tag.put(Tag.TAG_TITLE, tagTitle);
+                tag.put(Tag.TAG_REFERENCE_COUNT, i);
+                tag.put(Tag.TAG_COMMENT_COUNT, i * maxT);
+
+                tags.add(tag);
+
+                // Articles
+                final List<JSONObject> articles = new ArrayList<JSONObject>();
+                final int maxA = 3;
+                for (int j = 0; j < maxA; j++) {
+                    final JSONObject article = new JSONObject();
+                    article.put(Article.ARTICLE_TITLE, "article title " + j);
+                    article.put(Article.ARTICLE_TAGS, tagTitle + ",T__");
+                    article.put(Article.ARTICLE_COMMENT_COUNT, j * maxT);
+
+                    final JSONObject author = new JSONObject();
+                    author.put(User.USER_NAME, "user name");
+                    article.put(Article.ARTICLE_AUTHOR_REF, author);
+                    article.put(Article.ARTICLE_CREATE_DATE, new Date());
+                    article.put(Article.ARTICLE_LATEST_CMT_DATE, new Date());
+
+                    articles.add(article);
+                }
+                tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
+            }
+
+            ret.put(Tag.TAGS, tags);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 

@@ -38,6 +38,7 @@ import org.b3log.latke.Latkes;
 import org.b3log.latke.RunsOnEnv;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.servlet.AbstractServletListener;
+import org.b3log.latke.util.freemarker.Templates;
 import org.b3log.symphony.util.Skins;
 
 /**
@@ -137,6 +138,9 @@ public final class SymphonyServletListener extends AbstractServletListener {
 
         registerEventProcessor();
         skinUtils.loadSkin();
+
+        // TODO: To enable the template cache
+        Templates.enableCache(false);
 
         LOGGER.info("Initialized the context");
     }

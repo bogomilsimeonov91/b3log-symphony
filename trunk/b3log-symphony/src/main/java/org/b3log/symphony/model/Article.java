@@ -45,9 +45,13 @@ public final class Article {
      */
     public static final String ARTICLE_CREATE_DATE = "articleCreateDate";
     /**
+     * Key of the latest comment date.
+     */
+    public static final String ARTICLE_LATEST_CMT_DATE = "articleLatestCmtDate";
+    /**
      * Key of tags.
      */
-    public static final String ARTICLE_TAGS_REF = "articleTags";
+    public static final String ARTICLE_TAGS = "articleTags";
     /**
      * Key of comment count.
      */
@@ -61,9 +65,9 @@ public final class Article {
      */
     public static final String ARTICLE_PERMALINK = "articlePermalink";
     /**
-     * Key of author email.
+     * Key of author.
      */
-    public static final String ARTICLE_AUTHOR_EMAIL = "articleAuthorEmail";
+    public static final String ARTICLE_AUTHOR_REF = "articleAuthor";
     /**
      * Key of random double.
      */
