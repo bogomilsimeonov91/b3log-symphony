@@ -45,10 +45,6 @@ public final class Article {
      */
     public static final String ARTICLE_CREATE_DATE = "articleCreateDate";
     /**
-     * Key of update date.
-     */
-    public static final String ARTICLE_UPDATE_DATE = "articleUpdateDate";
-    /**
      * Key of tags.
      */
     public static final String ARTICLE_TAGS_REF = "articleTags";
@@ -56,10 +52,6 @@ public final class Article {
      * Key of comment count.
      */
     public static final String ARTICLE_COMMENT_COUNT = "articleCommentCount";
-    /**
-     * Key of view count.
-     */
-    public static final String ARTICLE_VIEW_COUNT = "articleViewCount";
     /**
      * Key of comments.
      */
