@@ -16,6 +16,7 @@
 
 package org.b3log.symphony.action;
 
+import java.util.Enumeration;
 import java.util.logging.Level;
 import org.b3log.latke.action.ActionException;
 import java.util.Map;
@@ -111,6 +112,10 @@ public final class AddArticleAction extends AbstractAction {
 //        final Transaction transaction = articleRepository.beginTransaction();
 
         try {
+            if (LOGGER.isLoggable(Level.FINER)) {
+                logRequestHeaders(request);
+            }
+
             final String soloHost = data.getString(Solo.SOLO_HOST);
             final String soloVersion = data.optString(Solo.SOLO_VERSION);
             final JSONObject ret = new JSONObject();
@@ -155,6 +160,22 @@ public final class AddArticleAction extends AbstractAction {
 //            }
             LOGGER.severe(e.getMessage());
             throw new ActionException(e);
+        }
+    }
+
+    /**
+     * Logs the headers of the specified request.
+     *
+     * @param request the specified request
+     */
+    private void logRequestHeaders(final HttpServletRequest request) {
+        @SuppressWarnings("unchecked")
+        final Enumeration<String> enames = request.getHeaderNames();
+        while (enames.hasMoreElements()) {
+            final String name = enames.nextElement();
+            final String value = request.getHeader(name);
+            LOGGER.log(Level.FINER, "Request header[name={0}, value={1}]",
+                       new Object[]{name, value});
         }
     }
 }
