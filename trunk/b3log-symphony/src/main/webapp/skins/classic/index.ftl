@@ -21,14 +21,45 @@
         </div>
         <div class="content">
             <#list tags as tag>
-            <div>
-                <div>"TITLE": ${tag.tagTitle}</div>
+            <dl>
+                <dd>
+                    <span>
+                        ${tag.tagTitle}
+                    </span>
+                    <span>
+                        <a href="#">author1</a>,
+                        <a href="#">author2</a>,
+                        <a href="#">author3</a>,
+                        <a href="#">author4</a>,
+                        <a href="#">author5</a>
+                    </span>
+                    <span>
+                        article count/ comment count
+                    </span>
+                </dd>
                 <#list tag.tagArticles as article>
-                <div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;"ARTICLE": ${article.articleTitle}
-                </div>
+                <dd>
+                    <span>
+                        icon
+                    </span>
+                    <span>
+                        ${article.articleTitle}
+                    </span>
+                    <span>
+                        tags
+                    </span>
+                    <span>
+                        comment count
+                    </span>
+                    <span>
+                        author
+                    </span>
+                    <span>
+                        create date/last comment date
+                    </span>
+                </dd>
                 </#list>
-            </div>
+            </dl>
             </#list>
         </div>
         <div class="footer">
