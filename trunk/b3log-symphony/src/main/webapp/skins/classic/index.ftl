@@ -10,17 +10,28 @@
         <meta name="copyright" content="B3log"/>
         <meta name="revised" content="B3log, 2011"/>
         <meta http-equiv="Window-target" content="_top"/>
+        <link type="text/css" rel="stylesheet" href="/styles/base.css"/>
+        <link type="text/css" rel="stylesheet" href="/styles/default-index.css"/>
         <link rel="icon" type="image/png" href="/favicon.png"/>
     </head>
     <body>
-        ${testLabel}
-        <#list tags as tag>
-            <div>"TITLE": ${tag.tagTitle}</div>
-            <#list tag.tagArticles as article>
-            &nbsp;&nbsp;&nbsp;&nbsp;"ARTICLE": ${article.articleTitle}
-            <br/>
+        <div class="header">
+            <#include "header.ftl"/>
+        </div>
+        <div class="content">
+            <#list tags as tag>
+            <div>
+                <div>"TITLE": ${tag.tagTitle}</div>
+                <#list tag.tagArticles as article>
+                <div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"ARTICLE": ${article.articleTitle}
+                </div>
+                </#list>
+            </div>
             </#list>
-            <br/>
-        </#list>
+        </div>
+        <div class="footer">
+            <#include "footer.ftl"/>
+        </div>
     </body>
 </html>
