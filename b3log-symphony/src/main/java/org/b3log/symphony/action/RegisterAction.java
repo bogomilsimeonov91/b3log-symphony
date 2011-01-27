@@ -72,7 +72,7 @@ public final class RegisterAction extends AbstractAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         try {
-            final Locale locale = Locales.getLocale(request);
+            final Locale locale = Locale.SIMPLIFIED_CHINESE;
             Locales.setLocale(request, locale);
 
             final Map<String, String> langs = langPropsService.getAll(locale);
