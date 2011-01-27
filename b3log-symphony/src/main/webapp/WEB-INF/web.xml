@@ -61,7 +61,7 @@
 
     <servlet>
         <servlet-name>Register</servlet-name>
-        <servlet-class>org.b3log.symphony.action.RegisterServlet</servlet-class>
+        <servlet-class>org.b3log.symphony.action.RegisterAction</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -72,13 +72,13 @@
         <welcome-file>index</welcome-file>
     </welcome-file-list>
 
-     <servlet>
+<!--     <servlet>
         <servlet-name>RegisterAction</servlet-name>
         <servlet-class>org.b3log.latke.action.DoNothingAction</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterAction</servlet-name>
         <url-pattern>/register.do</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
 </web-app>

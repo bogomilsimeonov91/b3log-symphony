@@ -16,30 +16,35 @@
 
 package org.b3log.symphony.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Level;
+import org.b3log.latke.action.ActionException;
+import java.util.Map;
 import java.util.logging.Logger;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
+import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
+import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.service.ServiceException;
+import org.b3log.latke.util.Locales;
 import org.b3log.latke.util.MD5;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Registers new user.
+ * Register new user.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.0, Jan 27, 2011
  */
-public final class RegisterServlet extends HttpServlet {
+public final class RegisterAction extends AbstractAction {
 
     /**
      * Default serial version uid.
@@ -49,19 +54,44 @@ public final class RegisterServlet extends HttpServlet {
      * Logger.
      */
     private static final Logger LOGGER =
-            Logger.getLogger(RegisterServlet.class.getName());
+            Logger.getLogger(RegisterAction.class.getName());
+    /**
+     * Language service.
+     */
+    private LangPropsService langPropsService = LangPropsService.getInstance();
     /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
 
     @Override
-    protected void doPost(final HttpServletRequest request,
-                          final HttpServletResponse response)
-            throws ServletException, IOException {
+    protected Map<?, ?> doFreeMarkerAction(
+            final freemarker.template.Template template,
+            final HttpServletRequest request,
+            final HttpServletResponse response) throws ActionException {
+        final Map<String, Object> ret = new HashMap<String, Object>();
+
+        try {
+            final Locale locale = Locales.getLocale(request);
+            Locales.setLocale(request, locale);
+
+            final Map<String, String> langs = langPropsService.getAll(locale);
+            ret.putAll(langs);
+        } catch (final ServiceException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new ActionException("Language model fill error");
+        }
+
+        return ret;
+    }
+
+    @Override
+    protected JSONObject doAjaxAction(final JSONObject data,
+                                      final HttpServletRequest request,
+                                      final HttpServletResponse response)
+            throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        final PrintWriter writer = response.getWriter();
         final Transaction transaction = userRepository.beginTransaction();
         try {
             final String captcha = request.getParameter("captcha");
@@ -71,9 +101,8 @@ public final class RegisterServlet extends HttpServlet {
 
             if (null == storedCaptcha || !storedCaptcha.equals(captcha)) {
                 ret.put(Keys.STATUS_CODE, "captchaError");
-                writer.write(ret.toString());
 
-                return;
+                return ret;
             }
 
             final String userEmail = request.getParameter(User.USER_EMAIL);
@@ -83,7 +112,7 @@ public final class RegisterServlet extends HttpServlet {
             if (null != user) {
                 ret.put(Keys.STATUS_CODE, "duplicated");
 
-                return;
+                return ret;
             }
 
             user = new JSONObject();
@@ -94,18 +123,20 @@ public final class RegisterServlet extends HttpServlet {
             transaction.commit();
 
             ret.put(Keys.STATUS_CODE, "succeed");
-
         } catch (final Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-        } finally {
-            writer.write(ret.toString());
-            writer.flush();
-            writer.close();
+
+            try {
+                ret.put(Keys.STATUS_CODE, "fail");
+            } catch (final JSONException ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new ActionException(ex);
+            }
         }
 
-        response.sendRedirect("/");
+        return ret;
     }
 }
