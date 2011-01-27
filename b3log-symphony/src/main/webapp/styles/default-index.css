@@ -1,0 +1,106 @@
+/* css reset */
+body{
+    background-color:#FFF;
+    color:#000;
+    font-family:'微软雅黑',Arial,sans-serif;
+    font-size:small;
+}
+
+a,a:link{
+    color:#00C;
+}
+
+a:active{
+    color:red;
+}
+
+a:visited{color:#551A8B;}
+
+img{
+    vertical-align:middle;
+}
+
+li{
+    margin-left:12px;
+}
+
+h1{
+    font-size:160%;
+}
+
+h2{
+    font-size:140%;
+}
+
+h3{
+    font-size:120%;
+}
+
+h4{
+    font-size:110%;
+}
+
+/* architecture */
+.header{
+    height:108px;
+}
+
+.content{
+    margin:0 auto;
+    max-width:1160px;
+}
+
+.footer {
+    text-align:center;
+    padding:12px;
+}
+
+/* common component */
+.form th{
+    text-align:right;
+    white-space:nowrap;
+}
+
+.form input, .form textarea{
+    width:100%;
+    font-size:12px;
+    border:2px inset #CCCCCC;
+}
+
+.form textarea{
+    overflow:auto;
+}
+
+.form input:focus,.form textarea:focus{
+    border:2px solid #73A6FF;
+}
+
+.form input[type='checkbox'], .form input[type='checkbox']:focus{
+    border:0px;
+}
+
+.form input{
+    height:24px;
+    line-height:24px;
+}
+
+.form .normalInput{
+    width:auto;
+}
+
+.form button{
+    background:url(../images/icon.png) repeat center bottom;
+    border:1px solid;
+    border-color:#CCC #BBBBBB #A0A0A0;
+    height:28px;
+    margin:0;
+    vertical-align:top;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+    padding:0 6px;
+}
+
+.form button:hover{
+    border-color:#BBB;
+}
