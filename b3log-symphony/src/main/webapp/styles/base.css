@@ -40,7 +40,11 @@
 }
 
 .nowrap{
-    white-space:nowrap;
+    white-space: nowrap;
+}
+
+.break-word {
+    word-break: break-all;
 }
 
 .left{
@@ -78,13 +82,13 @@
     color:red;
 }
 
+/* logo */
+.logo{
+    text-decoration: none;
+    outline:none;
+}
 
-#admin span{cursor:pointer;}
+.logo span{
+    margin:0 -2px;
+}
 
-#top{font-family: Arial,Verdana,sans-serif;border-bottom:1px solid #C9D7F1;padding:0 3px;background-color:#FFF;line-height: 20px;}
-
-.logo{float:left;width:100px;outline:none;}
-
-.logo span, .footer span{margin:0 -2px;}
-
-#top a.logo,.footer a{text-decoration:none;}

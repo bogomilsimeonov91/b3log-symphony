@@ -55,6 +55,14 @@ h4{
     padding:12px;
 }
 
+/* header */
+#top{
+    border-bottom:1px solid #C9D7F1;
+    padding:0 3px;
+    background-color:#FFF;
+    line-height: 20px;
+}
+
 /* common component */
 .form th{
     text-align:right;
