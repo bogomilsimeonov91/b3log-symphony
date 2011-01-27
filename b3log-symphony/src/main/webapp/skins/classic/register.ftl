@@ -13,6 +13,7 @@
         <link type="text/css" rel="stylesheet" href="/styles/base.css"/>
         <link type="text/css" rel="stylesheet" href="/styles/default-index.css"/>
         <link rel="icon" type="image/png" href="/favicon.png"/>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     </head>
     <body>
         <#include "common-top.ftl"/>
@@ -21,12 +22,13 @@
         </div>
         <div class="content">
             <table width="320px" class="form">
+                <caption>${registerLabel}</caption>
                 <tr>
                     <th>
-                        ${userNameLabel}
+                        ${emailLabel}
                     </th>
                     <td>
-                        <input id="userName"/>
+                        <input id="email"/>
                     </td>
                 </tr>
                 <tr>
@@ -34,7 +36,7 @@
                         ${passwordLabel}
                     </th>
                     <td>
-                        <input id="password"/>
+                        <input id="password" type="password"/>
                     </td>
                 </tr>
                 <tr>
@@ -42,7 +44,7 @@
                         ${confirmPasswordLabel}
                     </th>
                     <td>
-                        <input id="confirmPassword"/>
+                        <input id="confirmPassword" type="password"/>
                     </td>
                 </tr>
                 <tr>
@@ -51,13 +53,12 @@
                     </th>
                     <td>
                         <input id="captcha" class="normal-input"/>
+                        <img alt="captcha" src="/captcha"></img>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <span class="red" id="tip">s</span>
-                    </td>
                     <th colspan="2">
+                        <span class="red" id="tip"></span>
                         <button onclick="register();">
                             ${registerLabel}
                         </button>
@@ -70,19 +71,19 @@
         </div>
         <script type="text/javascript">
             function register() {
-                var userName = $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
+                var email = $("#email").val().replace(/(^\s*)|(\s*$)/g, ""),
                 password = $("#password").val().replace(/(^\s*)|(\s*$)/g, "");
-                if (userName === "" || userName.length > 21) {
-                    $("tip").text("${nameTooLongLabel}");
-                    $("#userName").focus();
+                if (email === "" || !/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(email)) {
+                    $("#tip").text("${emailErrorLabel}");
+                    $("#email").focus();
                 } else if (password === "") {
-                    $("tip").text("${passwordEmptyLabel}");
+                    $("#tip").text("${passwordEmptyLabel}");
                     $("#password").focus();
-                } else if (password === $("#confirmPassword").val()) {
-                    $("tip").text("${passwordNoMatchLabel}");
+                } else if (password !== $("#confirmPassword").val()) {
+                    $("#tip").text("${passwordNoMatchLabel}");
                     $("#password").focus();
                 } else if ($("#captcha").val().replace(/(^\s*)|(\s*$)/g, "") === "") {
-                    $("tip").text("${captchaCannotEmptyLabel}");
+                    $("#tip").text("${captchaCannotEmptyLabel}");
                     $("#captcha").focus();
                 } else {
                     $.ajax({
