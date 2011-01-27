@@ -15,6 +15,7 @@
         <link rel="icon" type="image/png" href="/favicon.png"/>
     </head>
     <body>
+        <#include "common-top.ftl"/>
         <div class="header">
             <#include "header.ftl"/>
         </div>
