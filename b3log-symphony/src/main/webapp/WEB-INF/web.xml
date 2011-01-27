@@ -72,4 +72,13 @@
         <welcome-file>index</welcome-file>
     </welcome-file-list>
 
+     <servlet>
+        <servlet-name>RegisterAction</servlet-name>
+        <servlet-class>org.b3log.latke.action.DoNothingAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterAction</servlet-name>
+        <url-pattern>/register.do</url-pattern>
+    </servlet-mapping>
+
 </web-app>
