@@ -18,8 +18,6 @@ package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -31,10 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.Pagination;
-import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
+import org.b3log.symphony.repository.TagRepository;
+import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.json.JSONObject;
 
 /**
@@ -58,6 +56,10 @@ public final class IndexAction extends AbstractAction {
      * Language service.
      */
     private LangPropsService langPropsService = LangPropsService.getInstance();
+    /**
+     * Tag repository.
+     */
+    private TagRepository tagRepository = TagGAERepository.getInstance();
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -77,34 +79,17 @@ public final class IndexAction extends AbstractAction {
             ret.putAll(langs);
 
             // Tags
-            final List<JSONObject> tags = new ArrayList<JSONObject>();
-            final int maxT = 10;
-            for (int i = 0; i < maxT; i++) {
-                final JSONObject tag = new JSONObject();
-                final String tagTitle = "tag title " + i;
-                tag.put(Tag.TAG_TITLE, tagTitle);
-                tag.put(Tag.TAG_REFERENCE_COUNT, i);
-                tag.put(Tag.TAG_COMMENT_COUNT, i * maxT);
+            final int maxTagCnt = 10;
+            final int maxArticleCnt = 3;
+            final List<JSONObject> tags =
+                    tagRepository.getMostUsedTags(maxTagCnt);
+            List<JSONObject> articles = null;
+            for (int i = 0; i < tags.size(); i++) {
+                final JSONObject tag = tags.get(i);
+                final String tagTitle = tag.getString(Tag.TAG_TITLE);
 
-                tags.add(tag);
-
-                // Articles
-                final List<JSONObject> articles = new ArrayList<JSONObject>();
-                final int maxA = 3;
-                for (int j = 0; j < maxA; j++) {
-                    final JSONObject article = new JSONObject();
-                    article.put(Article.ARTICLE_TITLE, "article title " + j);
-                    article.put(Article.ARTICLE_TAGS, tagTitle + ",T__");
-                    article.put(Article.ARTICLE_COMMENT_COUNT, j * maxT);
-
-                    final JSONObject author = new JSONObject();
-                    author.put(User.USER_NAME, "user name");
-                    article.put(Article.ARTICLE_AUTHOR_EMAIL, "test@b3log.org");
-                    article.put(Article.ARTICLE_CREATE_DATE, new Date());
-                    article.put(Article.ARTICLE_LATEST_CMT_DATE, new Date());
-
-                    articles.add(article);
-                }
+                articles = tagRepository.getRecentArticles(tagTitle,
+                                                           maxArticleCnt);
                 tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
             }
 
@@ -121,6 +106,26 @@ public final class IndexAction extends AbstractAction {
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return ret;
     }
 
@@ -130,5 +135,10 @@ public final class IndexAction extends AbstractAction {
                                       final HttpServletResponse response)
             throws ActionException {
         throw new UnsupportedOperationException("Not supported yet.");
+
+
+
+
+
     }
 }

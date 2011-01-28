@@ -26,14 +26,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.RunsOnEnv;
 import org.b3log.latke.cache.Cache;
 import org.b3log.latke.cache.CacheFactory;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.gae.AbstractGAERepository;
+import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
+import org.b3log.symphony.repository.ArticleRepository;
+import org.b3log.symphony.repository.TagArticleRepository;
 import org.b3log.symphony.repository.TagRepository;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -54,6 +59,16 @@ public final class TagGAERepository extends AbstractGAERepository
      * Cache.
      */
     private static final Cache<String, Object> CACHE;
+    /**
+     * Tag-Article repository.
+     */
+    private TagArticleRepository tagArticleRepository =
+            TagArticleGAERepository.getInstance();
+    /**
+     * Article repository.
+     */
+    private ArticleRepository articleRepository =
+            ArticleGAERepository.getInstance();
 
     static {
         final RunsOnEnv runsOnEnv = Latkes.getRunsOnEnv();
@@ -72,6 +87,38 @@ public final class TagGAERepository extends AbstractGAERepository
     @Override
     public String getName() {
         return Tag.TAG;
+    }
+
+    @Override
+    public List<JSONObject> getRecentArticles(final String tagTitle,
+                                              final int fetchSize)
+            throws RepositoryException {
+        final List<JSONObject> ret = new ArrayList<JSONObject>();
+
+        try {
+            final JSONObject tag = getByTitle(tagTitle);
+            final String tagId = tag.getString(Keys.OBJECT_ID);
+            final JSONObject result =
+                    tagArticleRepository.getByTagId(tagId, 1, fetchSize);
+            final JSONArray tagArticleRelations =
+                    result.getJSONArray(Keys.RESULTS);
+
+            for (int i = 0; i < tagArticleRelations.length(); i++) {
+                final JSONObject tagArticleRelation =
+                        tagArticleRelations.getJSONObject(i);
+                final String articleId =
+                        tagArticleRelation.getString(Article.ARTICLE + "_"
+                                                     + Keys.OBJECT_ID);
+                final JSONObject article = articleRepository.get(articleId);
+
+                ret.add(article);
+            }
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new RepositoryException(e);
+        }
+
+        return ret;
     }
 
     @Override
