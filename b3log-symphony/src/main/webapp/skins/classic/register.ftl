@@ -14,6 +14,7 @@
         <link type="text/css" rel="stylesheet" href="/styles/default-index.css"/>
         <link rel="icon" type="image/png" href="/favicon.png"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/lib/json2.js"></script>
     </head>
     <body>
         <#include "common-top.ftl"/>
@@ -86,11 +87,18 @@
                     $("#tip").text("${captchaCannotEmptyLabel}");
                     $("#captcha").focus();
                 } else {
+                    var requestJSONObject = {
+                        "captcha": $("#captcha").val(),
+                        "userEmail": $("#email").val(),
+                        "userPassword": $("#password").val()
+                    };
+
                     $.ajax({
                         url: "/register",
                         type: "POST",
+                        data: JSON.stringify(requestJSONObject),
                         success: function(result, textStatus){
-                            
+                            alert(JSON.stringify(result));
                         }
                     });
                 }

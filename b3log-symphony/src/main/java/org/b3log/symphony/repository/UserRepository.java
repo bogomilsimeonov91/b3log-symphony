@@ -16,17 +16,17 @@
 
 package org.b3log.symphony.repository;
 
-import org.b3log.latke.repository.Repository;
 import org.b3log.latke.repository.RepositoryException;
+import org.b3log.latke.repository.gae.GAERepository;
 import org.json.JSONObject;
 
 /**
  * User repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 27, 2011
+ * @version 1.0.0.1, Jan 28, 2011
  */
-public interface UserRepository extends Repository {
+public interface UserRepository extends GAERepository {
 
     /**
      * Gets a user by the specified email.
