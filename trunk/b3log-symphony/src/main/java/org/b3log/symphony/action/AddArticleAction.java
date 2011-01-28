@@ -16,6 +16,7 @@
 
 package org.b3log.symphony.action;
 
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import org.b3log.latke.action.ActionException;
@@ -153,8 +154,11 @@ public final class AddArticleAction extends AbstractAction {
             article.put(ARTICLE_PERMALINK, permalink);
             article.put(ARTICLE_CONTENT, 
                     originalArticle.getString(ARTICLE_CONTENT));
+             Date createDate =
+                    (Date) originalArticle.opt(Article.ARTICLE_CREATE_DATE);
+             createDate = null != createDate ? createDate : new Date();
             article.put(Article.ARTICLE_CREATE_DATE,
-                    originalArticle.get(Article.ARTICLE_CREATE_DATE));
+                        createDate);
             article.put(Solo.SOLO_HOST, soloHost);
             article.put(Solo.SOLO_VERSION, soloVersion);
 
