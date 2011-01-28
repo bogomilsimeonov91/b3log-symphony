@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
+import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
@@ -72,7 +73,7 @@ public final class RegisterAction extends AbstractAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         try {
-            final Locale locale = Locale.SIMPLIFIED_CHINESE;
+            final Locale locale = Latkes.getDefaultLocale();
             Locales.setLocale(request, locale);
 
             final Map<String, String> langs = langPropsService.getAll(locale);
