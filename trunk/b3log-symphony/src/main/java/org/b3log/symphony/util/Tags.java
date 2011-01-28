@@ -89,7 +89,7 @@ public final class Tags {
                 tag.put(Tag.TAG_REFERENCE_COUNT, 1);
                 tag.put(Tag.TAG_TITLE_LOWER_CASE, tagTitle.toLowerCase());
 
-                tagId = tagArticleRepository.add(tag);
+                tagId = tagRepository.add(tag);
                 tag.put(Keys.OBJECT_ID, tagId);
             } else {
                 tagId = tag.getString(Keys.OBJECT_ID);
@@ -104,7 +104,7 @@ public final class Tags {
                 final int refCnt = tag.getInt(Tag.TAG_REFERENCE_COUNT);
                 tagToUpdate.put(Tag.TAG_REFERENCE_COUNT, refCnt + 1);
 
-                tagArticleRepository.update(tagId, tagToUpdate);
+                tagRepository.update(tagId, tagToUpdate);
             }
 
             ret.put(tag);
@@ -132,7 +132,7 @@ public final class Tags {
             final int refCnt = tag.getInt(Tag.TAG_REFERENCE_COUNT);
             tag.put(Tag.TAG_REFERENCE_COUNT, refCnt - 1);
 
-            tagArticleRepository.update(tagId, tag);
+            tagRepository.update(tagId, tag);
             LOGGER.log(Level.FINEST,
                        "Deced tag[title={0}, refCnt={1}] of article[oId={2}]",
                        new Object[]{tag.getString(Tag.TAG_TITLE),

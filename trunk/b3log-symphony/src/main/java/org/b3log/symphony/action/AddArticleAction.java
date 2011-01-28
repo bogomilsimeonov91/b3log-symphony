@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.SymphonyServletListener;
 import static org.b3log.symphony.model.Article.*;
@@ -150,7 +151,7 @@ public final class AddArticleAction extends AbstractAction {
             article.put(Solo.SOLO_HOST, soloHost);
             article.put(Solo.SOLO_VERSION, soloVersion);
 
-            articleRepository.add(article);
+            articleRepository.add(article, User.USER, User.USER);
 
             final String[] tagTitles = tagString.split(",");
             final JSONArray tags = tagUtils.tag(tagTitles, article);
