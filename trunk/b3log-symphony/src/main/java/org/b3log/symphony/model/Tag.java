@@ -20,7 +20,7 @@ package org.b3log.symphony.model;
  * This class defines all tag model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 23, 2011
+ * @version 1.0.0.0, Jan 28, 2011
  */
 public final class Tag {
 
@@ -36,6 +36,10 @@ public final class Tag {
      * Key of title.
      */
     public static final String TAG_TITLE = "tagTitle";
+    /**
+     * Key of title in lower case.
+     */
+    public static final String TAG_TITLE_LOWER_CASE = "tagTitleLowerCase";
     /**
      * Key of tag reference count.
      */

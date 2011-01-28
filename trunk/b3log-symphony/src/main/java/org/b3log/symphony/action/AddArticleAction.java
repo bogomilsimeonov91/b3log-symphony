@@ -25,16 +25,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
+import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.SymphonyServletListener;
 import static org.b3log.symphony.model.Article.*;
 import org.b3log.symphony.model.Solo;
+import org.b3log.symphony.repository.ArticleRepository;
+import org.b3log.symphony.repository.impl.ArticleGAERepository;
+import org.b3log.symphony.util.Articles;
+import org.b3log.symphony.util.Tags;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  * Adds articles submitted from B3log Solo.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 23, 2011
+ * @version 1.0.0.1, Jan 28, 2011
  */
 public final class AddArticleAction extends AbstractAction {
 
@@ -54,16 +60,16 @@ public final class AddArticleAction extends AbstractAction {
     /**
      * Article repository.
      */
-//    private ArticleRepository articleRepository = ArticleGAERepository.
-//            getInstance();
+    private ArticleRepository articleRepository = ArticleGAERepository.
+            getInstance();
     /**
      * Tag utilities.
      */
-//    private TagUtils tagUtils = TagUtils.getInstance();
+    private Tags tagUtils = Tags.getInstance();
     /**
      * Article utilities.
      */
-//    private ArticleUtils articleUtils = ArticleUtils.getInstance();
+    private Articles articleUtils = Articles.getInstance();
     /**
      * Version of latest Solo.
      */
@@ -109,7 +115,7 @@ public final class AddArticleAction extends AbstractAction {
                                       final HttpServletRequest request,
                                       final HttpServletResponse response)
             throws ActionException {
-//        final Transaction transaction = articleRepository.beginTransaction();
+        final Transaction transaction = articleRepository.beginTransaction();
 
         try {
             if (LOGGER.isLoggable(Level.FINER)) {
@@ -135,8 +141,7 @@ public final class AddArticleAction extends AbstractAction {
             final String authorEmail =
                     originalArticle.getString(ARTICLE_AUTHOR_REF);
             article.put(ARTICLE_AUTHOR_REF, authorEmail);
-            final String tagString = // Get lower cased tags
-                    originalArticle.getString(ARTICLE_TAGS).toLowerCase();
+            final String tagString = originalArticle.getString(ARTICLE_TAGS);
             article.put(ARTICLE_TAGS, tagString);
             final String permalink = "http://" + soloHost + originalArticle.
                     getString(ARTICLE_PERMALINK);
@@ -145,19 +150,19 @@ public final class AddArticleAction extends AbstractAction {
             article.put(Solo.SOLO_HOST, soloHost);
             article.put(Solo.SOLO_VERSION, soloVersion);
 
-//            articleRepository.add(article);
+            articleRepository.add(article);
 
-//            final String[] tagTitles = tagString.split(",");
-//            final JSONArray tags = tagUtils.tag(tagTitles, article);
-//            articleUtils.addTagArticleRelation(tags, article);
-//
-//            transaction.commit();
+            final String[] tagTitles = tagString.split(",");
+            final JSONArray tags = tagUtils.tag(tagTitles, article);
+            articleUtils.addTagArticleRelation(tags, article);
+
+            transaction.commit();
 
             return ret;
         } catch (final Exception e) {
-//            if (transaction.isActive()) {
-//                transaction.rollback();
-//            }
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
             LOGGER.severe(e.getMessage());
             throw new ActionException(e);
         }
