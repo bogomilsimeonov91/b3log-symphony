@@ -17,8 +17,8 @@
 package org.b3log.symphony.repository;
 
 import java.util.List;
+import org.b3log.latke.repository.Repository;
 import org.b3log.latke.repository.RepositoryException;
-import org.b3log.latke.repository.gae.GAERepository;
 import org.json.JSONObject;
 
 /**
@@ -27,7 +27,7 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.1, Jan 28, 2011
  */
-public interface TagRepository extends GAERepository {
+public interface TagRepository extends Repository {
 
     /**
      * Gets a tag by the specified tag title ignored case.

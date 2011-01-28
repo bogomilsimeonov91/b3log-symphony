@@ -23,18 +23,21 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
-import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.SymphonyServletListener;
 import static org.b3log.symphony.model.Article.*;
 import org.b3log.symphony.model.Solo;
 import org.b3log.symphony.repository.ArticleRepository;
+import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
+import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
 import org.b3log.symphony.util.Tags;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -63,6 +66,10 @@ public final class AddArticleAction extends AbstractAction {
      */
     private ArticleRepository articleRepository = ArticleGAERepository.
             getInstance();
+    /**
+     * User repository.
+     */
+    private UserRepository userRepository = UserGAERepository.getInstance();
     /**
      * Tag utilities.
      */
@@ -116,6 +123,7 @@ public final class AddArticleAction extends AbstractAction {
                                       final HttpServletRequest request,
                                       final HttpServletResponse response)
             throws ActionException {
+        final JSONObject ret = new JSONObject();
         final Transaction transaction = articleRepository.beginTransaction();
 
         try {
@@ -125,7 +133,6 @@ public final class AddArticleAction extends AbstractAction {
 
             final String soloHost = data.getString(Solo.SOLO_HOST);
             final String soloVersion = data.optString(Solo.SOLO_VERSION);
-            final JSONObject ret = new JSONObject();
 
             LOGGER.log(Level.INFO,
                        "Data[{0}] come from Solo[host={1}, version={2}]",
@@ -133,25 +140,32 @@ public final class AddArticleAction extends AbstractAction {
                         SymphonyServletListener.JSON_PRINT_INDENT_FACTOR),
                                     soloHost, soloVersion});
 
-            final JSONObject originalArticle = data.getJSONObject(
-                    ARTICLE);
+            final JSONObject originalArticle = data.getJSONObject(ARTICLE);
 
             final JSONObject article = new JSONObject();
             final String title = originalArticle.getString(ARTICLE_TITLE);
             article.put(ARTICLE_TITLE, title);
-            final String authorEmail =
-                    originalArticle.getString(ARTICLE_AUTHOR_REF);
-            article.put(ARTICLE_AUTHOR_REF, authorEmail);
             final String tagString = originalArticle.getString(ARTICLE_TAGS);
             article.put(ARTICLE_TAGS, tagString);
             final String permalink = "http://" + soloHost + originalArticle.
                     getString(ARTICLE_PERMALINK);
-
             article.put(ARTICLE_PERMALINK, permalink);
+            final String content = originalArticle.getString(ARTICLE_CONTENT);
+            article.put(ARTICLE_CONTENT, content);
+            
             article.put(Solo.SOLO_HOST, soloHost);
             article.put(Solo.SOLO_VERSION, soloVersion);
 
-            articleRepository.add(article, User.USER, User.USER);
+            final String authorEmail =
+                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL);
+            final JSONObject author = userRepository.getByEmail(authorEmail);
+            if (null != author) {// The author has related with Symphony
+                final String authorId = author.getString(Keys.OBJECT_ID);
+                article.put(ARTICLE_AUTHOR_ID, authorId);
+            }
+            article.put(ARTICLE_AUTHOR_EMAIL, authorEmail);
+
+            articleRepository.add(article);
 
             final String[] tagTitles = tagString.split(",");
             final JSONArray tags = tagUtils.tag(tagTitles, article);
@@ -159,13 +173,23 @@ public final class AddArticleAction extends AbstractAction {
 
             transaction.commit();
 
+            ret.put(Keys.STATUS_CODE, "succ");
+
             return ret;
         } catch (final Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
             LOGGER.severe(e.getMessage());
-            throw new ActionException(e);
+
+            try {
+                ret.put(Keys.STATUS_CODE, "failed");
+            } catch (final JSONException ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new ActionException(ex);
+            }
+
+            return ret;
         }
     }
 

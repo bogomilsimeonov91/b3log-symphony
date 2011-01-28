@@ -99,7 +99,7 @@ public final class IndexAction extends AbstractAction {
 
                     final JSONObject author = new JSONObject();
                     author.put(User.USER_NAME, "user name");
-                    article.put(Article.ARTICLE_AUTHOR_REF, author);
+                    article.put(Article.ARTICLE_AUTHOR_EMAIL, "test@b3log.org");
                     article.put(Article.ARTICLE_CREATE_DATE, new Date());
                     article.put(Article.ARTICLE_LATEST_CMT_DATE, new Date());
 
