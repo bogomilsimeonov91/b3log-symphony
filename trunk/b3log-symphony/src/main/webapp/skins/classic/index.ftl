@@ -15,39 +15,15 @@
         <link rel="icon" type="image/png" href="/favicon.png"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
+        <script type="text/javascript" src="/js/util.js"></script>
     </head>
     <body>
-        <button onclick="testAddArticle()">Test Add Article</button>
-        <script type="text/javascript">
-            function testAddArticle() {
-                var requestJSONObject = {
-                    "article": {
-                        "articleTitle": "title",
-                        "articlePermalink": "/permalink",
-                        "articleTags": "tag1, tag2, ....",
-                        "articleAuthorEmail": "DL88250@gmail.com",
-                        "articleContent": "content"
-                    },
-                    "blogHost": "test.com",
-                    "soloVersion": "0.2.5",
-                };
-
-                $.ajax({
-                    url: "/add-article",
-                    type: "POST",
-                    data: JSON.stringify(requestJSONObject),
-                    success: function(result, textStatus){
-                        alert(JSON.stringify(result));
-                    }
-                });
-            }
-        </script>
-
         <#include "common-top.ftl"/>
         <div class="header">
             <#include "header.ftl"/>
         </div>
         <div class="content">
+            <button onclick="testAddArticle()">Test Add Article</button>
             <#list tags as tag>
             <dl>
                 <dd>
@@ -93,5 +69,31 @@
         <div class="footer">
             <#include "footer.ftl"/>
         </div>
+        <script type="text/javascript">
+            var util = new Util();
+            util.initLogin();
+            function testAddArticle() {
+                var requestJSONObject = {
+                    "article": {
+                        "articleTitle": "title",
+                        "articlePermalink": "/permalink",
+                        "articleTags": "tag1, tag2, ....",
+                        "articleAuthorEmail": "DL88250@gmail.com",
+                        "articleContent": "content"
+                    },
+                    "blogHost": "test.com",
+                    "soloVersion": "0.2.5"
+                };
+
+                $.ajax({
+                    url: "/add-article",
+                    type: "POST",
+                    data: JSON.stringify(requestJSONObject),
+                    success: function(result, textStatus){
+                        alert(JSON.stringify(result));
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

@@ -112,3 +112,18 @@ h4{
 .form button:hover{
     border-color:#BBB;
 }
+
+/* icon */
+.login-icon {
+    background-image: url(../images/icon.png);
+    width: 16px;
+    height: 16px;
+}
+
+.login-icon {
+    background-position: -112px -16px;
+    cursor: pointer;
+    display: block;
+    float: left;
+    margin-top: 3px;
+}
