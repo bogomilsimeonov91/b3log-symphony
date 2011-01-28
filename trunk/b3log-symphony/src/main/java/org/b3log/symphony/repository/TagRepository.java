@@ -46,4 +46,16 @@ public interface TagRepository extends Repository {
      * @return a list of most used tags, returns an empty list if not found
      */
     List<JSONObject> getMostUsedTags(final int num);
+
+    /**
+     * Gets recent articles of the specified tag title and fetch size.
+     *
+     * @param tagTitle the specified tag title
+     * @param fetchSize the specified fetch size
+     * @return a list of articles, returns an empty list if not fount
+     * @throws RepositoryException repository exception
+     */
+    List<JSONObject> getRecentArticles(final String tagTitle,
+                                       final int fetchSize)
+            throws RepositoryException;
 }
