@@ -21,8 +21,8 @@ import org.b3log.latke.Latkes;
 import org.b3log.latke.RunsOnEnv;
 import org.b3log.latke.cache.Cache;
 import org.b3log.latke.cache.CacheFactory;
-import org.b3log.latke.model.User;
 import org.b3log.latke.repository.gae.AbstractGAERepository;
+import org.b3log.symphony.model.Article;
 import org.b3log.symphony.repository.ArticleRepository;
 
 /**
@@ -54,12 +54,13 @@ public final class ArticleGAERepository extends AbstractGAERepository
                     + "using GAE repository.");
         }
 
-        CACHE = CacheFactory.getCache("UserGAERepositoryCache");
+        CACHE = CacheFactory.getCache(
+                ArticleGAERepository.class.getSimpleName() + "Cache");
     }
 
     @Override
     public String getName() {
-        return User.USER;
+        return Article.ARTICLE;
     }
 
     /**

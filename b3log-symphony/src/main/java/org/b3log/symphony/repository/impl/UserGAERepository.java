@@ -62,7 +62,8 @@ public final class UserGAERepository extends AbstractGAERepository
                     + "using GAE repository.");
         }
 
-        CACHE = CacheFactory.getCache("UserGAERepositoryCache");
+        CACHE = CacheFactory.getCache(
+                UserGAERepository.class.getSimpleName() + "Cache");
     }
 
     @Override

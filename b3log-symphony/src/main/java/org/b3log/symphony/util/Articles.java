@@ -49,26 +49,6 @@ public final class Articles {
     private TagRepository tagRepository = TagGAERepository.getInstance();
 
     /**
-     * Removes tag-article relations by the specified article id.
-     *
-     * @param articleId the specified article id
-     * @throws JSONException json exception
-     * @throws RepositoryException repository exception
-     */
-    public void removeTagArticleRelations(final String articleId)
-            throws JSONException, RepositoryException {
-        final List<JSONObject> tagArticleRelations =
-                tagArticleRepository.getByArticleId(articleId);
-        for (int i = 0; i < tagArticleRelations.size(); i++) {
-            final JSONObject tagArticleRelation =
-                    tagArticleRelations.get(i);
-            final String relationId =
-                    tagArticleRelation.getString(Keys.OBJECT_ID);
-            tagArticleRepository.remove(relationId);
-        }
-    }
-
-    /**
      * Adds relation of the specified tags and article.
      *
      * @param tags the specified tags

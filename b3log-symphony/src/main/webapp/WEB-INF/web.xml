@@ -56,7 +56,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AddArticleAction</servlet-name>
-        <url-pattern>/add-article.do</url-pattern>
+        <url-pattern>/add-article</url-pattern>
     </servlet-mapping>
 
     <servlet>

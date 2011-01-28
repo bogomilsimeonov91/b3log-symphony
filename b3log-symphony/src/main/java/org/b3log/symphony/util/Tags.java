@@ -99,8 +99,7 @@ public final class Tags {
                                         tag.getString(Keys.OBJECT_ID),
                                         article.getString(Article.ARTICLE_TITLE)});
                 final JSONObject tagToUpdate =
-                        new JSONObject(tag,
-                                       JSONObject.getNames(tag));
+                        new JSONObject(tag, JSONObject.getNames(tag));
                 final int refCnt = tag.getInt(Tag.TAG_REFERENCE_COUNT);
                 tagToUpdate.put(Tag.TAG_REFERENCE_COUNT, refCnt + 1);
 

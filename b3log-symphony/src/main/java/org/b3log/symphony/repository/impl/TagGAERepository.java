@@ -30,7 +30,6 @@ import org.b3log.latke.Latkes;
 import org.b3log.latke.RunsOnEnv;
 import org.b3log.latke.cache.Cache;
 import org.b3log.latke.cache.CacheFactory;
-import org.b3log.latke.model.User;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.gae.AbstractGAERepository;
 import org.b3log.symphony.model.Tag;
@@ -66,12 +65,13 @@ public final class TagGAERepository extends AbstractGAERepository
                     + "using GAE repository.");
         }
 
-        CACHE = CacheFactory.getCache("UserGAERepositoryCache");
+        CACHE = CacheFactory.getCache(
+                TagGAERepository.class.getSimpleName() + "Cache");
     }
 
     @Override
     public String getName() {
-        return User.USER;
+        return Tag.TAG;
     }
 
     @Override

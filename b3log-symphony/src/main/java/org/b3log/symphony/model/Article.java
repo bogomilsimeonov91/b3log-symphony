@@ -65,9 +65,13 @@ public final class Article {
      */
     public static final String ARTICLE_PERMALINK = "articlePermalink";
     /**
-     * Key of author.
+     * Key of author id.
      */
-    public static final String ARTICLE_AUTHOR_REF = "articleAuthor";
+    public static final String ARTICLE_AUTHOR_ID = "articleAuthorId";
+    /**
+     * Key of author email.
+     */
+    public static final String ARTICLE_AUTHOR_EMAIL = "articleAuthorEmail";
     /**
      * Key of random double.
      */
