@@ -124,7 +124,7 @@ public final class RegisterAction extends AbstractAction {
             userRepository.add(user);
             transaction.commit();
 
-            ret.put(Keys.STATUS_CODE, "succeed");
+            ret.put(Keys.STATUS_CODE, "succ");
         } catch (final Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
@@ -132,7 +132,7 @@ public final class RegisterAction extends AbstractAction {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
             try {
-                ret.put(Keys.STATUS_CODE, "fail");
+                ret.put(Keys.STATUS_CODE, "failed");
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new ActionException(ex);
