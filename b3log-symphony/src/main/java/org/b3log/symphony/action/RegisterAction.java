@@ -107,7 +107,7 @@ public final class RegisterAction extends AbstractAction {
             }
 
             final String userEmail =
-                    requestJSONObject.getString(User.USER_EMAIL);
+                    requestJSONObject.getString(User.USER_EMAIL).toLowerCase();
             final String userPwd =
                     requestJSONObject.getString(User.USER_PASSWORD);
 
