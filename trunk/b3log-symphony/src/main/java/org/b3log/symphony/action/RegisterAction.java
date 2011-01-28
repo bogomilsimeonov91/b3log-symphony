@@ -86,7 +86,7 @@ public final class RegisterAction extends AbstractAction {
     }
 
     @Override
-    protected JSONObject doAjaxAction(final JSONObject data,
+    protected JSONObject doAjaxAction(final JSONObject requestJSONObject,
                                       final HttpServletRequest request,
                                       final HttpServletResponse response)
             throws ActionException {
@@ -94,7 +94,7 @@ public final class RegisterAction extends AbstractAction {
 
         final Transaction transaction = userRepository.beginTransaction();
         try {
-            final String captcha = request.getParameter("captcha");
+            final String captcha = requestJSONObject.getString("captcha");
             final HttpSession session = request.getSession();
             final String storedCaptcha =
                     (String) session.getAttribute("captcha");
@@ -105,8 +105,10 @@ public final class RegisterAction extends AbstractAction {
                 return ret;
             }
 
-            final String userEmail = request.getParameter(User.USER_EMAIL);
-            final String userPwd = request.getParameter(User.USER_PASSWORD);
+            final String userEmail =
+                    requestJSONObject.getString(User.USER_EMAIL);
+            final String userPwd =
+                    requestJSONObject.getString(User.USER_PASSWORD);
 
             JSONObject user = userRepository.getByEmail(userEmail);
             if (null != user) {
