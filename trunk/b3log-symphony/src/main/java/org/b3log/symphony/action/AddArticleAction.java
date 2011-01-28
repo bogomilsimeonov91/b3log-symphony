@@ -28,6 +28,7 @@ import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.SymphonyServletListener;
+import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
 import org.b3log.symphony.model.Solo;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -103,6 +104,7 @@ public final class AddArticleAction extends AbstractAction {
      *         "articleTags": "tag1, tag2, ....",
      *         "articleAuthorEmail": "",
      *         "articleContent": ""
+     *         "articleCreateDate": java.util.Date
      *     },
      *     "blogHost": "",
      *     "soloVersion": ""
@@ -143,16 +145,16 @@ public final class AddArticleAction extends AbstractAction {
             final JSONObject originalArticle = data.getJSONObject(ARTICLE);
 
             final JSONObject article = new JSONObject();
-            final String title = originalArticle.getString(ARTICLE_TITLE);
-            article.put(ARTICLE_TITLE, title);
+            article.put(ARTICLE_TITLE, originalArticle.getString(ARTICLE_TITLE));
             final String tagString = originalArticle.getString(ARTICLE_TAGS);
             article.put(ARTICLE_TAGS, tagString);
             final String permalink = "http://" + soloHost + originalArticle.
                     getString(ARTICLE_PERMALINK);
             article.put(ARTICLE_PERMALINK, permalink);
-            final String content = originalArticle.getString(ARTICLE_CONTENT);
-            article.put(ARTICLE_CONTENT, content);
-            
+            article.put(ARTICLE_CONTENT, 
+                    originalArticle.getString(ARTICLE_CONTENT));
+            article.put(Article.ARTICLE_CREATE_DATE,
+                    originalArticle.get(Article.ARTICLE_CREATE_DATE));
             article.put(Solo.SOLO_HOST, soloHost);
             article.put(Solo.SOLO_VERSION, soloVersion);
 
