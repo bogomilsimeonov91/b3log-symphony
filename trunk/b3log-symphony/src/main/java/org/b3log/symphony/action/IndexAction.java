@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
@@ -71,7 +72,7 @@ public final class IndexAction extends AbstractAction {
             final int currentPageNum = queryStringJSONObject.optInt(
                     Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
 
-            final Locale locale = Locale.SIMPLIFIED_CHINESE;
+            final Locale locale = Latkes.getDefaultLocale();
             final Map<String, String> langs = langPropsService.getAll(locale);
             ret.putAll(langs);
 
