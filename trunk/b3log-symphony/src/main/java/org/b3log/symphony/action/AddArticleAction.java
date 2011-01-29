@@ -172,7 +172,7 @@ public final class AddArticleAction extends AbstractAction {
                 final String authorName = author.getString(User.USER_NAME);
                 article.put(ARTICLE_AUTHOR_NAME, authorName);
             } else {
-                article.put(User.USER_NAME, soloTitle);
+                article.put(Article.ARTICLE_AUTHOR_NAME, soloTitle);
             }
 
             articleRepository.add(article);

@@ -56,7 +56,7 @@
                         ${article.articleCommentCount}
                     </span>
                     <span>
-                        author
+                        ${article.articleAuthorName}
                     </span>
                     <span>
                         ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
@@ -81,6 +81,7 @@
                         "articleAuthorEmail": "DL88250@gmail.com",
                         "articleContent": "content"
                     },
+                    "blogTitle": "testBlogTitle",
                     "blogHost": "test.com",
                     "soloVersion": "0.2.5"
                 };
