@@ -59,7 +59,7 @@
                         author
                     </span>
                     <span>
-                        create date/last comment date
+                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
                     </span>
                 </dd>
                 </#list>
