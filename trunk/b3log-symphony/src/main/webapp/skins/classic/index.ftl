@@ -38,7 +38,7 @@
                         <a href="#">author5</a>
                     </span>
                     <span>
-                        article count/ comment count
+                        ${tag.tagReferenceCount}/ ${tag.tagCommentCount}
                     </span>
                 </dd>
                 <#list tag.tagArticles as article>
@@ -50,10 +50,10 @@
                         ${article.articleTitle}
                     </span>
                     <span>
-                        tags
+                        ${article.articleTags}
                     </span>
                     <span>
-                        comment count
+                        ${article.articleCommentCount}
                     </span>
                     <span>
                         author

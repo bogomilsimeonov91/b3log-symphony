@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.SymphonyServletListener;
 import org.b3log.symphony.model.Article;
@@ -108,6 +109,7 @@ public final class AddArticleAction extends AbstractAction {
      *         "articleCreateDate": java.util.Date
      *     },
      *     "blogHost": "",
+     *     "blogTitle": "",
      *     "soloVersion": ""
      * }
      * </pre>
@@ -134,6 +136,7 @@ public final class AddArticleAction extends AbstractAction {
                 logRequestHeaders(request);
             }
 
+            final String soloTitle = data.getString(Solo.SOLO_TITLE);
             final String soloHost = data.getString(Solo.SOLO_HOST);
             final String soloVersion = data.optString(Solo.SOLO_VERSION);
 
@@ -152,13 +155,13 @@ public final class AddArticleAction extends AbstractAction {
             final String permalink = "http://" + soloHost + originalArticle.
                     getString(ARTICLE_PERMALINK);
             article.put(ARTICLE_PERMALINK, permalink);
-            article.put(ARTICLE_CONTENT, 
-                    originalArticle.getString(ARTICLE_CONTENT));
-             Date createDate =
+            article.put(ARTICLE_CONTENT,
+                        originalArticle.getString(ARTICLE_CONTENT));
+            Date createDate =
                     (Date) originalArticle.opt(Article.ARTICLE_CREATE_DATE);
-             createDate = null != createDate ? createDate : new Date();
-            article.put(Article.ARTICLE_CREATE_DATE,
-                        createDate);
+            createDate = null != createDate ? createDate : new Date();
+            article.put(Article.ARTICLE_CREATE_DATE, createDate);
+            article.put(Article.ARTICLE_COMMENT_COUNT, 0);
             article.put(Solo.SOLO_HOST, soloHost);
             article.put(Solo.SOLO_VERSION, soloVersion);
 
@@ -166,10 +169,11 @@ public final class AddArticleAction extends AbstractAction {
                     originalArticle.getString(ARTICLE_AUTHOR_EMAIL);
             final JSONObject author = userRepository.getByEmail(authorEmail);
             if (null != author) {// The author has related with Symphony
-                final String authorId = author.getString(Keys.OBJECT_ID);
-                article.put(ARTICLE_AUTHOR_ID, authorId);
+                final String authorName = author.getString(User.USER_NAME);
+                article.put(ARTICLE_AUTHOR_NAME, authorName);
+            } else {
+                article.put(User.USER_NAME, soloTitle);
             }
-            article.put(ARTICLE_AUTHOR_EMAIL, authorEmail);
 
             articleRepository.add(article);
 

@@ -65,9 +65,9 @@ public final class Article {
      */
     public static final String ARTICLE_PERMALINK = "articlePermalink";
     /**
-     * Key of author id.
+     * Key of author name.
      */
-    public static final String ARTICLE_AUTHOR_ID = "articleAuthorId";
+    public static final String ARTICLE_AUTHOR_NAME = "articleAuthorName";
     /**
      * Key of author email.
      */
