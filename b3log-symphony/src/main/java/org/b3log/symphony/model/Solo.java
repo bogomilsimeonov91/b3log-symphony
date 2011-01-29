@@ -20,7 +20,7 @@ package org.b3log.symphony.model;
  * This class defines all Solo model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 23, 2011
+ * @version 1.0.0.1, Jan 30, 2011
  */
 public final class Solo {
 
@@ -36,6 +36,10 @@ public final class Solo {
      * Key of Solo host.
      */
     public static final String SOLO_HOST = "blogHost";
+    /**
+     * Key of Solo title.
+     */
+    public static final String SOLO_TITLE = "blogTitle";
     /**
      * Key of Solo version.
      */
