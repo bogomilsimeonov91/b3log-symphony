@@ -47,10 +47,12 @@
                         icon
                     </span>
                     <span>
-                        <a href="#">${article.articleTitle}</a>
+                        <a href="/entries/${article.oId}">${article.articleTitle}</a>
                     </span>
                     <span>
-                        <a href="tags/tag1">${article.articleTags}</a>
+                        <#list article.articleTags?split(',') as tagTitle>
+                        <a href="/tags/${tagTitle}">${tagTitle}</a>
+                        </#list>
                     </span>
                     <span>
                         ${article.articleCommentCount}
