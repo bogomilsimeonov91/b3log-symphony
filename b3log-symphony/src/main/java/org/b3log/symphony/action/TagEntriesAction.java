@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
-import org.b3log.latke.model.Pagination;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
@@ -80,8 +79,7 @@ public final class TagEntriesAction extends AbstractAction {
                 return ret;
             }
 
-            final int currentPageNum = queryStringJSONObject.optInt(
-                    Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
+            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
 
             final int fetchSize = 20;
             final List<JSONObject> articles = tagRepository.getArticles(
