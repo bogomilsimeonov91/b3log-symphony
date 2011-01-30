@@ -106,26 +106,6 @@ public final class IndexAction extends AbstractAction {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return ret;
     }
 
