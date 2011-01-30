@@ -66,10 +66,6 @@ public final class TagEntriesAction extends AbstractAction {
      */
     private LangPropsService langPropsService = LangPropsService.getInstance();
     /**
-     * Tag repository.
-     */
-    private TagRepository tagRepository = TagGAERepository.getInstance();
-    /**
      * Tag-Article repository.
      */
     private TagArticleRepository tagArticleRepository =
