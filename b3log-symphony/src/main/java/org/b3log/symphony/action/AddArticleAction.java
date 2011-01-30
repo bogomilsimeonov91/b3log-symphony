@@ -142,7 +142,7 @@ public final class AddArticleAction extends AbstractAction {
             final String blogVersion = data.optString(Blog.BLOG_VERSION);
 
             LOGGER.log(Level.INFO,
-                       "Data come from [blog={1}, host={2}, version={3}]",
+                       "Data come from [blog={0}, host={1}, version={2}]",
                        new String[]{blogTitle, blogHost, blogVersion});
 
             final JSONObject originalArticle = data.getJSONObject(ARTICLE);
