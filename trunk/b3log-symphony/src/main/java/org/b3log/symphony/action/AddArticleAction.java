@@ -150,14 +150,14 @@ public final class AddArticleAction extends AbstractAction {
             final JSONObject article = new JSONObject();
             article.put(ARTICLE_TITLE, originalArticle.getString(ARTICLE_TITLE));
             final String tagString = originalArticle.getString(ARTICLE_TAGS);
-            article.put(ARTICLE_TAGS, tagString);
+            article.put(ARTICLE_TAGS, removeWhitespaces(tagString));
             final String permalink = "http://" + blogHost + originalArticle.
                     getString(ARTICLE_PERMALINK);
             article.put(ARTICLE_PERMALINK, permalink);
             article.put(ARTICLE_CONTENT,
                         originalArticle.getString(ARTICLE_CONTENT));
             final long createDateTime =
-                     originalArticle.optLong(Article.ARTICLE_CREATE_DATE);
+                    originalArticle.optLong(Article.ARTICLE_CREATE_DATE);
             Date createDate = null;
             if (0 == createDateTime) {
                 createDate = new Date();
@@ -222,5 +222,26 @@ public final class AddArticleAction extends AbstractAction {
             LOGGER.log(Level.FINER, "Request header[name={0}, value={1}]",
                        new Object[]{name, value});
         }
+    }
+
+    /**
+     * Removes white spaces for the specified tag string.
+     * 
+     * @param tagsString the specified tag string, for example "tag1, tag2, tag3"
+     * @return tag string without space, for example "tag1,tag2,tag3"
+     */
+    private String removeWhitespaces(final String tagsString) {
+        final String[] tagStrings = tagsString.split(",");
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tagStrings.length; i++) {
+            final String tagString = tagStrings[i];
+            stringBuilder.append(tagString.trim());
+
+            if (i != tagStrings.length - 1) {
+                stringBuilder.append(",");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }
