@@ -25,15 +25,19 @@
         <div class="content">
             <dl class="entry">
                 <dd>
-                    <div class="userInfo"></div>
-                    <div class="right">
+                    <div class="userInfo left">${article.articleAuthorName}</div>
+                    <div class="left">
                         <div class="title">
                             <h3></h3>
-                            <div class="date"></div>
+                            <div>
+                                <#list article.articleTags?split(',') as tagTitle>
+                                <a href="/tags/${tagTitle}">${tagTitle}</a>
+                                </#list>
+                                ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}, ${article.articleCommentCount}</div>
                         </div>
                         <div class="content">
                             <div>
-
+                                ${article.articleContent}
                             </div>
                             <div class="sign">
 
