@@ -37,10 +37,8 @@ import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.TagArticleRepository;
-import org.b3log.symphony.repository.TagRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagArticleGAERepository;
-import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

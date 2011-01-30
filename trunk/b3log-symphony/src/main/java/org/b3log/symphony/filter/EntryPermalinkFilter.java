@@ -74,7 +74,7 @@ public final class EntryPermalinkFilter implements Filter {
                 (HttpServletRequest) request;
         final String requestURI = httpServletRequest.getRequestURI();
         LOGGER.log(Level.FINER, "Request URI[{0}]", requestURI);
-        String entryId = requestURI.substring(("/entries/").length());
+        final String entryId = requestURI.substring("/entries/".length());
 
         try {
             final JSONObject entry = articleRepository.get(entryId);
