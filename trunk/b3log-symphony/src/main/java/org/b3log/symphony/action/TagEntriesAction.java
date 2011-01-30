@@ -110,10 +110,5 @@ public final class TagEntriesAction extends AbstractAction {
                                       final HttpServletResponse response)
             throws ActionException {
         throw new UnsupportedOperationException("Not supported yet.");
-
-
-
-
-
     }
 }
