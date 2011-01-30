@@ -18,6 +18,7 @@ package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -26,13 +27,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.action.util.Paginator;
+import org.b3log.latke.model.Pagination;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
+import org.b3log.symphony.repository.ArticleRepository;
+import org.b3log.symphony.repository.TagArticleRepository;
 import org.b3log.symphony.repository.TagRepository;
+import org.b3log.symphony.repository.impl.ArticleGAERepository;
+import org.b3log.symphony.repository.impl.TagArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -60,6 +69,16 @@ public final class TagEntriesAction extends AbstractAction {
      * Tag repository.
      */
     private TagRepository tagRepository = TagGAERepository.getInstance();
+    /**
+     * Tag-Article repository.
+     */
+    private TagArticleRepository tagArticleRepository =
+            TagArticleGAERepository.getInstance();
+    /**
+     * Article repository.
+     */
+    private ArticleRepository articleRepository =
+            ArticleGAERepository.getInstance();
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -82,9 +101,37 @@ public final class TagEntriesAction extends AbstractAction {
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
 
             final int fetchSize = 20;
-            final List<JSONObject> articles = tagRepository.getArticles(
-                    tag.getString(Tag.TAG_TITLE), currentPageNum, fetchSize);
+            final List<JSONObject> articles = new ArrayList<JSONObject>();
+            final String tagId = tag.getString(Keys.OBJECT_ID);
+            final JSONObject result =
+                    tagArticleRepository.getByTagId(tagId,
+                                                    currentPageNum,
+                                                    fetchSize);
+            final int pageCount = result.getJSONObject(
+                    Pagination.PAGINATION).getInt(
+                    Pagination.PAGINATION_PAGE_COUNT);
+            final int windowSize = 10;
+            final JSONArray tagArticleRelations =
+                    result.getJSONArray(Keys.RESULTS);
+
+            for (int i = 0; i < tagArticleRelations.length(); i++) {
+                final JSONObject tagArticleRelation =
+                        tagArticleRelations.getJSONObject(i);
+                final String articleId =
+                        tagArticleRelation.getString(Article.ARTICLE + "_"
+                                                     + Keys.OBJECT_ID);
+                final JSONObject article = articleRepository.get(articleId);
+
+                articles.add(article);
+            }
+
             ret.put(Article.ARTICLES, (Object) articles);
+
+            final List<Integer> pageNums =
+                    Paginator.paginate(currentPageNum, fetchSize, pageCount,
+                                       windowSize);
+            ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+            ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
 
             final Locale locale = Latkes.getDefaultLocale();
             final Map<String, String> langs = langPropsService.getAll(locale);
