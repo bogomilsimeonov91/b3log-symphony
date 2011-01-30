@@ -97,6 +97,7 @@ public final class TagEntriesAction extends AbstractAction {
 
                 return ret;
             }
+            ret.put(Tag.TAG_TITLE, tag.getString(Tag.TAG_TITLE));
 
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
 
