@@ -23,86 +23,91 @@
             <#include "header.ftl"/>
         </div>
         <div class="content">
-            <table width="320px" class="form">
-                <caption>${loginabel}</caption>
-                <tr>
-                    <th>
-                        ${emailLabel}
-                    </th>
-                    <td>
-                        <input id="emailLogin"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${passwordLabel}
-                    </th>
-                    <td>
-                        <input id="passwordLogin" type="password"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${captchaLabel}
-                    </th>
-                    <td>
-                        <input id="captchaLogin" class="normal-input"/>
-                        <img alt="captcha" src="/captcha"></img>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <span class="red" id="tipLogin"></span>
-                        <button onclick="util.login();">
-                            ${loginabel}
-                        </button>
-                    </th>
-                </tr>
-            </table>
-            <table width="320px" class="form">
-                <caption>${registerLabel}</caption>
-                <tr>
-                    <th>
-                        ${emailLabel}
-                    </th>
-                    <td>
-                        <input id="email"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${passwordLabel}
-                    </th>
-                    <td>
-                        <input id="password" type="password"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${confirmPasswordLabel}
-                    </th>
-                    <td>
-                        <input id="confirmPassword" type="password"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${captchaLabel}
-                    </th>
-                    <td>
-                        <input id="captcha" class="normal-input"/>
-                        <img alt="captcha" src="/captcha"></img>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <span class="red" id="tip"></span>
-                        <button onclick="util.register();">
-                            ${registerLabel}
-                        </button>
-                    </th>
-                </tr>
-            </table>
+            <div class="left">
+                <table width="320px" class="form">
+                    <caption>${loginLabel}</caption>
+                    <tr>
+                        <th>
+                            ${emailLabel}
+                        </th>
+                        <td>
+                            <input id="emailLogin"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${passwordLabel}
+                        </th>
+                        <td>
+                            <input id="passwordLogin" type="password"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${captchaLabel}
+                        </th>
+                        <td>
+                            <input id="captchaLogin" class="normal-input"/>
+                            <img alt="captcha" src="/captcha"></img>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <span class="red" id="tipLogin"></span>
+                            <button onclick="util.login();">
+                                ${loginLabel}
+                            </button>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="right">
+                <table width="320px" class="form">
+                    <caption>${registerLabel}</caption>
+                    <tr>
+                        <th>
+                            ${emailLabel}
+                        </th>
+                        <td>
+                            <input id="email"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${passwordLabel}
+                        </th>
+                        <td>
+                            <input id="password" type="password"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${confirmPasswordLabel}
+                        </th>
+                        <td>
+                            <input id="confirmPassword" type="password"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${captchaLabel}
+                        </th>
+                        <td>
+                            <input id="captcha" class="normal-input"/>
+                            <img alt="captcha" src="/captcha"></img>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <span class="red" id="tip"></span>
+                            <button onclick="util.register();">
+                                ${registerLabel}
+                            </button>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="clear"></div>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>

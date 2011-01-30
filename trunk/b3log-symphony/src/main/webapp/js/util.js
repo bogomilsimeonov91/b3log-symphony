@@ -63,7 +63,17 @@ $.extend(Util.prototype, {
                 type: "POST",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
-                    alert(JSON.stringify(result));
+                    switch(result.sc) {
+                        case "succ":
+                            window.location.href='/';
+                            break;
+                        case "duplicated":
+                            $("#tip").text(result.sc);
+                            break;
+                        case "captchaError":
+                            $("#tip").text(result.sc);
+                            break;
+                    }
                 }
             });
         }
@@ -93,7 +103,17 @@ $.extend(Util.prototype, {
                 type: "POST",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
-                    alert(JSON.stringify(result));
+                    switch(result.sc) {
+                        case "succ":
+                            window.location.href='/';
+                            break;
+                        case "duplicated":
+                            $("#tipLogin").text(result.sc);
+                            break;
+                        case "captchaError":
+                            $("#tipLogin").text(result.sc);
+                            break;
+                    }
                 }
             });
         }
