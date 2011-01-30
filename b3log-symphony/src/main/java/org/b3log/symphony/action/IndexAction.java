@@ -115,10 +115,5 @@ public final class IndexAction extends AbstractAction {
                                       final HttpServletResponse response)
             throws ActionException {
         throw new UnsupportedOperationException("Not supported yet.");
-
-
-
-
-
     }
 }
