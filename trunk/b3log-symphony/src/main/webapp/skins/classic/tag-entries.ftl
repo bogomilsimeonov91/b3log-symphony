@@ -23,29 +23,32 @@
             <#include "header.ftl"/>
         </div>
         <div class="content">
-            <h1></h1>
+            <h1>${tagTitle}</h1>
             <dl>
+                <#list articles as article>
                 <dd>
                     <span>
-                        icon
+                        <a href="#">${article.articleTitle}</a>
                     </span>
                     <span>
-                        <a href="#">{article.articleTitle}</a>
+                        <a href="tags/tag1">${article.articleTags}</a>
                     </span>
                     <span>
-                        {article.articleTags}
+                        ${article.articleCommentCount}
                     </span>
                     <span>
-                        {article.articleCommentCount}
+                        ${article.articleAuthorName}
                     </span>
                     <span>
-                        {article.articleAuthorName}
-                    </span>
-                    <span>
-                        {article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
+                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
                     </span>
                 </dd>
+                </#list>
             </dl>
+            <#list paginationPageNums as page>
+            <a href="/tags/${tagTitle}?p=${page}">${page}</a>
+            </#list>
+            {sum}${paginationPageCount}{page}
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
