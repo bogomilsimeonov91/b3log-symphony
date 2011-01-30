@@ -23,48 +23,29 @@
             <#include "header.ftl"/>
         </div>
         <div class="content">
-            <button onclick="testAddArticle()">Test Add Article</button>
-            <#list tags as tag>
+            <h1></h1>
             <dl>
-                <dd>
-                    <span>
-                        ${tag.tagTitle}
-                    </span>
-                    <span>
-                        <a href="#">author1</a>,
-                        <a href="#">author2</a>,
-                        <a href="#">author3</a>,
-                        <a href="#">author4</a>,
-                        <a href="#">author5</a>
-                    </span>
-                    <span>
-                        ${tag.tagReferenceCount}/ ${tag.tagCommentCount}
-                    </span>
-                </dd>
-                <#list tag.tagArticles as article>
                 <dd>
                     <span>
                         icon
                     </span>
                     <span>
-                        ${article.articleTitle}
+                        <a href="#">{article.articleTitle}</a>
                     </span>
                     <span>
-                        ${article.articleTags}
+                        {article.articleTags}
                     </span>
                     <span>
-                        ${article.articleCommentCount}
+                        {article.articleCommentCount}
                     </span>
                     <span>
-                        ${article.articleAuthorName}
+                        {article.articleAuthorName}
                     </span>
                     <span>
-                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
+                        {article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
                     </span>
                 </dd>
-                </#list>
             </dl>
-            </#list>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
@@ -72,30 +53,6 @@
         <script type="text/javascript">
             var util = new Util();
             util.initLogin();
-            function testAddArticle() {
-                var requestJSONObject = {
-                    "article": {
-                        "articleTitle": "title",
-                        "articlePermalink": "/permalink",
-                        "articleTags": "tag1, tag2, ....",
-                        "articleAuthorEmail": "DL88250@gmail.com",
-                        "articleContent": "content"
-                    },
-                    "blogTitle": "testBlogTitle",
-                    "blogHost": "test.com",
-                    "blogVersion": "0.2.5",
-                    "blog": "B3log Solo"
-                };
-
-                $.ajax({
-                    url: "/add-article",
-                    type: "POST",
-                    data: JSON.stringify(requestJSONObject),
-                    success: function(result, textStatus){
-                        alert(JSON.stringify(result));
-                    }
-                });
-            }
         </script>
     </body>
 </html>
