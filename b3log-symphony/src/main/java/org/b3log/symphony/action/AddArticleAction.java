@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.Date;
@@ -29,10 +28,9 @@ import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
-import org.b3log.symphony.SymphonyServletListener;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
-import org.b3log.symphony.model.Solo;
+import org.b3log.symphony.model.Blog;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
@@ -47,7 +45,7 @@ import org.json.JSONObject;
  * Adds articles submitted from B3log Solo.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 28, 2011
+ * @version 1.0.0.2, Jan 30, 2011
  */
 public final class AddArticleAction extends AbstractAction {
 
@@ -110,7 +108,8 @@ public final class AddArticleAction extends AbstractAction {
      *     },
      *     "blogHost": "",
      *     "blogTitle": "",
-     *     "soloVersion": ""
+     *     "blogVersion": "",
+     *     "blog": ""
      * }
      * </pre>
      * @param request the specified http servlet request
@@ -136,15 +135,14 @@ public final class AddArticleAction extends AbstractAction {
                 logRequestHeaders(request);
             }
 
-            final String soloTitle = data.getString(Solo.SOLO_TITLE);
-            final String soloHost = data.getString(Solo.SOLO_HOST);
-            final String soloVersion = data.optString(Solo.SOLO_VERSION);
+            final String blog = data.getString(Blog.BLOG);
+            final String blogTitle = data.getString(Blog.BLOG_TITLE);
+            final String blogHost = data.getString(Blog.BLOG_HOST);
+            final String blogVersion = data.optString(Blog.BLOG_VERSION);
 
             LOGGER.log(Level.INFO,
-                       "Data[{0}] come from Solo[host={1}, version={2}]",
-                       new String[]{data.toString(
-                        SymphonyServletListener.JSON_PRINT_INDENT_FACTOR),
-                                    soloHost, soloVersion});
+                       "Data come from [blog={1}, host={2}, version={3}]",
+                       new String[]{blogTitle, blogHost, blogVersion});
 
             final JSONObject originalArticle = data.getJSONObject(ARTICLE);
 
@@ -152,7 +150,7 @@ public final class AddArticleAction extends AbstractAction {
             article.put(ARTICLE_TITLE, originalArticle.getString(ARTICLE_TITLE));
             final String tagString = originalArticle.getString(ARTICLE_TAGS);
             article.put(ARTICLE_TAGS, tagString);
-            final String permalink = "http://" + soloHost + originalArticle.
+            final String permalink = "http://" + blogHost + originalArticle.
                     getString(ARTICLE_PERMALINK);
             article.put(ARTICLE_PERMALINK, permalink);
             article.put(ARTICLE_CONTENT,
@@ -162,8 +160,9 @@ public final class AddArticleAction extends AbstractAction {
             createDate = null != createDate ? createDate : new Date();
             article.put(Article.ARTICLE_CREATE_DATE, createDate);
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
-            article.put(Solo.SOLO_HOST, soloHost);
-            article.put(Solo.SOLO_VERSION, soloVersion);
+            article.put(Blog.BLOG, blog);
+            article.put(Blog.BLOG_HOST, blogHost);
+            article.put(Blog.BLOG_VERSION, blogVersion);
 
             final String authorEmail =
                     originalArticle.getString(ARTICLE_AUTHOR_EMAIL);
@@ -172,7 +171,7 @@ public final class AddArticleAction extends AbstractAction {
                 final String authorName = author.getString(User.USER_NAME);
                 article.put(ARTICLE_AUTHOR_NAME, authorName);
             } else {
-                article.put(Article.ARTICLE_AUTHOR_NAME, soloTitle);
+                article.put(Article.ARTICLE_AUTHOR_NAME, blogTitle);
             }
 
             articleRepository.add(article);

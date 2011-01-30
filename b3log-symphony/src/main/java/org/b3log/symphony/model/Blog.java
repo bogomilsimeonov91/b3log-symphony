@@ -17,37 +17,33 @@
 package org.b3log.symphony.model;
 
 /**
- * This class defines all Solo model relevant keys.
+ * This class defines all blog model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.1, Jan 30, 2011
  */
-public final class Solo {
+public final class Blog {
 
     /**
-     * Solo.
+     * Blog.
      */
-    public static final String TAG = "solo";
+    public static final String BLOG = "blog";
     /**
-     * Solos.
+     * Key of blog host.
      */
-    public static final String TAGS = "solos";
+    public static final String BLOG_HOST = "blogHost";
     /**
-     * Key of Solo host.
+     * Key of blog title.
      */
-    public static final String SOLO_HOST = "blogHost";
+    public static final String BLOG_TITLE = "blogTitle";
     /**
-     * Key of Solo title.
+     * Key of blog version.
      */
-    public static final String SOLO_TITLE = "blogTitle";
-    /**
-     * Key of Solo version.
-     */
-    public static final String SOLO_VERSION = "soloVersion";
+    public static final String BLOG_VERSION = "blogVersion";
 
     /**
      * Private default constructor.
      */
-    private Solo() {
+    private Blog() {
     }
 }
