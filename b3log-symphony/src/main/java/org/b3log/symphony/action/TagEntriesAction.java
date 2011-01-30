@@ -84,8 +84,8 @@ public final class TagEntriesAction extends AbstractAction {
                     Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
 
             final int fetchSize = 20;
-            final List<JSONObject> articles = tagRepository.getRecentArticles(
-                    tag.getString(Tag.TAG_TITLE), fetchSize);
+            final List<JSONObject> articles = tagRepository.getArticles(
+                    tag.getString(Tag.TAG_TITLE), currentPageNum, fetchSize);
             ret.put(Article.ARTICLES, (Object) articles);
 
             final Locale locale = Latkes.getDefaultLocale();
