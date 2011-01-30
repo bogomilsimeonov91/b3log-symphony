@@ -23,48 +23,55 @@
             <#include "header.ftl"/>
         </div>
         <div class="content">
-            <button onclick="testAddArticle()">Test Add Article</button>
-            <#list tags as tag>
-            <dl>
+            <dl class="entry">
                 <dd>
-                    <span>
-                        ${tag.tagTitle}
-                    </span>
-                    <span>
-                        <a href="#">author1</a>,
-                        <a href="#">author2</a>,
-                        <a href="#">author3</a>,
-                        <a href="#">author4</a>,
-                        <a href="#">author5</a>
-                    </span>
-                    <span>
-                        ${tag.tagReferenceCount}/ ${tag.tagCommentCount}
-                    </span>
+                    <div class="userInfo"></div>
+                    <div class="right">
+                        <div class="title">
+                            <h3></h3>
+                            <div class="date"></div>
+                        </div>
+                        <div class="content">
+                            <div>
+
+                            </div>
+                            <div class="sign">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
                 </dd>
-                <#list tag.tagArticles as article>
-                <dd>
-                    <span>
-                        icon
-                    </span>
-                    <span>
-                        ${article.articleTitle}
-                    </span>
-                    <span>
-                        ${article.articleTags}
-                    </span>
-                    <span>
-                        ${article.articleCommentCount}
-                    </span>
-                    <span>
-                        ${article.articleAuthorName}
-                    </span>
-                    <span>
-                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
-                    </span>
-                </dd>
-                </#list>
             </dl>
-            </#list>
+            <div class="comment">
+                <table>
+                    <tr>
+                        <td>
+                            ${commentLabel}
+                        </td>
+                        <td>
+                            <textarea></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${captchaLabel}
+                        </th>
+                        <td>
+                            <input id="captchaLogin" class="normal-input"/>
+                            <img alt="captcha" src="/captcha"></img>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <span class="red" id="tipLogin"></span>
+                            <button onclick="util.login();">
+                                ${submitLabel}
+                            </button>
+                        </th>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
@@ -72,30 +79,6 @@
         <script type="text/javascript">
             var util = new Util();
             util.initLogin();
-            function testAddArticle() {
-                var requestJSONObject = {
-                    "article": {
-                        "articleTitle": "title",
-                        "articlePermalink": "/permalink",
-                        "articleTags": "tag1, tag2, ....",
-                        "articleAuthorEmail": "DL88250@gmail.com",
-                        "articleContent": "content"
-                    },
-                    "blogTitle": "testBlogTitle",
-                    "blogHost": "test.com",
-                    "blogVersion": "0.2.5",
-                    "blog": "B3log Solo"
-                };
-
-                $.ajax({
-                    url: "/add-article",
-                    type: "POST",
-                    data: JSON.stringify(requestJSONObject),
-                    success: function(result, textStatus){
-                        alert(JSON.stringify(result));
-                    }
-                });
-            }
         </script>
     </body>
 </html>
