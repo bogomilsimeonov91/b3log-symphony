@@ -19,10 +19,19 @@
 
 <!--
     Description: B3log Symphony web deployment descriptor.
-    Version: 1.0.0.0, Jan 27, 2011
+    Version: 1.0.0.1, Jan 30, 2011
     Author: Liang Ding
 -->
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <filter>
+        <filter-name>TagPermalinkFilter</filter-name>
+        <filter-class>org.b3log.symphony.filter.TagPermalinkFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TagPermalinkFilter</filter-name>
+        <url-pattern>/tags/*</url-pattern>
+    </filter-mapping>
+
     <listener>
         <listener-class>org.b3log.symphony.SymphonyServletListener</listener-class>
     </listener>
@@ -48,6 +57,15 @@
     <servlet-mapping>
         <servlet-name>IndexAction</servlet-name>
         <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TagEntriesAction</servlet-name>
+        <servlet-class>org.b3log.symphony.action.TagEntriesAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TagEntriesAction</servlet-name>
+        <url-pattern>/tag-entries.do</url-pattern>
     </servlet-mapping>
 
     <servlet>
