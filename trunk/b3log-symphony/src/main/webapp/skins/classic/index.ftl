@@ -83,7 +83,8 @@
                     },
                     "blogTitle": "testBlogTitle",
                     "blogHost": "test.com",
-                    "soloVersion": "0.2.5"
+                    "blogVersion": "0.2.5",
+                    "blog": "B3log Solo"
                 };
 
                 $.ajax({
