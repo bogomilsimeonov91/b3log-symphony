@@ -45,7 +45,7 @@ import org.json.JSONObject;
  * Tag Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 28, 2011
+ * @version 1.0.0.1, Jan 30, 2011
  */
 public final class TagGAERepository extends AbstractGAERepository
         implements TagRepository {
@@ -90,8 +90,9 @@ public final class TagGAERepository extends AbstractGAERepository
     }
 
     @Override
-    public List<JSONObject> getRecentArticles(final String tagTitle,
-                                              final int fetchSize)
+    public List<JSONObject> getArticles(final String tagTitle,
+                                        final int currentPageNum,
+                                        final int pageSize)
             throws RepositoryException {
         final List<JSONObject> ret = new ArrayList<JSONObject>();
 
@@ -99,7 +100,9 @@ public final class TagGAERepository extends AbstractGAERepository
             final JSONObject tag = getByTitle(tagTitle);
             final String tagId = tag.getString(Keys.OBJECT_ID);
             final JSONObject result =
-                    tagArticleRepository.getByTagId(tagId, 1, fetchSize);
+                    tagArticleRepository.getByTagId(tagId,
+                                                    currentPageNum,
+                                                    pageSize);
             final JSONArray tagArticleRelations =
                     result.getJSONArray(Keys.RESULTS);
 
@@ -119,6 +122,13 @@ public final class TagGAERepository extends AbstractGAERepository
         }
 
         return ret;
+    }
+
+    @Override
+    public List<JSONObject> getRecentArticles(final String tagTitle,
+                                              final int fetchSize)
+            throws RepositoryException {
+       return getArticles(tagTitle, 1, fetchSize);
     }
 
     @Override

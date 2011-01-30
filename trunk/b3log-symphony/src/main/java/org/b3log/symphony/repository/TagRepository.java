@@ -25,7 +25,7 @@ import org.json.JSONObject;
  * Tag repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 28, 2011
+ * @version 1.0.0.2, Jan 30, 2011
  */
 public interface TagRepository extends Repository {
 
@@ -57,5 +57,19 @@ public interface TagRepository extends Repository {
      */
     List<JSONObject> getRecentArticles(final String tagTitle,
                                        final int fetchSize)
+            throws RepositoryException;
+
+    /**
+     * Gets articles with the specified tag title, current page number and page
+     * size.
+     *
+     * @param tagTitle the specified tag title
+     * @param currentPageNum the specified page number
+     * @param pageSize the specified page size
+     * @return a list of articles, returns an empty list if not fount
+     * @throws RepositoryException repository exception
+     */
+    List<JSONObject> getArticles(final String tagTitle,
+                                 final int currentPageNum, final int pageSize)
             throws RepositoryException;
 }

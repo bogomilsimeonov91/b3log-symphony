@@ -81,7 +81,8 @@ public final class TagPermalinkFilter implements Filter {
             LOGGER.log(Level.FINER, "Tag[title={0}]", tagTitle);
             final JSONObject tag = tagRepository.getByTitle(tagTitle);
             if (null == tag) {
-                chain.doFilter(request, response);
+                ((HttpServletResponse) response).sendError(
+                        HttpServletResponse.SC_NOT_FOUND);
 
                 return;
             }
