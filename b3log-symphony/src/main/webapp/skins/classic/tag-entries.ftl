@@ -48,7 +48,7 @@
             <#list paginationPageNums as page>
             <a href="/tags/${tagTitle}?p=${page}">${page}</a>
             </#list>
-            {sum}${paginationPageCount}{page}
+            ${sumLabel}${paginationPageCount}${pageLabel}
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
