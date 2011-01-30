@@ -105,7 +105,7 @@ public final class AddArticleAction extends AbstractAction {
      *         "articleTags": "tag1, tag2, ....",
      *         "articleAuthorEmail": "",
      *         "articleContent": ""
-     *         "articleCreateDate": java.util.Date
+     *         "articleCreateDate": long
      *     },
      *     "blogHost": "",
      *     "blogTitle": "",
@@ -156,9 +156,14 @@ public final class AddArticleAction extends AbstractAction {
             article.put(ARTICLE_PERMALINK, permalink);
             article.put(ARTICLE_CONTENT,
                         originalArticle.getString(ARTICLE_CONTENT));
-            Date createDate =
-                    (Date) originalArticle.opt(Article.ARTICLE_CREATE_DATE);
-            createDate = null != createDate ? createDate : new Date();
+            final long createDateTime =
+                     originalArticle.optLong(Article.ARTICLE_CREATE_DATE);
+            Date createDate = null;
+            if (0 == createDateTime) {
+                createDate = new Date();
+            } else {
+                createDate = new Date(createDateTime);
+            }
             article.put(Article.ARTICLE_CREATE_DATE, createDate);
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
             article.put(Blog.BLOG, blog);

@@ -19,13 +19,14 @@ package org.b3log.symphony.util;
 import java.util.Date;
 import java.util.TimeZone;
 import org.b3log.latke.util.freemarker.Templates;
+import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 
 /**
  * Time zone utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 23, 2011
+ * @version 1.0.0.1, Jan 30, 2011
  */
 public final class TimeZones {
 
@@ -60,6 +61,7 @@ public final class TimeZones {
 
         TimeZone.setDefault(timeZone);
         System.setProperty("user.timezone", timeZoneId);
+        Article.DATE_FORMAT.setTimeZone(timeZone);
         Comment.DATE_FORMAT.setTimeZone(timeZone);
         Templates.CONFIGURATION.setTimeZone(timeZone);
     }
