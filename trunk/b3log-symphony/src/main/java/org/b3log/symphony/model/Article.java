@@ -16,11 +16,14 @@
 
 package org.b3log.symphony.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * This class defines all article model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 23, 2011
+ * @version 1.0.0.1, Jan 30, 2011
  */
 public final class Article {
 
@@ -77,6 +80,11 @@ public final class Article {
      */
     public static final String ARTICLE_RANDOM_DOUBLE =
             "articleRandomDouble";
+    /**
+     * Date format(yyyy/MM/dd hh:mm:ss).
+     */
+    public static final DateFormat DATE_FORMAT =
+            new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     /**
      * Private default constructor.
