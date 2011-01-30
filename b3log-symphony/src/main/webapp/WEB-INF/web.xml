@@ -31,6 +31,15 @@
         <filter-name>TagPermalinkFilter</filter-name>
         <url-pattern>/tags/*</url-pattern>
     </filter-mapping>
+    
+    <filter>
+        <filter-name>EntryPermalinkFilter</filter-name>
+        <filter-class>org.b3log.symphony.filter.EntryPermalinkFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EntryPermalinkFilter</filter-name>
+        <url-pattern>/entries/*</url-pattern>
+    </filter-mapping>
 
     <listener>
         <listener-class>org.b3log.symphony.SymphonyServletListener</listener-class>
@@ -66,6 +75,15 @@
     <servlet-mapping>
         <servlet-name>TagEntriesAction</servlet-name>
         <url-pattern>/tag-entries.do</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EntryAction</servlet-name>
+        <servlet-class>org.b3log.symphony.action.EntryAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntryAction</servlet-name>
+        <url-pattern>/entry.do</url-pattern>
     </servlet-mapping>
 
     <servlet>
