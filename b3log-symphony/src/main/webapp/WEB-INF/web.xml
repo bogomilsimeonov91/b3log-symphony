@@ -24,6 +24,18 @@
 -->
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <filter>
+        <filter-name>PageCacheFilter</filter-name>
+        <filter-class>org.b3log.symphony.filter.PageCacheFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PageCacheFilter</filter-name>
+        <url-pattern>/tags/*</url-pattern>
+        <url-pattern>/entries/*</url-pattern>
+        <url-pattern>/</url-pattern>
+        <url-pattern>/index</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>TagPermalinkFilter</filter-name>
         <filter-class>org.b3log.symphony.filter.TagPermalinkFilter</filter-class>
     </filter>

@@ -45,7 +45,7 @@ import org.b3log.symphony.util.Skins;
  * B3log Symphony servlet listener.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 23, 2011
+ * @version 1.0.0.1, Jan 30, 2011
  */
 public final class SymphonyServletListener extends AbstractServletListener {
 
@@ -162,6 +162,8 @@ public final class SymphonyServletListener extends AbstractServletListener {
 
     @Override
     public void requestInitialized(final ServletRequestEvent servletRequestEvent) {
+//        LOGGER.fine("Request initialized");
+//        PageCaches.removeAll();
     }
 
     @Override
