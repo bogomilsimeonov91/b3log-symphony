@@ -16,33 +16,30 @@
 
 package org.b3log.symphony.action;
 
-import org.b3log.latke.action.ActionException;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
+import org.b3log.latke.action.ActionException;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
-import org.b3log.latke.action.AbstractCacheablePageAction;
-import org.b3log.latke.model.User;
+import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.Strings;
-import org.b3log.symphony.model.Article;
-import org.b3log.symphony.repository.TagArticleRepository;
+import org.b3log.latke.util.Sessions;
 import org.b3log.symphony.repository.UserRepository;
-import org.b3log.symphony.repository.impl.TagArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Entry action. entry.ftl.
+ * Logout.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 31, 2011
+ * @version 1.0.0.0, Jan 31, 2011
  */
-public final class EntryAction extends AbstractCacheablePageAction {
+public final class LogoutAction extends AbstractAction {
 
     /**
      * Default serial version uid.
@@ -52,17 +49,8 @@ public final class EntryAction extends AbstractCacheablePageAction {
      * Logger.
      */
     private static final Logger LOGGER =
-            Logger.getLogger(EntryAction.class.getName());
+            Logger.getLogger(LogoutAction.class.getName());
     /**
-     * Language service.
-     */
-    private LangPropsService langPropsService = LangPropsService.getInstance();
-    /**
-     * Tag-Article repository.
-     */
-    private TagArticleRepository tagArticleRepository =
-            TagArticleGAERepository.getInstance();
- /**
      * Language service.
      */
     private static final LangPropsService LANG_PROP_SVC =
@@ -92,45 +80,33 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
-        try {
-            final JSONObject article = (JSONObject) request.getAttribute(
-                    Article.ARTICLE);
-            if (null == article) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-
-                return ret;
-            }
-
-            final String authorId = article.getString(Article.ARTICLE_AUTHOR_ID);
-            if (!Strings.isEmptyOrNull(authorId)) {
-                final JSONObject author = userRepository.get(authorId);
-                article.put(Article.ARTICLE_AUTHOR_NAME_REF,
-                            author.getString(User.USER_NAME));
-            }
-
-            ret.put(Article.ARTICLE, article);
-
-            ret.putAll(langs);
-        } catch (final Exception e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-
-            try {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-
-                return ret;
-            } catch (final IOException ex) {
-                LOGGER.severe(ex.getMessage());
-            }
-        }
+        ret.putAll(langs);
 
         return ret;
     }
 
     @Override
-    protected JSONObject doAjaxAction(final JSONObject data,
+    protected JSONObject doAjaxAction(final JSONObject requestJSONObject,
                                       final HttpServletRequest request,
                                       final HttpServletResponse response)
             throws ActionException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        final JSONObject ret = new JSONObject();
+
+        try {
+            ret.put(Keys.STATUS_CODE, Sessions.logout(request));
+
+            return ret;
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+
+            try {
+                ret.put(Keys.STATUS_CODE, false);
+            } catch (final JSONException ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new ActionException(ex);
+            }
+        }
+
+        return ret;
     }
 }
