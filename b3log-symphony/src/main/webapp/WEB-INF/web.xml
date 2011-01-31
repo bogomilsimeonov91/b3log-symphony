@@ -108,6 +108,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AddArticleCommentAction</servlet-name>
+        <servlet-class>org.b3log.symphony.action.AddArticleCommentAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddArticleCommentAction</servlet-name>
+        <url-pattern>/add-comment</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Register</servlet-name>
         <servlet-class>org.b3log.symphony.action.RegisterAction</servlet-class>
     </servlet>
@@ -124,7 +133,7 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-
+    
     <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>org.b3log.symphony.action.LogoutAction</servlet-class>

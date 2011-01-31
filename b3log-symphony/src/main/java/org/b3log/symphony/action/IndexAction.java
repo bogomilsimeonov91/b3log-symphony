@@ -30,10 +30,7 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.model.User;
-import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.Strings;
-import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.TagRepository;
 import org.b3log.symphony.repository.TagUserRepository;
@@ -41,7 +38,6 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.TagUserGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -143,8 +139,6 @@ public final class IndexAction extends AbstractCacheablePageAction {
                            tagTitle);
                 articles = tagRepository.getRecentArticles(tagTitle,
                                                            maxArticleCnt);
-                fillArticleAuthorName(articles);
-
                 tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
                 LOGGER.log(Level.FINE, "Got recent articles for tag[title={0}]",
                            tagTitle);
@@ -173,26 +167,5 @@ public final class IndexAction extends AbstractCacheablePageAction {
                                       final HttpServletResponse response)
             throws ActionException {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Fills article author name for the specified articles.
-     * 
-     * @param articles the specified articles
-     * @throws JSONException json exception
-     * @throws RepositoryException repository exception
-     */
-    private void fillArticleAuthorName(final List<JSONObject> articles)
-            throws JSONException, RepositoryException {
-        LOGGER.finer("Filling article author name....");
-        for (final JSONObject article : articles) {
-            final String authorId = article.getString(Article.ARTICLE_AUTHOR_ID);
-            if (!Strings.isEmptyOrNull(authorId)) {
-                final JSONObject author = userRepository.get(authorId);
-                article.put(Article.ARTICLE_AUTHOR_NAME_REF,
-                            author.getString(User.USER_NAME));
-            }
-        }
-        LOGGER.finer("Filled article author name");
     }
 }

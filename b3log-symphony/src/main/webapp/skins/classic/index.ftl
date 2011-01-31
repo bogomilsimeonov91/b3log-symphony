@@ -32,7 +32,7 @@
                     </span>
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
-                            ${topAuthor.userName}
+                        ${topAuthor.userName}
                         </#list>
                     </span>
                     <span>
@@ -59,7 +59,12 @@
                         ${article.articleAuthorName}
                     </span>
                     <span>
-                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
+                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/
+                        <#if "" != article.articleLastCmtDate>
+                        ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
+                        <#else>
+                        <a href="/entries/${article.oId}#cmt">${sofaLabel}</a>
+                        </#if>
                     </span>
                 </dd>
                 </#list>

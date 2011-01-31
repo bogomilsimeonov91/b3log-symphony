@@ -16,14 +16,26 @@
 
 package org.b3log.symphony.repository;
 
-import org.b3log.latke.repository.gae.GAERepository;
+import java.util.List;
+import org.b3log.latke.repository.Repository;
+import org.b3log.latke.repository.RepositoryException;
+import org.json.JSONObject;
 
 /**
- * Article repository.
+ * Comment repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 31, 2011
+ * @version 1.0.0.2, Jan 17, 2011
  */
-public interface ArticleRepository extends GAERepository {
+public interface CommentRepository extends Repository {
 
+    /**
+     * Gets post comments recently with the specified fetch.
+     *
+     * @param fetchSize the specified fetch size
+     * @return a list of comments recently, returns an empty list if not found
+     * @throws RepositoryException repository exception
+     */
+    List<JSONObject> getRecentComments(final int fetchSize)
+            throws RepositoryException;
 }

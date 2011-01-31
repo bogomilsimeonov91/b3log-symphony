@@ -52,6 +52,10 @@ public final class Comment {
      */
     public static final String COMMENT_URL = "commentURL";
     /**
+     * Key of comment sharp URL.
+     */
+    public static final String COMMENT_SHARP_URL = "commentSharpURL";
+    /**
      * Key of comment date.
      */
     public static final String COMMENT_DATE = "commentDate";

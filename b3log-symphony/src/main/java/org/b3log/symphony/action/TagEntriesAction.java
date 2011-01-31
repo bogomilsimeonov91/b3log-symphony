@@ -31,9 +31,7 @@ import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
-import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -141,14 +139,6 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                         tagArticleRelation.getString(Article.ARTICLE + "_"
                                                      + Keys.OBJECT_ID);
                 final JSONObject article = articleRepository.get(articleId);
-
-                final String authorId = article.getString(
-                        Article.ARTICLE_AUTHOR_ID);
-                if (!Strings.isEmptyOrNull(authorId)) {
-                    final JSONObject author = userRepository.get(authorId);
-                    article.put(Article.ARTICLE_AUTHOR_NAME_REF,
-                                author.getString(User.USER_NAME));
-                }
 
                 articles.add(article);
             }

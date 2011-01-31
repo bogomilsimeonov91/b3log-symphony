@@ -26,9 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
-import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.repository.TagArticleRepository;
 import org.b3log.symphony.repository.UserRepository;
@@ -99,13 +97,6 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
 
                 return ret;
-            }
-
-            final String authorId = article.getString(Article.ARTICLE_AUTHOR_ID);
-            if (!Strings.isEmptyOrNull(authorId)) {
-                final JSONObject author = userRepository.get(authorId);
-                article.put(Article.ARTICLE_AUTHOR_NAME_REF,
-                            author.getString(User.USER_NAME));
             }
 
             ret.put(Article.ARTICLE, article);

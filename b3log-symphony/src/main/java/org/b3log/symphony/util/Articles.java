@@ -21,9 +21,12 @@ import java.util.List;
 import org.b3log.latke.Keys;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.symphony.model.Article;
+import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Tag;
+import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.TagArticleRepository;
 import org.b3log.symphony.repository.TagRepository;
+import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.json.JSONArray;
@@ -34,7 +37,7 @@ import org.json.JSONObject;
  * Article utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 28, 2011
+ * @version 1.0.0.1, Jan 31, 2011
  */
 public final class Articles {
 
@@ -47,6 +50,11 @@ public final class Articles {
      * Tag repository.
      */
     private TagRepository tagRepository = TagGAERepository.getInstance();
+    /**
+     * Article repository.
+     */
+    private ArticleRepository articleRepository = ArticleGAERepository.
+            getInstance();
 
     /**
      * Adds relation of the specified tags and article.
@@ -102,6 +110,31 @@ public final class Articles {
                          * process in <#list/> */
                         (Object) tags);
         }
+    }
+
+    /**
+     * Update article comment.
+     *
+     * @param articleId the given article id
+     * @param comment the specified comment
+     * @throws JSONException json exception
+     * @throws RepositoryException repository exception
+     */
+    public void updateArticleComment(final String articleId,
+                                     final JSONObject comment)
+            throws JSONException, RepositoryException {
+        final JSONObject article = articleRepository.get(articleId);
+        final JSONObject newArticle =
+                new JSONObject(article, JSONObject.getNames(article));
+
+        final int commentCnt = article.getInt(Article.ARTICLE_COMMENT_COUNT);
+        newArticle.put(Article.ARTICLE_COMMENT_COUNT, commentCnt + 1);
+        newArticle.put(Article.ARTICLE_LAST_CMT_DATE,
+                       comment.get(Comment.COMMENT_DATE));
+        newArticle.put(Article.ARTICLE_LAST_CMT_NAME,
+                       comment.get(Comment.COMMENT_NAME));
+
+        articleRepository.updateAsync(articleId, newArticle);
     }
 
     /**

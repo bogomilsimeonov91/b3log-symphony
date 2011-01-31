@@ -60,6 +60,14 @@ public final class Article {
      */
     public static final String ARTICLE_COMMENT_COUNT = "articleCommentCount";
     /**
+     * Key of the last comment date.
+     */
+    public static final String ARTICLE_LAST_CMT_DATE = "articleLastCmtDate";
+    /**
+     * Key of the last comment name.
+     */
+    public static final String ARTICLE_LAST_CMT_NAME = "articleLastCmtName";
+    /**
      * Key of comments.
      */
     public static final String ARTICLE_COMMENTS_REF = "articleComments";
@@ -70,15 +78,11 @@ public final class Article {
     /**
      * Key of author name.
      */
-    public static final String ARTICLE_AUTHOR_NAME_REF = "articleAuthorName";
+    public static final String ARTICLE_AUTHOR_NAME = "articleAuthorName";
     /**
      * Key of author email.
      */
     public static final String ARTICLE_AUTHOR_EMAIL_REF = "articleAuthorEmail";
-    /**
-     * Key of author id.
-     */
-    public static final String ARTICLE_AUTHOR_ID = "articleAuthorId";
     /**
      * Key of from.
      */
