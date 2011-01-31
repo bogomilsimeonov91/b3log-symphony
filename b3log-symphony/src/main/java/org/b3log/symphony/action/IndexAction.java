@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,6 +78,24 @@ public final class IndexAction extends AbstractCacheablePageAction {
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
+    /**
+     * Language service.
+     */
+    private static final LangPropsService LANG_PROP_SVC =
+            LangPropsService.getInstance();
+    /**
+     * Languages.
+     */
+    private static Map<String, String> langs = null;
+
+    static {
+        try {
+            langs = LANG_PROP_SVC.getAll(
+                    Latkes.getDefaultLocale());
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -88,8 +105,6 @@ public final class IndexAction extends AbstractCacheablePageAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         try {
-            final Locale locale = Latkes.getDefaultLocale();
-            final Map<String, String> langs = langPropsService.getAll(locale);
             ret.putAll(langs);
 
             // Tags

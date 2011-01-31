@@ -110,11 +110,11 @@ $.extend(Util.prototype, {
                         case "succ":
                             window.location.href='/';
                             break;
-                        case "duplicated":
-                            $("#tipLogin").text(result.sc);
+                        case "failed":
+                            $("#tipLogin").text(result.msg);
                             break;
                         case "captchaError":
-                            $("#tipLogin").text(result.sc);
+                            $("#tipLogin").text(result.msg);
                             break;
                     }
                 }
