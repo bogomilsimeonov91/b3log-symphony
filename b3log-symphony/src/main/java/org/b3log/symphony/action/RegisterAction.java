@@ -17,7 +17,6 @@
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.logging.Level;
 import org.b3log.latke.action.ActionException;
 import java.util.Map;
@@ -31,8 +30,6 @@ import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.service.ServiceException;
-import org.b3log.latke.util.Locales;
 import org.b3log.latke.util.MD5;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -43,7 +40,7 @@ import org.json.JSONObject;
  * Register new user.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 27, 2011
+ * @version 1.0.0.1, Jan 31, 2011
  */
 public final class RegisterAction extends AbstractAction {
 
@@ -59,11 +56,25 @@ public final class RegisterAction extends AbstractAction {
     /**
      * Language service.
      */
-    private LangPropsService langPropsService = LangPropsService.getInstance();
+    private static final LangPropsService LANG_PROP_SVC =
+            LangPropsService.getInstance();
     /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
+    /**
+     * Languages.
+     */
+    private static Map<String, String> langs = null;
+
+    static {
+        try {
+            langs = LANG_PROP_SVC.getAll(
+                    Latkes.getDefaultLocale());
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -72,16 +83,7 @@ public final class RegisterAction extends AbstractAction {
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
-        try {
-            final Locale locale = Latkes.getDefaultLocale();
-            Locales.setLocale(request, locale);
-
-            final Map<String, String> langs = langPropsService.getAll(locale);
-            ret.putAll(langs);
-        } catch (final ServiceException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new ActionException("Language model fill error");
-        }
+        ret.putAll(langs);
 
         return ret;
     }
@@ -101,11 +103,17 @@ public final class RegisterAction extends AbstractAction {
                     (String) session.getAttribute("captcha");
 
             if (null == storedCaptcha || !storedCaptcha.equals(captcha)) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
                 ret.put(Keys.STATUS_CODE, "captchaError");
+                ret.put(Keys.MSG, langs.get("captchaErrorLabel"));
 
                 return ret;
             }
 
+            final String userName =
+                    requestJSONObject.getString(User.USER_NAME);
             final String userEmail =
                     requestJSONObject.getString(User.USER_EMAIL).toLowerCase();
             final String userPwd =
@@ -113,12 +121,17 @@ public final class RegisterAction extends AbstractAction {
 
             JSONObject user = userRepository.getByEmail(userEmail);
             if (null != user) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
                 ret.put(Keys.STATUS_CODE, "duplicated");
+                ret.put(Keys.MSG, langs.get("emailDuplicatedLabel"));
 
                 return ret;
             }
 
             user = new JSONObject();
+            user.put(User.USER_NAME, userName);
             user.put(User.USER_EMAIL, userEmail);
             user.put(User.USER_PASSWORD, MD5.hash(userPwd));
 

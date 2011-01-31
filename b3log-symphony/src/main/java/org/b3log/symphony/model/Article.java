@@ -70,11 +70,15 @@ public final class Article {
     /**
      * Key of author name.
      */
-    public static final String ARTICLE_AUTHOR_NAME = "articleAuthorName";
+    public static final String ARTICLE_AUTHOR_NAME_REF = "articleAuthorName";
     /**
      * Key of author email.
      */
-    public static final String ARTICLE_AUTHOR_EMAIL = "articleAuthorEmail";
+    public static final String ARTICLE_AUTHOR_EMAIL_REF = "articleAuthorEmail";
+    /**
+     * Key of author id.
+     */
+    public static final String ARTICLE_AUTHOR_ID = "articleAuthorId";
     /**
      * Key of random double.
      */

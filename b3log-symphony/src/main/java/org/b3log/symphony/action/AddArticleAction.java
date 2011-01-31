@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
-import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
@@ -46,7 +45,7 @@ import org.json.JSONObject;
  * Adds articles submitted from B3log Solo.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Jan 30, 2011
+ * @version 1.0.0.3, Jan 31, 2011
  */
 public final class AddArticleAction extends AbstractAction {
 
@@ -171,19 +170,22 @@ public final class AddArticleAction extends AbstractAction {
             article.put(Blog.BLOG_VERSION, blogVersion);
 
             final String authorEmail =
-                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL);
+                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF);
             final JSONObject author = userRepository.getByEmail(authorEmail);
             if (null != author) {// The author has related with Symphony
-                final String authorName = author.getString(User.USER_NAME);
-                article.put(ARTICLE_AUTHOR_NAME, authorName);
+                final String authorId = author.getString(Keys.OBJECT_ID);
+                article.put(ARTICLE_AUTHOR_ID, authorId);
             } else {
-                article.put(Article.ARTICLE_AUTHOR_NAME, blogTitle);
+                article.put(Article.ARTICLE_AUTHOR_NAME_REF, blogTitle);
             }
 
             articleRepository.add(article);
 
             final String[] tagTitles = tagString.split(",");
             final JSONArray tags = tagUtils.tag(tagTitles, article);
+            if (null != author) {
+                tagUtils.updateTagUserRelation(tags, author);
+            }
             articleUtils.addTagArticleRelation(tags, article);
 
             transaction.commit();
@@ -195,7 +197,7 @@ public final class AddArticleAction extends AbstractAction {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            LOGGER.severe(e.getMessage());
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
             try {
                 ret.put(Keys.STATUS_CODE, "failed");

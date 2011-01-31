@@ -20,15 +20,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.Keys;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.TagArticleRepository;
 import org.b3log.symphony.repository.TagRepository;
+import org.b3log.symphony.repository.TagUserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
+import org.b3log.symphony.repository.impl.TagUserGAERepository;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +40,7 @@ import org.json.JSONObject;
  * Tag utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 28, 2011
+ * @version 1.0.0.1, Jan 31, 2011
  */
 public final class Tags {
 
@@ -56,6 +59,11 @@ public final class Tags {
      */
     private TagArticleRepository tagArticleRepository =
             TagArticleGAERepository.getInstance();
+    /**
+     * Tag-User repository.
+     */
+    private TagUserRepository tagUserRepository =
+            TagUserGAERepository.getInstance();
     /**
      * Tag repository.
      */
@@ -110,6 +118,41 @@ public final class Tags {
         }
 
         return ret;
+    }
+
+    /**
+     * Updates relation of the specified tags and user.
+     *
+     * @param tags the specified tags
+     * @param user the specified user
+     * @throws JSONException json exception
+     * @throws RepositoryException repository exception
+     */
+    public void updateTagUserRelation(final JSONArray tags,
+                                      final JSONObject user)
+            throws JSONException, RepositoryException {
+        final String userId = user.getString(Keys.OBJECT_ID);
+
+        for (int i = 0; i < tags.length(); i++) {
+            final JSONObject tag = tags.getJSONObject(i);
+            final String tagId = tag.getString(Keys.OBJECT_ID);
+
+            JSONObject rel = tagUserRepository.getByTagIdAndUserId(tagId,
+                                                                   userId);
+            if (null == rel) {
+                rel = new JSONObject();
+                rel.put(Tag.TAG + "_" + Keys.OBJECT_ID, tagId);
+                rel.put(User.USER + "_" + Keys.OBJECT_ID, userId);
+                rel.put(Tag.TAG_REFERENCE_COUNT, 1);
+
+                tagUserRepository.add(rel);
+            } else {
+                final int refCnt = rel.getInt(Tag.TAG_REFERENCE_COUNT);
+                rel.put(Tag.TAG_REFERENCE_COUNT, refCnt + 1);
+
+                tagUserRepository.update(rel.getString(Keys.OBJECT_ID), rel);
+            }
+        }
     }
 
     /**
