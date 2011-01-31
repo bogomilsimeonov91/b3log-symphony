@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
@@ -165,6 +166,8 @@ public final class AddArticleAction extends AbstractAction {
                 createDate = new Date(createDateTime);
             }
             article.put(Article.ARTICLE_CREATE_DATE, createDate);
+            article.put(ARTICLE_LAST_CMT_DATE, "");
+            article.put(ARTICLE_LAST_CMT_NAME, "");
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
             article.put(Article.ARTICLE_FROM, from);
             article.put(Blog.BLOG_HOST, blogHost);
@@ -174,10 +177,10 @@ public final class AddArticleAction extends AbstractAction {
                     originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF);
             final JSONObject author = userRepository.getByEmail(authorEmail);
             if (null != author) {// The author has related with Symphony
-                final String authorId = author.getString(Keys.OBJECT_ID);
-                article.put(ARTICLE_AUTHOR_ID, authorId);
+                final String authorName = author.getString(User.USER_NAME);
+                article.put(ARTICLE_AUTHOR_NAME, authorName);
             } else {
-                article.put(Article.ARTICLE_AUTHOR_NAME_REF, blogTitle);
+                article.put(Article.ARTICLE_AUTHOR_NAME, blogTitle);
             }
 
             articleRepository.add(article);

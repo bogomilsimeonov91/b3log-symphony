@@ -58,15 +58,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            ${captchaLabel}
-                        </th>
-                        <td>
-                            <input id="captchaLogin" class="normal-input"/>
-                            <img alt="captcha" src="/captcha"></img>
-                        </td>
-                    </tr>
-                    <tr>
                         <th colspan="2">
                             <span class="red" id="tipLogin"></span>
                             <button onclick="util.login();">
