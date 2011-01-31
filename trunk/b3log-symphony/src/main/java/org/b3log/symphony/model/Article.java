@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
  * This class defines all article model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 30, 2011
+ * @version 1.0.0.2, Jan 31, 2011
  */
 public final class Article {
 
@@ -79,6 +79,10 @@ public final class Article {
      * Key of author id.
      */
     public static final String ARTICLE_AUTHOR_ID = "articleAuthorId";
+    /**
+     * Key of from.
+     */
+    public static final String ARTICLE_FROM = "articleFrom";
     /**
      * Key of random double.
      */

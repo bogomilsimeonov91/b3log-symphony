@@ -31,6 +31,7 @@ import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
 import org.b3log.symphony.model.Blog;
+import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
@@ -135,7 +136,7 @@ public final class AddArticleAction extends AbstractAction {
                 logRequestHeaders(request);
             }
 
-            final String blog = data.getString(Blog.BLOG);
+            final String from = data.getString(Common.FROM);
             final String blogTitle = data.getString(Blog.BLOG_TITLE);
             final String blogHost = data.getString(Blog.BLOG_HOST);
             final String blogVersion = data.optString(Blog.BLOG_VERSION);
@@ -165,7 +166,7 @@ public final class AddArticleAction extends AbstractAction {
             }
             article.put(Article.ARTICLE_CREATE_DATE, createDate);
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
-            article.put(Blog.BLOG, blog);
+            article.put(Article.ARTICLE_FROM, from);
             article.put(Blog.BLOG_HOST, blogHost);
             article.put(Blog.BLOG_VERSION, blogVersion);
 

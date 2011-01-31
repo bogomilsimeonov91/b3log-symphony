@@ -84,7 +84,7 @@
                     "blogTitle": "testBlogTitle",
                     "blogHost": "test.com",
                     "blogVersion": "0.2.5",
-                    "blog": "B3log Solo"
+                    "from": "B3log Solo"
                 };
 
                 $.ajax({
