@@ -52,6 +52,10 @@ public final class Tag {
      * Key of tag refereed articles.
      */
     public static final String TAG_ARTICLES_REF = "tagArticles";
+    /**
+     * Key of tag top authors.
+     */
+    public static final String TAG_TOP_AUTHORS_REF = "tagTopAuthors";
 
     /**
      * Private default constructor.

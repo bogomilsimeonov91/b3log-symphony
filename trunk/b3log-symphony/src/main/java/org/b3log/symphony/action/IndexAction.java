@@ -18,6 +18,7 @@ package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -26,9 +27,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
-import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.service.LangPropsService;
@@ -36,8 +37,10 @@ import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.TagRepository;
+import org.b3log.symphony.repository.TagUserRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
+import org.b3log.symphony.repository.impl.TagUserGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +49,7 @@ import org.json.JSONObject;
  * Index action. index.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 30, 2011
+ * @version 1.0.0.2, Jan 31, 2011
  */
 public final class IndexAction extends AbstractCacheablePageAction {
 
@@ -68,6 +71,11 @@ public final class IndexAction extends AbstractCacheablePageAction {
      */
     private TagRepository tagRepository = TagGAERepository.getInstance();
     /**
+     * Tag-User repository.
+     */
+    private TagUserRepository tagUserRepository = TagUserGAERepository.
+            getInstance();
+    /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
@@ -80,31 +88,53 @@ public final class IndexAction extends AbstractCacheablePageAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         try {
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-            final int currentPageNum = queryStringJSONObject.optInt(
-                    Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
-
             final Locale locale = Latkes.getDefaultLocale();
             final Map<String, String> langs = langPropsService.getAll(locale);
             ret.putAll(langs);
 
             // Tags
             final int maxTagCnt = 10;
+            final int maxAuthorCnt = 3;
             final int maxArticleCnt = 3;
             final List<JSONObject> tags =
                     tagRepository.getMostUsedTags(maxTagCnt);
             List<JSONObject> articles = null;
+            LOGGER.log(Level.FINE, "Getting tags....");
             for (int i = 0; i < tags.size(); i++) {
                 final JSONObject tag = tags.get(i);
+                final String tagId = tag.getString(Keys.OBJECT_ID);
                 final String tagTitle = tag.getString(Tag.TAG_TITLE);
 
+                LOGGER.log(Level.FINE, "Getting top authors for tag[title={0}]",
+                           tagTitle);
+                final List<JSONObject> topAuthors = new ArrayList<JSONObject>();
+                tag.put(Tag.TAG_TOP_AUTHORS_REF, (Object) topAuthors);
+                final List<String> topAuthorIds =
+                        tagUserRepository.getTopTagUsers(tagId, maxAuthorCnt);
+                for (final String topAuthorId : topAuthorIds) {
+                    final JSONObject user = userRepository.get(topAuthorId);
+                    final String topAuthorName = user.getString(User.USER_NAME);
+
+                    final JSONObject topAuthor = new JSONObject();
+                    topAuthor.put(Keys.OBJECT_ID, topAuthorId);
+                    topAuthor.put(User.USER_NAME, topAuthorName);
+                    topAuthors.add(topAuthor);
+                }
+                LOGGER.log(Level.FINE, "Got top authors for tag[title={0}]",
+                           tagTitle);
+
+                LOGGER.log(Level.FINE,
+                           "Getting recent articles for tag[title={0}]",
+                           tagTitle);
                 articles = tagRepository.getRecentArticles(tagTitle,
                                                            maxArticleCnt);
                 fillArticleAuthorName(articles);
 
                 tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
+                LOGGER.log(Level.FINE, "Got recent articles for tag[title={0}]",
+                           tagTitle);
             }
+            LOGGER.log(Level.FINE, "Got tags");
 
             ret.put(Tag.TAGS, tags);
         } catch (final Exception e) {

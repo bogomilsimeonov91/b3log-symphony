@@ -31,11 +31,9 @@
                         ${tag.tagTitle}
                     </span>
                     <span>
-                        <a href="#">author1</a>,
-                        <a href="#">author2</a>,
-                        <a href="#">author3</a>,
-                        <a href="#">author4</a>,
-                        <a href="#">author5</a>
+                        <#list tag.tagTopAuthors as topAuthor>
+                            ${topAuthor.userName}
+                        </#list>
                     </span>
                     <span>
                         ${tag.tagReferenceCount}/ ${tag.tagCommentCount}

@@ -84,4 +84,13 @@ public interface TagUserRepository extends Repository {
     JSONObject getByTagIdAndUserId(final String tagId,
                                    final String userId)
             throws RepositoryException;
+
+    /**
+     * Gets the top tag users with the specified tag id and fetch size.
+     *
+     * @param tagId the specified tag id
+     * @param fetchSize the specified fetch size
+     * @return a list of user ids, return an empty list if not found
+     */
+    List<String> getTopTagUsers(final String tagId, final int fetchSize);
 }

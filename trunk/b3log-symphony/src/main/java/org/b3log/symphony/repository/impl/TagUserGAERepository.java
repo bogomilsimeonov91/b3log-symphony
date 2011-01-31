@@ -142,6 +142,26 @@ public final class TagUserGAERepository extends AbstractGAERepository
         return entity2JSONObject(entity);
     }
 
+    @Override
+    public List<String> getTopTagUsers(final String tagId,
+                                       final int fetchSize) {
+        final Query query = new Query(getName());
+        query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
+                        Query.FilterOperator.EQUAL, tagId);
+        query.addSort(Tag.TAG_REFERENCE_COUNT, Query.SortDirection.DESCENDING);
+
+        final PreparedQuery preparedQuery = getDatastoreService().prepare(query);
+        final List<Entity> entities =
+                preparedQuery.asList(FetchOptions.Builder.withLimit(fetchSize));
+
+        final List<String> ret = new ArrayList<String>();
+        for (final Entity entity : entities) {
+            ret.add((String) entity.getProperty(User.USER + "_" + Keys.OBJECT_ID));
+        }
+
+        return ret;
+    }
+
     /**
      * Gets the {@link TagUserGAERepository} singleton.
      *
