@@ -119,6 +119,8 @@ public final class LoginAction extends AbstractAction {
                 if (user.getString(User.USER_PASSWORD).equals(requestPwdHash)) {
                     ret.put(Keys.STATUS_CODE, "succ");
                     Sessions.login(request, userEmail, requestPwdHash);
+                    request.getSession().setAttribute(
+                            "userId", user.getString(Keys.OBJECT_ID));
 
                     return ret;
                 }
