@@ -27,19 +27,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
+import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.TagArticleRepository;
+import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagArticleGAERepository;
+import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.json.JSONObject;
 
 /**
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 30, 2011
+ * @version 1.0.0.1, Jan 31, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -62,6 +66,10 @@ public final class EntryAction extends AbstractCacheablePageAction {
     private TagArticleRepository tagArticleRepository =
             TagArticleGAERepository.getInstance();
     /**
+     * User repository.
+     */
+    private UserRepository userRepository = UserGAERepository.getInstance();
+    /**
      * Article repository.
      */
     private ArticleRepository articleRepository =
@@ -75,16 +83,21 @@ public final class EntryAction extends AbstractCacheablePageAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         try {
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-
-            final JSONObject article = (JSONObject)
-                    request.getAttribute(Article.ARTICLE);
+            final JSONObject article = (JSONObject) request.getAttribute(
+                    Article.ARTICLE);
             if (null == article) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
 
                 return ret;
             }
+
+            final String authorId = article.getString(Article.ARTICLE_AUTHOR_ID);
+            if (!Strings.isEmptyOrNull(authorId)) {
+                final JSONObject author = userRepository.get(authorId);
+                article.put(Article.ARTICLE_AUTHOR_NAME_REF,
+                            author.getString(User.USER_NAME));
+            }
+
             ret.put(Article.ARTICLE, article);
 
             final Locale locale = Latkes.getDefaultLocale();
