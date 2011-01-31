@@ -66,6 +66,14 @@
                     <caption>${registerLabel}</caption>
                     <tr>
                         <th>
+                            ${userNameLabel}
+                        </th>
+                        <td>
+                            <input id="userName"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             ${emailLabel}
                         </th>
                         <td>
