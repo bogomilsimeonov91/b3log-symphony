@@ -138,7 +138,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 comments.add(cmt);
             }
 
-            article.put(Article.ARTICLE_COMMENTS_REF, comments);
+            article.put(Article.ARTICLE_COMMENTS_REF, (Object) comments);
             ret.put(Article.ARTICLE, article);
 
             final List<Integer> pageNums =
