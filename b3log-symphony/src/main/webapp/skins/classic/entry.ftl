@@ -69,6 +69,12 @@
                         <span class="clear"></span>
                     </dd>
                     </#list>
+                    <dd>
+                        <#list paginationPageNums as page>
+                        <a href="/entries/${article.oId}?p=${page}">${page}</a>
+                        </#list>
+                        ${sumLabel}${paginationPageCount}${pageLabel}
+                    </dd>
                 </dl>
                 <table id="commentForm" class="form">
                     <tr>
