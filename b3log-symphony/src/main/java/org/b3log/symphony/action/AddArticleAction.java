@@ -172,7 +172,8 @@ public final class AddArticleAction extends AbstractAction {
             article.put(Blog.BLOG_VERSION, blogVersion);
 
             final String authorEmail =
-                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF);
+                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF).
+                    toLowerCase();
             final JSONObject author = userRepository.getByEmail(authorEmail);
             if (null != author) {// The author has related with Symphony
                 final String authodId = author.getString(Keys.OBJECT_ID);
