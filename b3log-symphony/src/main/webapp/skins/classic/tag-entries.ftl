@@ -56,7 +56,13 @@
             <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var util = new Util();
+            var util = new Util({
+                "labels": {
+                    "loginLabel": "${loginLabel}",
+                    "logoutLabel": "${logoutLabel}",
+                    "adminConsoleLabel": "${adminConsoleLabel}"
+                }
+            });
             util.initLogin();
         </script>
     </body>

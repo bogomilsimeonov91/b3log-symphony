@@ -20,12 +20,37 @@ var Util = function (args) {
 
 $.extend(Util.prototype, {
     initLogin: function () {
-        if (true) {
-            $("#userStatus").html("<span onclick=\"window.location='register'\" class='login-icon'></span>");
-        }
-        else {
-            
-    }
+        var labels = this.labels;
+        $.ajax({
+            url: "/check-login",
+            type: "POST",
+            success: function(result, textStatus){
+                switch(result.sc) {
+                    case true:
+                        $("#userStatus").html("<span class='left'>" + result.userName + " |</span>"
+                            + "<span title='" + labels.adminConsoleLabel
+                            + "' onclick=\"window.location='/admin'\" class='admin-icon'></span>"
+                            + "<span class='left'>&nbsp;|</span>"
+                            + "<span title='" + labels.logoutLabel
+                            + "' onclick=\"util.logout();\" class='logout-icon'></span>");
+                        break;
+                    case false:
+                        $("#userStatus").html("<span title='" + labels.loginLabel
+                            + "' onclick=\"window.location='/register'\" class='login-icon'></span>");
+                        break;
+                }
+            }
+        });
+    },
+
+    logout: function () {
+        $.ajax({
+            url: "/logout",
+            type: "POST",
+            success: function(result, textStatus){
+                window.location.reload();
+            }
+        });
     },
 
     bindSubmitAction: function () {
@@ -184,6 +209,7 @@ $.extend(Util.prototype, {
 
     replyComment: function (oId) {
         if ($("#" + oId + "commentForm").length === 0) {
+            $("#" + this.originalId + "commentForm").remove();
             var replyCommentHTML =
             '<table id="' + oId + 'commentForm" class="form">\
                 \<tr>\
