@@ -31,8 +31,11 @@ import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
+import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
+import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.TagArticleRepository;
@@ -47,7 +50,7 @@ import org.json.JSONObject;
  * Tag entries action. tag-entries.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 30, 2011
+ * @version 1.0.0.1, Feb 8, 2011
  */
 public final class TagEntriesAction extends AbstractCacheablePageAction {
 
@@ -70,7 +73,7 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
      */
     private ArticleRepository articleRepository =
             ArticleGAERepository.getInstance();
- /**
+    /**
      * Language service.
      */
     private static final LangPropsService LANG_PROP_SVC =
@@ -135,6 +138,16 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                         tagArticleRelation.getString(Article.ARTICLE + "_"
                                                      + Keys.OBJECT_ID);
                 final JSONObject article = articleRepository.get(articleId);
+                if (Strings.isEmptyOrNull(
+                        article.optString(Article.ARTICLE_AUTHOR_NAME))) {
+                    final String authorId = article.getString(
+                            Common.AUTHOR_ID);
+                    final JSONObject author = userRepository.get(authorId);
+                    final String name = author.getString(User.USER_NAME);
+                    final String sign = author.getString(Common.SIGN);
+                    article.put(Article.ARTICLE_AUTHOR_NAME, name);
+                    article.put(Common.SIGN, sign);
+                }
 
                 articles.add(article);
             }
