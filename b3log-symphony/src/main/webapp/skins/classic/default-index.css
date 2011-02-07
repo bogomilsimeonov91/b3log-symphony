@@ -97,7 +97,7 @@ h4{
 }
 
 .form button{
-    background:url(../images/icon.png) repeat center bottom;
+    background:url(/images/icon.png) repeat center bottom;
     border:1px solid;
     border-color:#CCC #BBBBBB #A0A0A0;
     height:28px;
@@ -115,7 +115,7 @@ h4{
 
 /* icon */
 .login-icon {
-    background-image: url(../images/icon.png);
+    background-image: url(/images/icon.png);
     width: 16px;
     height: 16px;
 }

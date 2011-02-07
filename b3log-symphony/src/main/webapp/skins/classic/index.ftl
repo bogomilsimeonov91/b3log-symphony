@@ -97,7 +97,7 @@
                     type: "POST",
                     data: JSON.stringify(requestJSONObject),
                     success: function(result, textStatus){
-                        alert(JSON.stringify(result));
+                        window.location.reload();
                     }
                 });
             }
