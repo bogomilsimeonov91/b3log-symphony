@@ -151,23 +151,31 @@ $.extend(Util.prototype, {
         replyTag = "Reply";
         if (oId === undefined) {
             isReply = false;
-            oId = this.oId;
             replyTag = "";
         }
         if (this.validateComment(isReply)) {
             var requestJSONObject = {
-                "oId": oId.toString(),
+                "oId": this.oId,
                 "commentContent": $("#commentContent" + replyTag).val(),
                 "userName": Cookie.readCookie("userName"),
                 "userEmail": Cookie.readCookie("userEmail"),
                 "userURL": Cookie.readCookie("userURL")
             };
+            if (this.originalId) {
+                requestJSONObject.commentOriginalCommentId = this.originalId;
+            }
             $.ajax({
                 url: "/add-comment",
                 type: "POST",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
                     switch(result.sc) {
+                        case true:
+                            window.location.reload();
+                            break;
+                        default:
+                            alert(result.msg);
+                            break;
                     }
                 }
             });
@@ -193,6 +201,7 @@ $.extend(Util.prototype, {
             \</table>';
             $("#" + oId + "comment").append(replyCommentHTML);
             this.bindSubmitAction(oId + "commentForm");
+            this.originalId = oId;
         } 
         $("#" + oId + "commentForm #commentContentReply").focus();
     }
