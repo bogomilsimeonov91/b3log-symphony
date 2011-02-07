@@ -124,7 +124,6 @@ public final class AddArticleCommentAction extends AbstractAction {
      * @param requestJSONObject the specified request json object, for example,
      * <pre>
      * {
-     *     "captcha": "",
      *     "oId": articleId,
      *     "commentName": "",
      *     "commentEmail": "",
