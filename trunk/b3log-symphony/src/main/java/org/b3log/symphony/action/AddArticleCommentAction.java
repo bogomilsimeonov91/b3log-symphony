@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.b3log.symphony.action;
 
 import com.google.appengine.api.urlfetch.HTTPHeader;
@@ -43,9 +44,11 @@ import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.repository.ArticleCommentRepository;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
+import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
+import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
 import org.b3log.symphony.util.TimeZones;
 import org.json.JSONException;
@@ -86,6 +89,11 @@ public final class AddArticleCommentAction extends AbstractAction {
      */
     private static ArticleRepository articleRepository =
             ArticleGAERepository.getInstance();
+    /**
+     * User repository.
+     */
+    private static UserRepository userRepository =
+            UserGAERepository.getInstance();
     /**
      * Default user thumbnail.
      */
@@ -153,53 +161,41 @@ public final class AddArticleCommentAction extends AbstractAction {
                                    final HttpServletRequest request,
                                    final HttpServletResponse response)
             throws ActionException {
-        JSONObject ret = null;
-
-        ret = addArticleComment(requestJSONObject, request, response);
-
-        return ret;
-    }
-
-    /**
-     * Adds article comment.
-     *
-     * @param requestJSONObject request json object
-     * @param request request
-     * @param response response
-     * @return result, for example,
-     * <pre>
-     * {
-     *     "commentDate": "",
-     *     "commentOriginalCommentName": "" // optional
-     *     "commentThumbnailURL": "",
-     *     "commentSharpURL": "",
-     *     "oId": "",
-     *     "sc": true
-     * }
-     * </pre>
-     * @throws ActionException action exception
-     * @see #doAjaxAction(org.json.JSONObject,
-     * javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
-     */
-    public static JSONObject addArticleComment(
-            final JSONObject requestJSONObject,
-            final HttpServletRequest request,
-            final HttpServletResponse response)
-            throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        final Transaction transaction = commentRepository.beginTransaction();
+        String commentEmail = null;
+        String commentName = null;
+        String commentURL = null;
+        try {
+            commentEmail =
+                    requestJSONObject.getString(User.USER_EMAIL);
+            if (Strings.isEmptyOrNull(commentEmail)) {
+                throw new Exception("Email is empty!");
+            }
 
+            final JSONObject commenter = userRepository.getByEmail(commentEmail);
+            if (null == commenter) {
+                throw new Exception("User not found!");
+            }
+
+            commentName = commenter.getString(User.USER_NAME);
+            commentURL = commenter.getString(User.USER_URL);
+        } catch (final Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
+            try {
+                ret.put(Keys.STATUS_CODE, HttpServletResponse.SC_BAD_REQUEST);
+                ret.put(Keys.MSG, e.getMessage());
+            } catch (final JSONException ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+
+                throw new ActionException(ex);
+            }
+        }
+
+        final Transaction transaction = commentRepository.beginTransaction();
         String articleId, commentId;
         try {
-            final String commentName =
-                    requestJSONObject.getString(User.USER_NAME);
-            final String commentEmail =
-                    requestJSONObject.getString(User.USER_EMAIL);
-            final String commentURL =
-                    requestJSONObject.getString(User.USER_URL);
-
             articleId = requestJSONObject.getString(Keys.OBJECT_ID);
             final JSONObject article = articleRepository.get(articleId);
             String commentContent =
