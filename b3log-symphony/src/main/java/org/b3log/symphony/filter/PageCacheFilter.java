@@ -46,7 +46,7 @@ import org.json.JSONObject;
  * </p>
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 30, 2011
+ * @version 1.0.0.1, Feb 7, 2011
  * @see org.b3log.latke.action.AbstractCacheablePageAction#afterDoFreeMarkerTemplateAction(
  * javax.servlet.http.HttpServletRequest,
  * javax.servlet.http.HttpServletResponse,
@@ -60,6 +60,11 @@ public final class PageCacheFilter implements Filter {
      */
     private static final Logger LOGGER =
             Logger.getLogger(PageCacheFilter.class.getName());
+
+    /**
+     * Enables page cache?
+     */
+    private static final boolean PAGE_CACHE_ENABLED = false;
 
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
@@ -104,8 +109,13 @@ public final class PageCacheFilter implements Filter {
         LOGGER.log(Level.FINER, "Request[pageCacheKey={0}]", pageCacheKey);
         LOGGER.log(Level.FINEST, "Page cache[cachedCount={0}, maxCount={1}]",
                    new Object[]{cache.getCachedCount(), cache.getMaxCount()});
-        final JSONObject cachedPageContentObject =
+        JSONObject cachedPageContentObject =
                 (JSONObject) cache.get(pageCacheKey);
+        if (!PAGE_CACHE_ENABLED) {
+            cachedPageContentObject = null;
+            LOGGER.log(Level.FINEST, "Page cache is disabled");
+        }
+        
         if (null == cachedPageContentObject) {
             httpServletRequest.setAttribute(Keys.PAGE_CACHE_KEY,
                                             pageCacheKey);
