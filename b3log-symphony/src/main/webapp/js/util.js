@@ -126,26 +126,37 @@ $.extend(Util.prototype, {
         }
     },
 
-    validateComment: function () {
-        var tag = false;
-        if ($("#commentContent").val().replace(/(^\s*)|(\s*$)/g, "") === "") {
-            $("#tip").text(this.labels.commentCannotEmptyLabel);
-            $("#commentContent").focus();
-        } else if ($("#captcha").val().replace(/(^\s*)|(\s*$)/g, "") === "") {
-            $("#tip").text(this.labels.captchaCannotEmptyLabel);
-            $("#captcha").focus();
-        } else {
-            tag = true;
+    validateComment: function (isReply) {
+        var validateTag = false,
+        replyTag = "";
+        if (isReply) {
+            replyTag = 'Reply'
         }
-        return tag;
+        if ($("#commentContent" + replyTag).val().replace(/(^\s*)|(\s*$)/g, "") === "") {
+            $("#tip" + replyTag).text(this.labels.commentCannotEmptyLabel);
+            $("#commentContent" + replyTag).focus();
+        } else if ($("#captcha" + replyTag).val().replace(/(^\s*)|(\s*$)/g, "") === "") {
+            $("#tip" + replyTag).text(this.labels.captchaCannotEmptyLabel);
+            $("#captcha" + replyTag).focus();
+        } else {
+            validateTag = true;
+        }
+        return validateTag;
     },
 
-    submitComment: function () {
-        if (this.validateComment()) {
+    submitComment: function (oId) {
+        var isReply = true,
+        replyTag = "Reply";
+        if (oId === undefined) {
+            isReply = false;
+            oId = this.oId;
+            replyTag = "";
+        }
+        if (this.validateComment(isReply)) {
             var requestJSONObject = {
-                "captcha": $("#captcha").val(),
-                "oId": this.oId,
-                "commentContent": $("#commentContent").val()
+                "captcha": $("#captcha" + replyTag).val(),
+                "oId": oId.toString(),
+                "commentContent": $("#commentContent" + replyTag).val()
             };
             $.ajax({
                 url: "/add-comment",
@@ -160,7 +171,29 @@ $.extend(Util.prototype, {
     },
 
     replyComment: function (oId) {
-        this.oId = oId;
-        $("#" + oId + "comment").append();
+        var replyCommentHTML =
+        '<table id="' + oId + 'commentForm" class="form">\
+                \<tr>\
+                    \<th>' + this.labels.commentLabel + '</th>\
+                    \<td>\
+                        \<textarea id="commentContentReply"></textarea>\
+                    \</td>\
+                \</tr>\
+                \<tr>\
+                    \<th>' + this.labels.captchaLabel + '</th>\
+                    \<td>\
+                        \<input id="captchaReply" class="normal-input"/>\
+                        \<img alt="' + this.labels.captchaLabel + '" src="/captcha?' + new Date() + '"></img>\
+                    \</td>\
+                \</tr>\
+                \<tr>\
+                    \<th colspan="2">\
+                        \<span class="red" id="tipReply"></span>\
+                        \<button onclick="util.submitComment(' + oId + ');">' + this.labels.submitLabel + '</button>\
+                    \</th>\
+                \</tr>\
+            \</table>';
+        $("#" + oId + "comment").append(replyCommentHTML);
+        this.bindSubmitAction(oId + "commentForm");
     }
 });
