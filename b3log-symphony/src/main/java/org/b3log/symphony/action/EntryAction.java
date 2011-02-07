@@ -158,7 +158,6 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 article.put(Article.ARTICLE_AUTHOR_NAME, name);
                 article.put(Common.SIGN, sign);
             }
-            LOGGER.info(article.toString());
             ret.put(Article.ARTICLE, article);
 
             final List<Integer> pageNums =

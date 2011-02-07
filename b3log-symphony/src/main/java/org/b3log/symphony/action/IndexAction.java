@@ -31,6 +31,9 @@ import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.util.Strings;
+import org.b3log.symphony.model.Article;
+import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.TagRepository;
 import org.b3log.symphony.repository.TagUserRepository;
@@ -44,7 +47,7 @@ import org.json.JSONObject;
  * Index action. index.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Jan 31, 2011
+ * @version 1.0.0.3, Feb 8, 2011
  */
 public final class IndexAction extends AbstractCacheablePageAction {
 
@@ -139,6 +142,18 @@ public final class IndexAction extends AbstractCacheablePageAction {
                            tagTitle);
                 articles = tagRepository.getRecentArticles(tagTitle,
                                                            maxArticleCnt);
+                for (final JSONObject article : articles) {
+                    if (Strings.isEmptyOrNull(
+                            article.optString(Article.ARTICLE_AUTHOR_NAME))) {
+                        final String authorId = article.getString(
+                                Common.AUTHOR_ID);
+                        final JSONObject author = userRepository.get(authorId);
+                        final String name = author.getString(User.USER_NAME);
+                        final String sign = author.getString(Common.SIGN);
+                        article.put(Article.ARTICLE_AUTHOR_NAME, name);
+                        article.put(Common.SIGN, sign);
+                    }
+                }
                 tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
                 LOGGER.log(Level.FINE, "Got recent articles for tag[title={0}]",
                            tagTitle);
