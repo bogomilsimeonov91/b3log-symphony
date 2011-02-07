@@ -166,6 +166,7 @@ public final class AddArticleAction extends AbstractAction {
                 createDate = new Date(createDateTime);
             }
             article.put(Article.ARTICLE_CREATE_DATE, createDate);
+            article.put(Article.ARTICLE_LAST_CMT_DATE, new Date(0));
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
             article.put(Article.ARTICLE_FROM, from);
             article.put(Blog.BLOG_HOST, blogHost);
