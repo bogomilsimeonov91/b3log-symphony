@@ -132,6 +132,7 @@
             });
 
             util.bindSubmitAction("loginForm", "registerForm");
+            $("#emailLogin").val(Cookie.readCookie("userEmail"));
         </script>
     </body>
 </html>
