@@ -31,9 +31,11 @@ import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
+import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
+import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleCommentRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
@@ -47,7 +49,7 @@ import org.json.JSONObject;
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 7, 2011
+ * @version 1.0.0.3, Feb 8, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -137,6 +139,10 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 cmt.put(Comment.COMMENT_CONTENT,
                         cmt.getString(Comment.COMMENT_CONTENT).replaceAll(
                         AddArticleCommentAction.ENTER_ESC, "<br/>"));
+                final String commentEmail = cmt.getString(Comment.COMMENT_EMAIL);
+                final JSONObject user = userRepository.getByEmail(commentEmail);
+                cmt.put("commenterURL", user.getString(User.USER_URL));
+                cmt.put(Common.SIGN, user.getString(Common.SIGN));
 
                 comments.add(cmt);
             }
