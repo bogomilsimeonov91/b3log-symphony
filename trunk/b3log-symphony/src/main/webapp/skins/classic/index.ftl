@@ -60,7 +60,7 @@
                     </span>
                     <span>
                         ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/
-                        <#if article.articleLastCmtDate??>
+                        <#if "1970" != article.articleLastCmtDate?string('yyyy')>
                         ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
                         <#else>
                         <a href="/entries/${article.oId}#cmt">${sofaLabel}</a>
