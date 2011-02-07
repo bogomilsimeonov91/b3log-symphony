@@ -136,9 +136,11 @@ public final class RegisterAction extends AbstractAction {
             user.put(User.USER_PASSWORD, MD5.hash(userPwd));
             user.put(User.USER_URL, "");
 
+            final String oId = userRepository.add(user);
+            user.put(Keys.OBJECT_ID, oId);
+
             LoginAction.login(user, request);
 
-            userRepository.add(user);
             transaction.commit();
 
             ret.put(Keys.STATUS_CODE, "succ");
