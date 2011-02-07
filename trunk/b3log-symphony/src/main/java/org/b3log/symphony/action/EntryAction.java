@@ -125,7 +125,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final int pageCount = result.getJSONObject(
                     Pagination.PAGINATION).getInt(
                     Pagination.PAGINATION_PAGE_COUNT);
-              final JSONArray articleCmtRelations =
+            final JSONArray articleCmtRelations =
                     result.getJSONArray(Keys.RESULTS);
 
             for (int i = 0; i < articleCmtRelations.length(); i++) {
@@ -134,6 +134,9 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 final String cmtId = articleCmtRelation.getString(
                         Comment.COMMENT + "_" + Keys.OBJECT_ID);
                 final JSONObject cmt = commentRepository.get(cmtId);
+                cmt.put(Comment.COMMENT_CONTENT,
+                        cmt.getString(Comment.COMMENT_CONTENT).replaceAll(
+                        AddArticleCommentAction.ENTER_ESC, "<br/>"));
 
                 comments.add(cmt);
             }

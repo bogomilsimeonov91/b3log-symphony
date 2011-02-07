@@ -232,6 +232,15 @@ public final class AddArticleCommentAction extends AbstractAction {
                                 originalCommentName);
                     ret.put(Comment.COMMENT_ORIGINAL_COMMENT_NAME,
                             originalCommentName);
+
+                    final String originalCommentContent =
+                            originalComment.getString(Comment.COMMENT_CONTENT);
+                    final StringBuilder contentBuilder =
+                            new StringBuilder(originalCommentContent);
+                    contentBuilder.append(ENTER_ESC).append(commentContent);
+
+                    comment.put(Comment.COMMENT_CONTENT,
+                                contentBuilder.toString());
                 } else {
                     LOGGER.log(Level.WARNING,
                                "Not found orginal comment[id={0}] of reply[name={1}, content={2}]",
