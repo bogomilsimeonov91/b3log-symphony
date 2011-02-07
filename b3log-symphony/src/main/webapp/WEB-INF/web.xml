@@ -53,6 +53,16 @@
         <url-pattern>/entries/*</url-pattern>
     </filter-mapping>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Comment</web-resource-name>
+            <url-pattern>/add-comment</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>*</role-name>
+        </auth-constraint>
+    </security-constraint>
+
     <listener>
         <listener-class>org.b3log.symphony.SymphonyServletListener</listener-class>
     </listener>

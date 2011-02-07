@@ -40,7 +40,7 @@ import org.json.JSONObject;
  * Login.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 31, 2011
+ * @version 1.0.0.1, Feb 7, 2011
  */
 public final class LoginAction extends AbstractAction {
 
@@ -117,10 +117,8 @@ public final class LoginAction extends AbstractAction {
             if (null != user) {
                 final String requestPwdHash = MD5.hash(userPwd);
                 if (user.getString(User.USER_PASSWORD).equals(requestPwdHash)) {
+                    login(user, request);
                     ret.put(Keys.STATUS_CODE, "succ");
-                    Sessions.login(request, userEmail, requestPwdHash);
-                    request.getSession().setAttribute(
-                            "userId", user.getString(Keys.OBJECT_ID));
 
                     return ret;
                 }
@@ -142,5 +140,30 @@ public final class LoginAction extends AbstractAction {
         }
 
         return ret;
+    }
+
+    /**
+     * Logins the specified user for the specified request.
+     *
+     * @param user the specified user
+     * @param request the specified request
+     * @throws Exception exception
+     */
+    static void login(final JSONObject user, final HttpServletRequest request)
+            throws Exception {
+        final String userEmail = user.getString(User.USER_EMAIL);
+        final String userPwd = user.getString(User.USER_PASSWORD);
+        final String requestPwdHash = MD5.hash(userPwd);
+        final HttpSession session = request.getSession();
+
+        Sessions.login(request, userEmail, requestPwdHash);
+        session.setAttribute(
+                "userId", user.getString(Keys.OBJECT_ID));
+        session.setAttribute(User.USER_NAME,
+                             user.getString(User.USER_NAME));
+        session.setAttribute(User.USER_EMAIL,
+                             user.getString(User.USER_EMAIL));
+        session.setAttribute(User.USER_URL,
+                             user.getString(User.USER_URL));
     }
 }

@@ -29,14 +29,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.ActionException;
 import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.event.EventManager;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.MD5;
+import org.b3log.latke.util.Sessions;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
@@ -109,11 +112,6 @@ public final class AddArticleCommentAction extends AbstractAction {
      * Enter escape.
      */
     public static final String ENTER_ESC = "_esc_enter_88250_";
-    /**
-     * Google profile retrieval URL string.
-     */
-    public static final String GOOGLE_PROFILE_RETRIEVAL =
-            "http://www.googleapis.com/buzz/v1/people/{userId}/@self?alt=json";
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -131,9 +129,6 @@ public final class AddArticleCommentAction extends AbstractAction {
      * {
      *     "captcha": "",
      *     "oId": articleId,
-     *     "commentName": "",
-     *     "commentEmail": "",
-     *     "commentURL": "",
      *     "commentContent": "",
      *     "commentOriginalCommentId": "" // optional, if exists this key, the comment
      *                                    // is an reply
@@ -159,7 +154,24 @@ public final class AddArticleCommentAction extends AbstractAction {
                                    final HttpServletRequest request,
                                    final HttpServletResponse response)
             throws ActionException {
-        return addArticleComment(requestJSONObject, request, response);
+        final String currentUserName = Sessions.currentUserName(request);
+        JSONObject ret = null;
+        
+        if (Strings.isEmptyOrNull(currentUserName)) {
+            ret = new JSONObject();
+
+            try {
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, "Login first!");
+            } catch (final JSONException e) {
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                throw new ActionException(e);
+            }
+        }
+
+        ret = addArticleComment(requestJSONObject, request, response);
+
+        return ret;
     }
 
     /**
@@ -168,7 +180,17 @@ public final class AddArticleCommentAction extends AbstractAction {
      * @param requestJSONObject request json object
      * @param request request
      * @param response response
-     * @return result
+     * @return result, for example,
+     * <pre>
+     * {
+     *     "commentDate": "",
+     *     "commentOriginalCommentName": "" // optional
+     *     "commentThumbnailURL": "",
+     *     "commentSharpURL": "",
+     *     "oId": "",
+     *     "sc": true
+     * }
+     * </pre>
      * @throws ActionException action exception
      * @see #doAjaxAction(org.json.JSONObject,
      * javax.servlet.http.HttpServletRequest,
@@ -180,20 +202,22 @@ public final class AddArticleCommentAction extends AbstractAction {
             final HttpServletResponse response)
             throws ActionException {
         final JSONObject ret = new JSONObject();
-        
+
         final Transaction transaction = commentRepository.beginTransaction();
 
         String articleId, commentId;
         try {
+            final HttpSession session = request.getSession();
+
+            final String commentName =
+                    (String) session.getAttribute(User.USER_NAME);
+            final String commentEmail =
+                    (String) session.getAttribute(User.USER_EMAIL);
+            final String commentURL =
+                    (String) session.getAttribute(User.USER_URL);
+
             articleId = requestJSONObject.getString(Keys.OBJECT_ID);
             final JSONObject article = articleRepository.get(articleId);
-            final String commentName =
-                    requestJSONObject.getString(Comment.COMMENT_NAME);
-            final String commentEmail =
-                    requestJSONObject.getString(Comment.COMMENT_EMAIL).trim().
-                    toLowerCase();
-            final String commentURL =
-                    requestJSONObject.optString(Comment.COMMENT_URL);
             String commentContent =
                     requestJSONObject.getString(Comment.COMMENT_CONTENT).
                     replaceAll("\\n", ENTER_ESC);
@@ -296,41 +320,6 @@ public final class AddArticleCommentAction extends AbstractAction {
         final String id = commentEmail.split("@")[0];
         final String domain = commentEmail.split("@")[1];
         String thumbnailURL = null;
-
-        // Try to set thumbnail URL using Google Buzz API
-        if ("gmail.com".equals(domain.toLowerCase())) {
-            final URL googleProfileURL =
-                    new URL(GOOGLE_PROFILE_RETRIEVAL.replace("{userId}",
-                                                             id));
-            try {
-                final HTTPResponse response =
-                        urlFetchService.fetch(googleProfileURL);
-                final int statusCode = response.getResponseCode();
-
-                if (HttpServletResponse.SC_OK == statusCode) {
-                    final byte[] content = response.getContent();
-                    final String profileJSONString =
-                            new String(content, "UTF-8");
-                    LOGGER.log(Level.FINEST, "Google profile[jsonString={0}]",
-                               profileJSONString);
-                    final JSONObject profile = new JSONObject(profileJSONString);
-                    final JSONObject profileData = profile.getJSONObject("data");
-                    thumbnailURL = profileData.getString("thumbnailUrl");
-                    comment.put(Comment.COMMENT_THUMBNAIL_URL, thumbnailURL);
-                    LOGGER.log(Level.FINEST, "Comment thumbnail[URL={0}]",
-                               thumbnailURL);
-
-                    return;
-                } else {
-                    LOGGER.log(Level.WARNING,
-                               "Can not fetch google profile[userId={0}, statusCode={1}]",
-                               new Object[]{id, statusCode});
-                }
-            } catch (final Exception e) {
-                LOGGER.log(Level.WARNING,
-                           "Can not fetch google profile[userId=" + id + "", e);
-            }
-        }
 
         // Try to set thumbnail URL using Gravatar service
         final String hashedEmail = MD5.hash(commentEmail.toLowerCase());
