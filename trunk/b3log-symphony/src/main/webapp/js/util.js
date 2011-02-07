@@ -140,9 +140,6 @@ $.extend(Util.prototype, {
         if ($("#commentContent" + replyTag).val().replace(/(^\s*)|(\s*$)/g, "") === "") {
             $("#tip" + replyTag).text(this.labels.commentCannotEmptyLabel);
             $("#commentContent" + replyTag).focus();
-        } else if ($("#captcha" + replyTag).val().replace(/(^\s*)|(\s*$)/g, "") === "") {
-            $("#tip" + replyTag).text(this.labels.captchaCannotEmptyLabel);
-            $("#captcha" + replyTag).focus();
         } else {
             validateTag = true;
         }
@@ -159,9 +156,11 @@ $.extend(Util.prototype, {
         }
         if (this.validateComment(isReply)) {
             var requestJSONObject = {
-                "captcha": $("#captcha" + replyTag).val(),
                 "oId": oId.toString(),
-                "commentContent": $("#commentContent" + replyTag).val()
+                "commentContent": $("#commentContent" + replyTag).val(),
+                "userName": Cookie.readCookie("userName"),
+                "userEmail": Cookie.readCookie("userEmail"),
+                "userURL": Cookie.readCookie("userURL")
             };
             $.ajax({
                 url: "/add-comment",
@@ -182,13 +181,6 @@ $.extend(Util.prototype, {
                     \<th>' + this.labels.commentLabel + '</th>\
                     \<td>\
                         \<textarea id="commentContentReply"></textarea>\
-                    \</td>\
-                \</tr>\
-                \<tr>\
-                    \<th>' + this.labels.captchaLabel + '</th>\
-                    \<td>\
-                        \<input id="captchaReply" class="normal-input"/>\
-                        \<img alt="' + this.labels.captchaLabel + '" src="/captcha?' + new Date() + '"></img>\
                     \</td>\
                 \</tr>\
                 \<tr>\
