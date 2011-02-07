@@ -5,5 +5,5 @@ Powered by
     <span style="color: green;">L</span>
     <span style="color: red;">O</span>
     <span style="color: blue;">G</span>&nbsp;
-    <span style="color: GreenYellow; font-weight: bold;">Symphony</span>,
+    <span style="color: red; font-weight: bold;">Symphony</span>,
 </a>ver {version}

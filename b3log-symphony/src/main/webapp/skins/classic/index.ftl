@@ -11,7 +11,7 @@
         <meta name="revised" content="B3log, 2011"/>
         <meta http-equiv="Window-target" content="_top"/>
         <link type="text/css" rel="stylesheet" href="/styles/base.css"/>
-        <link type="text/css" rel="stylesheet" href="/styles/default-index.css"/>
+        <link type="text/css" rel="stylesheet" href="/skins/classic/default-index.css"/>
         <link rel="icon" type="image/png" href="/favicon.png"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
