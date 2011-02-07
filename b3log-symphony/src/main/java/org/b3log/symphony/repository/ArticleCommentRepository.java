@@ -16,7 +16,6 @@
 
 package org.b3log.symphony.repository;
 
-import java.util.List;
 import org.b3log.latke.repository.Repository;
 import org.b3log.latke.repository.RepositoryException;
 import org.json.JSONObject;
@@ -25,7 +24,7 @@ import org.json.JSONObject;
  * Article-Comment repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Aug 13, 2010
+ * @version 1.0.0.4, Feb 7, 2011
  */
 public interface ArticleCommentRepository extends Repository {
 
@@ -33,17 +32,28 @@ public interface ArticleCommentRepository extends Repository {
      * Gets article-comment relations by the specified article id.
      *
      * @param articleId the specified article id
+     * @param currentPageNum the specified current page number, MUST greater
+     * then {@code 0}
+     * @param pageSize the specified page size(count of a page contains objects),
+     * MUST greater then {@code 0}
      * @return for example
      * <pre>
-     * [{
+     * {
+     *     "pagination": {
+     *       "paginationPageCount": 88250
+     *     },
+     *     "rslts": [{
      *         "oId": "",
      *         "comment_oId": "",
      *         "article_oId": articleId
-     * }, ....], returns an empty list if not found
+     *     }, ....]
+     * }
      * </pre>
      * @throws RepositoryException repository exception
      */
-    List<JSONObject> getByArticleId(final String articleId)
+    JSONObject getByArticleId(final String articleId,
+                              final int currentPageNum,
+                              final int pageSize)
             throws RepositoryException;
 
     /**
