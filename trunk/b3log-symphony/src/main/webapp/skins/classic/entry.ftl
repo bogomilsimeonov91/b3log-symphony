@@ -106,7 +106,10 @@
                     "commentCannotEmptyLabel": "${commentCannotEmptyLabel}",
                     "commentLabel": "${commentLabel}",
                     "captchaLabel": "${captchaLabel}",
-                    "submitLabel": "${submitLabel}"
+                    "submitLabel": "${submitLabel}",
+                    "loginLabel": "${loginLabel}",
+                    "logoutLabel": "${logoutLabel}",
+                    "adminConsoleLabel": "${adminConsoleLabel}"
                 },
                 "oId": "${article.oId}"
             });
