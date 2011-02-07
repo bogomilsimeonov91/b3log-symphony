@@ -54,7 +54,7 @@
                             ${commentLabel}
                         </td>
                         <td>
-                            <textarea></textarea>
+                            <textarea id="comment"></textarea>
                         </td>
                     </tr>
                     <tr>

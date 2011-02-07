@@ -6,4 +6,4 @@ Powered by
     <span style="color: red;">O</span>
     <span style="color: blue;">G</span>&nbsp;
     <span style="color: red; font-weight: bold;">Symphony</span>,
-</a>ver {version}
+</a>ver ${version}

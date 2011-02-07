@@ -125,7 +125,8 @@
                 "emailErrorLabel": "${emailErrorLabel}",
                 "passwordEmptyLabel": "${passwordEmptyLabel}",
                 "passwordNoMatchLabel": "${passwordNoMatchLabel}",
-                "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}"
+                "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
+                "nameTooLongLabel": "${nameTooLongLabel}"
             });
 
             util.bindSubmitAction();
