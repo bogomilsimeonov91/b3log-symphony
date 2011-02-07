@@ -61,10 +61,6 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
     private static final Logger LOGGER =
             Logger.getLogger(TagEntriesAction.class.getName());
     /**
-     * Language service.
-     */
-    private LangPropsService langPropsService = LangPropsService.getInstance();
-    /**
      * Tag-Article repository.
      */
     private TagArticleRepository tagArticleRepository =

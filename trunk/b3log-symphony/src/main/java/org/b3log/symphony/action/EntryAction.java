@@ -18,27 +18,36 @@ package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
+import org.b3log.latke.action.util.Paginator;
+import org.b3log.latke.model.Pagination;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.symphony.model.Article;
-import org.b3log.symphony.repository.TagArticleRepository;
+import org.b3log.symphony.model.Comment;
+import org.b3log.symphony.repository.ArticleCommentRepository;
+import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
-import org.b3log.symphony.repository.impl.TagArticleGAERepository;
+import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
+import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 31, 2011
+ * @version 1.0.0.2, Feb 7, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -52,15 +61,16 @@ public final class EntryAction extends AbstractCacheablePageAction {
     private static final Logger LOGGER =
             Logger.getLogger(EntryAction.class.getName());
     /**
-     * Language service.
+     * Article-Comment repository.
      */
-    private LangPropsService langPropsService = LangPropsService.getInstance();
+    private ArticleCommentRepository articleCommentRepository =
+            ArticleCommentGAERepository.getInstance();
     /**
-     * Tag-Article repository.
+     * Comment repository.
      */
-    private TagArticleRepository tagArticleRepository =
-            TagArticleGAERepository.getInstance();
- /**
+    private CommentRepository commentRepository =
+            CommentGAERepository.getInstance();
+    /**
      * Language service.
      */
     private static final LangPropsService LANG_PROP_SVC =
@@ -99,7 +109,43 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 return ret;
             }
 
+            final List<JSONObject> comments = new ArrayList<JSONObject>();
+
+            final String articleId = article.getString(Keys.OBJECT_ID);
+            final JSONObject queryStringJSONObject =
+                    getQueryStringJSONObject(request);
+            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+            final int fetchSize = 25;
+            final int windowSize = 10;
+            final JSONObject result =
+                    articleCommentRepository.getByArticleId(articleId,
+                                                            currentPageNum,
+                                                            fetchSize);
+
+            final int pageCount = result.getJSONObject(
+                    Pagination.PAGINATION).getInt(
+                    Pagination.PAGINATION_PAGE_COUNT);
+              final JSONArray articleCmtRelations =
+                    result.getJSONArray(Keys.RESULTS);
+
+            for (int i = 0; i < articleCmtRelations.length(); i++) {
+                final JSONObject articleCmtRelation =
+                        articleCmtRelations.getJSONObject(i);
+                final String cmtId = articleCmtRelation.getString(
+                        Comment.COMMENT + "_" + Keys.OBJECT_ID);
+                final JSONObject cmt = commentRepository.get(cmtId);
+
+                comments.add(cmt);
+            }
+
+            article.put(Article.ARTICLE_COMMENTS_REF, comments);
             ret.put(Article.ARTICLE, article);
+
+            final List<Integer> pageNums =
+                    Paginator.paginate(currentPageNum, fetchSize, pageCount,
+                                       windowSize);
+            ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+            ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
 
             ret.putAll(langs);
         } catch (final Exception e) {
