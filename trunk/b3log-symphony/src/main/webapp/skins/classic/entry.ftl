@@ -51,7 +51,7 @@
             <div class="comments">
                 <dl>
                     <dd id="1comment">
-                        <div><a href="javascript:util.replyComment();">${replyLabel}</a></div>
+                        <div><a href="javascript:util.replyComment('1');">${replyLabel}</a></div>
                     </dd>
                 </dl>
                 <table id="commentForm" class="form">
@@ -90,7 +90,10 @@
             var util = new Util({
                 "labels": {
                     "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
-                    "commentCannotEmptyLabel": "${commentCannotEmptyLabel}"
+                    "commentCannotEmptyLabel": "${commentCannotEmptyLabel}",
+                    "commentLabel": "${commentLabel}",
+                    "captchaLabel": "${captchaLabel}",
+                    "submitLabel": "${submitLabel}"
                 },
                 "oId": "${article.oId}"
             });
