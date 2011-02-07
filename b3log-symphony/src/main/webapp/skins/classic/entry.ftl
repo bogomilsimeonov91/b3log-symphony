@@ -50,9 +50,11 @@
             </dl>
             <div class="comments">
                 <dl>
-                    <dd id="1comment">
+                    <#list article.articleComments as comment>
+                    <dd id="${comment.oId}comment">
                         <div><a href="javascript:util.replyComment('1');">${replyLabel}</a></div>
                     </dd>
+                    </#list>
                 </dl>
                 <table id="commentForm" class="form">
                     <tr>
