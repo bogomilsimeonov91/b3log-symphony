@@ -40,7 +40,7 @@ import org.json.JSONObject;
  * Register new user.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 31, 2011
+ * @version 1.0.0.2, Feb 7, 2011
  */
 public final class RegisterAction extends AbstractAction {
 
@@ -134,6 +134,9 @@ public final class RegisterAction extends AbstractAction {
             user.put(User.USER_NAME, userName);
             user.put(User.USER_EMAIL, userEmail);
             user.put(User.USER_PASSWORD, MD5.hash(userPwd));
+            user.put(User.USER_URL, "");
+
+            LoginAction.login(user, request);
 
             userRepository.add(user);
             transaction.commit();
