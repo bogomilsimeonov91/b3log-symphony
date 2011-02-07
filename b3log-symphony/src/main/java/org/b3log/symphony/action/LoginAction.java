@@ -119,6 +119,9 @@ public final class LoginAction extends AbstractAction {
                 if (user.getString(User.USER_PASSWORD).equals(requestPwdHash)) {
                     login(user, request);
                     ret.put(Keys.STATUS_CODE, "succ");
+                    ret.put(User.USER_EMAIL, userEmail);
+                    ret.put(User.USER_NAME, user.getString(User.USER_NAME));
+                    ret.put(User.USER_URL, user.getString(User.USER_URL));
 
                     return ret;
                 }

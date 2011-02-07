@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import com.google.appengine.api.urlfetch.HTTPHeader;
@@ -29,7 +28,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
@@ -39,7 +37,6 @@ import org.b3log.latke.event.EventManager;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.MD5;
-import org.b3log.latke.util.Sessions;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
@@ -129,6 +126,9 @@ public final class AddArticleCommentAction extends AbstractAction {
      * {
      *     "captcha": "",
      *     "oId": articleId,
+     *     "commentName": "",
+     *     "commentEmail": "",
+     *     "commentURL": "",
      *     "commentContent": "",
      *     "commentOriginalCommentId": "" // optional, if exists this key, the comment
      *                                    // is an reply
@@ -154,20 +154,7 @@ public final class AddArticleCommentAction extends AbstractAction {
                                    final HttpServletRequest request,
                                    final HttpServletResponse response)
             throws ActionException {
-        final String currentUserName = Sessions.currentUserName(request);
         JSONObject ret = null;
-        
-        if (Strings.isEmptyOrNull(currentUserName)) {
-            ret = new JSONObject();
-
-            try {
-                ret.put(Keys.STATUS_CODE, false);
-                ret.put(Keys.MSG, "Login first!");
-            } catch (final JSONException e) {
-                LOGGER.log(Level.SEVERE, e.getMessage(), e);
-                throw new ActionException(e);
-            }
-        }
 
         ret = addArticleComment(requestJSONObject, request, response);
 
@@ -207,14 +194,12 @@ public final class AddArticleCommentAction extends AbstractAction {
 
         String articleId, commentId;
         try {
-            final HttpSession session = request.getSession();
-
             final String commentName =
-                    (String) session.getAttribute(User.USER_NAME);
+                    requestJSONObject.getString(User.USER_NAME);
             final String commentEmail =
-                    (String) session.getAttribute(User.USER_EMAIL);
+                    requestJSONObject.getString(User.USER_EMAIL);
             final String commentURL =
-                    (String) session.getAttribute(User.USER_URL);
+                    requestJSONObject.getString(User.USER_URL);
 
             articleId = requestJSONObject.getString(Keys.OBJECT_ID);
             final JSONObject article = articleRepository.get(articleId);
