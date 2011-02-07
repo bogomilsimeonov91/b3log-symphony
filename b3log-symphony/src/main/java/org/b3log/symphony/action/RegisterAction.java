@@ -31,6 +31,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.MD5;
+import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.json.JSONException;
@@ -135,6 +136,8 @@ public final class RegisterAction extends AbstractAction {
             user.put(User.USER_EMAIL, userEmail);
             user.put(User.USER_PASSWORD, MD5.hash(userPwd));
             user.put(User.USER_URL, "");
+            user.put(Common.STATE, "active");
+            user.put(Common.SIGN, "");
 
             final String oId = userRepository.add(user);
             user.put(Keys.OBJECT_ID, oId);
