@@ -175,8 +175,9 @@ $.extend(Util.prototype, {
     },
 
     replyComment: function (oId) {
-        var replyCommentHTML =
-        '<table id="' + oId + 'commentForm" class="form">\
+        if ($("#" + oId + "commentForm").length === 0) {
+            var replyCommentHTML =
+            '<table id="' + oId + 'commentForm" class="form">\
                 \<tr>\
                     \<th>' + this.labels.commentLabel + '</th>\
                     \<td>\
@@ -190,8 +191,10 @@ $.extend(Util.prototype, {
                     \</th>\
                 \</tr>\
             \</table>';
-        $("#" + oId + "comment").append(replyCommentHTML);
-        this.bindSubmitAction(oId + "commentForm");
+            $("#" + oId + "comment").append(replyCommentHTML);
+            this.bindSubmitAction(oId + "commentForm");
+        } 
+        $("#" + oId + "commentForm #commentContentReply").focus();
     }
 });
 
