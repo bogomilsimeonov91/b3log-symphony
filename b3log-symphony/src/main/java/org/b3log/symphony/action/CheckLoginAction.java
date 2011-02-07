@@ -34,7 +34,7 @@ import org.json.JSONObject;
  * Check login.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 31, 2011
+ * @version 1.0.0.1, Feb 7, 2011
  */
 public final class CheckLoginAction extends AbstractAction {
 
@@ -70,13 +70,13 @@ public final class CheckLoginAction extends AbstractAction {
 
         final String userName = Sessions.currentUserName(request);
         try {
+            ret.put(Keys.STATUS_CODE, false);
+            
             if (!Strings.isEmptyOrNull(userName)) {
                 ret.put(Keys.STATUS_CODE, true);
                 ret.put(User.USER_NAME, userName);
                 ret.put("userId", request.getSession().getAttribute("userId"));
             }
-
-            ret.put(Keys.STATUS_CODE, false);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
