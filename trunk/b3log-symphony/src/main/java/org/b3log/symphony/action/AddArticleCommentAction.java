@@ -198,6 +198,7 @@ public final class AddArticleCommentAction extends AbstractAction {
         try {
             articleId = requestJSONObject.getString(Keys.OBJECT_ID);
             final JSONObject article = articleRepository.get(articleId);
+
             String commentContent =
                     requestJSONObject.getString(Comment.COMMENT_CONTENT).
                     replaceAll("\\n", ENTER_ESC);
@@ -214,6 +215,10 @@ public final class AddArticleCommentAction extends AbstractAction {
             final String timeZoneId = "Asia/Shanghai";
             final Date date = timeZoneUtils.getTime(timeZoneId);
             comment.put(Comment.COMMENT_DATE, date);
+
+            article.put(Article.ARTICLE_LAST_CMT_DATE, date);
+            articleRepository.update(articleId, article);
+
             ret.put(Comment.COMMENT_DATE, Comment.DATE_FORMAT.format(date));
             if (!Strings.isEmptyOrNull(originalCommentId)) {
                 originalComment =
