@@ -41,7 +41,7 @@
                                 ${article.articleContent}
                             </div>
                             <div class="sign">
-                                {sign}
+                                ${article.sign}
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         <div class="left">
                             <img src="${comment.commentThumbnailURL}" alt="${comment.commentName}" title="${comment.commentName}"/>
                             <br/>
-                            <a href="${comment.commentName}">
+                            <a href="${comment.commenterURL}">
                                 ${comment.commentName}
                             </a>
                         </div>
@@ -64,6 +64,9 @@
                             <a href="javascript:util.replyComment('${comment.oId}');">${replyLabel}</a>
                             <div>
                                 ${comment.commentContent}
+                            </div>
+                            <div>
+                                ${comment.sign}
                             </div>
                         </div>
                         <span class="clear"></span>
