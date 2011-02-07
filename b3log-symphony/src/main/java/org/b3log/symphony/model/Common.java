@@ -23,6 +23,7 @@ package org.b3log.symphony.model;
  * @version 1.0.0.1, Feb 8, 2011
  */
 public final class Common {
+
     /**
      * Key of from.
      */
@@ -35,6 +36,14 @@ public final class Common {
      * Key of state.
      */
     public static final String STATE = "state";
+    /**
+     * Key of author id.
+     */
+    public static final String AUTHOR_ID = "authorId";
+    /**
+     * Key of commenter URL.
+     */
+    public static final String COMMENTER_URL = "commenterURL";
 
     /**
      * Private default constructor.

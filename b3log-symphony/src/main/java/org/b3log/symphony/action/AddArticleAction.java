@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
-import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
@@ -176,8 +175,8 @@ public final class AddArticleAction extends AbstractAction {
                     originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF);
             final JSONObject author = userRepository.getByEmail(authorEmail);
             if (null != author) {// The author has related with Symphony
-                final String authorName = author.getString(User.USER_NAME);
-                article.put(ARTICLE_AUTHOR_NAME, authorName);
+                final String authodId = author.getString(Keys.OBJECT_ID);
+                article.put(Common.AUTHOR_ID, authodId);
             } else {
                 article.put(Article.ARTICLE_AUTHOR_NAME, blogTitle);
             }
