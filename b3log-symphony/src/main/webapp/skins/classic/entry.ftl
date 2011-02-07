@@ -28,39 +28,54 @@
                     <div class="userInfo left">${article.articleAuthorName}</div>
                     <div class="left">
                         <div class="title">
-                            <h3></h3>
+                            <h3>${article.articleTitle}</h3>
                             <div>
                                 <#list article.articleTags?split(',') as tagTitle>
                                 <a href="/tags/${tagTitle}">${tagTitle}</a>
                                 </#list>
-                                ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}, ${article.articleCommentCount}</div>
+                                ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}, ${article.articleCommentCount}
+                            </div>
                         </div>
                         <div class="content">
                             <div>
                                 ${article.articleContent}
                             </div>
                             <div class="sign">
-
+                                {sign}
                             </div>
                         </div>
                     </div>
                     <div class="clear"></div>
                 </dd>
             </dl>
-            <div class="comment">
-                <table>
+            <div class="comments">
+                <dl>
+                    <dd id="1comment">
+                        <div><a href="javascript:util.replyComment();">{replyLabel}</a></div>
+                    </dd>
+                </dl>
+                <table id="commentForm" class="form">
                     <tr>
-                        <td>
+                        <th>
                             ${commentLabel}
-                        </td>
+                        </th>
                         <td>
-                            <textarea id="comment"></textarea>
+                            <textarea id="commentContent"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${captchaLabel}
+                        </th>
+                        <td>
+                            <input id="captcha" class="normal-input"/>
+                            <img alt="captcha" src="/captcha"></img>
                         </td>
                     </tr>
                     <tr>
                         <th colspan="2">
-                            <span class="red" id="tipLogin"></span>
-                            <button onclick="util.login();">
+                            <span class="red" id="tip"></span>
+                            <button onclick="util.submitComment();">
                                 ${submitLabel}
                             </button>
                         </th>
@@ -72,8 +87,15 @@
             <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var util = new Util();
+            var util = new Util({
+                "labels": {
+                    "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
+                    "commentCannotEmptyLabel": "${commentCannotEmptyLabel}"
+                },
+                "oId": "${article.oId}"
+            });
             util.initLogin();
+            util.bindSubmitAction("commentForm");
         </script>
     </body>
 </html>

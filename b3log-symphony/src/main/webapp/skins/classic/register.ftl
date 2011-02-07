@@ -24,7 +24,7 @@
         </div>
         <div class="content">
             <div class="left">
-                <table width="320px" class="form">
+                <table id="loginForm" width="320px" class="form">
                     <caption>${loginLabel}</caption>
                     <tr>
                         <th>
@@ -62,7 +62,7 @@
                 </table>
             </div>
             <div class="right">
-                <table width="320px" class="form">
+                <table id="registerForm" width="320px" class="form">
                     <caption>${registerLabel}</caption>
                     <tr>
                         <th>
@@ -122,14 +122,16 @@
         </div>
         <script type="text/javascript">
             var util = new Util({
-                "emailErrorLabel": "${emailErrorLabel}",
-                "passwordEmptyLabel": "${passwordEmptyLabel}",
-                "passwordNoMatchLabel": "${passwordNoMatchLabel}",
-                "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
-                "nameTooLongLabel": "${nameTooLongLabel}"
+                "labels": {
+                    "emailErrorLabel": "${emailErrorLabel}",
+                    "passwordEmptyLabel": "${passwordEmptyLabel}",
+                    "passwordNoMatchLabel": "${passwordNoMatchLabel}",
+                    "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
+                    "nameTooLongLabel": "${nameTooLongLabel}"
+                }
             });
 
-            util.bindSubmitAction();
+            util.bindSubmitAction("loginForm", "registerForm");
         </script>
     </body>
 </html>
