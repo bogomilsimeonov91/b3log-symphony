@@ -52,7 +52,21 @@
                 <dl>
                     <#list article.articleComments as comment>
                     <dd id="${comment.oId}comment">
-                        <div><a href="javascript:util.replyComment('1');">${replyLabel}</a></div>
+                        <div class="left">
+                            <img src="${comment.commentThumbnailURL}" alt="${comment.commentName}" title="${comment.commentName}"/>
+                            <br/>
+                            <a href="${comment.commentName}">
+                                ${comment.commentName}
+                            </a>
+                        </div>
+                        <div class="left">
+                            ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
+                            <a href="javascript:util.replyComment('${comment.oId}');">${replyLabel}</a>
+                            <div>
+                                ${comment.commentContent}
+                            </div>
+                        </div>
+                        <span class="clear"></span>
                     </dd>
                     </#list>
                 </dl>
