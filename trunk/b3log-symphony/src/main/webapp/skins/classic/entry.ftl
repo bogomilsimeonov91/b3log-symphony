@@ -51,7 +51,7 @@
             <div class="comments">
                 <dl>
                     <dd id="1comment">
-                        <div><a href="javascript:util.replyComment();">{replyLabel}</a></div>
+                        <div><a href="javascript:util.replyComment();">${replyLabel}</a></div>
                     </dd>
                 </dl>
                 <table id="commentForm" class="form">
