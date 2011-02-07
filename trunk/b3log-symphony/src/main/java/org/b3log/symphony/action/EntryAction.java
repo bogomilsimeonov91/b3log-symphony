@@ -33,6 +33,7 @@ import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
@@ -141,13 +142,23 @@ public final class EntryAction extends AbstractCacheablePageAction {
                         AddArticleCommentAction.ENTER_ESC, "<br/>"));
                 final String commentEmail = cmt.getString(Comment.COMMENT_EMAIL);
                 final JSONObject user = userRepository.getByEmail(commentEmail);
-                cmt.put("commenterURL", user.getString(User.USER_URL));
+                cmt.put(Common.COMMENTER_URL, user.getString(User.USER_URL));
                 cmt.put(Common.SIGN, user.getString(Common.SIGN));
 
                 comments.add(cmt);
             }
 
             article.put(Article.ARTICLE_COMMENTS_REF, (Object) comments);
+            if (Strings.isEmptyOrNull(
+                    article.optString(Article.ARTICLE_AUTHOR_NAME))) {
+                final String authorId = article.getString(Common.AUTHOR_ID);
+                final JSONObject author = userRepository.get(authorId);
+                final String name = author.getString(User.USER_NAME);
+                final String sign = author.getString(Common.SIGN);
+                article.put(Article.ARTICLE_AUTHOR_NAME, name);
+                article.put(Common.SIGN, sign);
+            }
+            LOGGER.info(article.toString());
             ret.put(Article.ARTICLE, article);
 
             final List<Integer> pageNums =
