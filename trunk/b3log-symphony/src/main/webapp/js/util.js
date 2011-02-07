@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-var Util = function (labels) {
-    this.labels = labels;
+var Util = function (args) {
+    $.extend(this, args);
 }
 
 $.extend(Util.prototype, {
@@ -29,11 +29,13 @@ $.extend(Util.prototype, {
     },
 
     bindSubmitAction: function () {
-        $(".form input").keypress(function (event) {
-            if (event.keyCode === 13) {
-                $(this).parents(".form").find("button").click();
-            }
-        });
+        for (var i = 0; i < arguments.length; i++) {
+            $("#" + arguments[i] + ".form input").keypress(function (event) {
+                if (event.keyCode === 13) {
+                    $(this).parents(".form").find("button").click();
+                }
+            });
+        }
     },
     
     register: function () {
@@ -124,7 +126,41 @@ $.extend(Util.prototype, {
         }
     },
 
+    validateComment: function () {
+        var tag = false;
+        if ($("#commentContent").val().replace(/(^\s*)|(\s*$)/g, "") === "") {
+            $("#tip").text(this.labels.commentCannotEmptyLabel);
+            $("#commentContent").focus();
+        } else if ($("#captcha").val().replace(/(^\s*)|(\s*$)/g, "") === "") {
+            $("#tip").text(this.labels.captchaCannotEmptyLabel);
+            $("#captcha").focus();
+        } else {
+            tag = true;
+        }
+        return tag;
+    },
+
     submitComment: function () {
-        
+        if (this.validateComment()) {
+            var requestJSONObject = {
+                "captcha": $("#captcha").val(),
+                "oId": this.oId,
+                "commentContent": $("#commentContent").val()
+            };
+            $.ajax({
+                url: "/add-comment",
+                type: "POST",
+                data: JSON.stringify(requestJSONObject),
+                success: function(result, textStatus){
+                    switch(result.sc) {
+                    }
+                }
+            });
+        }
+    },
+
+    replyComment: function (oId) {
+        this.oId = oId;
+        $("#" + oId + "comment").append();
     }
 });
