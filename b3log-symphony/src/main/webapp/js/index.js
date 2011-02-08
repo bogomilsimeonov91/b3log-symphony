@@ -89,9 +89,8 @@ $.extend(Index.prototype, {
                     success: function(result, textStatus){
                         switch(result.sc) {
                             case true:
-                                Cookie.createCookie("userName", $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
-                                Cookie.createCookie("userEmail", $("#email").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
-                                Cookie.createCookie("userURL", "", 365);
+                                Util.createCookie("userName", $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
+                                Util.createCookie("userEmail", $("#email").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
                                 window.location.href = '/';
                                 break;
                             case "duplicated":
