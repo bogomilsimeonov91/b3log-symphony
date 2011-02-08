@@ -56,7 +56,7 @@
                         <div class="left">
                             <img src="${comment.commentThumbnailURL}" alt="${comment.commenterName}" title="${comment.commenterName}"/>
                             <br/>
-                            <a href="${comment.commenterURL}">
+                            <a href="/${comment.commenterURL}">
                                 ${comment.commenterName}
                             </a>
                         </div>
