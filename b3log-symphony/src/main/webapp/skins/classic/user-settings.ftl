@@ -18,9 +18,9 @@
         <script type="text/javascript" src="/js/util.js"></script>
     </head>
     <body>
-        <#include "/skins/classic/common-top.ftl"/>
+        <#include "common-top.ftl"/>
         <div class="header">
-            <#include "admin-header.ftl"/>
+            <#include "user-header.ftl"/>
         </div>
         <div class="content">
             <table class="form">
@@ -75,7 +75,7 @@
             </table>
         </div>
         <div class="footer">
-            <#include "admin-footer.ftl"/>
+            <#include "user-footer.ftl"/>
         </div>
         <script type="text/javascript">
         </script>

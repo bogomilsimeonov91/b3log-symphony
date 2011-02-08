@@ -18,7 +18,7 @@
         <script type="text/javascript" src="/js/util.js"></script>
     </head>
     <body>
-        <#include "/common-top.ftl"/>
+        <#include "common-top.ftl"/>
         <div class="header">
             <#include "header.ftl"/>
         </div>
