@@ -24,8 +24,12 @@
             <#include "user-header.ftl"/>
         </div>
         <div class="content">
-            <table class="form">
-                <caption>${basicInfoLabel}</caption>
+            <table class="form" id="settingForm">
+                <tr>
+                    <th colspan="2">
+                        ${basicInfoLabel}
+                    </th>
+                </tr>
                 <tr>
                     <th>
                         ${emailLabel}
@@ -39,7 +43,7 @@
                         ${userNameLabel}
                     </th>
                     <td>
-                        <input id="userName" value="${userName}"/>
+                        <input id="userName" value="{userName}"/>
                     </td>
                 </tr>
                 <tr>
@@ -66,15 +70,17 @@
                         <input type="password" id="confirmPassword"/>
                     </td>
                 </tr>
-            </table>
-            <table class="form">
-                <caption>${settingsInfoLabel}</caption>
+                <tr>
+                    <th colspan="2">
+                        ${settingsInfoLabel}
+                    </th>
+                </tr>
                 <tr>
                     <th>
                         ${userURLLabel}
                     </th>
                     <td>
-                        <input id="userURL" value="${userURL}"/>
+                        <input id="userURL" value="{userURL}"/>
                     </td>
                 </tr>
                 <tr>
@@ -82,13 +88,13 @@
                         ${signLabel}
                     </th>
                     <td>
-                        <textarea id="sign">${sign}</textarea>
+                        <textarea id="sign">{sign}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <th colspan="2">
                         <span class="red" id="tip"></span>
-                        <button onclick="user.register();">
+                        <button onclick="user.setUserSettings();">
                             ${registerLabel}
                         </button>
                     </th>
@@ -99,8 +105,15 @@
             <#include "user-footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var user = new User();
+            var user = new User({
+                "labels": {
+                    "passwordEmptyLabel": "${passwordEmptyLabel}",
+                    "passwordNoMatchLabel": "${passwordNoMatchLabel}",
+                    "nameTooLongLabel": "${nameTooLongLabel}"
+                }
+            });
             user.initStatus();
+            Util.bindSubmitAction("settingForm");
         </script>
     </body>
 </html>
