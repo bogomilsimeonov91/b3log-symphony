@@ -17,10 +17,6 @@
 package org.b3log.symphony.repository.impl;
 
 import java.util.logging.Logger;
-import org.b3log.latke.Latkes;
-import org.b3log.latke.RunsOnEnv;
-import org.b3log.latke.cache.Cache;
-import org.b3log.latke.cache.CacheFactory;
 import org.b3log.latke.repository.gae.AbstractGAERepository;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -39,24 +35,6 @@ public final class ArticleGAERepository extends AbstractGAERepository
      */
     private static final Logger LOGGER =
             Logger.getLogger(ArticleGAERepository.class.getName());
-    /**
-     * Cache.
-     */
-    private static final Cache<String, Object> CACHE;
-
-    static {
-        final RunsOnEnv runsOnEnv = Latkes.getRunsOnEnv();
-        if (!runsOnEnv.equals(RunsOnEnv.GAE)) {
-            throw new RuntimeException(
-                    "GAE repository can only runs on Google App Engine, please "
-                    + "check your configuration and make sure "
-                    + "Latkes.setRunsOnEnv(RunsOnEnv.GAE) was invoked before "
-                    + "using GAE repository.");
-        }
-
-        CACHE = CacheFactory.getCache(
-                ArticleGAERepository.class.getSimpleName() + "Cache");
-    }
 
     @Override
     public String getName() {
