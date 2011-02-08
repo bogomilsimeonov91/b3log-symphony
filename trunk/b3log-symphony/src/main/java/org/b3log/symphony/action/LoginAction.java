@@ -136,7 +136,7 @@ public final class LoginAction extends AbstractAction {
 
             try {
                 ret.put(Keys.STATUS_CODE, false);
-                ret.put(Keys.MSG, langs.get("Internal Error!"));
+                ret.put(Keys.MSG, "Internal Error!");
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new ActionException(ex);
