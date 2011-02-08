@@ -77,7 +77,9 @@
                         <#list paginationPageNums as page>
                         <a href="/entries/${article.oId}?p=${page}">${page}</a>
                         </#list>
+                        <#if paginationPageNums?size != 0>
                         ${sumLabel}${paginationPageCount}${pageLabel}
+                        </#if>
                     </dd>
                 </dl>
                 <table id="commentForm" class="form">
@@ -115,10 +117,12 @@
                     "logoutLabel": "${logoutLabel}",
                     "adminConsoleLabel": "${adminConsoleLabel}"
                 },
-                "oId": "${article.oId}"
+                "oId": "${article.oId}",
+                "paginationPageCount": "${paginationPageCount}"
             });
             index.initStatus();
             Util.bindSubmitAction("commentForm");
+            $("#commentContent").val("");
         </script>
     </body>
 </html>

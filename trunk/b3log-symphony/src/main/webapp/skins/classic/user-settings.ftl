@@ -30,7 +30,7 @@
                         ${userNameLabel}
                     </th>
                     <td>
-                        <input/>
+                        <input id="userName"/>
                     </td>
                 </tr>
                 <tr>
@@ -38,7 +38,7 @@
                         ${originalPasswordLabel}
                     </th>
                     <td>
-                        <input type="password"/>
+                        <input type="password" id="originalPassword"/>
                     </td>
                 </tr>
                 <tr>
@@ -46,7 +46,7 @@
                         ${newPasswordLabel}
                     </th>
                     <td>
-                        <input type="password"/>
+                        <input type="password" id="newPassword"/>
                     </td>
                 </tr>
                 <tr>
@@ -54,7 +54,15 @@
                         ${confirmPasswordLabel}
                     </th>
                     <td>
-                        <input type="password"/>
+                        <input type="password" id="confirmPassword"/>
+                    </td>
+                </tr>
+                 <tr>
+                    <th>
+                        ${userURLLabel}
+                    </th>
+                    <td>
+                        <input id="userURL"/>
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +70,7 @@
                         ${signLabel}
                     </th>
                     <td>
-                        <textarea></textarea>
+                        <textarea id="sign"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -79,6 +87,8 @@
             <#include "user-footer.ftl"/>
         </div>
         <script type="text/javascript">
+            var user = new User();
+            user.initStatus();
         </script>
     </body>
 </html>
