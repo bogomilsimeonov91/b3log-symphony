@@ -34,6 +34,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -125,7 +126,7 @@ public final class UserEntriesAction extends AbstractAction {
                     addFilter(Common.AUTHOR_ID, FilterOperator.EQUAL, userId);
             final JSONObject result = articleRepository.get(query);
             final JSONArray articles = result.getJSONArray(Keys.RESULTS);
-            ret.put(Article.ARTICLES, articles);
+            ret.put(Article.ARTICLES, CollectionUtils.jsonArrayToList(articles));
 
             final int pageCount = result.getJSONObject(
                     Pagination.PAGINATION).getInt(

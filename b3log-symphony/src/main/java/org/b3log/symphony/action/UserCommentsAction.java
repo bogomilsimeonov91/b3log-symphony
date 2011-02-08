@@ -34,6 +34,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.CommentRepository;
@@ -126,7 +127,7 @@ public final class UserCommentsAction extends AbstractAction {
                     addFilter(Common.COMMENTER_ID, FilterOperator.EQUAL, userId);
             final JSONObject result = commentRepository.get(query);
             final JSONArray comments = result.getJSONArray(Keys.RESULTS);
-            ret.put(Comment.COMMENTS, comments);
+            ret.put(Comment.COMMENTS, CollectionUtils.jsonArrayToList(comments));
 
             final int pageCount = result.getJSONObject(
                     Pagination.PAGINATION).getInt(
