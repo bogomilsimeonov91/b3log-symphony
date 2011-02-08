@@ -26,15 +26,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
-import org.b3log.latke.RunsOnEnv;
-import org.b3log.latke.cache.Cache;
-import org.b3log.latke.cache.CacheFactory;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.gae.AbstractGAERepository;
 import org.b3log.symphony.model.Comment;
-import org.b3log.symphony.repository.ArticleCommentRepository;
-import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.json.JSONObject;
 
@@ -52,38 +46,12 @@ public final class CommentGAERepository extends AbstractGAERepository
      */
     private static final Logger LOGGER =
             Logger.getLogger(CommentGAERepository.class.getName());
-    /**
-     * Cache.
-     */
-    private static final Cache<String, Object> CACHE;
+   
     /**
      * Key of the recent comments cache count.
      */
     private static final String KEY_RECENT_COMMENTS_CACHE_CNT =
             "mostRecentCommentsCacheCnt";
-    /**
-     * Article-Comment repository.
-     */
-    private ArticleCommentRepository articleCommentRepository =
-            ArticleCommentGAERepository.getInstance();
-    /**
-     * Article repository.
-     */
-    private ArticleRepository articleRepository =
-            ArticleGAERepository.getInstance();
-
-    static {
-        final RunsOnEnv runsOnEnv = Latkes.getRunsOnEnv();
-        if (!runsOnEnv.equals(RunsOnEnv.GAE)) {
-            throw new RuntimeException(
-                    "GAE repository can only runs on Google App Engine, please "
-                    + "check your configuration and make sure "
-                    + "Latkes.setRunsOnEnv(RunsOnEnv.GAE) was invoked before "
-                    + "using GAE repository.");
-        }
-
-        CACHE = CacheFactory.getCache("CommentGAERepositoryCache");
-    }
 
     @Override
     public String getName() {

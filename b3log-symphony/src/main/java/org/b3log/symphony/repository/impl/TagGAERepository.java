@@ -27,10 +27,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
-import org.b3log.latke.RunsOnEnv;
-import org.b3log.latke.cache.Cache;
-import org.b3log.latke.cache.CacheFactory;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.gae.AbstractGAERepository;
 import org.b3log.symphony.model.Article;
@@ -57,10 +53,6 @@ public final class TagGAERepository extends AbstractGAERepository
     private static final Logger LOGGER =
             Logger.getLogger(TagGAERepository.class.getName());
     /**
-     * Cache.
-     */
-    private static final Cache<String, Object> CACHE;
-    /**
      * Tag-Article repository.
      */
     private TagArticleRepository tagArticleRepository =
@@ -70,20 +62,6 @@ public final class TagGAERepository extends AbstractGAERepository
      */
     private ArticleRepository articleRepository =
             ArticleGAERepository.getInstance();
-
-    static {
-        final RunsOnEnv runsOnEnv = Latkes.getRunsOnEnv();
-        if (!runsOnEnv.equals(RunsOnEnv.GAE)) {
-            throw new RuntimeException(
-                    "GAE repository can only runs on Google App Engine, please "
-                    + "check your configuration and make sure "
-                    + "Latkes.setRunsOnEnv(RunsOnEnv.GAE) was invoked before "
-                    + "using GAE repository.");
-        }
-
-        CACHE = CacheFactory.getCache(
-                TagGAERepository.class.getSimpleName() + "Cache");
-    }
 
     @Override
     public String getName() {
