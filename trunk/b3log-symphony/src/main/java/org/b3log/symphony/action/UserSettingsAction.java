@@ -110,8 +110,6 @@ public final class UserSettingsAction extends AbstractAction {
             ret.put(User.USER_NAME, user.getString(User.USER_NAME));
             ret.put(User.USER_URL, user.getString(User.USER_URL));
             ret.put(Common.SIGN, user.getString(Common.SIGN));
-
-            LOGGER.log(Level.FINER, ret.toString());
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
