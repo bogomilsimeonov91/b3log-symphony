@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
@@ -30,6 +29,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.MD5;
+import org.b3log.latke.util.Sessions;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -81,9 +81,27 @@ public final class UserSettingsAction extends AbstractAction {
             final freemarker.template.Template template,
             final HttpServletRequest request,
             final HttpServletResponse response) throws ActionException {
+
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         ret.putAll(langs);
+        try {
+            final String email = Sessions.currentUserName(request);
+            if (null == email) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+
+                return ret;
+            }
+
+            final JSONObject user = userRepository.getByEmail(email);
+
+            ret.put(User.USER_EMAIL, email);
+            ret.put(User.USER_NAME, user.getString(User.USER_NAME));
+            ret.put(User.USER_URL, user.getString(User.USER_URL));
+            ret.put(Common.SIGN, user.getString(Common.SIGN));
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
 
         return ret;
     }
@@ -98,7 +116,13 @@ public final class UserSettingsAction extends AbstractAction {
         final Transaction transaction = userRepository.beginTransaction();
 
         try {
-            final String email = requestJSONObject.getString(User.USER_EMAIL);
+            final String email = Sessions.currentUserName(request);
+            if (null == email) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+
+                return ret;
+            }
+
             final JSONObject oldUser = userRepository.getByEmail(email);
             String pwdHash =
                     MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
