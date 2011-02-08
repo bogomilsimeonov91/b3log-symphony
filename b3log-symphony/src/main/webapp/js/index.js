@@ -73,40 +73,40 @@ $.extend(Index.prototype, {
         }])){
             if ($("#password").val() !== $("#confirmPassword").val()) {
                 $("#tip").text(this.labels.passwordNoMatchLabel);
-                $("#password").focus();
-                return;
-            }
-            var requestJSONObject = {
-                "captcha": $("#captcha").val().replace(/(^\s*)|(\s*$)/g, ""),
-                "userName": $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
-                "userEmail": $("#email").val().replace(/(^\s*)|(\s*$)/g, ""),
-                "userPassword": $("#password").val()
-            };
+                $("#confirmPassword").focus();
+            } else {
+                var requestJSONObject = {
+                    "captcha": $("#captcha").val().replace(/(^\s*)|(\s*$)/g, ""),
+                    "userName": $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
+                    "userEmail": $("#email").val().replace(/(^\s*)|(\s*$)/g, ""),
+                    "userPassword": $("#password").val()
+                };
 
-            $.ajax({
-                url: "/register",
-                type: "POST",
-                data: JSON.stringify(requestJSONObject),
-                success: function(result, textStatus){
-                    switch(result.sc) {
-                        case true:
-                            Cookie.createCookie("userName", $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
-                            Cookie.createCookie("userEmail", $("#email").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
-                            Cookie.createCookie("userURL", "", 365);
-                            window.location.href = '/';
-                            break;
-                        case "duplicated":
-                            $("#tip").text(result.msg);
-                            break;
-                        case false:
-                            $("#tip").text(result.msg);
-                            break;
-                        case "captchaError":
-                            $("#tip").text(result.msg);
-                            break;
+                $.ajax({
+                    url: "/register",
+                    type: "POST",
+                    data: JSON.stringify(requestJSONObject),
+                    success: function(result, textStatus){
+                        switch(result.sc) {
+                            case true:
+                                Cookie.createCookie("userName", $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
+                                Cookie.createCookie("userEmail", $("#email").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
+                                Cookie.createCookie("userURL", "", 365);
+                                window.location.href = '/';
+                                break;
+                            case "duplicated":
+                                $("#tip").text(result.msg);
+                                break;
+                            case false:
+                                $("#tip").text(result.msg);
+                                break;
+                            case "captchaError":
+                                $("#tip").text(result.msg);
+                                break;
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     },
 

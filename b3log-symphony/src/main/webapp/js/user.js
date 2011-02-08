@@ -24,6 +24,47 @@ $.extend(User.prototype, {
     },
 
     setUserSettings: function () {
-
+        if (Util.validateForm("tip", [{
+            "id": "userName",
+            "type": "length",
+            "tip": this.labels.nameTooLongLabel
+        }, {
+            "id": "originalPassword",
+            "type": "empty",
+            "tip": this.labels.passwordEmptyLabel
+        }, {
+            "id": "newPassword",
+            "type": "empty",
+            "tip": this.labels.passwordEmptyLabel
+        }])) {
+            if ($("#newPassword").val() === $("#confirmPassword").val()) {
+                var requestJSONObject = {
+                    "sign": $("#sign").val(),
+                    "userName": $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
+                    "userURL": $("#userURL").val(),
+                    "userNewPassword": $("#newPassword").val(),
+                    "userPassword" : $("#originalPassword").val()
+                };
+                $.ajax({
+                    url: "/user-settings",
+                    type: "POST",
+                    data: JSON.stringify(requestJSONObject),
+                    success: function(result, textStatus){
+                        switch (result.sc) {
+                            case true:
+                                $("#tip").text(result.msg);
+                                break;
+                            case false:
+                            default:
+                                $("#tip").text(result.msg);
+                                break;
+                        }
+                    }
+                });
+            } else {
+                $("#tip").text(this.labels.passwordNoMatchLabel);
+                $("#confirmPassword").focus();
+            }
+        }
     }
 });
