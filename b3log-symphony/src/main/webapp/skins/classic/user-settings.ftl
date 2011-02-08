@@ -25,12 +25,21 @@
         </div>
         <div class="content">
             <table class="form">
+                <caption>${basicInfoLabel}</caption>
+                <tr>
+                    <th>
+                        ${emailLabel}
+                    </th>
+                    <td>
+                        <input value="${userEmail}" readonly/>
+                    </td>
+                </tr>
                 <tr>
                     <th>
                         ${userNameLabel}
                     </th>
                     <td>
-                        <input id="userName"/>
+                        <input id="userName" value="${userName}"/>
                     </td>
                 </tr>
                 <tr>
@@ -57,12 +66,15 @@
                         <input type="password" id="confirmPassword"/>
                     </td>
                 </tr>
-                 <tr>
+            </table>
+            <table class="form">
+                <caption>${settingsInfoLabel}</caption>
+                <tr>
                     <th>
                         ${userURLLabel}
                     </th>
                     <td>
-                        <input id="userURL"/>
+                        <input id="userURL" value="${userURL}"/>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +82,7 @@
                         ${signLabel}
                     </th>
                     <td>
-                        <textarea id="sign"></textarea>
+                        <textarea id="sign">${sign}</textarea>
                     </td>
                 </tr>
                 <tr>
