@@ -118,7 +118,7 @@ public final class AddArticleAction extends AbstractAction {
      * @return for example,
      * <pre>
      * {
-     *     "sc": "ADD_ARTICLE_SUCC"
+     *     "sc": true
      * }
      * </pre>
      * @throws ActionException action exception
@@ -193,7 +193,7 @@ public final class AddArticleAction extends AbstractAction {
 
             transaction.commit();
 
-            ret.put(Keys.STATUS_CODE, "succ");
+            ret.put(Keys.STATUS_CODE, true);
 
             return ret;
         } catch (final Exception e) {
@@ -203,7 +203,7 @@ public final class AddArticleAction extends AbstractAction {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
             try {
-                ret.put(Keys.STATUS_CODE, "failed");
+                ret.put(Keys.STATUS_CODE, false);
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new ActionException(ex);

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import org.b3log.latke.action.ActionException;
 import java.util.Map;
@@ -26,23 +26,29 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
-import org.b3log.latke.model.User;
-import org.b3log.latke.repository.Transaction;
+import org.b3log.latke.action.util.Paginator;
+import org.b3log.latke.model.Pagination;
+import org.b3log.latke.repository.FilterOperator;
+import org.b3log.latke.repository.Query;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.MD5;
+import org.b3log.latke.util.Sessions;
+import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
+import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.UserRepository;
+import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * User settings. user-settings.ftl
+ * User entries. user-entries.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.1, Feb 8, 2011
  */
-public final class UserSettingsAction extends AbstractAction {
+public final class UserEntriesAction extends AbstractAction {
 
     /**
      * Default serial version uid.
@@ -52,7 +58,7 @@ public final class UserSettingsAction extends AbstractAction {
      * Logger.
      */
     private static final Logger LOGGER =
-            Logger.getLogger(UserSettingsAction.class.getName());
+            Logger.getLogger(UserEntriesAction.class.getName());
     /**
      * Language service.
      */
@@ -62,6 +68,11 @@ public final class UserSettingsAction extends AbstractAction {
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
+    /**
+     * Article repository.
+     */
+    private ArticleRepository articleRepository = ArticleGAERepository.
+            getInstance();
     /**
      * Languages.
      */
@@ -95,42 +106,42 @@ public final class UserSettingsAction extends AbstractAction {
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        final Transaction transaction = userRepository.beginTransaction();
+        final String email = Sessions.currentUserName(request);
 
         try {
-            final String email = requestJSONObject.getString(User.USER_EMAIL);
-            final JSONObject oldUser = userRepository.getByEmail(email);
-            String pwdHash =
-                    MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
-            if (null == oldUser
-                || !oldUser.getString(User.USER_PASSWORD).equals(pwdHash)) {
-                ret.put(Keys.STATUS_CODE, HttpServletResponse.SC_FORBIDDEN);
+            if (null == email) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
 
                 return ret;
             }
 
-            final String userName = requestJSONObject.getString(User.USER_NAME);
-            pwdHash = MD5.hash(
-                    requestJSONObject.getString(User.USER_NEW_PASSWORD));
-            final String url = requestJSONObject.getString(User.USER_URL);
-            final String sign = requestJSONObject.getString(Common.SIGN);
-            final String userId = oldUser.getString(Keys.OBJECT_ID);
+            final JSONObject queryStringJSONObject =
+                    getQueryStringJSONObject(request);
+            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+            final int fetchSize = 20;
 
-            final JSONObject userToUpdate = new JSONObject();
-            userToUpdate.put(User.USER_NAME, userName);
-            userToUpdate.put(User.USER_EMAIL, email);
-            userToUpdate.put(User.USER_PASSWORD, pwdHash);
-            userToUpdate.put(User.USER_URL, url);
-            userToUpdate.put(Common.SIGN, sign);
+            final JSONObject user = userRepository.getByEmail(email);
 
-            userRepository.update(userId, userToUpdate);
+            final String userId = user.getString(Keys.OBJECT_ID);
+            final Query query = new Query();
+            query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
+                    addFilter(Common.AUTHOR_ID, FilterOperator.EQUAL, userId);
+            final JSONObject result = articleRepository.get(query);
+            final JSONArray articles = result.getJSONArray(Keys.RESULTS);
+            ret.put(Article.ARTICLES, articles);
 
-            transaction.commit();
+            final int pageCount = result.getJSONObject(
+                    Pagination.PAGINATION).getInt(
+                    Pagination.PAGINATION_PAGE_COUNT);
+            final int windowSize = 10;
+            final List<Integer> pageNums =
+                    Paginator.paginate(currentPageNum, fetchSize, pageCount,
+                                       windowSize);
+            ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+            ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+
             ret.put(Keys.STATUS_CODE, true);
         } catch (final Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
             try {
