@@ -134,9 +134,7 @@ public final class AddArticleCommentAction extends AbstractAction {
      * <pre>
      * {
      *     "oId": articleId,
-     *     "commentName": "",
-     *     "commentEmail": "",
-     *     "commentURL": "",
+     *     "userEmail": "",
      *     "commentContent": "",
      *     "commentOriginalCommentId": "" // optional, if exists this key, the comment
      *                                    // is an reply
@@ -165,7 +163,7 @@ public final class AddArticleCommentAction extends AbstractAction {
         final JSONObject ret = new JSONObject();
 
         String commentEmail = null;
-        String commentName = null;
+        String commenterName = null;
         String commenterURL = null;
         String commenterId = null;
         try {
@@ -181,7 +179,7 @@ public final class AddArticleCommentAction extends AbstractAction {
             }
 
             commenterId = commenter.getString(Keys.OBJECT_ID);
-            commentName = commenter.getString(User.USER_NAME);
+            commenterName = commenter.getString(User.USER_NAME);
             commenterURL = commenter.getString(User.USER_URL);
         } catch (final Exception e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
@@ -213,7 +211,7 @@ public final class AddArticleCommentAction extends AbstractAction {
             // Add comment
             final JSONObject comment = new JSONObject();
             JSONObject originalComment = null;
-            comment.put(Comment.COMMENT_NAME, commentName);
+            comment.put(Comment.COMMENTER_NAME, commenterName);
             comment.put(Comment.COMMENT_EMAIL, commentEmail);
             comment.put(Comment.COMMENTER_URL, commenterURL);
             comment.put(Comment.COMMENT_CONTENT, commentContent);
@@ -233,12 +231,12 @@ public final class AddArticleCommentAction extends AbstractAction {
                 if (null != originalComment) {
                     comment.put(Comment.COMMENT_ORIGINAL_COMMENT_ID,
                                 originalCommentId);
-                    final String originalCommentName =
-                            originalComment.getString(Comment.COMMENT_NAME);
+                    final String originalCommenterName =
+                            originalComment.getString(Comment.COMMENTER_NAME);
                     comment.put(Comment.COMMENT_ORIGINAL_COMMENT_NAME,
-                                originalCommentName);
+                                originalCommenterName);
                     ret.put(Comment.COMMENT_ORIGINAL_COMMENT_NAME,
-                            originalCommentName);
+                            originalCommenterName);
 
                     final String originalCommentContent =
                             originalComment.getString(Comment.COMMENT_CONTENT);
@@ -251,7 +249,7 @@ public final class AddArticleCommentAction extends AbstractAction {
                 } else {
                     LOGGER.log(Level.WARNING,
                                "Not found orginal comment[id={0}] of reply[name={1}, content={2}]",
-                               new String[]{originalCommentId, commentName,
+                               new String[]{originalCommentId, commenterName,
                                             commentContent});
                 }
             }
