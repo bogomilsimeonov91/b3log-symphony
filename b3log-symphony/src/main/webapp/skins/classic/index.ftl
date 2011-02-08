@@ -19,7 +19,7 @@
         <script type="text/javascript" src="/js/index.js"></script>
     </head>
     <body>
-        <#include "common-top.ftl"/>
+        <#include "top.ftl"/>
         <div class="header">
             <#include "header.ftl"/>
         </div>
@@ -83,11 +83,7 @@
                     "adminConsoleLabel": "${adminConsoleLabel}"
                 }
             });
-            Util.initStatus({
-                "loginLabel": "${loginLabel}",
-                "logoutLabel": "${logoutLabel}",
-                "adminConsoleLabel": "${adminConsoleLabel}"
-            });
+            index.initStatus();
             function testAddArticle() {
                 var requestJSONObject = {
                     "article": {

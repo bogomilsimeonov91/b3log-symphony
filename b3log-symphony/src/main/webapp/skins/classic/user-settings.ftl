@@ -16,9 +16,10 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
+        <script type="text/javascript" src="/js/user.js"></script>
     </head>
     <body>
-        <#include "common-top.ftl"/>
+        <#include "user-top.ftl"/>
         <div class="header">
             <#include "user-header.ftl"/>
         </div>
@@ -42,7 +43,7 @@
                 </tr>
                 <tr>
                     <th>
-                        ${newlPasswordLabel}
+                        ${newPasswordLabel}
                     </th>
                     <td>
                         <input type="password"/>
@@ -67,7 +68,7 @@
                 <tr>
                     <th colspan="2">
                         <span class="red" id="tip"></span>
-                        <button onclick="util.register();">
+                        <button onclick="user.register();">
                             ${registerLabel}
                         </button>
                     </th>

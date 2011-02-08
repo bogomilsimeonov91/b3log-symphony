@@ -19,5 +19,7 @@ var Admin = function (args) {
 }
 
 $.extend(Admin.prototype, {
-    
+    initStatus: function () {
+        $("#initStatus span")[0].innerHTML = Util.readCookie("userName");
+    }
 });

@@ -16,9 +16,10 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
     </head>
     <body>
-        <#include "common-top.ftl"/>
+        <#include "top.ftl"/>
         <div class="header">
             <#include "header.ftl"/>
         </div>
@@ -54,7 +55,7 @@
                     <tr>
                         <th colspan="2">
                             <span class="red" id="tipLogin"></span>
-                            <button onclick="util.login();">
+                            <button onclick="index.login();">
                                 ${loginLabel}
                             </button>
                         </th>
@@ -108,7 +109,7 @@
                     <tr>
                         <th colspan="2">
                             <span class="red" id="tip"></span>
-                            <button onclick="util.register();">
+                            <button onclick="index.register();">
                                 ${registerLabel}
                             </button>
                         </th>
@@ -121,7 +122,7 @@
             <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var util = new Util({
+            var index = new Index({
                 "labels": {
                     "emailErrorLabel": "${emailErrorLabel}",
                     "passwordEmptyLabel": "${passwordEmptyLabel}",
@@ -131,8 +132,8 @@
                 }
             });
 
-            util.bindSubmitAction("loginForm", "registerForm");
-            $("#emailLogin").val(Cookie.readCookie("userEmail"));
+            Util.bindSubmitAction("loginForm", "registerForm");
+            $("#emailLogin").val(Util.readCookie("userEmail"));
         </script>
     </body>
 </html>
