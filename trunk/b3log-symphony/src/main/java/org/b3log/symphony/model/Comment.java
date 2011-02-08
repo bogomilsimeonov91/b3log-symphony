@@ -42,7 +42,7 @@ public final class Comment {
     /**
      * Key of comment name.
      */
-    public static final String COMMENT_NAME = "commentName";
+    public static final String COMMENTER_NAME = "commentName";
     /**
      * Key of comment email.
      */
