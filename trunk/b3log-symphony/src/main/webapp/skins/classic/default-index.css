@@ -113,8 +113,33 @@ h4{
     border-color:#BBB;
 }
 
+.table {
+    border-left: 1px solid #BBBBBB;
+}
+
+.table th {
+    background: url("/images/icon.png") repeat scroll center bottom transparent;
+    border-color: #CCCCCC #BBBBBB #A0A0A0;
+    border-style: solid solid solid none;
+    border-width: 1px;
+    height: 28px;
+}
+
+.table td {
+    border-bottom: 1px solid #A0A0A0;
+    border-right: 1px solid #FFFFCC;
+    color: #333333;
+    padding: 3px 6px;
+    background-color: #FFFFFF;
+}
+
+.table td:hover {
+    border-right: 1px solid #FFFFFF;
+    background-color: #FFFFCC;
+}
+
 /* icon */
-.login-icon, .admin-icon, .logout-icon, .index-icon {
+.login-icon, .admin-icon, .logout-icon, .index-icon, .comment-icon {
     background-image: url(/images/icon.png);
     width: 16px;
     height: 16px;
@@ -126,6 +151,13 @@ h4{
     display: block;
     float: left;
     margin: 3px 0 0 3px;
+}
+
+.comment-icon {
+    background-position: -32px -16px;
+    float: left;
+    display: block;
+    margin: 3px 3px 0 0;
 }
 
 .admin-icon {

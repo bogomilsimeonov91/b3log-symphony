@@ -19,31 +19,44 @@
             <#include "user-header.ftl"/>
         </div>
         <div class="content">
-            <table>
+            <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <tr>
-                    <th>
+                    <th style="min-width: 200px;">
                         ${titleLabel}
                     </th>
-                    <th>
+                    <th width="300px">
                         ${tagsLabel}
                     </th>
-                    <th>
+                    <th width="150px">
                         ${createDateLabel}
                     </th>
-                    <th>
+                    <th width="150px">
                         ${lastCommentDateLabel}
                     </th>
-                    <th>
+                    <th width="80px">
                         ${commentCountLabel}
                     </th>
                 </tr>
-                <#list articles as article>
-                <tr>
-                    <td>
-                        
-                    </td>
-                </tr>
-                </#list>
+                <list articles as article>
+                    <tr>
+                        <td>
+                            <a href="#">{article.title}</a>
+                        </td>
+                        <td>
+                            {article.title}
+                        </td>
+                        <td align="center">
+                            {article.title}
+                        </td>
+                        <td align="center">
+                            {article.title}
+                        </td>
+                        <td style="border-color: #BBBBBB;" align="center">
+                            <span class="comment-icon" title="${commentCountLabel}:{article.title}"></span>
+                            <span class="left">10000</span>
+                        </td>
+                    </tr>
+                </list>
             </table>
         </div>
         <div class="footer">
