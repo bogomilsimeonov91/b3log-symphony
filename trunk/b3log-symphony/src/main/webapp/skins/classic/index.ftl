@@ -16,6 +16,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
     </head>
     <body>
         <#include "common-top.ftl"/>
@@ -75,14 +76,18 @@
             <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var util = new Util({
+            var index = new Index({
                 "labels": {
                     "loginLabel": "${loginLabel}",
                     "logoutLabel": "${logoutLabel}",
                     "adminConsoleLabel": "${adminConsoleLabel}"
                 }
             });
-            util.initStatus();
+            Util.initStatus({
+                "loginLabel": "${loginLabel}",
+                "logoutLabel": "${logoutLabel}",
+                "adminConsoleLabel": "${adminConsoleLabel}"
+            });
             function testAddArticle() {
                 var requestJSONObject = {
                     "article": {
