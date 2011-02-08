@@ -21,5 +21,9 @@ var User = function (args) {
 $.extend(User.prototype, {
     initStatus: function () {
         $("#userStatus span")[0].innerHTML = Util.readCookie("userName") + "&nbsp;|";
+    },
+
+    setUserSettings: function () {
+
     }
 });
