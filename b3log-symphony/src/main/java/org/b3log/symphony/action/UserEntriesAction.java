@@ -34,6 +34,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -41,7 +42,6 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -98,16 +98,6 @@ public final class UserEntriesAction extends AbstractAction {
 
         ret.putAll(langs);
 
-        return ret;
-    }
-
-    @Override
-    protected JSONObject doAjaxAction(final JSONObject requestJSONObject,
-                                      final HttpServletRequest request,
-                                      final HttpServletResponse response)
-            throws ActionException {
-        final JSONObject ret = new JSONObject();
-
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
@@ -123,9 +113,12 @@ public final class UserEntriesAction extends AbstractAction {
                 return ret;
             }
 
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+            final String p = request.getParameter("p");
+            int currentPageNum = 1;
+            if (!Strings.isEmptyOrNull(p)) {
+                currentPageNum = Integer.valueOf(p);
+            }
+
             final int fetchSize = 20;
 
             final JSONObject user = userRepository.getByEmail(email);
@@ -147,19 +140,18 @@ public final class UserEntriesAction extends AbstractAction {
                                        windowSize);
             ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
-
-            ret.put(Keys.STATUS_CODE, true);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-
-            try {
-                ret.put(Keys.STATUS_CODE, false);
-            } catch (final JSONException ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
         }
 
         return ret;
+    }
+
+    @Override
+    protected JSONObject doAjaxAction(final JSONObject requestJSONObject,
+                                      final HttpServletRequest request,
+                                      final HttpServletResponse response)
+            throws ActionException {
+        throw new UnsupportedOperationException();
     }
 }

@@ -86,6 +86,7 @@ public final class UserSettingsAction extends AbstractAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         ret.putAll(langs);
+        
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
@@ -148,7 +149,7 @@ public final class UserSettingsAction extends AbstractAction {
 
             final String userId = oldUser.getString(Keys.OBJECT_ID);
 
-            final String action = requestJSONObject.getString("action");
+            final String action = request.getParameter("action");
             final JSONObject userToUpdate = new JSONObject(oldUser,
                     JSONObject.getNames(oldUser));
             if ("basic".equals(action)) {
