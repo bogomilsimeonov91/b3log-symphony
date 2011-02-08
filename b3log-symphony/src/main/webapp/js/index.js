@@ -154,13 +154,19 @@ $.extend(Index.prototype, {
     },
 
     submitComment: function (oId) {
-        var isReply = true,
-        replyTag = "Reply";
+        var validateData = [{
+            "id": "commentContentReply",
+            "type": "empty",
+            "tip": this.labels.commentCannotEmptyLabel
+        }],
+        replyTag = "Reply",
+        paginationPageCount = this.paginationPageCount;
+        
         if (oId === undefined) {
-            isReply = false;
+            validateData[0].id = "commentContent";
             replyTag = "";
-        }
-        if (this.validateComment(isReply)) {
+        } 
+        if (Util.validateForm("tip", validateData)) {
             var requestJSONObject = {
                 "oId": this.oId,
                 "commentContent": $("#commentContent" + replyTag).val(),
@@ -168,8 +174,8 @@ $.extend(Index.prototype, {
                 "userEmail": Util.readCookie("userEmail"),
                 "userURL": Util.readCookie("userURL")
             };
-            if (this.originalId) {
-                requestJSONObject.commentOriginalCommentId = this.originalId;
+            if (replyTag === "Reply") {
+                requestJSONObject.commentOriginalCommentId = oId;
             }
             $.ajax({
                 url: "/add-comment",
@@ -178,10 +184,13 @@ $.extend(Index.prototype, {
                 success: function(result, textStatus){
                     switch(result.sc) {
                         case true:
-                            window.location.reload();
+                            window.location.search = "p=" + paginationPageCount;
+                            break;
+                        case false:
+                            $("#tip").text(result.msg);
                             break;
                         default:
-                            alert(result.msg);
+                            $("#tip").text(result.msg);
                             break;
                     }
                 }

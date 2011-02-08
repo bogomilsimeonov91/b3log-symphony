@@ -20,7 +20,7 @@ var Util = {
             url: "/logout",
             type: "POST",
             success: function(result, textStatus){
-                window.location.reload();
+                window.location.href = '/';
             }
         });
     },

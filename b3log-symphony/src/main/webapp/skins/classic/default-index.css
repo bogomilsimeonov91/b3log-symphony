@@ -114,13 +114,13 @@ h4{
 }
 
 /* icon */
-.login-icon, .admin-icon, .logout-icon {
+.login-icon, .admin-icon, .logout-icon, .index-icon {
     background-image: url(/images/icon.png);
     width: 16px;
     height: 16px;
 }
 
-.login-icon, .admin-icon, .logout-icon {
+.login-icon, .admin-icon, .logout-icon, .index-icon {
     background-position: -112px -16px;
     cursor: pointer;
     display: block;

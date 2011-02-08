@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-var Admin = function (args) {
+var User = function (args) {
     $.extend(this, args);
 }
 
-$.extend(Admin.prototype, {
+$.extend(User.prototype, {
     initStatus: function () {
-        $("#initStatus span")[0].innerHTML = Util.readCookie("userName");
+        $("#userStatus span")[0].innerHTML = Util.readCookie("userName") + "&nbsp;|";
     }
 });
