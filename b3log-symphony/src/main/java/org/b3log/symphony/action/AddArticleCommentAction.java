@@ -162,18 +162,18 @@ public final class AddArticleCommentAction extends AbstractAction {
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        String commentEmail = null;
+        String commenterEmail = null;
         String commenterName = null;
         String commenterURL = null;
         String commenterId = null;
         try {
-            commentEmail =
+            commenterEmail =
                     requestJSONObject.getString(User.USER_EMAIL);
-            if (Strings.isEmptyOrNull(commentEmail)) {
+            if (Strings.isEmptyOrNull(commenterEmail)) {
                 throw new Exception("Email is empty!");
             }
 
-            final JSONObject commenter = userRepository.getByEmail(commentEmail);
+            final JSONObject commenter = userRepository.getByEmail(commenterEmail);
             if (null == commenter) {
                 throw new Exception("User not found!");
             }
@@ -212,7 +212,7 @@ public final class AddArticleCommentAction extends AbstractAction {
             final JSONObject comment = new JSONObject();
             JSONObject originalComment = null;
             comment.put(Comment.COMMENTER_NAME, commenterName);
-            comment.put(Comment.COMMENT_EMAIL, commentEmail);
+            comment.put(Comment.COMMENTER_EMAIL, commenterEmail);
             comment.put(Comment.COMMENTER_URL, commenterURL);
             comment.put(Comment.COMMENT_CONTENT, commentContent);
             comment.put(Common.COMMENTER_ID, commenterId);
@@ -315,13 +315,11 @@ public final class AddArticleCommentAction extends AbstractAction {
      */
     private static void setCommentThumbnailURL(final JSONObject comment)
             throws Exception {
-        final String commentEmail = comment.getString(Comment.COMMENT_EMAIL);
-        final String id = commentEmail.split("@")[0];
-        final String domain = commentEmail.split("@")[1];
+        final String commenterEmail = comment.getString(Comment.COMMENTER_EMAIL);
         String thumbnailURL = null;
 
         // Try to set thumbnail URL using Gravatar service
-        final String hashedEmail = MD5.hash(commentEmail.toLowerCase());
+        final String hashedEmail = MD5.hash(commenterEmail.toLowerCase());
         final int size = 60;
         final URL gravatarURL =
                 new URL("http://www.gravatar.com/avatar/" + hashedEmail + "?s="
@@ -353,19 +351,19 @@ public final class AddArticleCommentAction extends AbstractAction {
             } else {
                 LOGGER.log(Level.WARNING,
                            "Can not fetch thumbnail from Gravatar[commentEmail={0}, statusCode={1}]",
-                           new Object[]{commentEmail, statusCode});
+                           new Object[]{commenterEmail, statusCode});
             }
         } catch (final IOException e) {
             LOGGER.warning(e.getMessage());
             LOGGER.log(Level.WARNING,
                        "Can not fetch thumbnail from Gravatar[commentEmail={0}]",
-                       commentEmail);
+                       commenterEmail);
         }
 
         if (null == thumbnailURL) {
             LOGGER.log(Level.WARNING,
                        "Not supported yet for comment thumbnail for email[{0}]",
-                       commentEmail);
+                       commenterEmail);
             thumbnailURL = "/images/" + DEFAULT_USER_THUMBNAIL;
             comment.put(Comment.COMMENT_THUMBNAIL_URL, thumbnailURL);
         }
