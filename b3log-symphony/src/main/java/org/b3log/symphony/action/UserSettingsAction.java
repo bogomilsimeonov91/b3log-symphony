@@ -145,7 +145,8 @@ public final class UserSettingsAction extends AbstractAction {
                     MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
             if (null == oldUser
                 || !oldUser.getString(User.USER_PASSWORD).equals(pwdHash)) {
-                ret.put(Keys.STATUS_CODE, HttpServletResponse.SC_FORBIDDEN);
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, langs.get("oldPwdErrorLabel"));
 
                 return ret;
             }
