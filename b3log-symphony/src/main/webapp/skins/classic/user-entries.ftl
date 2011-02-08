@@ -9,7 +9,6 @@
         <link rel="icon" type="image/png" href="/favicon.png"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
-        <script type="text/javascript" src="/js/lib/table.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
         <script type="text/javascript" src="/js/user.js"></script>
     </head>
@@ -58,6 +57,12 @@
                     </tr>
                 </list>
             </table>
+            <#list paginationPageNums as page>
+            <a href="/entries/${article.oId}?p=${page}">${page}</a>
+            </#list>
+            <#if paginationPageNums?size != 0>
+            ${sumLabel}${paginationPageCount}${pageLabel}
+            </#if>
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>
