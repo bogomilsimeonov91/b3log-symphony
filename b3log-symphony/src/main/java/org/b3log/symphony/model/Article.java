@@ -48,10 +48,6 @@ public final class Article {
      */
     public static final String ARTICLE_CREATE_DATE = "articleCreateDate";
     /**
-     * Key of the latest comment date.
-     */
-    public static final String ARTICLE_LATEST_CMT_DATE = "articleLatestCmtDate";
-    /**
      * Key of tags.
      */
     public static final String ARTICLE_TAGS = "articleTags";
