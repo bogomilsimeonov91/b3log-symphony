@@ -75,10 +75,10 @@
                 </caption>
                 <tr>
                     <th>
-                        ${userURLLabel}
+                        ${userURLLabel} http://
                     </th>
                     <td>
-                        <input id="userURL" value="${userURL}"/>
+                       <input id="userURL" value="${userURL}"/>
                     </td>
                 </tr>
                 <tr>
