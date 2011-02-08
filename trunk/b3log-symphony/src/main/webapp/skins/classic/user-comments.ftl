@@ -21,19 +21,27 @@
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <tr>
                     <th style="min-width: 300px;">
-                        ${commentLabel}
+                        ${commentContentLabel}
                     </th>
                     <th width="150px">
                         ${commentDateLabel}
+                    </th>
+                    <th width="80px">
+                        ${commentLabel}
                     </th>
                 </tr>
                 <#list comments as comment>
                 <tr>
                     <td>
-                        <a href="/entries/${comment.commentEntryId}#${comment.oId}comment">${comment.commentContent}</a>
+                        ${comment.commentContent}
                     </td>
-                    <td align="center" style="border-color: #BBBBBB;">
+                    <td align="center">
                         ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
+                    </td>
+                    <td  align="center" style="border-color: #BBBBBB;padding-left: 32px;">
+                        <a href="/entries/${comment.commentEntryId}#${comment.oId}comment">
+                            <span class="comment-icon"></span>
+                        </a>
                     </td>
                 </tr>
                 </#list>

@@ -29,7 +29,7 @@ $.extend(Index.prototype, {
                     case true:
                         $("#userStatus").html("<span class='left'>" + result.userName + " |</span>"
                             + "<span title='" + labels.adminConsoleLabel
-                            + "' onclick=\"window.location='/user-settings'\" class='admin-icon'></span>"
+                            + "' onclick=\"window.location='/user-entries'\" class='admin-icon'></span>"
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.logoutLabel
                             + "' onclick=\"Util.logout();\" class='logout-icon'></span>");
