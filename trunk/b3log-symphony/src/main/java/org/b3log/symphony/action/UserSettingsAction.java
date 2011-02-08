@@ -86,7 +86,7 @@ public final class UserSettingsAction extends AbstractAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         ret.putAll(langs);
-        
+
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
@@ -149,9 +149,12 @@ public final class UserSettingsAction extends AbstractAction {
 
             final String userId = oldUser.getString(Keys.OBJECT_ID);
 
-            final String action = request.getParameter("action");
-            final JSONObject userToUpdate = new JSONObject(oldUser,
-                    JSONObject.getNames(oldUser));
+            final JSONObject queryStringJSONObject =
+                    getQueryStringJSONObject(request);
+            final String action = queryStringJSONObject.optString("action",
+                                                                  "basic");
+            final JSONObject userToUpdate = new JSONObject(
+                    oldUser, JSONObject.getNames(oldUser));
             if ("basic".equals(action)) {
                 String pwdHash =
                         MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
@@ -173,6 +176,8 @@ public final class UserSettingsAction extends AbstractAction {
 
                 transaction.commit();
                 ret.put(Keys.STATUS_CODE, true);
+
+                LoginAction.login(userToUpdate, request);
             } else if ("advanced".equals(action)) {
                 final String url = requestJSONObject.getString(User.USER_URL);
                 final String sign = requestJSONObject.getString(Common.SIGN);
@@ -185,9 +190,9 @@ public final class UserSettingsAction extends AbstractAction {
                 transaction.commit();
                 ret.put(Keys.STATUS_CODE, true);
             } else {
-                 transaction.rollback();
-                 ret.put(Keys.STATUS_CODE, false);
-                 ret.put(Keys.MSG, "Unknown action!");
+                transaction.rollback();
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, "Unknown action!");
             }
         } catch (final Exception e) {
             if (transaction.isActive()) {
