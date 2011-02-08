@@ -132,7 +132,7 @@ public final class Articles {
         newArticle.put(Article.ARTICLE_LAST_CMT_DATE,
                        comment.get(Comment.COMMENT_DATE));
         newArticle.put(Article.ARTICLE_LAST_CMT_NAME,
-                       comment.get(Comment.COMMENT_NAME));
+                       comment.get(Comment.COMMENTER_NAME));
 
         articleRepository.updateAsync(articleId, newArticle);
     }
