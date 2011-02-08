@@ -167,6 +167,7 @@ public final class AddArticleCommentAction extends AbstractAction {
         String commentEmail = null;
         String commentName = null;
         String commentURL = null;
+        String commenterId = null;
         try {
             commentEmail =
                     requestJSONObject.getString(User.USER_EMAIL);
@@ -179,6 +180,7 @@ public final class AddArticleCommentAction extends AbstractAction {
                 throw new Exception("User not found!");
             }
 
+            commenterId = commenter.getString(Keys.OBJECT_ID);
             commentName = commenter.getString(User.USER_NAME);
             commentURL = commenter.getString(User.USER_URL);
         } catch (final Exception e) {
@@ -187,6 +189,8 @@ public final class AddArticleCommentAction extends AbstractAction {
             try {
                 ret.put(Keys.STATUS_CODE, HttpServletResponse.SC_BAD_REQUEST);
                 ret.put(Keys.MSG, e.getMessage());
+
+                return ret;
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
 
@@ -213,6 +217,7 @@ public final class AddArticleCommentAction extends AbstractAction {
             comment.put(Comment.COMMENT_EMAIL, commentEmail);
             comment.put(Comment.COMMENT_URL, commentURL);
             comment.put(Comment.COMMENT_CONTENT, commentContent);
+            comment.put(Common.COMMENTER_ID, commenterId);
             final String timeZoneId = "Asia/Shanghai";
             final Date date = timeZoneUtils.getTime(timeZoneId);
             comment.put(Comment.COMMENT_DATE, date);
