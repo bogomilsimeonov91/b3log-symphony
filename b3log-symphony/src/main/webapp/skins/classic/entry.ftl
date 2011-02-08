@@ -16,6 +16,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
     </head>
     <body>
         <#include "common-top.ftl"/>
@@ -61,7 +62,7 @@
                         </div>
                         <div class="left">
                             ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
-                            <a href="javascript:util.replyComment('${comment.oId}');">${replyLabel}</a>
+                            <a href="javascript:index.replyComment('${comment.oId}');">${replyLabel}</a>
                             <div>
                                 ${comment.commentContent}
                             </div>
@@ -91,7 +92,7 @@
                     <tr>
                         <th colspan="2">
                             <span class="red" id="tip"></span>
-                            <button onclick="util.submitComment();">
+                            <button onclick="index.submitComment();">
                                 ${submitLabel}
                             </button>
                         </th>
@@ -103,21 +104,22 @@
             <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var util = new Util({
+            var index = new Index({
                 "labels": {
                     "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
                     "commentCannotEmptyLabel": "${commentCannotEmptyLabel}",
                     "commentLabel": "${commentLabel}",
                     "captchaLabel": "${captchaLabel}",
-                    "submitLabel": "${submitLabel}",
-                    "loginLabel": "${loginLabel}",
-                    "logoutLabel": "${logoutLabel}",
-                    "adminConsoleLabel": "${adminConsoleLabel}"
+                    "submitLabel": "${submitLabel}"
                 },
                 "oId": "${article.oId}"
             });
-            util.initStatus();
-            util.bindSubmitAction("commentForm");
+            Util.initStatus({
+                "loginLabel": "${loginLabel}",
+                "logoutLabel": "${logoutLabel}",
+                "adminConsoleLabel": "${adminConsoleLabel}"
+            });
+            Util.bindSubmitAction("commentForm");
         </script>
     </body>
 </html>
