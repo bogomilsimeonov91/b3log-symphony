@@ -183,7 +183,7 @@ $.extend(Index.prototype, {
                 success: function(result, textStatus){
                     switch(result.sc) {
                         case true:
-                            window.location.search = "p=" + paginationPageCount;
+                            window.location.reload();
                             break;
                         case false:
                             $("#tip").text(result.msg);
