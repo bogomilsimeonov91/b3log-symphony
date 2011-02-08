@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
@@ -26,8 +25,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.latke.util.MD5;
+import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.json.JSONException;
@@ -37,7 +39,7 @@ import org.json.JSONObject;
  * User settings. user-settings.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 31, 2011
+ * @version 1.0.0.1, Feb 8, 2011
  */
 public final class UserSettingsAction extends AbstractAction {
 
@@ -93,7 +95,35 @@ public final class UserSettingsAction extends AbstractAction {
         final JSONObject ret = new JSONObject();
 
         final Transaction transaction = userRepository.beginTransaction();
+
         try {
+            final String email = requestJSONObject.getString(User.USER_EMAIL);
+            final JSONObject oldUser = userRepository.getByEmail(email);
+            String pwdHash =
+                    MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
+            if (null == oldUser
+                || !oldUser.getString(User.USER_PASSWORD).equals(pwdHash)) {
+                ret.put(Keys.STATUS_CODE, HttpServletResponse.SC_FORBIDDEN);
+
+                return ret;
+            }
+
+            final String userName = requestJSONObject.getString(User.USER_NAME);
+            pwdHash = MD5.hash(
+                    requestJSONObject.getString(User.USER_NEW_PASSWORD));
+            final String url = requestJSONObject.getString(User.USER_URL);
+            final String sign = requestJSONObject.getString(Common.SIGN);
+            final String userId = oldUser.getString(Keys.OBJECT_ID);
+
+            final JSONObject userToUpdate = new JSONObject();
+            userToUpdate.put(User.USER_NAME, userName);
+            userToUpdate.put(User.USER_EMAIL, email);
+            userToUpdate.put(User.USER_PASSWORD, pwdHash);
+            userToUpdate.put(User.USER_URL, url);
+            userToUpdate.put(Common.SIGN, sign);
+
+            userRepository.update(userId, userToUpdate);
+
             transaction.commit();
             ret.put(Keys.STATUS_CODE, "succ");
         } catch (final Exception e) {
