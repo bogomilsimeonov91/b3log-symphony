@@ -85,15 +85,21 @@ public final class EntryAction extends AbstractCacheablePageAction {
     /**
      * Languages.
      */
-    private static Map<String, String> langs = null;
+    private static final Map<String, String> LANGS;
+    /**
+     * Default sign.
+     */
+    private static final String DEFAULT_SIGN;
 
     static {
         try {
-            langs = LANG_PROP_SVC.getAll(
+            LANGS = LANG_PROP_SVC.getAll(
                     Latkes.getDefaultLocale());
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
+
+        DEFAULT_SIGN = LANGS.get("titleLabel");
     }
 
     @Override
@@ -139,7 +145,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 final JSONObject cmt = commentRepository.get(cmtId);
                 if (!cmt.getBoolean(Common.STATE)) { // This comment is forbidden
                     cmt.put(Comment.COMMENT_CONTENT, "自由、开放的环境需要大家共同维护 :-)");
-                    cmt.put(Common.SIGN, langs.get("titleLabel"));
+                    cmt.put(Common.SIGN, DEFAULT_SIGN);
                     cmt.put(Common.COMMENTER_URL, "http://www.b3log.org");
                 } else {
                     cmt.put(Comment.COMMENT_CONTENT,
@@ -165,7 +171,10 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 final String sign = author.getString(Common.SIGN);
                 article.put(Article.ARTICLE_AUTHOR_NAME, name);
                 article.put(Common.SIGN, sign);
+            } else {
+                article.put(Common.SIGN, DEFAULT_SIGN);
             }
+
             ret.put(Article.ARTICLE, article);
 
             final List<Integer> pageNums =
@@ -174,7 +183,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
 
-            ret.putAll(langs);
+            ret.putAll(LANGS);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
