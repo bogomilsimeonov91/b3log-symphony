@@ -166,7 +166,7 @@ public final class AddArticleCommentAction extends AbstractAction {
 
         String commentEmail = null;
         String commentName = null;
-        String commentURL = null;
+        String commenterURL = null;
         String commenterId = null;
         try {
             commentEmail =
@@ -182,7 +182,7 @@ public final class AddArticleCommentAction extends AbstractAction {
 
             commenterId = commenter.getString(Keys.OBJECT_ID);
             commentName = commenter.getString(User.USER_NAME);
-            commentURL = commenter.getString(User.USER_URL);
+            commenterURL = commenter.getString(User.USER_URL);
         } catch (final Exception e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
 
@@ -215,7 +215,7 @@ public final class AddArticleCommentAction extends AbstractAction {
             JSONObject originalComment = null;
             comment.put(Comment.COMMENT_NAME, commentName);
             comment.put(Comment.COMMENT_EMAIL, commentEmail);
-            comment.put(Comment.COMMENT_URL, commentURL);
+            comment.put(Comment.COMMENTER_URL, commenterURL);
             comment.put(Comment.COMMENT_CONTENT, commentContent);
             comment.put(Common.COMMENTER_ID, commenterId);
             final String timeZoneId = "Asia/Shanghai";

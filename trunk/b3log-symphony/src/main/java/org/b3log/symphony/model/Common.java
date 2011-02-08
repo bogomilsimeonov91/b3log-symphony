@@ -45,10 +45,6 @@ public final class Common {
      */
     public static final String COMMENTER_ID = "commenterId";
     /**
-     * Key of commenter URL.
-     */
-    public static final String COMMENTER_URL = "commenterURL";
-    /**
      * Available state.
      */
     public static final boolean AVAILABLE = true;
