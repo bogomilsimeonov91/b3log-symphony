@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
@@ -155,6 +154,7 @@ public final class RegisterAction extends AbstractAction {
 
             try {
                 ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, "Internal Error!");
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new ActionException(ex);
