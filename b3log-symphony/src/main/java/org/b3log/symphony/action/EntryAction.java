@@ -99,7 +99,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             throw new RuntimeException(e);
         }
 
-        DEFAULT_SIGN = LANGS.get("titleLabel");
+        DEFAULT_SIGN = LANGS.get("defaultSign");
     }
 
     @Override
