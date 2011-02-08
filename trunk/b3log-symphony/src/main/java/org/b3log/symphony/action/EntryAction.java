@@ -152,7 +152,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                             cmt.getString(Comment.COMMENT_CONTENT).replaceAll(
                             AddArticleCommentAction.ENTER_ESC, "<br/>"));
                     final String commentEmail = cmt.getString(
-                            Comment.COMMENT_EMAIL);
+                            Comment.COMMENTER_EMAIL);
                     final JSONObject user = userRepository.getByEmail(
                             commentEmail);
                     cmt.put(Comment.COMMENTER_URL, user.getString(User.USER_URL));

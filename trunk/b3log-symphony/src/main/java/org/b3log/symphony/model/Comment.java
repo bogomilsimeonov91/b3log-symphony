@@ -40,13 +40,13 @@ public final class Comment {
      */
     public static final String COMMENT_CONTENT = "commentContent";
     /**
-     * Key of comment name.
+     * Key of commenter name.
      */
-    public static final String COMMENTER_NAME = "commentName";
+    public static final String COMMENTER_NAME = "commenterName";
     /**
-     * Key of comment email.
+     * Key of commenter email.
      */
-    public static final String COMMENT_EMAIL = "commentEmail";
+    public static final String COMMENTER_EMAIL = "commenterEmail";
     /**
      * Key of commenter URL.
      */
