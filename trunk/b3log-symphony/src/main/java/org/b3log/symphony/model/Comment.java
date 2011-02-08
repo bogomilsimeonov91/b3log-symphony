@@ -78,6 +78,10 @@ public final class Comment {
      */
     public static final DateFormat DATE_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    /**
+     * Key of comment entry id.
+     */
+    public static final String COMMENT_ENTRY_ID = "commentEntryId";
 
     /**
      * Private default constructor.
