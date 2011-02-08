@@ -54,10 +54,10 @@
                     <#list article.articleComments as comment>
                     <dd id="${comment.oId}comment">
                         <div class="left">
-                            <img src="${comment.commentThumbnailURL}" alt="${comment.commentName}" title="${comment.commentName}"/>
+                            <img src="${comment.commentThumbnailURL}" alt="${comment.commenterName}" title="${comment.commenterName}"/>
                             <br/>
                             <a href="${comment.commenterURL}">
-                                ${comment.commentName}
+                                ${comment.commenterName}
                             </a>
                         </div>
                         <div class="left">
