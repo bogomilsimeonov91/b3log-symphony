@@ -180,6 +180,15 @@
         <servlet-name>UserEntries</servlet-name>
         <url-pattern>/user-entries</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserComments</servlet-name>
+        <servlet-class>org.b3log.symphony.action.UserCommentsAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserComments</servlet-name>
+        <url-pattern>/user-comments</url-pattern>
+    </servlet-mapping>
     
     <welcome-file-list>
         <welcome-file>index</welcome-file>
