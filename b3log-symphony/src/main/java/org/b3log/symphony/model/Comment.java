@@ -50,7 +50,7 @@ public final class Comment {
     /**
      * Key of commenter URL.
      */
-    public static final String COMMENTER_URL = "commenterURL";
+    public static final String COMMENTER_URL_REF = "commenterURL";
     /**
      * Key of comment sharp URL.
      */
