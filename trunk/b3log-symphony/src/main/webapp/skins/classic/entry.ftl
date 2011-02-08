@@ -19,7 +19,7 @@
         <script type="text/javascript" src="/js/index.js"></script>
     </head>
     <body>
-        <#include "common-top.ftl"/>
+        <#include "top.ftl"/>
         <div class="header">
             <#include "header.ftl"/>
         </div>
@@ -110,15 +110,14 @@
                     "commentCannotEmptyLabel": "${commentCannotEmptyLabel}",
                     "commentLabel": "${commentLabel}",
                     "captchaLabel": "${captchaLabel}",
-                    "submitLabel": "${submitLabel}"
+                    "submitLabel": "${submitLabel}",
+                    "loginLabel": "${loginLabel}",
+                    "logoutLabel": "${logoutLabel}",
+                    "adminConsoleLabel": "${adminConsoleLabel}"
                 },
                 "oId": "${article.oId}"
             });
-            Util.initStatus({
-                "loginLabel": "${loginLabel}",
-                "logoutLabel": "${logoutLabel}",
-                "adminConsoleLabel": "${adminConsoleLabel}"
-            });
+            index.initStatus();
             Util.bindSubmitAction("commentForm");
         </script>
     </body>

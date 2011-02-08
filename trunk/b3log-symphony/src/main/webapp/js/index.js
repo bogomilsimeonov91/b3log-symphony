@@ -19,7 +19,31 @@ var Index = function (args) {
 }
 
 $.extend(Index.prototype, {
-      bindSubmitAction: function () {
+    initStatus: function () {
+        var labels = this.labels;
+        $.ajax({
+            url: "/check-login",
+            type: "POST",
+            success: function(result, textStatus){
+                switch(result.sc) {
+                    case true:
+                        $("#userStatus").html("<span class='left'>" + result.userName + " |</span>"
+                            + "<span title='" + labels.adminConsoleLabel
+                            + "' onclick=\"window.location='/user-settings'\" class='admin-icon'></span>"
+                            + "<span class='left'>&nbsp;|</span>"
+                            + "<span title='" + labels.logoutLabel
+                            + "' onclick=\"Util.logout();\" class='logout-icon'></span>");
+                        break;
+                    case false:
+                        $("#userStatus").html("<span title='" + labels.loginLabel
+                            + "' onclick=\"window.location='/register'\" class='login-icon'></span>");
+                        break;
+                }
+            }
+        });
+    },
+
+    bindSubmitAction: function () {
         for (var i = 0; i < arguments.length; i++) {
             $("#" + arguments[i] + ".form input").keypress(function (event) {
                 if (event.keyCode === 13) {
@@ -30,29 +54,32 @@ $.extend(Index.prototype, {
     },
 
     register: function () {
-        var email = $("#email").val().replace(/(^\s*)|(\s*$)/g, ""),
-        password = $("#password").val().replace(/(^\s*)|(\s*$)/g, ""),
-        userName = $("#userName").val().replace(/(^\s*)|(\s*$)/g, "");
-        if (userName.length > 20 || userName.length < 2) {
-            $("#tip").text(this.labels.nameTooLongLabel);
-            $("#userName").focus();
-        } else if (email === "" || !/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(email)) {
-            $("#tip").text(this.labels.emailErrorLabel);
-            $("#email").focus();
-        } else if (password === "") {
-            $("#tip").text(this.labels.passwordEmptyLabel);
-            $("#password").focus();
-        } else if (password !== $("#confirmPassword").val()) {
-            $("#tip").text(this.labels.passwordNoMatchLabel);
-            $("#password").focus();
-        } else if ($("#captcha").val().replace(/(^\s*)|(\s*$)/g, "") === "") {
-            $("#tip").text(this.labels.captchaCannotEmptyLabel);
-            $("#captcha").focus();
-        } else {
+        if (Util.validateForm("tip", [{
+            "id": "userName",
+            "type": "length",
+            "tip": this.labels.nameTooLongLabel
+        }, {
+            "id": "email",
+            "type": "email",
+            "tip": this.labels.emailErrorLabel
+        }, {
+            "id": "password",
+            "type": "empty",
+            "tip": this.labels.passwordEmptyLabel
+        }, {
+            "id": "captcha",
+            "type": "empty",
+            "tip": this.labels.captchaCannotEmptyLabel
+        }])){
+            if ($("#password").val() !== $("#confirmPassword").val()) {
+                $("#tip").text(this.labels.passwordNoMatchLabel);
+                $("#password").focus();
+                return;
+            }
             var requestJSONObject = {
-                "captcha": $("#captcha").val(),
-                "userName": $("#userName").val(),
-                "userEmail": $("#email").val(),
+                "captcha": $("#captcha").val().replace(/(^\s*)|(\s*$)/g, ""),
+                "userName": $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
+                "userEmail": $("#email").val().replace(/(^\s*)|(\s*$)/g, ""),
                 "userPassword": $("#password").val()
             };
 
@@ -62,13 +89,16 @@ $.extend(Index.prototype, {
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
                     switch(result.sc) {
-                        case "succ":
-                            Cookie.createCookie("userName", userName, 365);
-                            Cookie.createCookie("userEmail", email, 365);
+                        case true:
+                            Cookie.createCookie("userName", $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
+                            Cookie.createCookie("userEmail", $("#email").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
                             Cookie.createCookie("userURL", "", 365);
                             window.location.href = '/';
                             break;
                         case "duplicated":
+                            $("#tip").text(result.msg);
+                            break;
+                        case false:
                             $("#tip").text(result.msg);
                             break;
                         case "captchaError":
@@ -81,22 +111,23 @@ $.extend(Index.prototype, {
     },
 
     login: function () {
-        var email = $("#emailLogin").val().replace(/(^\s*)|(\s*$)/g, ""),
-        password = $("#passwordLogin").val().replace(/(^\s*)|(\s*$)/g, "");
-        if (email === "" || !/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(email)) {
-            $("#tipLogin").text(this.labels.emailErrorLabel);
-            $("#emailLogin").focus();
-        } else if (password === "") {
-            $("#tipLogin").text(this.labels.passwordEmptyLabel);
-            $("#passwordLogin").focus();
-        } else if ($("#captchaLogin").val().replace(/(^\s*)|(\s*$)/g, "") === "") {
-            $("#tipLogin").text(this.labels.captchaCannotEmptyLabel);
-            $("#captchaLogin").focus();
-        } else {
+        if (Util.validateForm("tipLogin", [{
+            "id": "emailLogin",
+            "type": "email",
+            "tip": this.labels.emailErrorLabel
+        }, {
+            "id": "passwordLogin",
+            "type": "empty",
+            "tip": this.labels.passwordEmptyLabel
+        }, {
+            "id": "captchaLogin",
+            "type": "empty",
+            "tip": this.labels.captchaCannotEmptyLabel
+        }])) {
             var requestJSONObject = {
                 "captcha": $("#captchaLogin").val(),
-                "userEmail": email,
-                "userPassword": password
+                "userEmail": $("#emailLogin").val(),
+                "userPassword": $("#passwordLogin").val()
             };
             $.ajax({
                 url: "/login",
@@ -104,13 +135,13 @@ $.extend(Index.prototype, {
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
                     switch(result.sc) {
-                        case "succ":
-                            Cookie.createCookie("userName", result.userName, 365);
-                            Cookie.createCookie("userEmail", email, 365);
-                            Cookie.createCookie("userURL", result.userURL, 365);
+                        case true:
+                            Util.createCookie("userName", result.userName, 365);
+                            Util.createCookie("userEmail", $("#emailLogin").val(), 365);
+                            Util.createCookie("userURL", result.userURL, 365);
                             window.location.href='/';
                             break;
-                        case "failed":
+                        case false:
                             $("#tipLogin").text(result.msg);
                             break;
                         case "captchaError":
@@ -133,9 +164,9 @@ $.extend(Index.prototype, {
             var requestJSONObject = {
                 "oId": this.oId,
                 "commentContent": $("#commentContent" + replyTag).val(),
-                "userName": Cookie.readCookie("userName"),
-                "userEmail": Cookie.readCookie("userEmail"),
-                "userURL": Cookie.readCookie("userURL")
+                "userName": Util.readCookie("userName"),
+                "userEmail": Util.readCookie("userEmail"),
+                "userURL": Util.readCookie("userURL")
             };
             if (this.originalId) {
                 requestJSONObject.commentOriginalCommentId = this.originalId;
@@ -172,7 +203,7 @@ $.extend(Index.prototype, {
                 \<tr>\
                     \<th colspan="2">\
                         \<span class="red" id="tipReply"></span>\
-                        \<button onclick="util.submitComment(' + oId + ');">' + this.labels.submitLabel + '</button>\
+                        \<button onclick="index.submitComment(' + oId + ');">' + this.labels.submitLabel + '</button>\
                     \</th>\
                 \</tr>\
             \</table>';
