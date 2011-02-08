@@ -24,18 +24,14 @@
             <#include "user-header.ftl"/>
         </div>
         <div class="content">
-            <table class="form" id="settingForm">
-                <tr>
-                    <th colspan="2">
-                        ${basicInfoLabel}
-                    </th>
-                </tr>
+            <table class="form" id="userInfoForm">
+                <caption>${basicInfoLabel}</caption>
                 <tr>
                     <th>
                         ${emailLabel}
                     </th>
                     <td>
-                        <input value="${userEmail}" readonly/>
+                        ${userEmail}
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +39,7 @@
                         ${userNameLabel}
                     </th>
                     <td>
-                        <input id="userName" value="{userName}"/>
+                        <input id="userName" value="${userName}"/>
                     </td>
                 </tr>
                 <tr>
@@ -72,15 +68,23 @@
                 </tr>
                 <tr>
                     <th colspan="2">
-                        ${settingsInfoLabel}
+                        <span class="red" id="tipUserInfo"></span>
+                        <button onclick="user.setUserInfo();">
+                            ${submitLabel}
+                        </button>
                     </th>
                 </tr>
+            </table>
+            <table class="form" id="userSettingsForm">
+                <caption>
+                    ${settingsInfoLabel}
+                </caption>
                 <tr>
                     <th>
                         ${userURLLabel}
                     </th>
                     <td>
-                        <input id="userURL" value="{userURL}"/>
+                        <input id="userURL" value="${userURL}"/>
                     </td>
                 </tr>
                 <tr>
@@ -88,14 +92,14 @@
                         ${signLabel}
                     </th>
                     <td>
-                        <textarea id="sign">{sign}</textarea>
+                        <textarea id="sign">${sign}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <th colspan="2">
                         <span class="red" id="tip"></span>
                         <button onclick="user.setUserSettings();">
-                            ${registerLabel}
+                            ${submitLabel}
                         </button>
                     </th>
                 </tr>
@@ -109,11 +113,12 @@
                 "labels": {
                     "passwordEmptyLabel": "${passwordEmptyLabel}",
                     "passwordNoMatchLabel": "${passwordNoMatchLabel}",
-                    "nameTooLongLabel": "${nameTooLongLabel}"
+                    "nameTooLongLabel": "${nameTooLongLabel}",
+                    "changeSuccLabel": "${changeSuccLabel}"
                 }
             });
             user.initStatus();
-            Util.bindSubmitAction("settingForm");
+            Util.bindSubmitAction("userInfoForm", "userSettingsForm");
         </script>
     </body>
 </html>

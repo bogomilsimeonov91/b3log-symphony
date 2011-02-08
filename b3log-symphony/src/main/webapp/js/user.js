@@ -23,8 +23,8 @@ $.extend(User.prototype, {
         $("#userStatus span")[0].innerHTML = Util.readCookie("userName") + "&nbsp;|";
     },
 
-    setUserSettings: function () {
-        if (Util.validateForm("tip", [{
+    setUserInfo: function () {
+        if (Util.validateForm("tipUserInfo", [{
             "id": "userName",
             "type": "length",
             "tip": this.labels.nameTooLongLabel
@@ -39,32 +39,57 @@ $.extend(User.prototype, {
         }])) {
             if ($("#newPassword").val() === $("#confirmPassword").val()) {
                 var requestJSONObject = {
-                    "sign": $("#sign").val(),
                     "userName": $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
-                    "userURL": $("#userURL").val(),
                     "userNewPassword": $("#newPassword").val(),
                     "userPassword" : $("#originalPassword").val()
-                };
+                },
+                changeSuccLabel = this.labels.changeSuccLabel;
+
                 $.ajax({
-                    url: "/user-settings",
+                    url: "/user-settings?action=basic",
                     type: "POST",
                     data: JSON.stringify(requestJSONObject),
                     success: function(result, textStatus){
                         switch (result.sc) {
                             case true:
-                                $("#tip").text(result.msg);
+                                $("#tipUserInfo").text(changeSuccLabel);
                                 break;
                             case false:
                             default:
-                                $("#tip").text(result.msg);
+                                $("#tipUserInfo").text(result.msg);
                                 break;
                         }
                     }
                 });
             } else {
-                $("#tip").text(this.labels.passwordNoMatchLabel);
+                $("#tipUserInfo").text(this.labels.passwordNoMatchLabel);
                 $("#confirmPassword").focus();
             }
         }
+    },
+
+    setUserSettings: function () {
+        var requestJSONObject = {
+            "sign": $("#sign").val(),
+            "userURL": $("#userURL").val()
+        },
+        changeSuccLabel = this.labels.changeSuccLabel;
+
+        $.ajax({
+            url: "/user-settings?action=advanced",
+            type: "POST",
+            data: JSON.stringify(requestJSONObject),
+            success: function(result, textStatus){
+                switch (result.sc) {
+                    case true:
+                        $("#tip").text(changeSuccLabel);
+                        break;
+                    case false:
+                    default:
+                        $("#tip").text(result.msg);
+                        break;
+                }
+            }
+        });
     }
 });
