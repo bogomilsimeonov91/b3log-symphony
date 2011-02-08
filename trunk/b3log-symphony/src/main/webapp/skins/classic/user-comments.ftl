@@ -30,9 +30,9 @@
                 <#list comments as comment>
                 <tr>
                     <td>
-                        <a href="${comment.commentSharpURL}">${comment.commentContent}</a>
+                        <a href="/entries/${comment.commentEntryId}#${comment.oId}comment">${comment.commentContent}</a>
                     </td>
-                    <td align="center">
+                    <td align="center" style="border-color: #BBBBBB;">
                         ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
                     </td>
                 </tr>
