@@ -16,6 +16,7 @@
 
 package org.b3log.symphony.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,7 +35,6 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.CommentRepository;
@@ -125,9 +125,20 @@ public final class UserCommentsAction extends AbstractAction {
             final Query query = new Query();
             query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
                     addFilter(Common.COMMENTER_ID, FilterOperator.EQUAL, userId);
+
             final JSONObject result = commentRepository.get(query);
-            final JSONArray comments = result.getJSONArray(Keys.RESULTS);
-            ret.put(Comment.COMMENTS, CollectionUtils.jsonArrayToList(comments));
+            final JSONArray commentArray = result.getJSONArray(Keys.RESULTS);
+
+            final List<JSONObject> comments = new ArrayList<JSONObject>();
+            for (int i = 0; i < commentArray.length(); i++) {
+                final JSONObject comment = commentArray.getJSONObject(i);
+                comment.put(Comment.COMMENT_CONTENT,
+                        comment.getString(Comment.COMMENT_CONTENT).replaceAll(
+                        AddArticleCommentAction.ENTER_ESC, "<br/>"));
+                
+                comments.add(comment);
+            }
+            ret.put(Comment.COMMENTS, comments);
 
             final int pageCount = result.getJSONObject(
                     Pagination.PAGINATION).getInt(
