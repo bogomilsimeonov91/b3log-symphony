@@ -31,7 +31,6 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.MD5;
-import org.b3log.latke.util.Sessions;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -94,7 +93,7 @@ public final class UserSettingsAction extends AbstractAction {
 
                 return ret;
             }
-            
+
             final String email = (String) session.getAttribute(User.USER_EMAIL);
             if (null == email) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
@@ -127,7 +126,14 @@ public final class UserSettingsAction extends AbstractAction {
         final Transaction transaction = userRepository.beginTransaction();
 
         try {
-            final String email = Sessions.currentUserName(request);
+            final HttpSession session = request.getSession();
+            if (null == session) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+
+                return ret;
+            }
+
+            final String email = (String) session.getAttribute(User.USER_EMAIL);
             if (null == email) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
 

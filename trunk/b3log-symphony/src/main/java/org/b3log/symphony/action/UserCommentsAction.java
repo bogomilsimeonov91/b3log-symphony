@@ -24,15 +24,16 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.Sessions;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.CommentRepository;
@@ -107,9 +108,16 @@ public final class UserCommentsAction extends AbstractAction {
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        final String email = Sessions.currentUserName(request);
-
         try {
+            final HttpSession session = request.getSession();
+            if (null == session) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+
+                return ret;
+            }
+
+            final String email = (String) session.getAttribute(User.USER_EMAIL);
+
             if (null == email) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
 
