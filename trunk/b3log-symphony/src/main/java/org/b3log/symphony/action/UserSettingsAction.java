@@ -18,6 +18,7 @@ package org.b3log.symphony.action;
 
 import java.util.HashMap;
 import java.util.logging.Level;
+import javax.servlet.http.HttpSession;
 import org.b3log.latke.action.ActionException;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -87,12 +88,21 @@ public final class UserSettingsAction extends AbstractAction {
 
         ret.putAll(langs);
         try {
-            final String email = Sessions.currentUserName(request);
+            final HttpSession session = request.getSession();
+            if (null == session) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+
+                return ret;
+            }
+            
+            final String email = (String) session.getAttribute(User.USER_EMAIL);
             if (null == email) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
 
                 return ret;
             }
+
+            LOGGER.log(Level.FINER, "Current logged in user[email={0}]", email);
 
             final JSONObject user = userRepository.getByEmail(email);
 
@@ -100,6 +110,8 @@ public final class UserSettingsAction extends AbstractAction {
             ret.put(User.USER_NAME, user.getString(User.USER_NAME));
             ret.put(User.USER_URL, user.getString(User.USER_URL));
             ret.put(Common.SIGN, user.getString(Common.SIGN));
+
+            LOGGER.log(Level.FINER, ret.toString());
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
