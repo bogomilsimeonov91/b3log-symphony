@@ -50,7 +50,7 @@ import org.json.JSONObject;
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 8, 2011
+ * @version 1.0.0.4, Feb 8, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -137,13 +137,21 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 final String cmtId = articleCmtRelation.getString(
                         Comment.COMMENT + "_" + Keys.OBJECT_ID);
                 final JSONObject cmt = commentRepository.get(cmtId);
-                cmt.put(Comment.COMMENT_CONTENT,
-                        cmt.getString(Comment.COMMENT_CONTENT).replaceAll(
-                        AddArticleCommentAction.ENTER_ESC, "<br/>"));
-                final String commentEmail = cmt.getString(Comment.COMMENT_EMAIL);
-                final JSONObject user = userRepository.getByEmail(commentEmail);
-                cmt.put(Common.COMMENTER_URL, user.getString(User.USER_URL));
-                cmt.put(Common.SIGN, user.getString(Common.SIGN));
+                if (!cmt.getBoolean(Common.STATE)) { // This comment is forbidden
+                    cmt.put(Comment.COMMENT_CONTENT, "自由、开放的环境需要大家共同维护 :-)");
+                    cmt.put(Common.SIGN, langs.get("titleLabel"));
+                    cmt.put(Common.COMMENTER_URL, "http://www.b3log.org");
+                } else {
+                    cmt.put(Comment.COMMENT_CONTENT,
+                            cmt.getString(Comment.COMMENT_CONTENT).replaceAll(
+                            AddArticleCommentAction.ENTER_ESC, "<br/>"));
+                    final String commentEmail = cmt.getString(
+                            Comment.COMMENT_EMAIL);
+                    final JSONObject user = userRepository.getByEmail(
+                            commentEmail);
+                    cmt.put(Common.COMMENTER_URL, user.getString(User.USER_URL));
+                    cmt.put(Common.SIGN, user.getString(Common.SIGN));
+                }
 
                 comments.add(cmt);
             }

@@ -44,6 +44,14 @@ public final class Common {
      * Key of commenter URL.
      */
     public static final String COMMENTER_URL = "commenterURL";
+    /**
+     * Available state.
+     */
+    public static final boolean AVAILABLE = true;
+    /**
+     * Disabled state.
+     */
+    public static final boolean DISABLED = false;
 
     /**
      * Private default constructor.
