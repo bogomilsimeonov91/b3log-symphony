@@ -63,7 +63,7 @@
                     "adminConsoleLabel": "${adminConsoleLabel}"
                 }
             });
-            util.initLogin();
+            util.initStatus();
         </script>
     </body>
 </html>

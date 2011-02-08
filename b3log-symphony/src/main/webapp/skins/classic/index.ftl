@@ -82,7 +82,7 @@
                     "adminConsoleLabel": "${adminConsoleLabel}"
                 }
             });
-            util.initLogin();
+            util.initStatus();
             function testAddArticle() {
                 var requestJSONObject = {
                     "article": {
