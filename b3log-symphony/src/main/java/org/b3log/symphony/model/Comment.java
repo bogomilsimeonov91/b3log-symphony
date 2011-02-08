@@ -48,9 +48,9 @@ public final class Comment {
      */
     public static final String COMMENT_EMAIL = "commentEmail";
     /**
-     * Key of comment URL.
+     * Key of commenter URL.
      */
-    public static final String COMMENT_URL = "commentURL";
+    public static final String COMMENTER_URL = "commenterURL";
     /**
      * Key of comment sharp URL.
      */
