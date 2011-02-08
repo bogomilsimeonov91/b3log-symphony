@@ -46,7 +46,7 @@ import org.json.JSONObject;
  * Adds articles submitted from B3log Solo.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Jan 31, 2011
+ * @version 1.0.0.4, Feb 8, 2011
  */
 public final class AddArticleAction extends AbstractAction {
 
@@ -167,6 +167,7 @@ public final class AddArticleAction extends AbstractAction {
             article.put(Article.ARTICLE_CREATE_DATE, createDate);
             article.put(Article.ARTICLE_LAST_CMT_DATE, new Date(0));
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
+            article.put(Common.STATE, Common.AVAILABLE);
             article.put(Article.ARTICLE_FROM, from);
             article.put(Blog.BLOG_HOST, blogHost);
             article.put(Blog.BLOG_VERSION, blogVersion);

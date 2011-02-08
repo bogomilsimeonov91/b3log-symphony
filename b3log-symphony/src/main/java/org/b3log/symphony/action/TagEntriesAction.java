@@ -50,7 +50,7 @@ import org.json.JSONObject;
  * Tag entries action. tag-entries.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 8, 2011
+ * @version 1.0.0.2, Feb 8, 2011
  */
 public final class TagEntriesAction extends AbstractCacheablePageAction {
 
@@ -138,6 +138,10 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                         tagArticleRelation.getString(Article.ARTICLE + "_"
                                                      + Keys.OBJECT_ID);
                 final JSONObject article = articleRepository.get(articleId);
+                if (!article.getBoolean(Common.STATE)) {
+                    continue;
+                }
+
                 if (Strings.isEmptyOrNull(
                         article.optString(Article.ARTICLE_AUTHOR_NAME))) {
                     final String authorId = article.getString(

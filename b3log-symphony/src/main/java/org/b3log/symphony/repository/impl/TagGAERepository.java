@@ -34,6 +34,7 @@ import org.b3log.latke.cache.CacheFactory;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.gae.AbstractGAERepository;
 import org.b3log.symphony.model.Article;
+import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.TagArticleRepository;
@@ -45,7 +46,7 @@ import org.json.JSONObject;
  * Tag Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 30, 2011
+ * @version 1.0.0.2, Feb 8, 2011
  */
 public final class TagGAERepository extends AbstractGAERepository
         implements TagRepository {
@@ -113,8 +114,9 @@ public final class TagGAERepository extends AbstractGAERepository
                         tagArticleRelation.getString(Article.ARTICLE + "_"
                                                      + Keys.OBJECT_ID);
                 final JSONObject article = articleRepository.get(articleId);
-
-                ret.add(article);
+                if (article.getBoolean(Common.STATE)) {
+                    ret.add(article);
+                }
             }
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -128,7 +130,7 @@ public final class TagGAERepository extends AbstractGAERepository
     public List<JSONObject> getRecentArticles(final String tagTitle,
                                               final int fetchSize)
             throws RepositoryException {
-       return getArticles(tagTitle, 1, fetchSize);
+        return getArticles(tagTitle, 1, fetchSize);
     }
 
     @Override
