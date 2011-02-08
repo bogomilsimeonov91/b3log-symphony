@@ -213,7 +213,6 @@ public final class AddArticleCommentAction extends AbstractAction {
             JSONObject originalComment = null;
             comment.put(Comment.COMMENTER_NAME, commenterName);
             comment.put(Comment.COMMENTER_EMAIL, commenterEmail);
-            comment.put(Comment.COMMENTER_URL, commenterURL);
             comment.put(Comment.COMMENT_CONTENT, commentContent);
             comment.put(Common.COMMENTER_ID, commenterId);
             comment.put(Comment.COMMENT_ENTRY_ID, articleId);

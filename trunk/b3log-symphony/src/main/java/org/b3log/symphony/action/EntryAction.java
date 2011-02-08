@@ -146,7 +146,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 if (!cmt.getBoolean(Common.STATE)) { // This comment is forbidden
                     cmt.put(Comment.COMMENT_CONTENT, "自由、开放的环境需要大家共同维护 :-)");
                     cmt.put(Common.SIGN, DEFAULT_SIGN);
-                    cmt.put(Comment.COMMENTER_URL, "http://www.b3log.org");
+                    cmt.put(Comment.COMMENTER_URL_REF, "http://www.b3log.org");
                 } else {
                     cmt.put(Comment.COMMENT_CONTENT,
                             cmt.getString(Comment.COMMENT_CONTENT).replaceAll(
@@ -155,7 +155,8 @@ public final class EntryAction extends AbstractCacheablePageAction {
                             Comment.COMMENTER_EMAIL);
                     final JSONObject user = userRepository.getByEmail(
                             commenterEmail);
-                    cmt.put(Comment.COMMENTER_URL, user.getString(User.USER_URL));
+                    cmt.put(Comment.COMMENTER_URL_REF,
+                            user.getString(User.USER_URL));
                     cmt.put(Common.SIGN, user.getString(Common.SIGN));
                 }
 
