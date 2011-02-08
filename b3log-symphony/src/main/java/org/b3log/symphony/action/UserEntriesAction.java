@@ -34,7 +34,6 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -113,12 +112,9 @@ public final class UserEntriesAction extends AbstractAction {
                 return ret;
             }
 
-            final String p = request.getParameter("p");
-            int currentPageNum = 1;
-            if (!Strings.isEmptyOrNull(p)) {
-                currentPageNum = Integer.valueOf(p);
-            }
-
+            final JSONObject queryStringJSONObject =
+                    getQueryStringJSONObject(request);
+            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
             final int fetchSize = 20;
 
             final JSONObject user = userRepository.getByEmail(email);
