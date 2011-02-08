@@ -116,7 +116,7 @@
                 },
                 "oId": "${article.oId}"
             });
-            util.initLogin();
+            util.initStatus();
             util.bindSubmitAction("commentForm");
         </script>
     </body>
