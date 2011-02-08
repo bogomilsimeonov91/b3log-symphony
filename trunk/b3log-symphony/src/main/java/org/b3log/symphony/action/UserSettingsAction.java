@@ -141,34 +141,53 @@ public final class UserSettingsAction extends AbstractAction {
             }
 
             final JSONObject oldUser = userRepository.getByEmail(email);
-            String pwdHash =
-                    MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
-            if (null == oldUser
-                || !oldUser.getString(User.USER_PASSWORD).equals(pwdHash)) {
+            if (null == oldUser) {
                 ret.put(Keys.STATUS_CODE, false);
-                ret.put(Keys.MSG, langs.get("oldPwdErrorLabel"));
-
-                return ret;
+                ret.put(Keys.MSG, langs.get("userNotFoundOrPwdErrorLabel"));
             }
 
-            final String userName = requestJSONObject.getString(User.USER_NAME);
-            pwdHash = MD5.hash(
-                    requestJSONObject.getString(User.USER_NEW_PASSWORD));
-            final String url = requestJSONObject.getString(User.USER_URL);
-            final String sign = requestJSONObject.getString(Common.SIGN);
             final String userId = oldUser.getString(Keys.OBJECT_ID);
 
-            final JSONObject userToUpdate = new JSONObject();
-            userToUpdate.put(User.USER_NAME, userName);
-            userToUpdate.put(User.USER_EMAIL, email);
-            userToUpdate.put(User.USER_PASSWORD, pwdHash);
-            userToUpdate.put(User.USER_URL, url);
-            userToUpdate.put(Common.SIGN, sign);
+            final String action = requestJSONObject.getString("action");
+            final JSONObject userToUpdate = new JSONObject(oldUser,
+                    JSONObject.getNames(oldUser));
+            if ("basic".equals(action)) {
+                String pwdHash =
+                        MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
+                if (!oldUser.getString(User.USER_PASSWORD).equals(pwdHash)) {
+                    ret.put(Keys.STATUS_CODE, false);
+                    ret.put(Keys.MSG, langs.get("oldPwdErrorLabel"));
 
-            userRepository.update(userId, userToUpdate);
+                    return ret;
+                }
 
-            transaction.commit();
-            ret.put(Keys.STATUS_CODE, true);
+                final String userName =
+                        requestJSONObject.getString(User.USER_NAME);
+                pwdHash = MD5.hash(
+                        requestJSONObject.getString(User.USER_NEW_PASSWORD));
+
+                userToUpdate.put(User.USER_NAME, userName);
+                userToUpdate.put(User.USER_PASSWORD, pwdHash);
+                userRepository.update(userId, userToUpdate);
+
+                transaction.commit();
+                ret.put(Keys.STATUS_CODE, true);
+            } else if ("advanced".equals(action)) {
+                final String url = requestJSONObject.getString(User.USER_URL);
+                final String sign = requestJSONObject.getString(Common.SIGN);
+
+                userToUpdate.put(User.USER_URL, url);
+                userToUpdate.put(Common.SIGN, sign);
+
+                userRepository.update(userId, userToUpdate);
+
+                transaction.commit();
+                ret.put(Keys.STATUS_CODE, true);
+            } else {
+                 transaction.rollback();
+                 ret.put(Keys.STATUS_CODE, false);
+                 ret.put(Keys.MSG, "Unknown action!");
+            }
         } catch (final Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
@@ -177,6 +196,7 @@ public final class UserSettingsAction extends AbstractAction {
 
             try {
                 ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, "Internal Error!");
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new ActionException(ex);
