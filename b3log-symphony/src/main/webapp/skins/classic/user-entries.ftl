@@ -36,29 +36,31 @@
                         ${commentCountLabel}
                     </th>
                 </tr>
-                <list articles as article>
-                    <tr>
-                        <td>
-                            <a href="#">{article.title}</a>
-                        </td>
-                        <td>
-                            {article.title}
-                        </td>
-                        <td align="center">
-                            {article.title}
-                        </td>
-                        <td align="center">
-                            {article.title}
-                        </td>
-                        <td style="border-color: #BBBBBB;" align="center">
-                            <span class="comment-icon" title="${commentCountLabel}:{article.title}"></span>
-                            <span class="left">10000</span>
-                        </td>
-                    </tr>
-                </list>
+                <#list articles as article>
+                <tr>
+                    <td>
+                        <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                    </td>
+                    <td>
+                        <#list article.articleTags?split(',') as tagTitle>
+                        <a href="/tags/${tagTitle}">${tagTitle}</a>
+                        </#list>
+                    </td>
+                    <td align="center">
+                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}
+                    </td>
+                    <td align="center">
+                        ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
+                    </td>
+                    <td style="border-color: #BBBBBB;" align="center">
+                        <span class="comment-icon" title="${commentCountLabel}:${article.articleCommentCount}"></span>
+                        <span class="left">${article.articleCommentCount}</span>
+                    </td>
+                </tr>
+                </#list>
             </table>
             <#list paginationPageNums as page>
-            <a href="/entries/${article.oId}?p=${page}">${page}</a>
+            <a href="/user-entries?p=${page}">${page}</a>
             </#list>
             <#if paginationPageNums?size != 0>
             ${sumLabel}${paginationPageCount}${pageLabel}

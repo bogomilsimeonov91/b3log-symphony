@@ -20,43 +20,30 @@
         <div class="content">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <tr>
-                    <th style="min-width: 200px;">
-                        ${titleLabel}
-                    </th>
-                    <th width="300px">
-                        ${tagsLabel}
+                    <th style="min-width: 300px;">
+                        ${commentLabel}
                     </th>
                     <th width="150px">
-                        ${createDateLabel}
-                    </th>
-                    <th width="150px">
-                        ${lastCommentDateLabel}
-                    </th>
-                    <th width="80px">
-                        ${commentCountLabel}
+                        ${commentDateLabel}
                     </th>
                 </tr>
-                <list articles as article>
-                    <tr>
-                        <td>
-                            <a href="#">{article.title}</a>
-                        </td>
-                        <td>
-                            {article.title}
-                        </td>
-                        <td align="center">
-                            {article.title}
-                        </td>
-                        <td align="center">
-                            {article.title}
-                        </td>
-                        <td style="border-color: #BBBBBB;" align="center">
-                            <span class="comment-icon" title="${commentCountLabel}:{article.title}"></span>
-                            <span class="left">10000</span>
-                        </td>
-                    </tr>
-                </list>
+                <#list comments as comment>
+                <tr>
+                    <td>
+                        <a href="${comment.commentSharpURL}">${comment.commentContent}</a>
+                    </td>
+                    <td align="center">
+                        ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
+                    </td>
+                </tr>
+                </#list>
             </table>
+            <#list paginationPageNums as page>
+            <a href="/user-comments?p=${page}">${page}</a>
+            </#list>
+            <#if paginationPageNums?size != 0>
+            ${sumLabel}${paginationPageCount}${pageLabel}
+            </#if>
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>
