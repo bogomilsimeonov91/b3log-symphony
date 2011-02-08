@@ -118,7 +118,7 @@ public final class LoginAction extends AbstractAction {
                 final String requestPwdHash = MD5.hash(userPwd);
                 if (user.getString(User.USER_PASSWORD).equals(requestPwdHash)) {
                     login(user, request);
-                    ret.put(Keys.STATUS_CODE, "succ");
+                    ret.put(Keys.STATUS_CODE, true);
                     ret.put(User.USER_EMAIL, userEmail);
                     ret.put(User.USER_NAME, user.getString(User.USER_NAME));
                     ret.put(User.USER_URL, user.getString(User.USER_URL));
@@ -127,7 +127,7 @@ public final class LoginAction extends AbstractAction {
                 }
             }
 
-            ret.put(Keys.STATUS_CODE, "failed");
+            ret.put(Keys.STATUS_CODE, false);
             ret.put(Keys.MSG, langs.get("userNotFoundOrPwdErrorLabel"));
 
             return ret;
@@ -135,7 +135,8 @@ public final class LoginAction extends AbstractAction {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
             try {
-                ret.put(Keys.STATUS_CODE, "failed");
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, langs.get("Internal Error!"));
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new ActionException(ex);
