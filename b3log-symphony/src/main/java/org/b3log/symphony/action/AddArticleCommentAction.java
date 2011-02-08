@@ -216,6 +216,7 @@ public final class AddArticleCommentAction extends AbstractAction {
             comment.put(Comment.COMMENTER_URL, commenterURL);
             comment.put(Comment.COMMENT_CONTENT, commentContent);
             comment.put(Common.COMMENTER_ID, commenterId);
+            comment.put(Comment.COMMENT_ENTRY_ID, articleId);
             final String timeZoneId = "Asia/Shanghai";
             final Date date = timeZoneUtils.getTime(timeZoneId);
             comment.put(Comment.COMMENT_DATE, date);
