@@ -148,8 +148,10 @@ public final class IndexAction extends AbstractCacheablePageAction {
                             Common.AUTHOR_ID);
                     final JSONObject author = userRepository.get(authorId);
                     final String name = author.getString(User.USER_NAME);
-                    final String sign = author.getString(Common.SIGN);
                     article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
+                    final String url = author.getString(User.USER_URL);
+                    article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
+                    final String sign = author.getString(Common.SIGN);
                     article.put(Common.SIGN, sign);
                 }
                 tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
