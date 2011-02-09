@@ -16,6 +16,7 @@
 
 package org.b3log.symphony.action;
 
+import com.dlog4j.util.UBBDecoder;
 import java.util.HashMap;
 import java.util.logging.Level;
 import javax.servlet.http.HttpSession;
@@ -193,10 +194,11 @@ public final class UserSettingsAction extends AbstractAction {
                 LoginAction.login(userToUpdate, request);
             } else if ("advanced".equals(action)) {
                 final String url = requestJSONObject.getString(User.USER_URL);
-                final String sign = requestJSONObject.getString(Common.SIGN);
 
                 userToUpdate.put(User.USER_URL, url);
-                // TODO: html script escape?
+                String sign = requestJSONObject.getString(Common.SIGN);
+                sign = sign.replaceAll("<", "").replaceAll(">", "");
+                sign = UBBDecoder.decode(sign);
                 userToUpdate.put(Common.SIGN, sign);
 
                 userRepository.update(userId, userToUpdate);
