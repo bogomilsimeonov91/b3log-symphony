@@ -29,9 +29,11 @@
                     <div class="userInfo left">
                         <img src="${article.articleAuthorThumbnailURL}" alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                         <br/>
-                        <a href="http://${article.articleAuthorURL}">
-                            ${article.articleAuthorName}
-                        </a>
+                        <#if article.articleAuthorURL != "">
+                        <a href="http://${article.articleAuthorURL}">${article.articleAuthorName}</a>
+                        <#else>
+                        ${article.articleAuthorName}
+                        </#if>
                     </div>
                     <div class="left">
                         <div class="title">
@@ -62,9 +64,11 @@
                         <div class="left">
                             <img src="${comment.commentThumbnailURL}" alt="${comment.commenterName}" title="${comment.commenterName}"/>
                             <br/>
-                            <a href="http://${comment.commenterURL}">
-                                ${comment.commenterName}
-                            </a>
+                            <#if comment.commenterURL != "">
+                            <a href="http://${comment.commenterURL}">${comment.commenterName}</a>
+                            <#else>
+                            ${comment.commenterName}
+                            </#if>
                         </div>
                         <div class="left">
                             ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}

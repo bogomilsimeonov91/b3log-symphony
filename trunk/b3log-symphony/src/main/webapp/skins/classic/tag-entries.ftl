@@ -40,7 +40,11 @@
                         ${article.articleCommentCount}
                     </span>
                     <span>
+                        <#if article.articleAuthorURL != "">
                         <a href="http://${article.articleAuthorURL}">${article.articleAuthorName}</a>
+                        <#else>
+                        ${article.articleAuthorName}
+                        </#if>
                     </span>
                     <span>
                         ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
