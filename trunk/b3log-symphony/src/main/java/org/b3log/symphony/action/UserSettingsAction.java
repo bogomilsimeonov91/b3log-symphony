@@ -196,6 +196,7 @@ public final class UserSettingsAction extends AbstractAction {
                 final String sign = requestJSONObject.getString(Common.SIGN);
 
                 userToUpdate.put(User.USER_URL, url);
+                // TODO: html script escape?
                 userToUpdate.put(Common.SIGN, sign);
 
                 userRepository.update(userId, userToUpdate);
