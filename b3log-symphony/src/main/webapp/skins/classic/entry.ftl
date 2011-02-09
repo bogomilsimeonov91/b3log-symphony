@@ -26,7 +26,13 @@
         <div class="content">
             <dl class="entry">
                 <dd>
-                    <div class="userInfo left">${article.articleAuthorName}</div>
+                    <div class="userInfo left">
+                        <img src="${article.articleAuthorThumbnailURL}" alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
+                        <br/>
+                        <a href="http://${article.articleAuthorURL}">
+                            ${article.articleAuthorName}
+                        </a>
+                    </div>
                     <div class="left">
                         <div class="title">
                             <h3>${article.articleTitle}</h3>
