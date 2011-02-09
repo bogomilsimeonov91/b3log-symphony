@@ -33,7 +33,11 @@
                     </span>
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
+                        <#if topAuthor.userURL != "">
                         <a href="http://${topAuthor.userURL}">${topAuthor.userName}</a>
+                        <#else>
+                        ${topAuthor.userName}
+                        </#if>
                         </#list>
                     </span>
                     <span>
@@ -57,7 +61,11 @@
                         ${article.articleCommentCount}
                     </span>
                     <span>
+                        <#if article.articleAuthorURL != "">
+                        <a href="http://${article.articleAuthorURL}">${article.articleAuthorName}</a>
+                        <#else>
                         ${article.articleAuthorName}
+                        </#if>
                     </span>
                     <span>
                         ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/
