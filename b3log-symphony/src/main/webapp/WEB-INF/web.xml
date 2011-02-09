@@ -61,6 +61,15 @@
             <role-name>*</role-name>
         </auth-constraint>
     </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin Actions</web-resource-name>
+            <url-pattern>/admin-settings</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
     <listener>
         <listener-class>org.b3log.symphony.SymphonyServletListener</listener-class>
     </listener>
@@ -156,6 +165,14 @@
     <servlet-mapping>
         <servlet-name>UserSettings</servlet-name>
         <url-pattern>/user-settings</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminSettings</servlet-name>
+        <servlet-class>org.b3log.symphony.action.admin.AdminSettingsAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminSettings</servlet-name>
+        <url-pattern>/admin-settings</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>FileAccess</servlet-name>

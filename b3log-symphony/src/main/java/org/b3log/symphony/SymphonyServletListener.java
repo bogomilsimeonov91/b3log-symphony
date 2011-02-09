@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.b3log.symphony;
 
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.utils.SystemProperty;
-import com.google.appengine.api.utils.SystemProperty.Environment.Value;
 import java.io.BufferedInputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -39,6 +39,7 @@ import org.b3log.latke.event.EventManager;
 import org.b3log.latke.servlet.AbstractServletListener;
 import org.b3log.latke.util.freemarker.Templates;
 import org.b3log.symphony.util.Skins;
+import org.b3log.symphony.util.Symphonys;
 
 /**
  * B3log Symphony servlet listener.
@@ -97,8 +98,7 @@ public final class SymphonyServletListener extends AbstractServletListener {
         Latkes.setRunsOnEnv(RunsOnEnv.GAE);
         super.contextInitialized(servletContextEvent);
 
-        final Value gaeEnvValue = SystemProperty.environment.value();
-        if (SystemProperty.Environment.Value.Production == gaeEnvValue) {
+        if (!Symphonys.runsOnDevEnv()) {
             LOGGER.info("B3log Symphony runs on [production] environment");
         } else {
             LOGGER.info("B3log Symphony runs on [development] environment");
