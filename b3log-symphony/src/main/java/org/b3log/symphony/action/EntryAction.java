@@ -171,7 +171,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                             user.getString(User.USER_URL));
                     cmt.put(Common.SIGN, user.getString(Common.SIGN));
                     final String thumbnailFileId =
-                            user.getString(Common.USER_THUMBNAIL_FILE_ID);
+                            user.optString(Common.USER_THUMBNAIL_FILE_ID);
                     if (Strings.isEmptyOrNull(thumbnailFileId)) {
                         cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
                                 DEFAULT_USER_THUMBNAIL_URL);
