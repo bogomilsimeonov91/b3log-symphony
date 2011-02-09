@@ -224,6 +224,11 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         final String id = request.getParameter(Keys.OBJECT_ID);
+
+        if (Strings.isEmptyOrNull(id)) {
+            return;
+        }
+        
         try {
             final JSONObject file = fileRepository.get(id);
             if (null == file) {
