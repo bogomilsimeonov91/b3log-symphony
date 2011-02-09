@@ -198,7 +198,9 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
 
                 final String thumbnailFileId =
                         oldUser.optString(Common.USER_THUMBNAIL_FILE_ID);
-                fileRepository.remove(thumbnailFileId);
+                if (!Strings.isEmptyOrNull(thumbnailFileId)) {
+                    fileRepository.remove(thumbnailFileId);
+                }
 
                 final JSONObject userToUpdate = new JSONObject(
                         oldUser, JSONObject.getNames(oldUser));
@@ -209,7 +211,7 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
                 fileRepository.add(file);
             }
 
-            response.sendRedirect("/admin-index.do");
+            response.sendRedirect("/user-settings");
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new ServletException("File upload error: " + e.getMessage());
