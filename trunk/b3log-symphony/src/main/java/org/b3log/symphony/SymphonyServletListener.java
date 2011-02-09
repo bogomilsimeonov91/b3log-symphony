@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony;
 
 import com.google.appengine.api.images.Image;
@@ -49,10 +48,6 @@ import org.b3log.symphony.util.Skins;
  */
 public final class SymphonyServletListener extends AbstractServletListener {
 
-    /**
-     * B3log Symphony version.
-     */
-    public static final String VERSION = "0.0.1";
     /**
      * Logger.
      */
