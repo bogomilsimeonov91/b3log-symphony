@@ -27,12 +27,10 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
-import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
@@ -43,6 +41,7 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Langs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -74,18 +73,9 @@ public final class EntryAction extends AbstractCacheablePageAction {
     private CommentRepository commentRepository =
             CommentGAERepository.getInstance();
     /**
-     * Language service.
-     */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
-    /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
-    /**
-     * Languages.
-     */
-    private static final Map<String, String> LANGS;
     /**
      * Default sign.
      */
@@ -97,14 +87,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             "/images/default-user-thumbnail.png";
 
     static {
-        try {
-            LANGS = LANG_PROP_SVC.getAll(
-                    Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        DEFAULT_SIGN = LANGS.get("defaultSign");
+        DEFAULT_SIGN = Langs.get("defaultSign");
     }
 
     @Override
@@ -204,7 +187,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
 
-            ret.putAll(LANGS);
+            ret.putAll(Langs.all());
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 

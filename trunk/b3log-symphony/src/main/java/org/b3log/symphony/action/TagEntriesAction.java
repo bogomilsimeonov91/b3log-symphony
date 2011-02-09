@@ -27,12 +27,10 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
-import org.b3log.latke.service.LangPropsService;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
@@ -42,6 +40,7 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Langs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -73,27 +72,9 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
     private ArticleRepository articleRepository =
             ArticleGAERepository.getInstance();
     /**
-     * Language service.
-     */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
-    /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
-    /**
-     * Languages.
-     */
-    private static Map<String, String> langs = null;
-
-    static {
-        try {
-            langs = LANG_PROP_SVC.getAll(
-                    Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -162,7 +143,7 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
             ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
 
-            ret.putAll(langs);
+            ret.putAll(Langs.all());
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 

@@ -25,16 +25,16 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
-import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.MD5;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Errors;
+import org.b3log.symphony.util.Langs;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,27 +56,9 @@ public final class UserSettingsAction extends AbstractAction {
     private static final Logger LOGGER =
             Logger.getLogger(UserSettingsAction.class.getName());
     /**
-     * Language service.
-     */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
-    /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
-    /**
-     * Languages.
-     */
-    private static Map<String, String> langs = null;
-
-    static {
-        try {
-            langs = LANG_PROP_SVC.getAll(
-                    Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -86,19 +68,27 @@ public final class UserSettingsAction extends AbstractAction {
 
         final Map<String, Object> ret = new HashMap<String, Object>();
 
-        ret.putAll(langs);
+        ret.putAll(Langs.all());
 
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
 
                 return ret;
             }
 
             final String email = (String) session.getAttribute(User.USER_EMAIL);
             if (null == email) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
 
                 return ret;
             }
@@ -110,13 +100,13 @@ public final class UserSettingsAction extends AbstractAction {
             ret.put(User.USER_EMAIL, email);
             ret.put(User.USER_NAME, user.getString(User.USER_NAME));
             ret.put(User.USER_URL, user.getString(User.USER_URL));
-            final String userThumbnailFileId = 
+            final String userThumbnailFileId =
                     user.optString(Common.USER_THUMBNAIL_FILE_ID);
             if (Strings.isEmptyOrNull(userThumbnailFileId)) {
-                ret.put(Common.USER_THUMBNAIL_URL, 
+                ret.put(Common.USER_THUMBNAIL_URL,
                         EntryAction.DEFAULT_USER_THUMBNAIL_URL);
             } else {
-                ret.put(Common.USER_THUMBNAIL_URL, 
+                ret.put(Common.USER_THUMBNAIL_URL,
                         "/file?oId=" + userThumbnailFileId);
             }
 
@@ -140,14 +130,22 @@ public final class UserSettingsAction extends AbstractAction {
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
 
                 return ret;
             }
 
             final String email = (String) session.getAttribute(User.USER_EMAIL);
             if (null == email) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
 
                 return ret;
             }
@@ -155,7 +153,9 @@ public final class UserSettingsAction extends AbstractAction {
             final JSONObject oldUser = userRepository.getByEmail(email);
             if (null == oldUser) {
                 ret.put(Keys.STATUS_CODE, false);
-                ret.put(Keys.MSG, langs.get("userNotFoundOrPwdErrorLabel"));
+                ret.put(Keys.MSG,
+                        Langs.get(
+                        "userNotFoundOrPwdErrorLabel"));
             }
 
             final String userId = oldUser.getString(Keys.OBJECT_ID);
@@ -172,7 +172,8 @@ public final class UserSettingsAction extends AbstractAction {
                         MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
                 if (!oldUser.getString(User.USER_PASSWORD).equals(pwdHash)) {
                     ret.put(Keys.STATUS_CODE, false);
-                    ret.put(Keys.MSG, langs.get("oldPwdErrorLabel"));
+                    ret.put(Keys.MSG,
+                            Langs.get("oldPwdErrorLabel"));
 
                     return ret;
                 }

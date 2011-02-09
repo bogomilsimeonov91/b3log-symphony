@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
-import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.Sessions;
 import org.b3log.latke.util.Strings;
 import org.json.JSONObject;
@@ -47,11 +46,6 @@ public final class CheckLoginAction extends AbstractAction {
      */
     private static final Logger LOGGER =
             Logger.getLogger(CheckLoginAction.class.getName());
-    /**
-     * Language service.
-     */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(

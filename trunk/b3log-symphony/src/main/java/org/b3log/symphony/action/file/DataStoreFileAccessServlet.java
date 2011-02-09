@@ -19,7 +19,6 @@ package org.b3log.symphony.action.file;
 import com.google.appengine.api.datastore.Blob;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -32,18 +31,18 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
 import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.Ids;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Common;
-import org.b3log.symphony.model.ErrorPage;
 import org.b3log.symphony.model.File;
 import org.b3log.symphony.repository.FileRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.FileGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Errors;
+import org.b3log.symphony.util.Langs;
 import org.json.JSONObject;
 
 /**
@@ -83,18 +82,6 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
      */
     private static final LangPropsService LANG_PROP_SVC =
             LangPropsService.getInstance();
-    /**
-     * Languages.
-     */
-    private static Map<String, String> langs = null;
-
-    static {
-        try {
-            langs = LANG_PROP_SVC.getAll(Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected void doPost(final HttpServletRequest request,
@@ -106,7 +93,10 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get("loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "/file", cause);
 
                 return;
             }
@@ -114,7 +104,10 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
             final String email = (String) session.getAttribute(User.USER_EMAIL);
             if (null == email) {
                 LOGGER.log(Level.WARNING, "Not logged in[email={0}]", email);
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get("loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "/file", cause);
 
                 return;
             }
@@ -122,13 +115,20 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
             oldUser = userRepository.getByEmail(email);
             if (null == oldUser) {
                 LOGGER.log(Level.WARNING, "Not found user[email={0}]", email);
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "/file", cause);
 
                 return;
             }
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            final String cause = Langs.get(
+                    "unknownErrorLabel");
+            Errors.sendError(request, response, HttpServletResponse.SC_FORBIDDEN,
+                             "/file", cause);
 
             return;
         }
@@ -150,10 +150,11 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
                 String contentType = item.getContentType();
                 if (Strings.isEmptyOrNull(contentType)) {
                     final String cause =
-                            langs.get("thumbnailContentTypeErrorLabel");
-                    sendError(request, response,
-                              HttpServletResponse.SC_FORBIDDEN,
-                              "/file", cause);
+                            Langs.get(
+                            "thumbnailContentTypeErrorLabel");
+                    Errors.sendError(request, response,
+                                     HttpServletResponse.SC_FORBIDDEN,
+                                     "/file", cause);
                     return;
                 }
 
@@ -164,10 +165,11 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
                     LOGGER.log(Level.WARNING, "Thumbnail[contentType={0}]",
                                contentType);
                     final String cause =
-                            langs.get("thumbnailContentTypeErrorLabel");
-                    sendError(request, response,
-                              HttpServletResponse.SC_FORBIDDEN,
-                              "/file", cause);
+                            Langs.get(
+                            "thumbnailContentTypeErrorLabel");
+                    Errors.sendError(request, response,
+                                     HttpServletResponse.SC_FORBIDDEN,
+                                     "/file", cause);
 
                     return;
                 }
@@ -176,18 +178,21 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
                 final byte[] contentBytes = IOUtils.toByteArray(stream);
                 if (contentBytes.length > MAX_SIZE) {
                     final String cause =
-                            langs.get("exceedMaxUploadSizeLabel");
-                    sendError(request, response,
-                              HttpServletResponse.SC_FORBIDDEN,
-                              "/file", cause);
+                            Langs.get(
+                            "exceedMaxUploadSizeLabel");
+                    Errors.sendError(request, response,
+                                     HttpServletResponse.SC_FORBIDDEN,
+                                     "/file", cause);
 
                     return;
                 }
 
                 if (0 == contentBytes.length) {
-                    final String cause = langs.get("fileEmptyLabel");
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN,
-                                       cause);
+                    final String cause = Langs.get(
+                            "fileEmptyLabel");
+                    Errors.sendError(request, response,
+                                     HttpServletResponse.SC_FORBIDDEN,
+                                     "/file", cause);
                     return;
                 }
 
@@ -261,27 +266,5 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new ServletException("File download error: " + e.getMessage());
         }
-    }
-
-    /**
-     * Sends error via {@linkplain HttpServletResponse#sendError(int, java.lang.String)}
-     * with the specified error URI and cause.
-     *
-     * @param request the specified http servlet request
-     * @param response the specified http servlet response
-     * @param errorCode the specified error code
-     * @param errorURI the specified error URI
-     * @param cause the specified cause
-     * @throws IOException io exception
-     */
-    private void sendError(final HttpServletRequest request,
-                           final HttpServletResponse response,
-                           final int errorCode,
-                           final String errorURI,
-                           final String cause) throws IOException {
-        request.setAttribute(ErrorPage.ERROR_PAGE_REQUEST_URI,
-                             errorURI);
-        request.setAttribute(ErrorPage.ERROR_PAGE_CAUSE, cause);
-        response.sendError(errorCode, cause);
     }
 }
