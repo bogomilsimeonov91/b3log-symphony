@@ -197,7 +197,7 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
                 file.put(File.FILE_SIZE, fileSize);
 
                 final String thumbnailFileId =
-                        oldUser.getString(Common.USER_THUMBNAIL_FILE_ID);
+                        oldUser.optString(Common.USER_THUMBNAIL_FILE_ID);
                 fileRepository.remove(thumbnailFileId);
 
                 final JSONObject userToUpdate = new JSONObject(
