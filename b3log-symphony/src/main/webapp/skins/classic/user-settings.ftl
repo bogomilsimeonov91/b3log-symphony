@@ -78,7 +78,7 @@
                         ${userURLLabel} http://
                     </th>
                     <td>
-                       <input id="userURL" value="${userURL}"/>
+                        <input id="userURL" value="${userURL}"/>
                     </td>
                 </tr>
                 <tr>
@@ -98,6 +98,23 @@
                     </th>
                 </tr>
             </table>
+
+            <form action="/file" method="POST"
+                  enctype="multipart/form-data">
+                <table class="form" cellpadding="0" cellspacing="9">
+                    <tbody>
+                        <tr>
+                            <td id="uploadFile">
+                                <input type='file' name='myFile' size='45' style="width: 356px;" />
+                            </td>
+                            <td>
+                                <button type="submit">${submitLabel}</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>

@@ -19,7 +19,7 @@
 
 <!--
     Description: B3log Symphony web deployment descriptor.
-    Version: 1.0.0.3, Feb 8, 2011
+    Version: 1.0.0.4, Feb 9, 2011
     Author: Liang Ding
 -->
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
@@ -171,6 +171,15 @@
     <servlet-mapping>
         <servlet-name>UserSettings</servlet-name>
         <url-pattern>/user-settings</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileAccess</servlet-name>
+        <servlet-class>org.b3log.symphony.action.file.DataStoreFileAccessServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileAccess</servlet-name>
+        <url-pattern>/file</url-pattern>
     </servlet-mapping>
 
     <servlet>

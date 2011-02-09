@@ -17,33 +17,41 @@
 package org.b3log.symphony.model;
 
 /**
- * This class defines all blog model relevant keys.
+ * This class defines all file model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 30, 2011
+ * @version 1.0.0.2, Feb 9, 2011
  */
-public final class Blog {
+public final class File {
 
     /**
-     * Blog.
+     * File.
      */
-    public static final String BLOG = "blog";
+    public static final String FILE = "file";
     /**
-     * Key of blog host.
+     * Files.
      */
-    public static final String BLOG_HOST = "blogHost";
+    public static final String FILES = "files";
     /**
-     * Key of blog title.
+     * Key of file name.
      */
-    public static final String BLOG_TITLE = "blogTitle";
+    public static final String FILE_NAME = "fileName";
     /**
-     * Key of blog version.
+     * Key of file size.
      */
-    public static final String BLOG_VERSION = "blogVersion";
+    public static final String FILE_SIZE = "fileSize";
+    /**
+     * Key of file content type.
+     */
+    public static final String FILE_CONTENT_TYPE = "fileContentType";
+    /**
+     * Key of file content.
+     */
+    public static final String FILE_CONTENT = "fileContent";
 
     /**
      * Private default constructor.
      */
-    private Blog() {
+    private File() {
     }
 }

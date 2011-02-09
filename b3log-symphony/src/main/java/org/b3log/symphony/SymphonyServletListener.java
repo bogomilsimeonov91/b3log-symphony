@@ -45,7 +45,7 @@ import org.b3log.symphony.util.Skins;
  * B3log Symphony servlet listener.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 30, 2011
+ * @version 1.0.0.2, Feb 9, 2011
  */
 public final class SymphonyServletListener extends AbstractServletListener {
 
@@ -89,34 +89,13 @@ public final class SymphonyServletListener extends AbstractServletListener {
     public static final Map<String, Image> CAPTCHAS =
             new HashMap<String, Image>();
     /**
-     * B3log Rhythm address.
-     */
-    public static final String B3LOG_RHYTHM_ADDRESS =
-            "http://b3log-rhythm.appspot.com:80";
-    /**
-     * English month.
-     */
-    public static final Map<String, String> EN_MONTHS =
-            new HashMap<String, String>();
-    /**
      * Enter escape.
      */
     public static final String ENTER_ESC = "_esc_enter_88250_";
-
-    static {
-        EN_MONTHS.put("01", "January");
-        EN_MONTHS.put("02", "February");
-        EN_MONTHS.put("03", "March");
-        EN_MONTHS.put("04", "April");
-        EN_MONTHS.put("05", "May");
-        EN_MONTHS.put("06", "June");
-        EN_MONTHS.put("07", "Jule");
-        EN_MONTHS.put("08", "August");
-        EN_MONTHS.put("09", "September");
-        EN_MONTHS.put("10", "October");
-        EN_MONTHS.put("11", "November");
-        EN_MONTHS.put("12", "December");
-    }
+    /**
+     * Time zone id("Asia/Shanghai").
+     */
+    public static final String TIME_ZONE_ID = "Asia/Shanghai";
 
     @Override
     public void contextInitialized(final ServletContextEvent servletContextEvent) {

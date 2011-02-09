@@ -60,10 +60,6 @@ public final class IndexAction extends AbstractCacheablePageAction {
     private static final Logger LOGGER =
             Logger.getLogger(IndexAction.class.getName());
     /**
-     * Language service.
-     */
-    private LangPropsService langPropsService = LangPropsService.getInstance();
-    /**
      * Tag repository.
      */
     private TagRepository tagRepository = TagGAERepository.getInstance();
@@ -88,8 +84,7 @@ public final class IndexAction extends AbstractCacheablePageAction {
 
     static {
         try {
-            langs = LANG_PROP_SVC.getAll(
-                    Latkes.getDefaultLocale());
+            langs = LANG_PROP_SVC.getAll(Latkes.getDefaultLocale());
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }

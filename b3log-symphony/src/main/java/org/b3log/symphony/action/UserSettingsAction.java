@@ -155,7 +155,7 @@ public final class UserSettingsAction extends AbstractAction {
                                                                   "basic");
             final JSONObject userToUpdate = new JSONObject(
                     oldUser, JSONObject.getNames(oldUser));
-            
+
             if ("basic".equals(action)) {
                 String pwdHash =
                         MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
@@ -174,8 +174,6 @@ public final class UserSettingsAction extends AbstractAction {
                 userToUpdate.put(User.USER_NAME, userName);
                 userToUpdate.put(User.USER_PASSWORD, pwdHash);
                 userRepository.update(userId, userToUpdate);
-
-                LOGGER.finer(userToUpdate.toString());
 
                 transaction.commit();
                 ret.put(Keys.STATUS_CODE, true);
