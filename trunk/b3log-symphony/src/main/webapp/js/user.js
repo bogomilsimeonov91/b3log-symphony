@@ -98,10 +98,11 @@ $.extend(User.prototype, {
         $("#hideFrame").load(function () {
             var $iframe = $("#hideFrame").contents();
             if ($iframe.find("pre").length === 1) {
-                $("#tipHead").html($iframe.find("pre").html());
-            } else if ($iframe.find("#loadMsg").length === 1) {
-                $("#tipHead").html(labels.setSuccLabel);
+                $("#tipHead").text($iframe.find("pre").html());
+            } else if ($iframe.find("#headImg").length === 1) {
+                $("#tipHead").text(labels.setSuccLabel);
                 $("#uploadFile").html("<input type='file' name='myFile'>");
+                $("#headImg").attr("src", $iframe.find("#headImg").attr("src"));
             }
         });
     }

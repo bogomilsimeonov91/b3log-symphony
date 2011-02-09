@@ -63,7 +63,7 @@
                     </tr>
                     <tr>
                         <th colspan="2">
-                            <span class="red" id="tipUserInfo"></span>
+                            <span class="tip" id="tipUserInfo"></span>
                             <button onclick="user.setUserInfo();">
                                 ${submitLabel}
                             </button>
@@ -77,7 +77,8 @@
                         </caption>
                         <tr>
                             <td>
-                                <img src="${userThumbnailURL}" alt="${userName}" title="${userName}"/>
+                                <img id="headImg" src="${userThumbnailURL}" alt="${userName}" title="${userName}"/>
+                                (<200K, 1:1)
                             </td>
                         </tr>
                         <tr>
@@ -87,7 +88,7 @@
                         </tr>
                         <tr>
                             <th>
-                                <span id="tipHead"></span>
+                                <span class="tip" id="tipHead"></span>
                                 <button type="submit">${submitLabel}</button>
                             </th>
                         </tr>
@@ -116,7 +117,7 @@
                 </tr>
                 <tr>
                     <th colspan="2">
-                        <span class="red" id="tip"></span>
+                        <span class="tip" id="tip"></span>
                         <button onclick="user.setUserSettings();">
                             ${submitLabel}
                         </button>

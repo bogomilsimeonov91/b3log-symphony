@@ -28,35 +28,34 @@
             <#list tags as tag>
             <dl>
                 <dd>
-                    <span>
+                    <h2 title="${tag.tagTitle}">
                         ${tag.tagTitle}
-                    </span>
+                    </h2>
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
                         <#if topAuthor.userURL != "">
-                        <a href="http://${topAuthor.userURL}" target="_blank">${topAuthor.userName}</a>
+                        <a title="${topAuthor.userName}" href="http://${topAuthor.userURL}" target="_blank">
+                            ${topAuthor.userName}</a>
                         <#else>
                         ${topAuthor.userName}
                         </#if>
                         </#list>
                     </span>
                     <span>
-                        ${tag.tagReferenceCount}/ ${tag.tagCommentCount}
+                        ${tag.tagReferenceCount} / ${tag.tagCommentCount}
                     </span>
                 </dd>
                 <#list tag.tagArticles as article>
                 <dd>
-                    <span>
-                        icon
-                    </span>
-                    <span>
-                        <a href="/entries/${article.oId}">${article.articleTitle}</a>
-                    </span>
-                    <span>
-                        <#list article.articleTags?split(',') as tagTitle>
+                    <h3>
+                        <a href="/entries/${article.oId}" title="${article.articleTitle}">
+                            ${article.articleTitle}</a>
+                    </h3>
+                    <#list article.articleTags?split(',') as tagTitle>
+                    <h4>
                         <a href="/tags/${tagTitle}">${tagTitle}</a>
-                        </#list>
-                    </span>
+                    </h4>
+                    </#list>
                     <span>
                         ${article.articleCommentCount}
                     </span>
