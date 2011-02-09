@@ -169,7 +169,7 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
                 if (contentBytes.length > MAX_SIZE) {
                     final String cause =
                             langs.get("exceedMaxUploadSizeLabel");
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN,
                                        cause);
 
                     return;
@@ -177,7 +177,7 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
 
                 if (0 == contentBytes.length) {
                     final String cause = langs.get("fileEmptyLabel");
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN,
                                        cause);
                     return;
                 }
