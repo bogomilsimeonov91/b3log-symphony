@@ -46,7 +46,7 @@ import org.json.JSONObject;
  * Adds articles submitted from B3log Solo.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 8, 2011
+ * @version 1.0.0.5, Feb 9, 2011
  */
 public final class AddArticleAction extends AbstractAction {
 
@@ -66,8 +66,8 @@ public final class AddArticleAction extends AbstractAction {
     /**
      * Article repository.
      */
-    private ArticleRepository articleRepository = ArticleGAERepository.
-            getInstance();
+    private ArticleRepository articleRepository =
+            ArticleGAERepository.getInstance();
     /**
      * User repository.
      */
@@ -80,10 +80,6 @@ public final class AddArticleAction extends AbstractAction {
      * Article utilities.
      */
     private Articles articleUtils = Articles.getInstance();
-    /**
-     * Version of latest Solo.
-     */
-    private static final String LATEST_SOLO_VERSION = "0.2.5";
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -128,8 +124,7 @@ public final class AddArticleAction extends AbstractAction {
                                       final HttpServletRequest request,
                                       final HttpServletResponse response)
             throws ActionException {
-        // TODO: check params
-        
+        // TODO: request of rhythm with security code
         final JSONObject ret = new JSONObject();
         final Transaction transaction = articleRepository.beginTransaction();
 
