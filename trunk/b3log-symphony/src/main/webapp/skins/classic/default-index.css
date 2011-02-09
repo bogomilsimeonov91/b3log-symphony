@@ -245,6 +245,15 @@ h4{
     line-height: 30px;
 }
 
+.index .main h2 a {
+    color: #505561;
+    text-decoration: none;
+}
+
+.index .main h2 a:hover {
+    color: #005999;
+}
+
 /* user info */
 .user-info img {
     height: 100px;

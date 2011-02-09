@@ -84,7 +84,7 @@
                         <div>
                             <#list article.articleTags?split(',') as tagTitle>
                             <h3 title="${tagTitle}">
-                                <a href="/tags/${tagTitle}">${tagTitle}</a>
+                                <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                             </h3>
                             </#list>
                             <span class="right">
