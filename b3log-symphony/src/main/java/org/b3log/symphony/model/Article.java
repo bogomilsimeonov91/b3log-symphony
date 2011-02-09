@@ -80,6 +80,15 @@ public final class Article {
      */
     public static final String ARTICLE_AUTHOR_EMAIL_REF = "articleAuthorEmail";
     /**
+     * Key of author URL.
+     */
+    public static final String ARTICLE_AUTHOR_URL_REF = "articleAuthorURL";
+    /**
+     * Key of author thumbnail URL.
+     */
+    public static final String ARTICLE_AUTHOR_THUMBNAIL_URL_REF
+            = "articleAuthorThumbnailURL";
+    /**
      * Key of from.
      */
     public static final String ARTICLE_FROM = "articleFrom";
