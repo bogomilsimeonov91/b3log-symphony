@@ -41,7 +41,7 @@
                     </span>
                     <span>
                         <#if article.articleAuthorURL != "">
-                        <a href="http://${article.articleAuthorURL}">${article.articleAuthorName}</a>
+                        <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
                         <#else>
                         ${article.articleAuthorName}
                         </#if>

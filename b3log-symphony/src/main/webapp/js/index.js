@@ -91,7 +91,7 @@ $.extend(Index.prototype, {
                             case true:
                                 Util.createCookie("userName", $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
                                 Util.createCookie("userEmail", $("#email").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
-                                window.location.href = '/';
+                                window.location.href = '/user-settings';
                                 break;
                             case "duplicated":
                                 $("#tip").text(result.msg);

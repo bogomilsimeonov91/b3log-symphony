@@ -69,6 +69,26 @@
                     </th>
                 </tr>
             </table>
+            <form action="/file" method="POST" enctype="multipart/form-data">
+                <table cellpadding="0" cellspacing="9">
+                    <caption>
+                        ${headSettingLabel}
+                    </caption>
+                    <tr>
+                        <td colspan="2">
+                            <img src="${userThumbnailURL}" alt="${userName}" title="${userName}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="uploadFile">
+                            <input type='file' name='myFile'/>
+                        </td>
+                        <td>
+                            <button type="submit">${submitLabel}</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
             <table class="form" id="userSettingsForm">
                 <caption>
                     ${settingsInfoLabel}
@@ -98,23 +118,6 @@
                     </th>
                 </tr>
             </table>
-
-            <form action="/file" method="POST"
-                  enctype="multipart/form-data">
-                <table class="form" cellpadding="0" cellspacing="9">
-                    <tbody>
-                        <tr>
-                            <td id="uploadFile">
-                                <input type='file' name='myFile' size='45' style="width: 356px;" />
-                            </td>
-                            <td>
-                                <button type="submit">${submitLabel}</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
-            
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>

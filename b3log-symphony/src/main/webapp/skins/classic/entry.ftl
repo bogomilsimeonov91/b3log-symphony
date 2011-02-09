@@ -30,7 +30,7 @@
                         <img src="${article.articleAuthorThumbnailURL}" alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                         <br/>
                         <#if article.articleAuthorURL != "">
-                        <a href="http://${article.articleAuthorURL}">${article.articleAuthorName}</a>
+                        <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
                         <#else>
                         ${article.articleAuthorName}
                         </#if>
@@ -65,7 +65,7 @@
                             <img src="${comment.commentThumbnailURL}" alt="${comment.commenterName}" title="${comment.commenterName}"/>
                             <br/>
                             <#if comment.commenterURL != "">
-                            <a href="http://${comment.commenterURL}">${comment.commenterName}</a>
+                            <a href="http://${comment.commenterURL}" target="_blank">${comment.commenterName}</a>
                             <#else>
                             ${comment.commenterName}
                             </#if>
