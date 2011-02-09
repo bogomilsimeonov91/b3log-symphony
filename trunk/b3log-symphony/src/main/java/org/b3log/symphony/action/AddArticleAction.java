@@ -28,6 +28,7 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.repository.Transaction;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
 import org.b3log.symphony.model.Common;
@@ -36,6 +37,9 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
+import org.b3log.symphony.util.Errors;
+import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Symphonys;
 import org.b3log.symphony.util.Tags;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,7 +126,23 @@ public final class AddArticleAction extends AbstractAction {
                                       final HttpServletRequest request,
                                       final HttpServletResponse response)
             throws ActionException {
-        // TODO: request of rhythm with security code
+        if (!Symphonys.runsOnDevEnv()) {
+            final String key = data.optString("key");
+            if (Strings.isEmptyOrNull(key)) {
+                try {
+                    Errors.sendError(request, response,
+                                     HttpServletResponse.SC_FORBIDDEN,
+                                     request.getRequestURI(), Langs.get(
+                            "forbiddenLabel"));
+                } catch (final Exception e) {
+                    LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                    throw new ActionException(e);
+                }
+                
+                return null;
+            }
+        }
+        
         final JSONObject ret = new JSONObject();
         final Transaction transaction = articleRepository.beginTransaction();
 

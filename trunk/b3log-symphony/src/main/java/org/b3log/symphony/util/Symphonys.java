@@ -16,60 +16,52 @@
 
 package org.b3log.symphony.util;
 
-import java.util.Collections;
-import java.util.Map;
-import org.b3log.latke.Latkes;
-import org.b3log.latke.service.LangPropsService;
+import com.google.appengine.api.utils.SystemProperty;
+import com.google.appengine.api.utils.SystemProperty.Environment.Value;
+import java.util.ResourceBundle;
 
 /**
- * Languages utilities.
+ * Symphony utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 31, 2011
+ * @version 1.0.0.0, Feb 9, 2011
  */
-public final class Langs {
+public final class Symphonys {
 
     /**
-     * Language service.
+     * Configurations.
      */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
+    private static final ResourceBundle CFG =
+            ResourceBundle.getBundle("symphony");
     /**
-     * Languages.
+     * GAE environment.
      */
-    private static final Map<String, String> LANGS;
-
-    static {
-        try {
-            LANGS = LANG_PROP_SVC.getAll(Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final Value GAE_ENV = SystemProperty.environment.value();
 
     /**
-     * Gets all language properties.
+     * Does Symphony runs on development environment?
      *
-     * @return language properties
+     * @return {@code true} if it runs on development environment,
+     * {@code false} otherwise
      */
-    public static Map<String, String> all() {
-        return Collections.unmodifiableMap(LANGS);
+    public static boolean runsOnDevEnv() {
+        return SystemProperty.Environment.Value.Development == GAE_ENV;
     }
 
     /**
-     * Gets a language property with the specified key.
+     * Gets a configuration property with the specified key.
      *
      * @param key the specified key
      * @return property value corresponding to the specified key, returns
      * {@code null} if not found
      */
     public static String get(final String key) {
-        return LANGS.get(key);
+        return CFG.getString(key);
     }
 
     /**
      * Private default constructor.
      */
-    private Langs() {
+    private Symphonys() {
     }
 }
