@@ -34,13 +34,16 @@ import org.b3log.symphony.SymphonyServletListener;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
+import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleCommentRepository;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
+import org.b3log.symphony.repository.TagRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
+import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
 import org.b3log.symphony.util.Errors;
@@ -84,6 +87,11 @@ public final class AddArticleCommentAction extends AbstractAction {
      */
     private static ArticleRepository articleRepository =
             ArticleGAERepository.getInstance();
+    /**
+     * Tag repository.
+     */
+    private static TagRepository tagRepository =
+            TagGAERepository.getInstance();
     /**
      * User repository.
      */
@@ -199,7 +207,7 @@ public final class AddArticleCommentAction extends AbstractAction {
             comment.put(Common.COMMENTER_ID, commenterId);
             comment.put(Comment.COMMENT_ENTRY_ID, articleId);
             comment.put(Comment.COMMENT_ENTRY_TITLE,
-                    article.getString(Article.ARTICLE_TITLE));
+                        article.getString(Article.ARTICLE_TITLE));
             final Date date = timeZoneUtils.getTime(
                     SymphonyServletListener.TIME_ZONE_ID);
             comment.put(Comment.COMMENT_DATE, date);
@@ -207,6 +215,18 @@ public final class AddArticleCommentAction extends AbstractAction {
 
             article.put(Article.ARTICLE_LAST_CMT_DATE, date);
             articleRepository.update(articleId, article);
+
+            final String tagsString = article.getString(Article.ARTICLE_TAGS);
+            final String[] tagStrings = tagsString.split(",");
+            for (int i = 0; i < tagStrings.length; i++) {
+                final String tagTitle = tagStrings[i];
+                final JSONObject tag = tagRepository.getByTitle(tagTitle);
+                final int cmtCnt = tag.getInt(Tag.TAG_COMMENT_COUNT);
+                tag.put(Tag.TAG_COMMENT_COUNT, cmtCnt + 1);
+
+                final String tagId = tag.getString(Keys.OBJECT_ID);
+                tagRepository.update(tagId, tag);
+            }
 
             ret.put(Comment.COMMENT_DATE, Comment.DATE_FORMAT.format(date));
             if (!Strings.isEmptyOrNull(originalCommentId)) {
