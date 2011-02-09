@@ -155,8 +155,8 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
 
                 contentType = contentType.trim().toLowerCase();
                 if (!"image/jpeg".equals(contentType)
-                    || !"image/gif ".equals(contentType)
-                    || !"image/png".equals(contentType)) {
+                    && !"image/gif ".equals(contentType)
+                    && !"image/png".equals(contentType)) {
                     LOGGER.log(Level.WARNING, "Thumbnail[contentType={0}]",
                                contentType);
                     response.sendError(HttpServletResponse.SC_FORBIDDEN);
