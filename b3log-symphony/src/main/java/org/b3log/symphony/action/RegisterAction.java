@@ -135,9 +135,9 @@ public final class RegisterAction extends AbstractAction {
             user.put(User.USER_NAME, userName);
             user.put(User.USER_EMAIL, userEmail);
             user.put(User.USER_PASSWORD, MD5.hash(userPwd));
-            user.put(User.USER_URL, " ");
+            user.put(User.USER_URL, "");
             user.put(Common.STATE, Common.AVAILABLE);
-            user.put(Common.SIGN, " ");
+            user.put(Common.SIGN, "");
 
             final String oId = userRepository.add(user);
             user.put(Keys.OBJECT_ID, oId);
