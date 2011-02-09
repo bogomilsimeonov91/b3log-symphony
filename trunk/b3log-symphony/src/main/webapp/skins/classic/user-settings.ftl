@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>${titleUser}</title>
@@ -18,78 +18,83 @@
             <#include "user-header.ftl"/>
         </div>
         <div class="content">
-            <table class="form" id="userInfoForm">
-                <caption>${basicInfoLabel}</caption>
-                <tr>
-                    <th>
-                        ${emailLabel}
-                    </th>
-                    <td>
-                        ${userEmail}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${userNameLabel}
-                    </th>
-                    <td>
-                        <input id="userName" value="${userName}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${originalPasswordLabel}
-                    </th>
-                    <td>
-                        <input type="password" id="originalPassword"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${newPasswordLabel}
-                    </th>
-                    <td>
-                        <input type="password" id="newPassword"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${confirmPasswordLabel}
-                    </th>
-                    <td>
-                        <input type="password" id="confirmPassword"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <span class="red" id="tipUserInfo"></span>
-                        <button onclick="user.setUserInfo();">
-                            ${submitLabel}
-                        </button>
-                    </th>
-                </tr>
-            </table>
-            <form action="/file" method="POST" enctype="multipart/form-data">
-                <table cellpadding="0" cellspacing="9">
-                    <caption>
-                        ${headSettingLabel}
-                    </caption>
+            <div class="left">
+                <table class="form" id="userInfoForm">
+                    <caption>${basicInfoLabel}</caption>
                     <tr>
-                        <td colspan="2">
-                            <img src="${userThumbnailURL}" alt="${userName}" title="${userName}"/>
+                        <th>
+                            ${emailLabel}
+                        </th>
+                        <td>
+                            ${userEmail}
                         </td>
                     </tr>
                     <tr>
-                        <td id="uploadFile">
-                            <input type='file' name='myFile'/>
-                        </td>
+                        <th>
+                            ${userNameLabel}
+                        </th>
                         <td>
-                            <button type="submit">${submitLabel}</button>
+                            <input id="userName" value="${userName}"/>
                         </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${originalPasswordLabel}
+                        </th>
+                        <td>
+                            <input type="password" id="originalPassword"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${newPasswordLabel}
+                        </th>
+                        <td>
+                            <input type="password" id="newPassword"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ${confirmPasswordLabel}
+                        </th>
+                        <td>
+                            <input type="password" id="confirmPassword"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <span class="red" id="tipUserInfo"></span>
+                            <button onclick="user.setUserInfo();">
+                                ${submitLabel}
+                            </button>
+                        </th>
                     </tr>
                 </table>
-            </form>
-            <table class="form" id="userSettingsForm">
+                <form action="/file" method="POST" enctype="multipart/form-data" target="hideFrame">
+                    <table cellpadding="0" cellspacing="0">
+                        <caption>
+                            ${headSettingLabel}
+                        </caption>
+                        <tr>
+                            <td>
+                                <img src="${userThumbnailURL}" alt="${userName}" title="${userName}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="uploadFile">
+                                <input type='file' name='myFile'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span id="tipHead"></span>
+                                <button type="submit">${submitLabel}</button>
+                            </th>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <table class="form left" id="userSettingsForm">
                 <caption>
                     ${settingsInfoLabel}
                 </caption>
@@ -118,20 +123,24 @@
                     </th>
                 </tr>
             </table>
+            <div class="clear"></div>
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>
         </div>
+        <iframe name="hideFrame" class="none" id="hideFrame"></iframe>
         <script type="text/javascript">
             var user = new User({
                 "labels": {
                     "passwordEmptyLabel": "${passwordEmptyLabel}",
                     "passwordNoMatchLabel": "${passwordNoMatchLabel}",
                     "nameTooLongLabel": "${nameTooLongLabel}",
-                    "changeSuccLabel": "${changeSuccLabel}"
+                    "changeSuccLabel": "${changeSuccLabel}",
+                    "setSuccLabel": "${setSuccLabel}"
                 }
             });
             user.initStatus();
+            user.setHead();
             Util.bindSubmitAction("userInfoForm", "userSettingsForm");
         </script>
     </body>
