@@ -140,8 +140,19 @@ public final class AddArticleAction extends AbstractAction {
                        new String[]{from, host, version});
 
             final JSONObject originalArticle = data.getJSONObject(ARTICLE);
-
             final JSONObject article = new JSONObject();
+
+            final String authorEmail =
+                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF).
+                    toLowerCase();
+            final JSONObject author = userRepository.getByEmail(authorEmail);
+            if (null != author) {
+                final String authodId = author.getString(Keys.OBJECT_ID);
+                article.put(Common.AUTHOR_ID, authodId);
+            } else {
+                throw new Exception("Unauthorized request!");
+            }
+
             article.put(ARTICLE_TITLE, originalArticle.getString(ARTICLE_TITLE));
             final String tagString = originalArticle.getString(ARTICLE_TAGS);
             article.put(ARTICLE_TAGS, removeWhitespaces(tagString));
@@ -165,17 +176,6 @@ public final class AddArticleAction extends AbstractAction {
             article.put(Article.ARTICLE_FROM, from);
             article.put(Common.HOST, host);
             article.put(Common.VERSION, version);
-
-            final String authorEmail =
-                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF).
-                    toLowerCase();
-            final JSONObject author = userRepository.getByEmail(authorEmail);
-            if (null != author) {
-                final String authodId = author.getString(Keys.OBJECT_ID);
-                article.put(Common.AUTHOR_ID, authodId);
-            } else {
-                throw new Exception("Unauthorized request!");
-            }
 
             articleRepository.add(article);
 
