@@ -26,7 +26,7 @@
         <div class="content">
             <dl class="entry">
                 <dd>
-                    <div class="userInfo left">
+                    <div class="user-info left">
                         <img src="${article.articleAuthorThumbnailURL}" alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                         <br/>
                         <#if article.articleAuthorURL != "">
@@ -61,7 +61,7 @@
                 <dl>
                     <#list article.articleComments as comment>
                     <dd id="${comment.oId}comment">
-                        <div class="left">
+                        <div class="left user-info">
                             <img src="${comment.commentThumbnailURL}" alt="${comment.commenterName}" title="${comment.commenterName}"/>
                             <br/>
                             <#if comment.commenterURL != "">
@@ -103,7 +103,7 @@
                     </tr>
                     <tr>
                         <th colspan="2">
-                            <span class="red" id="tip"></span>
+                            <span class="tip" id="tip"></span>
                             <button onclick="index.submitComment();">
                                 ${submitLabel}
                             </button>

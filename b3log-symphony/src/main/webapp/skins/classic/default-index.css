@@ -24,6 +24,10 @@ li{
     margin-left:12px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    display: inline;
+}
+
 h1{
     font-size:160%;
 }
@@ -38,6 +42,11 @@ h3{
 
 h4{
     font-size:110%;
+}
+
+/* common */
+.tip{
+    color:red;
 }
 
 /* architecture */
@@ -170,4 +179,16 @@ h4{
 
 .index-icon {
     background-position:-64px -16px;
+}
+
+/* user info */
+.user-info img {
+    height: 100px;
+    width: 100px;
+}
+
+/* user */
+#headImg {
+    height: 100px;
+    width: 100px;
 }

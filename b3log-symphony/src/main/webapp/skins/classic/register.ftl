@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                         <th colspan="2">
-                            <span class="red" id="tipLogin"></span>
+                            <span class="tip" id="tipLogin"></span>
                             <button onclick="index.login();">
                                 ${loginLabel}
                             </button>
@@ -108,7 +108,7 @@
                     </tr>
                     <tr>
                         <th colspan="2">
-                            <span class="red" id="tip"></span>
+                            <span class="tip" id="tip"></span>
                             <button onclick="index.register();">
                                 ${registerLabel}
                             </button>
