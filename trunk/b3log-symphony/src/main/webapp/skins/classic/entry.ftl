@@ -30,22 +30,25 @@
                         <img src="${article.articleAuthorThumbnailURL}" alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                         <br/>
                         <#if article.articleAuthorURL != "">
-                        <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
+                        <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
+                            ${article.articleAuthorName}</a>
                         <#else>
                         ${article.articleAuthorName}
                         </#if>
                     </div>
                     <div class="left">
                         <div class="title">
-                            <h3>${article.articleTitle}</h3>
+                            <h1>${article.articleTitle}</h1>
                             <div>
                                 <#list article.articleTags?split(',') as tagTitle>
-                                <a href="/tags/${tagTitle}">${tagTitle}</a>
+                                <h2 title="${tagTitle}">
+                                    <a href="/tags/${tagTitle}">${tagTitle}</a>
+                                </h2>
                                 </#list>
                                 ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}, ${article.articleCommentCount}
                             </div>
                         </div>
-                        <div class="content">
+                        <div>
                             <div>
                                 ${article.articleContent}
                             </div>
