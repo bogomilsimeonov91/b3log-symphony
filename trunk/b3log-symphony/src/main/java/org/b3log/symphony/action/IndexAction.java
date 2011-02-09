@@ -112,6 +112,15 @@ public final class IndexAction extends AbstractCacheablePageAction {
                     final String topAuthorURL = user.getString(User.USER_URL);
                     topAuthor.put(User.USER_URL, topAuthorURL);
                     topAuthors.add(topAuthor);
+                    final String thumbnailFileId =
+                            user.optString(Common.USER_THUMBNAIL_FILE_ID);
+                    if (Strings.isEmptyOrNull(thumbnailFileId)) {
+                        topAuthor.put(Common.USER_THUMBNAIL_URL,
+                                EntryAction.DEFAULT_USER_THUMBNAIL_URL);
+                    } else {
+                        topAuthor.put(Common.USER_THUMBNAIL_URL,
+                                "/file?oId=" + thumbnailFileId);
+                    }
                 }
                 LOGGER.log(Level.FINE, "Got top authors for tag[title={0}]",
                            tagTitle);
