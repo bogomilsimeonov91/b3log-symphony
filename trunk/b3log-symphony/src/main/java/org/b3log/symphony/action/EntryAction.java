@@ -177,7 +177,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                                 DEFAULT_USER_THUMBNAIL_URL);
                     } else {
                         cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
-                                "/file?oId" + thumbnailFileId);
+                                "/file?oId=" + thumbnailFileId);
                     }
                 }
 
