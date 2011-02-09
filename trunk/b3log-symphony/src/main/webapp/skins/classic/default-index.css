@@ -16,6 +16,7 @@ a:hover {
 
 img{
     vertical-align:middle;
+    border: 0px;
 }
 
 li{
@@ -57,7 +58,7 @@ h4{
     -moz-box-shadow: 0 0 16px #808A82;
     background-color: #FFFFFF;
     margin: 0 auto;
-    max-width: 960px;
+    width: 760px;
     padding: 24px
 }
 
@@ -151,7 +152,7 @@ h4{
 
 /* icon */
 .login-icon, .admin-icon, .logout-icon, .index-icon, .comment-icon,
-.create-date-icon, .last-comment-date-icon {
+.date-icon, .last-date-icon, .sofa-icon, .tag-icon {
     background-image: url(/images/icon.png);
     width: 16px;
     height: 16px;
@@ -177,15 +178,7 @@ h4{
     background-position:-64px -16px;
 }
 
-.create-date-icon {
-    background-position:-64px -16px;
-}
-
-.last-comment-date-icon {
-    background-position:-64px -16px;
-}
-
-.comment-icon {
+.comment-icon, .date-icon, .last-date-icon, .sofa-icon, .tag-icon {
     background-position: -32px -16px;
     float: left;
     display: block;    
@@ -195,17 +188,61 @@ h4{
     margin: 3px 3px 0 0;
 }
 
+.date-icon {
+    background-position:-144px -16px;
+}
 
+.last-date-icon {
+    background-position: -128px -32px;
+}
+
+.tag-icon {
+    background-position: -144px -32px;
+}
+
+.sofa-icon {
+    background-position: 0px -48px;
+}
 
 /* index */
 .index dl {
     border-bottom: 1px solid;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
 }
 
 .index dd {
+    border-top: 1px dotted;
+    margin: 15px 15px 0;
+    padding-top: 15px;
+}
 
+.index dt img {
+    height: 36px;
+    width: 36px;
+}
+
+.index .user-info img {
+    height: 45px;
+    width: 45px;
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #C2C2C2 #5A5A5A #5A5A5A #C2C2C2;
+    padding: 5px 4px 4px 5px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    margin-right: 20px;
+}
+
+.index .user-info img:hover {
+    border-color: #5A5A5A;
+}
+
+.index .main {
+    width: 654px;
+}
+
+.index .main h2 {
+    line-height: 30px;
 }
 
 /* user info */

@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
     <head>
         <title>${titleIndex}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -27,64 +27,84 @@
             <button onclick="testAddArticle()">Test Add Article</button>
             <#list tags as tag>
             <dl>
-                <dd>
-                    <h2 title="${tag.tagTitle}">
-                        <a href="/tags/${tag.tagTitle}">${tag.tagTitle}</a>
-                    </h2>
+                <dt>
+                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle}">${tag.tagTitle}</a>
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
                         <#if topAuthor.userURL != "">
-                        <a title="${topAuthor.userName}" href="http://${topAuthor.userURL}" target="_blank">
-                            ${topAuthor.userName}</a>
+                        <a class="no-underline" href="http://${topAuthor.userURL}" target="_blank">
+                            <img alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                                 src="${topAuthor.userThumbnailURL}"/>
+                        </a>
                         <#else>
-                        ${topAuthor.userName}
+                        <img alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                             src="${topAuthor.userThumbnailURL}"/>
                         </#if>
                         </#list>
                     </span>
                     <span class="right">
-                        <span class="left">${tagRefCountLabel}: ${tag.tagReferenceCount}</span>
+                        <span class="tag-icon" title="${tagRefCountLabel}"></span>&nbsp;
+                        <span class="left">${tag.tagReferenceCount}&nbsp;|&nbsp;</span>
                         <span class="comment-icon" title="${commentCountLabel}"></span>
-                        <span class="left">${tag.tagCommentCount}</span>
+                        <span class="left">&nbsp;${tag.tagCommentCount}</span>
                     </span>
-                </dd>
+                </dt>
                 <#list tag.tagArticles as article>
                 <dd>
-                    <div>
-                        <h3 title="${article.articleTitle}">
-                            <a href="/entries/${article.oId}">
-                                ${article.articleTitle}</a>
-                        </h3>
-                        <span class="right">
-                            <span class="create-date-icon" title="${createDateLabel}"></span>
-                            ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}
-                            <#if "1970" != article.articleLastCmtDate?string('yyyy')>
-                            <span class="create-date-icon" title="${${lastCommentDateLabel}}"></span>
-                            ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
-                            <#else>
-                            <a href="/entries/${article.oId}#cmt">${sofaLabel}</a>
-                            </#if>
-                        </span>
-                        <span class="clear"></span>
+                    <div class="user-info left">
+                        <#if article.articleAuthorURL != "">
+                        <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
+                            <img alt="${article.articleAuthorName}" title="${article.articleAuthorName}"
+                                 src="${article.articleAuthorThumbnailURL}"/>
+                        </a>
+                        <#else>
+                        <img alt="${article.articleAuthorName}" title="${article.articleAuthorName}"
+                             src="${article.articleAuthorThumbnailURL}"/>
+                        </#if>
                     </div>
-                    <div>
-                        <#list article.articleTags?split(',') as tagTitle>
-                        <h4 title="${tagTitle}">
-                            <a href="/tags/${tagTitle}">${tagTitle}</a>
-                        </h4>
-                        </#list>
-                        <span class="right">
-                            <span class="comment-icon" title="${commentCountLabel}"></span>
-                            <span class="left"> ${article.articleCommentCount}</span>
-                        </span>
-                        <span>
+                    <div class="left main">
+                        <div>
+                            <h2 title="${article.articleTitle}">
+                                <a href="/entries/${article.oId}">
+                                    ${article.articleTitle}</a>
+                            </h2>
+                            by
                             <#if article.articleAuthorURL != "">
                             <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
                                 ${article.articleAuthorName}</a>
                             <#else>
                             ${article.articleAuthorName}
                             </#if>
-                        </span>
+                            <span class="right">
+                                <span class="date-icon" title="${createDateLabel}"></span>
+                                <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}</span>
+                            </span>
+                            <span class="clear"></span>
+                        </div>
+                        <div>
+                            <#list article.articleTags?split(',') as tagTitle>
+                            <h3 title="${tagTitle}">
+                                <a href="/tags/${tagTitle}">${tagTitle}</a>
+                            </h3>
+                            </#list>
+                            <span class="right">
+                                <#if "1970" != article.articleLastCmtDate?string('yyyy')>
+                                <a href="/entries/${article.oId}#comments">
+                                    <span class="comment-icon" title="${commentCountLabel}"></span>
+                                    <span class="left">&nbsp;${article.articleCommentCount}</span>
+                                </a>
+                                <span class="left">
+                                    <span class="left">&nbsp;|&nbsp;</span>
+                                    <span class="last-date-icon" title="${lastCommentDateLabel}"></span>
+                                    <span class="left">&nbsp;${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}</span>
+                                </span>
+                                <#else>
+                                <span class="sofa-icon" title="${sofaLabel}"></span>&nbsp;<a href="/entries/${article.oId}#commentContent">${sofaLabel}</a>
+                                </#if>
+                            </span>
+                        </div>
                     </div>
+                    <div class="clear"></div>
                 </dd>
                 </#list>
             </dl>

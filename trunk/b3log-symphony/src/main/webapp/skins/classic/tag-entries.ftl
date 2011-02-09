@@ -47,7 +47,7 @@
                         </#if>
                     </span>
                     <span>
-                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')} / last comment date
+                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')} / last comment date
                     </span>
                 </dd>
                 </#list>
