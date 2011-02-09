@@ -20,6 +20,9 @@
         <div class="content">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <tr>
+                    <th>
+                        ${titleLabel}
+                    </th>
                     <th style="min-width: 300px;">
                         ${commentContentLabel}
                     </th>
@@ -32,6 +35,11 @@
                 </tr>
                 <#list comments as comment>
                 <tr>
+                    <td>
+                        <a href="/entries/${comment.commentEntryId}">
+                            ${comment.commentEntryTitle}
+                        </a>
+                    </td>
                     <td>
                         ${comment.commentContent}
                     </td>

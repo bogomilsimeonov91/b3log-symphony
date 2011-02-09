@@ -23,7 +23,7 @@
         <div class="header">
             <#include "header.ftl"/>
         </div>
-        <div class="content">
+        <div class="content index">
             <button onclick="testAddArticle()">Test Add Article</button>
             <#list tags as tag>
             <dl>
@@ -49,35 +49,42 @@
                 </dd>
                 <#list tag.tagArticles as article>
                 <dd>
-                    <h3 title="${article.articleTitle}">
-                        <a href="/entries/${article.oId}">
-                            ${article.articleTitle}</a>
-                    </h3>
-                    <#list article.articleTags?split(',') as tagTitle>
-                    <h4 title="${tagTitle}">
-                        <a href="/tags/${tagTitle}">${tagTitle}</a>
-                    </h4>
-                    </#list>
-                    <span class="right">
-                        <span class="comment-icon" title="${commentCountLabel}"></span>
-                        <span class="left"> ${article.articleCommentCount}</span>
-                    </span>
-                    <span>
-                        <#if article.articleAuthorURL != "">
-                        <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
-                            ${article.articleAuthorName}</a>
-                        <#else>
-                        ${article.articleAuthorName}
-                        </#if>
-                    </span>
-                    <span>
-                        ${createDateLabel}: ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')} /
-                        <#if "1970" != article.articleLastCmtDate?string('yyyy')>
-                        ${lastCommentDateLabel}: ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
-                        <#else>
-                        <a href="/entries/${article.oId}#cmt">${sofaLabel}</a>
-                        </#if>
-                    </span>
+                    <div>
+                        <h3 title="${article.articleTitle}">
+                            <a href="/entries/${article.oId}">
+                                ${article.articleTitle}</a>
+                        </h3>
+                        <span class="right">
+                            <span class="create-date-icon" title="${createDateLabel}"></span>
+                            ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}
+                            <#if "1970" != article.articleLastCmtDate?string('yyyy')>
+                            <span class="create-date-icon" title="${${lastCommentDateLabel}}"></span>
+                            ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
+                            <#else>
+                            <a href="/entries/${article.oId}#cmt">${sofaLabel}</a>
+                            </#if>
+                        </span>
+                        <span class="clear"></span>
+                    </div>
+                    <div>
+                        <#list article.articleTags?split(',') as tagTitle>
+                        <h4 title="${tagTitle}">
+                            <a href="/tags/${tagTitle}">${tagTitle}</a>
+                        </h4>
+                        </#list>
+                        <span class="right">
+                            <span class="comment-icon" title="${commentCountLabel}"></span>
+                            <span class="left"> ${article.articleCommentCount}</span>
+                        </span>
+                        <span>
+                            <#if article.articleAuthorURL != "">
+                            <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
+                                ${article.articleAuthorName}</a>
+                            <#else>
+                            ${article.articleAuthorName}
+                            </#if>
+                        </span>
+                    </div>
                 </dd>
                 </#list>
             </dl>
