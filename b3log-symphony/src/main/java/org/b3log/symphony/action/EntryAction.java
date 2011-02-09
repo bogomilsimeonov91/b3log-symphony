@@ -16,6 +16,7 @@
 
 package org.b3log.symphony.action;
 
+import com.dlog4j.util.UBBDecoder;
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -145,7 +146,10 @@ public final class EntryAction extends AbstractCacheablePageAction {
                             commenterEmail);
                     cmt.put(Comment.COMMENTER_URL_REF,
                             user.getString(User.USER_URL));
-                    cmt.put(Common.SIGN, user.getString(Common.SIGN));
+                    String sign = user.getString(Common.SIGN);
+                    sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+                    sign = UBBDecoder.decode(sign);
+                    cmt.put(Common.SIGN, sign);
                     final String thumbnailFileId =
                             user.optString(Common.USER_THUMBNAIL_FILE_ID);
                     if (Strings.isEmptyOrNull(thumbnailFileId)) {
@@ -176,7 +180,9 @@ public final class EntryAction extends AbstractCacheablePageAction {
 
             article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
                         thumbnailURL);
-            final String sign = author.getString(Common.SIGN);
+            String sign = author.getString(Common.SIGN);
+            sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+            sign = UBBDecoder.decode(sign);
             article.put(Common.SIGN, sign);
 
             ret.put(Article.ARTICLE, article);
