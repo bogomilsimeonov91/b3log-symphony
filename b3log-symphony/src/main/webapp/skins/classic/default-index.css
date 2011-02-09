@@ -1,20 +1,18 @@
 /* css reset */
 body{
-    background-color:#FFF;
-    color:#000;
-    font-family:'微软雅黑',Arial,sans-serif;
-    font-size:small;
+    background-image: url(images/bg-body.png);
+    color: #505460;
+    font-family: '微软雅黑',Arial,sans-serif;
+    font-size: 12px;
 }
 
-a,a:link{
-    color:#00C;
+a {
+    color: #005999;
 }
 
-a:active{
-    color:red;
+a:hover {
+    color: #505561;
 }
-
-a:visited{color:#551A8B;}
 
 img{
     vertical-align:middle;
@@ -55,8 +53,12 @@ h4{
 }
 
 .content{
-    margin:0 auto;
-    max-width:1160px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 0 16px #808A82;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 24px
 }
 
 .footer {

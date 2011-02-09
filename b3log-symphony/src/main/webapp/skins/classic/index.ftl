@@ -29,7 +29,7 @@
             <dl>
                 <dd>
                     <h2 title="${tag.tagTitle}">
-                        ${tag.tagTitle}
+                        <a href="/tags/${tag.tagTitle}">${tag.tagTitle}</a>
                     </h2>
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
@@ -41,35 +41,39 @@
                         </#if>
                         </#list>
                     </span>
-                    <span>
-                        ${tag.tagReferenceCount} / ${tag.tagCommentCount}
+                    <span class="right">
+                        <span class="left">${tagRefCountLabel}: ${tag.tagReferenceCount}</span>
+                        <span class="comment-icon" title="${commentCountLabel}"></span>
+                        <span class="left">${tag.tagCommentCount}</span>
                     </span>
                 </dd>
                 <#list tag.tagArticles as article>
                 <dd>
-                    <h3>
-                        <a href="/entries/${article.oId}" title="${article.articleTitle}">
+                    <h3 title="${article.articleTitle}">
+                        <a href="/entries/${article.oId}">
                             ${article.articleTitle}</a>
                     </h3>
                     <#list article.articleTags?split(',') as tagTitle>
-                    <h4>
+                    <h4 title="${tagTitle}">
                         <a href="/tags/${tagTitle}">${tagTitle}</a>
                     </h4>
                     </#list>
-                    <span>
-                        ${article.articleCommentCount}
+                    <span class="right">
+                        <span class="comment-icon" title="${commentCountLabel}"></span>
+                        <span class="left"> ${article.articleCommentCount}</span>
                     </span>
                     <span>
                         <#if article.articleAuthorURL != "">
-                        <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
+                        <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
+                            ${article.articleAuthorName}</a>
                         <#else>
                         ${article.articleAuthorName}
                         </#if>
                     </span>
                     <span>
-                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/
+                        ${createDateLabel}: ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')} /
                         <#if "1970" != article.articleLastCmtDate?string('yyyy')>
-                        ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
+                        ${lastCommentDateLabel}: ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
                         <#else>
                         <a href="/entries/${article.oId}#cmt">${sofaLabel}</a>
                         </#if>

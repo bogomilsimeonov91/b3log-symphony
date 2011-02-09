@@ -24,18 +24,18 @@
             <#include "header.ftl"/>
         </div>
         <div class="content">
-            <h1>${tagTitle}</h1>
+            <h1 title="${tagTitle}">${tagTitle}</h1>
             <dl>
                 <#list articles as article>
                 <dd>
-                    <span>
+                    <h2 title="${article.articleTitle}">
                         <a href="/entries/${article.oId}">${article.articleTitle}</a>
-                    </span>
-                    <span>
-                        <#list article.articleTags?split(',') as tagTitle>
+                    </h2>
+                    <#list article.articleTags?split(',') as tagTitle>
+                    <h3 title="${tagTitle}">
                         <a href="/tags/${tagTitle}">${tagTitle}</a>
-                        </#list>
-                    </span>
+                    </h3>
+                    </#list>
                     <span>
                         ${article.articleCommentCount}
                     </span>
@@ -47,7 +47,7 @@
                         </#if>
                     </span>
                     <span>
-                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}/last comment date
+                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')} / last comment date
                     </span>
                 </dd>
                 </#list>
