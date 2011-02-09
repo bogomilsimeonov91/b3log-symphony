@@ -15,6 +15,8 @@
         <link rel="icon" type="image/png" href="/favicon.png"/>
     </head>
     <body>
+        <pre>
         ${errorPageCause}
+        </pre>
     </body>
 </html>
