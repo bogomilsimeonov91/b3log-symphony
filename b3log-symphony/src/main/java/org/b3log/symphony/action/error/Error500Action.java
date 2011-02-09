@@ -68,7 +68,7 @@ public final class Error500Action extends AbstractAction {
             }
 
             if (Strings.isEmptyOrNull(cause)) {
-                cause = Langs.get("forbiddenLabel");
+                cause = Langs.get("unknownErrorLabel");
             }
 
             ret.put(ErrorPage.ERROR_PAGE_CAUSE, cause);
