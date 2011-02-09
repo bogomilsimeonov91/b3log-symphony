@@ -172,7 +172,7 @@
         <servlet-name>UserSettings</servlet-name>
         <url-pattern>/user-settings</url-pattern>
     </servlet-mapping>
-
+    
     <servlet>
         <servlet-name>FileAccess</servlet-name>
         <servlet-class>org.b3log.symphony.action.file.DataStoreFileAccessServlet</servlet-class>
