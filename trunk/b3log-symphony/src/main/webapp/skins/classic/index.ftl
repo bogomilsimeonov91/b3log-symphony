@@ -34,7 +34,7 @@
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
                         <#if topAuthor.userURL != "">
-                        <a href="http://${topAuthor.userURL}">${topAuthor.userName}</a>
+                        <a href="http://${topAuthor.userURL}" target="_blank">${topAuthor.userName}</a>
                         <#else>
                         ${topAuthor.userName}
                         </#if>
@@ -62,7 +62,7 @@
                     </span>
                     <span>
                         <#if article.articleAuthorURL != "">
-                        <a href="http://${article.articleAuthorURL}">${article.articleAuthorName}</a>
+                        <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
                         <#else>
                         ${article.articleAuthorName}
                         </#if>
