@@ -169,6 +169,12 @@
         <dependency>
             <groupId>org.b3log</groupId>
             <artifactId>latke</artifactId>
+            <exclusions>
+                <exclusion><!-- Using GAE Mail Service instead -->
+                    <artifactId>mail</artifactId>
+                    <groupId>javax.mail</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -251,8 +257,8 @@
                     <excludes>
                         <exclude>**/src/main/java/**/package-info.java</exclude>
                         <exclude>**/src/*/webapp/js/lib/*.js</exclude>
-                        <!-- TODO: realy need this? -->
                         <exclude>**/src/main/java/freemarker/core/TextBlock.java</exclude>
+                        <exclude>**/src/main/java/com/**/*.java</exclude>
                     </excludes>
 
                     <useDefaultExcludes>true</useDefaultExcludes>
@@ -285,7 +291,8 @@
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <!-- TODO: realy need this? -->
                     <excludes>
-                        freemarker/core/TextBlock.java
+                        freemarker/core/TextBlock.java,
+                        com/**/*.java
                     </excludes>
                     <consoleOutput>true</consoleOutput>
                     <failOnViolation>true</failOnViolation>
