@@ -34,7 +34,6 @@
         <url-pattern>/</url-pattern>
         <url-pattern>/index</url-pattern>
     </filter-mapping>
-
     <filter>
         <filter-name>TagPermalinkFilter</filter-name>
         <filter-class>org.b3log.symphony.filter.TagPermalinkFilter</filter-class>
@@ -43,7 +42,6 @@
         <filter-name>TagPermalinkFilter</filter-name>
         <url-pattern>/tags/*</url-pattern>
     </filter-mapping>
-    
     <filter>
         <filter-name>EntryPermalinkFilter</filter-name>
         <filter-class>org.b3log.symphony.filter.EntryPermalinkFilter</filter-class>
@@ -52,7 +50,6 @@
         <filter-name>EntryPermalinkFilter</filter-name>
         <url-pattern>/entries/*</url-pattern>
     </filter-mapping>
-
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>User Actions</web-resource-name>
@@ -64,7 +61,6 @@
             <role-name>*</role-name>
         </auth-constraint>
     </security-constraint>
-
     <listener>
         <listener-class>org.b3log.symphony.SymphonyServletListener</listener-class>
     </listener>
@@ -73,7 +69,6 @@
             30
         </session-timeout>
     </session-config>
-
     <servlet>
         <servlet-name>CaptchaServlet</servlet-name>
         <servlet-class>org.b3log.symphony.action.captcha.CaptchaServlet</servlet-class>
@@ -82,7 +77,6 @@
         <servlet-name>CaptchaServlet</servlet-name>
         <url-pattern>/captcha</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>IndexAction</servlet-name>
         <servlet-class>org.b3log.symphony.action.IndexAction</servlet-class>
@@ -91,7 +85,6 @@
         <servlet-name>IndexAction</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>TagEntriesAction</servlet-name>
         <servlet-class>org.b3log.symphony.action.TagEntriesAction</servlet-class>
@@ -100,7 +93,6 @@
         <servlet-name>TagEntriesAction</servlet-name>
         <url-pattern>/tag-entries.do</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>EntryAction</servlet-name>
         <servlet-class>org.b3log.symphony.action.EntryAction</servlet-class>
@@ -109,7 +101,6 @@
         <servlet-name>EntryAction</servlet-name>
         <url-pattern>/entry.do</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>AddArticleAction</servlet-name>
         <servlet-class>org.b3log.symphony.action.AddArticleAction</servlet-class>
@@ -118,7 +109,6 @@
         <servlet-name>AddArticleAction</servlet-name>
         <url-pattern>/add-article</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>AddArticleCommentAction</servlet-name>
         <servlet-class>org.b3log.symphony.action.AddArticleCommentAction</servlet-class>
@@ -127,7 +117,6 @@
         <servlet-name>AddArticleCommentAction</servlet-name>
         <url-pattern>/add-comment</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>Register</servlet-name>
         <servlet-class>org.b3log.symphony.action.RegisterAction</servlet-class>
@@ -136,7 +125,6 @@
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>org.b3log.symphony.action.LoginAction</servlet-class>
@@ -145,7 +133,6 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>org.b3log.symphony.action.LogoutAction</servlet-class>
@@ -154,7 +141,6 @@
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>CheckLogin</servlet-name>
         <servlet-class>org.b3log.symphony.action.CheckLoginAction</servlet-class>
@@ -163,7 +149,6 @@
         <servlet-name>CheckLogin</servlet-name>
         <url-pattern>/check-login</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>UserSettings</servlet-name>
         <servlet-class>org.b3log.symphony.action.UserSettingsAction</servlet-class>
@@ -172,7 +157,6 @@
         <servlet-name>UserSettings</servlet-name>
         <url-pattern>/user-settings</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>FileAccess</servlet-name>
         <servlet-class>org.b3log.symphony.action.file.DataStoreFileAccessServlet</servlet-class>
@@ -181,7 +165,6 @@
         <servlet-name>FileAccess</servlet-name>
         <url-pattern>/file</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>UserEntries</servlet-name>
         <servlet-class>org.b3log.symphony.action.UserEntriesAction</servlet-class>
@@ -190,7 +173,6 @@
         <servlet-name>UserEntries</servlet-name>
         <url-pattern>/user-entries</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>UserComments</servlet-name>
         <servlet-class>org.b3log.symphony.action.UserCommentsAction</servlet-class>
@@ -199,18 +181,31 @@
         <servlet-name>UserComments</servlet-name>
         <url-pattern>/user-comments</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>Error404</servlet-name>
+        <servlet-class>org.b3log.symphony.action.error.Error404Action</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Error404</servlet-name>
+        <url-pattern>/404</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Error403</servlet-name>
+        <servlet-class>org.b3log.symphony.action.error.Error403Action</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Error403</servlet-name>
+        <url-pattern>/403</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403</location>
+    </error-page>
     <welcome-file-list>
         <welcome-file>index</welcome-file>
     </welcome-file-list>
-
-<!--     <servlet>
-        <servlet-name>RegisterAction</servlet-name>
-        <servlet-class>org.b3log.latke.action.DoNothingAction</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegisterAction</servlet-name>
-        <url-pattern>/register.do</url-pattern>
-    </servlet-mapping>-->
-
 </web-app>

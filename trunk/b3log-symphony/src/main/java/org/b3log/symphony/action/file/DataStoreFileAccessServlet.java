@@ -38,6 +38,7 @@ import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.Ids;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Common;
+import org.b3log.symphony.model.ErrorPage;
 import org.b3log.symphony.model.File;
 import org.b3log.symphony.repository.FileRepository;
 import org.b3log.symphony.repository.UserRepository;
@@ -148,8 +149,11 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
 
                 String contentType = item.getContentType();
                 if (Strings.isEmptyOrNull(contentType)) {
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN);
-
+                    final String cause =
+                            langs.get("thumbnailContentTypeErrorLabel");
+                    sendError(request, response,
+                              HttpServletResponse.SC_FORBIDDEN,
+                              "/file", cause);
                     return;
                 }
 
@@ -159,7 +163,11 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
                     && !"image/png".equals(contentType)) {
                     LOGGER.log(Level.WARNING, "Thumbnail[contentType={0}]",
                                contentType);
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                    final String cause =
+                            langs.get("thumbnailContentTypeErrorLabel");
+                    sendError(request, response,
+                              HttpServletResponse.SC_FORBIDDEN,
+                              "/file", cause);
 
                     return;
                 }
@@ -169,8 +177,9 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
                 if (contentBytes.length > MAX_SIZE) {
                     final String cause =
                             langs.get("exceedMaxUploadSizeLabel");
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN,
-                                       cause);
+                    sendError(request, response,
+                              HttpServletResponse.SC_FORBIDDEN,
+                              "/file", cause);
 
                     return;
                 }
@@ -228,7 +237,7 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
         if (Strings.isEmptyOrNull(id)) {
             return;
         }
-        
+
         try {
             final JSONObject file = fileRepository.get(id);
             if (null == file) {
@@ -252,5 +261,27 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new ServletException("File download error: " + e.getMessage());
         }
+    }
+
+    /**
+     * Sends error via {@linkplain HttpServletResponse#sendError(int, java.lang.String)}
+     * with the specified error URI and cause.
+     *
+     * @param request the specified http servlet request
+     * @param response the specified http servlet response
+     * @param errorCode the specified error code
+     * @param errorURI the specified error URI
+     * @param cause the specified cause
+     * @throws IOException io exception
+     */
+    private void sendError(final HttpServletRequest request,
+                           final HttpServletResponse response,
+                           final int errorCode,
+                           final String errorURI,
+                           final String cause) throws IOException {
+        request.setAttribute(ErrorPage.ERROR_PAGE_REQUEST_URI,
+                             errorURI);
+        request.setAttribute(ErrorPage.ERROR_PAGE_CAUSE, cause);
+        response.sendError(errorCode, cause);
     }
 }
