@@ -30,7 +30,6 @@ import org.b3log.latke.event.EventManager;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
-import org.b3log.symphony.model.Blog;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.UserRepository;
@@ -103,10 +102,9 @@ public final class AddArticleAction extends AbstractAction {
      *         "articleContent": ""
      *         "articleCreateDate": long
      *     },
-     *     "blogHost": "",
-     *     "blogTitle": "",
-     *     "blogVersion": "",
-     *     "blog": ""
+     *     "host": "",
+     *     "from": ""
+     *     "version": "",
      * }
      * </pre>
      * @param request the specified http servlet request
@@ -134,13 +132,12 @@ public final class AddArticleAction extends AbstractAction {
             }
 
             final String from = data.getString(Common.FROM);
-            final String blogTitle = data.getString(Blog.BLOG_TITLE);
-            final String blogHost = data.getString(Blog.BLOG_HOST);
-            final String blogVersion = data.optString(Blog.BLOG_VERSION);
+            final String version = data.optString(Common.VERSION);
+            final String host = data.getString(Common.HOST);
 
             LOGGER.log(Level.INFO,
-                       "Data come from [blog={0}, host={1}, version={2}]",
-                       new String[]{blogTitle, blogHost, blogVersion});
+                       "Data[from={0}, host={1}, version={2}]",
+                       new String[]{from, host, version});
 
             final JSONObject originalArticle = data.getJSONObject(ARTICLE);
 
@@ -148,7 +145,7 @@ public final class AddArticleAction extends AbstractAction {
             article.put(ARTICLE_TITLE, originalArticle.getString(ARTICLE_TITLE));
             final String tagString = originalArticle.getString(ARTICLE_TAGS);
             article.put(ARTICLE_TAGS, removeWhitespaces(tagString));
-            final String permalink = "http://" + blogHost + originalArticle.
+            final String permalink = "http://" + host + originalArticle.
                     getString(ARTICLE_PERMALINK);
             article.put(ARTICLE_PERMALINK, permalink);
             article.put(ARTICLE_CONTENT,
@@ -166,8 +163,8 @@ public final class AddArticleAction extends AbstractAction {
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
             article.put(Common.STATE, Common.AVAILABLE);
             article.put(Article.ARTICLE_FROM, from);
-            article.put(Blog.BLOG_HOST, blogHost);
-            article.put(Blog.BLOG_VERSION, blogVersion);
+            article.put(Common.HOST, host);
+            article.put(Common.VERSION, version);
 
             final String authorEmail =
                     originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF).
