@@ -128,6 +128,8 @@ public final class AddArticleAction extends AbstractAction {
                                       final HttpServletRequest request,
                                       final HttpServletResponse response)
             throws ActionException {
+        // TODO: check params
+        
         final JSONObject ret = new JSONObject();
         final Transaction transaction = articleRepository.beginTransaction();
 
@@ -176,11 +178,11 @@ public final class AddArticleAction extends AbstractAction {
                     originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF).
                     toLowerCase();
             final JSONObject author = userRepository.getByEmail(authorEmail);
-            if (null != author) {// The author has related with Symphony
+            if (null != author) {
                 final String authodId = author.getString(Keys.OBJECT_ID);
                 article.put(Common.AUTHOR_ID, authodId);
             } else {
-                article.put(Article.ARTICLE_AUTHOR_NAME, blogTitle);
+                throw new Exception("Unauthorized request!");
             }
 
             articleRepository.add(article);
