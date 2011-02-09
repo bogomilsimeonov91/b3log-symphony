@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.ArrayList;
@@ -35,8 +34,10 @@ import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
+import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
+import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Errors;
@@ -65,6 +66,11 @@ public final class UserCommentsAction extends AbstractAction {
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
+    /**
+     * Article repository.
+     */
+    private ArticleRepository articleRepository =
+            ArticleGAERepository.getInstance();
     /**
      * Comment repository.
      */

@@ -198,6 +198,8 @@ public final class AddArticleCommentAction extends AbstractAction {
             comment.put(Comment.COMMENT_CONTENT, commentContent);
             comment.put(Common.COMMENTER_ID, commenterId);
             comment.put(Comment.COMMENT_ENTRY_ID, articleId);
+            comment.put(Comment.COMMENT_ENTRY_TITLE,
+                    article.getString(Article.ARTICLE_TITLE));
             final Date date = timeZoneUtils.getTime(
                     SymphonyServletListener.TIME_ZONE_ID);
             comment.put(Comment.COMMENT_DATE, date);

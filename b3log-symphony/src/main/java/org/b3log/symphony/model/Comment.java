@@ -82,6 +82,10 @@ public final class Comment {
      * Key of comment entry id.
      */
     public static final String COMMENT_ENTRY_ID = "commentEntryId";
+    /**
+     * Key of comment entry title.
+     */
+    public static final String COMMENT_ENTRY_TITLE = "commentEntryTitle";
 
     /**
      * Private default constructor.
