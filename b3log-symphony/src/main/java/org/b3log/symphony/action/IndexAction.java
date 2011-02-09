@@ -47,7 +47,7 @@ import org.json.JSONObject;
  * Index action. index.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 8, 2011
+ * @version 1.0.0.4, Feb 9, 2011
  */
 public final class IndexAction extends AbstractCacheablePageAction {
 
@@ -127,11 +127,13 @@ public final class IndexAction extends AbstractCacheablePageAction {
                         tagUserRepository.getTopTagUsers(tagId, maxAuthorCnt);
                 for (final String topAuthorId : topAuthorIds) {
                     final JSONObject user = userRepository.get(topAuthorId);
-                    final String topAuthorName = user.getString(User.USER_NAME);
 
                     final JSONObject topAuthor = new JSONObject();
                     topAuthor.put(Keys.OBJECT_ID, topAuthorId);
+                    final String topAuthorName = user.getString(User.USER_NAME);
                     topAuthor.put(User.USER_NAME, topAuthorName);
+                    final String topAuthorURL = user.getString(User.USER_URL);
+                    topAuthor.put(User.USER_URL, topAuthorURL);
                     topAuthors.add(topAuthor);
                 }
                 LOGGER.log(Level.FINE, "Got top authors for tag[title={0}]",
