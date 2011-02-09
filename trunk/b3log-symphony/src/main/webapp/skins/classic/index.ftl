@@ -33,7 +33,7 @@
                     </span>
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
-                        <a href="http://{topAuthor.userURL}">${topAuthor.userName}</a>
+                        <a href="http://${topAuthor.userURL}">${topAuthor.userName}</a>
                         </#list>
                     </span>
                     <span>
