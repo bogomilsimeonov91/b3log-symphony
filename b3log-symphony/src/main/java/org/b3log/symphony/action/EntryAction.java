@@ -16,13 +16,10 @@
 
 package org.b3log.symphony.action;
 
-import com.google.appengine.api.urlfetch.HTTPHeader;
-import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +35,7 @@ import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.MD5;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
@@ -101,10 +98,10 @@ public final class EntryAction extends AbstractCacheablePageAction {
     private static URLFetchService urlFetchService =
             URLFetchServiceFactory.getURLFetchService();
     /**
-     * Default user thumbnail.
+     * Default user thumbnail URL.
      */
-    private static final String DEFAULT_USER_THUMBNAIL =
-            "default-user-thumbnail.png";
+    private static final String DEFAULT_USER_THUMBNAIL_URL =
+            "/images/default-user-thumbnail.png";
 
     static {
         try {
@@ -173,6 +170,15 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     cmt.put(Comment.COMMENTER_URL_REF,
                             user.getString(User.USER_URL));
                     cmt.put(Common.SIGN, user.getString(Common.SIGN));
+                    final String thumbnailFileId =
+                            user.getString(Common.USER_THUMBNAIL_FILE_ID);
+                    if (Strings.isEmptyOrNull(thumbnailFileId)) {
+                        cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
+                                DEFAULT_USER_THUMBNAIL_URL);
+                    } else {
+                        cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
+                                "/file?oId" + thumbnailFileId);
+                    }
                 }
 
                 comments.add(cmt);
@@ -185,8 +191,13 @@ public final class EntryAction extends AbstractCacheablePageAction {
             article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
             final String url = author.getString(User.USER_URL);
             article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
-            final String thumbnailURL = getThumbnailURL(
-                    author.getString(User.USER_EMAIL));
+            final String userThumbnailFileId =
+                    author.optString(Common.USER_THUMBNAIL_FILE_ID);
+            String thumbnailURL = DEFAULT_USER_THUMBNAIL_URL;
+            if (!Strings.isEmptyOrNull(userThumbnailFileId)) {
+                thumbnailURL = "/file?oId=" + userThumbnailFileId;
+            }
+
             article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
                         thumbnailURL);
             final String sign = author.getString(Common.SIGN);
@@ -222,69 +233,5 @@ public final class EntryAction extends AbstractCacheablePageAction {
                                       final HttpServletResponse response)
             throws ActionException {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Gets thumbnail URL from <a href="http://www.gravatar.com">
-     * Gravatar</a> for the specified email.
-     *
-     * @param email the specified email
-     * @return the thumbnail URL, if not found from <a href="http://www.gravatar.com">
-     * Gravatar</a>, using the default URL {@value #DEFAULT_USER_THUMBNAIL}
-     * instead.
-     * @throws Exception exception
-     */
-    private static String getThumbnailURL(final String email)
-            throws Exception {
-        String ret = null;
-
-        // Try to set thumbnail URL using Gravatar service
-        final String hashedEmail = MD5.hash(email.toLowerCase());
-        final int size = 60;
-        final URL gravatarURL =
-                new URL("http://www.gravatar.com/avatar/" + hashedEmail + "?s="
-                        + size + "&r=G");
-        try {
-            final HTTPResponse response = urlFetchService.fetch(gravatarURL);
-            final int statusCode = response.getResponseCode();
-
-            if (HttpServletResponse.SC_OK == statusCode) {
-                final List<HTTPHeader> headers = response.getHeaders();
-                boolean defaultFileLengthMatched = false;
-                for (final HTTPHeader httpHeader : headers) {
-                    if ("Content-Length".equalsIgnoreCase(httpHeader.getName())) {
-                        if (httpHeader.getValue().equals("2147")) {
-                            defaultFileLengthMatched = true;
-                        }
-                    }
-                }
-
-                if (!defaultFileLengthMatched) {
-                    ret = "http://www.gravatar.com/avatar/"
-                          + hashedEmail + "?s=" + size + "&r=G";
-                    LOGGER.log(Level.FINEST, "Thumbnail[URL={0}]", ret);
-
-                    return ret;
-                }
-            } else {
-                LOGGER.log(Level.WARNING,
-                           "Can not fetch thumbnail from Gravatar[commentEmail={0}, statusCode={1}]",
-                           new Object[]{email, statusCode});
-            }
-        } catch (final IOException e) {
-            LOGGER.warning(e.getMessage());
-            LOGGER.log(Level.WARNING,
-                       "Can not fetch thumbnail from Gravatar[commentEmail={0}]",
-                       email);
-        }
-
-        if (null == ret) {
-            LOGGER.log(Level.WARNING,
-                       "Not supported yet for comment thumbnail for email[{0}]",
-                       email);
-            ret = "/images/" + DEFAULT_USER_THUMBNAIL;
-        }
-
-        return ret;
     }
 }

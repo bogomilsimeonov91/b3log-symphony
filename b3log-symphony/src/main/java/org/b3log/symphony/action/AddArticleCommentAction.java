@@ -16,14 +16,9 @@
 
 package org.b3log.symphony.action;
 
-import com.google.appengine.api.urlfetch.HTTPHeader;
-import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +32,6 @@ import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
-import org.b3log.latke.util.MD5;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.SymphonyServletListener;
 import org.b3log.symphony.model.Article;
@@ -60,7 +54,7 @@ import org.json.JSONObject;
  * Adds article comment action.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 31, 2011
+ * @version 1.0.0.1, Feb 9, 2011
  */
 public final class AddArticleCommentAction extends AbstractAction {
 
@@ -100,7 +94,7 @@ public final class AddArticleCommentAction extends AbstractAction {
      * Default user thumbnail.
      */
     private static final String DEFAULT_USER_THUMBNAIL =
-            "default-user-thumbnail.png";
+            "/image/default-user-thumbnail.png";
     /**
      * URL fetch service.
      */
@@ -150,7 +144,6 @@ public final class AddArticleCommentAction extends AbstractAction {
      *     "sc": true, // true for succeed
      *     "commentDate": "", // yyyy/MM/dd hh:mm:ss
      *     "commentSharpURL": "",
-     *     "commentThumbnailURL": "",
      *     "commentOriginalCommentName": "" // if exists this key, the comment is an reply
      * }
      * </pre>
@@ -165,7 +158,6 @@ public final class AddArticleCommentAction extends AbstractAction {
 
         String commenterEmail = null;
         String commenterName = null;
-        String commenterURL = null;
         String commenterId = null;
         try {
             commenterEmail =
@@ -181,7 +173,6 @@ public final class AddArticleCommentAction extends AbstractAction {
 
             commenterId = commenter.getString(Keys.OBJECT_ID);
             commenterName = commenter.getString(User.USER_NAME);
-            commenterURL = commenter.getString(User.USER_URL);
         } catch (final Exception e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
 
@@ -254,9 +245,6 @@ public final class AddArticleCommentAction extends AbstractAction {
                                             commentContent});
                 }
             }
-            setCommentThumbnailURL(comment);
-            ret.put(Comment.COMMENT_THUMBNAIL_URL,
-                    comment.getString(Comment.COMMENT_THUMBNAIL_URL));
             commentId = commentRepository.add(comment);
             // Save comment sharp URL
             final String commentSharpURL =
@@ -306,67 +294,5 @@ public final class AddArticleCommentAction extends AbstractAction {
         final String articleLink = article.getString(Article.ARTICLE_PERMALINK);
 
         return articleLink + "#" + commentId;
-    }
-
-    /**
-     * Sets commenter thumbnail URL for the specified comment.
-     *
-     * @param comment the specified comment
-     * @throws Exception exception
-     */
-    private static void setCommentThumbnailURL(final JSONObject comment)
-            throws Exception {
-        final String commenterEmail = comment.getString(Comment.COMMENTER_EMAIL);
-        String thumbnailURL = null;
-
-        // Try to set thumbnail URL using Gravatar service
-        final String hashedEmail = MD5.hash(commenterEmail.toLowerCase());
-        final int size = 60;
-        final URL gravatarURL =
-                new URL("http://www.gravatar.com/avatar/" + hashedEmail + "?s="
-                        + size + "&r=G");
-        try {
-            final HTTPResponse response = urlFetchService.fetch(gravatarURL);
-            final int statusCode = response.getResponseCode();
-
-            if (HttpServletResponse.SC_OK == statusCode) {
-                final List<HTTPHeader> headers = response.getHeaders();
-                boolean defaultFileLengthMatched = false;
-                for (final HTTPHeader httpHeader : headers) {
-                    if ("Content-Length".equalsIgnoreCase(httpHeader.getName())) {
-                        if (httpHeader.getValue().equals("2147")) {
-                            defaultFileLengthMatched = true;
-                        }
-                    }
-                }
-
-                if (!defaultFileLengthMatched) {
-                    thumbnailURL = "http://www.gravatar.com/avatar/"
-                                   + hashedEmail + "?s=" + size + "&r=G";
-                    comment.put(Comment.COMMENT_THUMBNAIL_URL, thumbnailURL);
-                    LOGGER.log(Level.FINEST, "Comment thumbnail[URL={0}]",
-                               thumbnailURL);
-
-                    return;
-                }
-            } else {
-                LOGGER.log(Level.WARNING,
-                           "Can not fetch thumbnail from Gravatar[commentEmail={0}, statusCode={1}]",
-                           new Object[]{commenterEmail, statusCode});
-            }
-        } catch (final IOException e) {
-            LOGGER.warning(e.getMessage());
-            LOGGER.log(Level.WARNING,
-                       "Can not fetch thumbnail from Gravatar[commentEmail={0}]",
-                       commenterEmail);
-        }
-
-        if (null == thumbnailURL) {
-            LOGGER.log(Level.WARNING,
-                       "Not supported yet for comment thumbnail for email[{0}]",
-                       commenterEmail);
-            thumbnailURL = "/images/" + DEFAULT_USER_THUMBNAIL;
-            comment.put(Comment.COMMENT_THUMBNAIL_URL, thumbnailURL);
-        }
     }
 }
