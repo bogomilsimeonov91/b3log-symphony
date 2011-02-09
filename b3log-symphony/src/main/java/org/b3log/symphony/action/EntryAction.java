@@ -39,7 +39,6 @@ import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.MD5;
-import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
@@ -56,7 +55,7 @@ import org.json.JSONObject;
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 8, 2011
+ * @version 1.0.0.5, Feb 9, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -180,23 +179,18 @@ public final class EntryAction extends AbstractCacheablePageAction {
             }
 
             article.put(Article.ARTICLE_COMMENTS_REF, (Object) comments);
-            if (Strings.isEmptyOrNull(
-                    article.optString(Article.ARTICLE_AUTHOR_NAME))) {
-                final String authorId = article.getString(Common.AUTHOR_ID);
-                final JSONObject author = userRepository.get(authorId);
-                final String name = author.getString(User.USER_NAME);
-                article.put(Article.ARTICLE_AUTHOR_NAME, name);
-                final String url = author.getString(User.USER_URL);
-                article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
-                final String thumbnailURL = getThumbnailURL(
-                        author.getString(User.USER_EMAIL));
-                article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
-                            thumbnailURL);
-                final String sign = author.getString(Common.SIGN);
-                article.put(Common.SIGN, sign);
-            } else {
-                article.put(Common.SIGN, DEFAULT_SIGN);
-            }
+            final String authorId = article.getString(Common.AUTHOR_ID);
+            final JSONObject author = userRepository.get(authorId);
+            final String name = author.getString(User.USER_NAME);
+            article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
+            final String url = author.getString(User.USER_URL);
+            article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
+            final String thumbnailURL = getThumbnailURL(
+                    author.getString(User.USER_EMAIL));
+            article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
+                        thumbnailURL);
+            final String sign = author.getString(Common.SIGN);
+            article.put(Common.SIGN, sign);
 
             ret.put(Article.ARTICLE, article);
 

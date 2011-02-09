@@ -33,7 +33,6 @@ import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.service.LangPropsService;
-import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
@@ -142,18 +141,15 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                     continue;
                 }
 
-                if (Strings.isEmptyOrNull(
-                        article.optString(Article.ARTICLE_AUTHOR_NAME))) {
-                    final String authorId = article.getString(
-                            Common.AUTHOR_ID);
-                    final JSONObject author = userRepository.get(authorId);
-                    final String name = author.getString(User.USER_NAME);
-                    article.put(Article.ARTICLE_AUTHOR_NAME, name);
-                    final String url = author.getString(User.USER_URL);
-                    article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
-                    final String sign = author.getString(Common.SIGN);
-                    article.put(Common.SIGN, sign);
-                }
+                final String authorId = article.getString(
+                        Common.AUTHOR_ID);
+                final JSONObject author = userRepository.get(authorId);
+                final String name = author.getString(User.USER_NAME);
+                article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
+                final String url = author.getString(User.USER_URL);
+                article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
+                final String sign = author.getString(Common.SIGN);
+                article.put(Common.SIGN, sign);
 
                 articles.add(article);
             }
