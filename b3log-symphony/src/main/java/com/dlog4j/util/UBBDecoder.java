@@ -3,6 +3,7 @@ package com.dlog4j.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+
 /**
  * UBB解码类
  * @author liudong
