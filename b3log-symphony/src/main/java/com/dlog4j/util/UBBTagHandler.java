@@ -21,6 +21,6 @@ interface UBBTagHandler {
      * @param isEmpty 是否是一个空标签，即形式为[.../]，没有子标签的UBB标签
      * @return 组合好的字符串
      */
-    public String compose(String tag, String[] attr, String data, boolean isEmpty);
-    
+    public String compose(String tag, String[] attr, String data,
+                          boolean isEmpty);
 }
