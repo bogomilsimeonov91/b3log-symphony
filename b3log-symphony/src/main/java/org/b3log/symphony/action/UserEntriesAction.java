@@ -26,14 +26,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
-import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
@@ -41,6 +39,8 @@ import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Errors;
+import org.b3log.symphony.util.Langs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -62,11 +62,6 @@ public final class UserEntriesAction extends AbstractAction {
     private static final Logger LOGGER =
             Logger.getLogger(UserEntriesAction.class.getName());
     /**
-     * Language service.
-     */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
-    /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
@@ -75,19 +70,6 @@ public final class UserEntriesAction extends AbstractAction {
      */
     private ArticleRepository articleRepository = ArticleGAERepository.
             getInstance();
-    /**
-     * Languages.
-     */
-    private static Map<String, String> langs = null;
-
-    static {
-        try {
-            langs = LANG_PROP_SVC.getAll(
-                    Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -96,19 +78,27 @@ public final class UserEntriesAction extends AbstractAction {
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
-        ret.putAll(langs);
+        ret.putAll(Langs.all());
 
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                  final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
 
                 return ret;
             }
 
             final String email = (String) session.getAttribute(User.USER_EMAIL);
             if (null == email) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                  final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
 
                 return ret;
             }

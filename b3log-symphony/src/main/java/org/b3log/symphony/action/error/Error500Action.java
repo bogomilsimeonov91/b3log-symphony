@@ -33,12 +33,12 @@ import org.b3log.symphony.util.Langs;
 import org.json.JSONObject;
 
 /**
- * 403. 403.ftl.
+ * 500. 500.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.0, Feb 9, 2011
  */
-public final class Error403Action extends AbstractAction {
+public final class Error500Action extends AbstractAction {
 
     /**
      * Default serial version uid.
@@ -48,7 +48,8 @@ public final class Error403Action extends AbstractAction {
      * Logger.
      */
     private static final Logger LOGGER =
-            Logger.getLogger(Error403Action.class.getName());
+            Logger.getLogger(Error500Action.class.getName());
+   
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(

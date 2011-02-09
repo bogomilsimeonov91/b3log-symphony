@@ -27,10 +27,8 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.model.User;
-import org.b3log.latke.service.LangPropsService;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
@@ -40,6 +38,7 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.TagUserGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Langs;
 import org.json.JSONObject;
 
 /**
@@ -72,23 +71,6 @@ public final class IndexAction extends AbstractCacheablePageAction {
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
-    /**
-     * Language service.
-     */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
-    /**
-     * Languages.
-     */
-    private static Map<String, String> langs = null;
-
-    static {
-        try {
-            langs = LANG_PROP_SVC.getAll(Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -98,7 +80,7 @@ public final class IndexAction extends AbstractCacheablePageAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         try {
-            ret.putAll(langs);
+            ret.putAll(Langs.all());
 
             // Tags
             final int maxTagCnt = 10;

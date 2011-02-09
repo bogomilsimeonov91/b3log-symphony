@@ -197,13 +197,25 @@
         <servlet-name>Error403</servlet-name>
         <url-pattern>/403</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Error500</servlet-name>
+        <servlet-class>org.b3log.symphony.action.error.Error500Action</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Error500</servlet-name>
+        <url-pattern>/500</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403</location>
+    </error-page>
     <error-page>
         <error-code>404</error-code>
         <location>/404</location>
     </error-page>
     <error-page>
-        <error-code>403</error-code>
-        <location>/403</location>
+        <error-code>500</error-code>
+        <location>/500</location>
     </error-page>
     <welcome-file-list>
         <welcome-file>index</welcome-file>

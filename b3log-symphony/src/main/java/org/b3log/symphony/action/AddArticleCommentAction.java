@@ -16,8 +16,6 @@
 
 package org.b3log.symphony.action;
 
-import com.google.appengine.api.urlfetch.URLFetchService;
-import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,7 +27,6 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.ActionException;
 import org.b3log.latke.action.util.PageCaches;
-import org.b3log.latke.event.EventManager;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Strings;
@@ -46,6 +43,8 @@ import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
+import org.b3log.symphony.util.Errors;
+import org.b3log.symphony.util.Langs;
 import org.b3log.symphony.util.TimeZones;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,24 +90,10 @@ public final class AddArticleCommentAction extends AbstractAction {
     private static UserRepository userRepository =
             UserGAERepository.getInstance();
     /**
-     * Default user thumbnail.
-     */
-    private static final String DEFAULT_USER_THUMBNAIL =
-            "/image/default-user-thumbnail.png";
-    /**
-     * URL fetch service.
-     */
-    private static URLFetchService urlFetchService =
-            URLFetchServiceFactory.getURLFetchService();
-    /**
-     * Event manager.
-     */
-    private static EventManager eventManager = EventManager.getInstance();
-    /**
      * Article-Comment repository.
      */
-    private static ArticleCommentRepository articleCommentRepository = ArticleCommentGAERepository.
-            getInstance();
+    private static ArticleCommentRepository articleCommentRepository =
+            ArticleCommentGAERepository.getInstance();
     /**
      * Enter escape.
      */
@@ -166,9 +151,14 @@ public final class AddArticleCommentAction extends AbstractAction {
                 throw new Exception("Email is empty!");
             }
 
-            final JSONObject commenter = userRepository.getByEmail(commenterEmail);
+            final JSONObject commenter = userRepository.getByEmail(
+                    commenterEmail);
             if (null == commenter) {
-                throw new Exception("User not found!");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "/add-comment",
+                                 Langs.get("loginFirstLabel"));
+                return ret;
             }
 
             commenterId = commenter.getString(Keys.OBJECT_ID);

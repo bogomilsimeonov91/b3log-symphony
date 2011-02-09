@@ -24,12 +24,9 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
-import org.b3log.latke.service.LangPropsService;
 import org.b3log.latke.util.Sessions;
-import org.b3log.symphony.repository.UserRepository;
-import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Langs;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,28 +47,6 @@ public final class LogoutAction extends AbstractAction {
      */
     private static final Logger LOGGER =
             Logger.getLogger(LogoutAction.class.getName());
-    /**
-     * Language service.
-     */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
-    /**
-     * User repository.
-     */
-    private UserRepository userRepository = UserGAERepository.getInstance();
-    /**
-     * Languages.
-     */
-    private static Map<String, String> langs = null;
-
-    static {
-        try {
-            langs = LANG_PROP_SVC.getAll(
-                    Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -80,7 +55,7 @@ public final class LogoutAction extends AbstractAction {
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
-        ret.putAll(langs);
+        ret.putAll(Langs.all());
 
         return ret;
     }

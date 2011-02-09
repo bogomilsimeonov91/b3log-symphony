@@ -27,20 +27,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
-import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
-import org.b3log.latke.service.LangPropsService;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Errors;
+import org.b3log.symphony.util.Langs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -62,11 +62,6 @@ public final class UserCommentsAction extends AbstractAction {
     private static final Logger LOGGER =
             Logger.getLogger(UserCommentsAction.class.getName());
     /**
-     * Language service.
-     */
-    private static final LangPropsService LANG_PROP_SVC =
-            LangPropsService.getInstance();
-    /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
@@ -75,19 +70,6 @@ public final class UserCommentsAction extends AbstractAction {
      */
     private CommentRepository commentRepository = CommentGAERepository.
             getInstance();
-    /**
-     * Languages.
-     */
-    private static Map<String, String> langs = null;
-
-    static {
-        try {
-            langs = LANG_PROP_SVC.getAll(
-                    Latkes.getDefaultLocale());
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -96,12 +78,16 @@ public final class UserCommentsAction extends AbstractAction {
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
-        ret.putAll(langs);
+        ret.putAll(Langs.all());
 
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
 
                 return ret;
             }
@@ -109,7 +95,11 @@ public final class UserCommentsAction extends AbstractAction {
             final String email = (String) session.getAttribute(User.USER_EMAIL);
 
             if (null == email) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
 
                 return ret;
             }
@@ -133,9 +123,10 @@ public final class UserCommentsAction extends AbstractAction {
             for (int i = 0; i < commentArray.length(); i++) {
                 final JSONObject comment = commentArray.getJSONObject(i);
                 comment.put(Comment.COMMENT_CONTENT,
-                        comment.getString(Comment.COMMENT_CONTENT).replaceAll(
+                            comment.getString(Comment.COMMENT_CONTENT).
+                        replaceAll(
                         AddArticleCommentAction.ENTER_ESC, "<br/>"));
-                
+
                 comments.add(comment);
             }
             ret.put(Comment.COMMENTS, comments);
