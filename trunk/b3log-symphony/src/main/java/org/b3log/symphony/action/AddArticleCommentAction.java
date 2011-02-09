@@ -39,6 +39,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.MD5;
 import org.b3log.latke.util.Strings;
+import org.b3log.symphony.SymphonyServletListener;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
@@ -216,8 +217,8 @@ public final class AddArticleCommentAction extends AbstractAction {
             comment.put(Comment.COMMENT_CONTENT, commentContent);
             comment.put(Common.COMMENTER_ID, commenterId);
             comment.put(Comment.COMMENT_ENTRY_ID, articleId);
-            final String timeZoneId = "Asia/Shanghai";
-            final Date date = timeZoneUtils.getTime(timeZoneId);
+            final Date date = timeZoneUtils.getTime(
+                    SymphonyServletListener.TIME_ZONE_ID);
             comment.put(Comment.COMMENT_DATE, date);
             comment.put(Common.STATE, Common.AVAILABLE);
 

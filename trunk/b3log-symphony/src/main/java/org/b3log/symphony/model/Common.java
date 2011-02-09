@@ -61,6 +61,10 @@ public final class Common {
      * Disabled state.
      */
     public static final boolean DISABLED = false;
+    /**
+     * User thumbnail file id.
+     */
+    public static final String USER_THUMBNAIL_FILE_ID = "userThumbnailFileId";
 
     /**
      * Private default constructor.
