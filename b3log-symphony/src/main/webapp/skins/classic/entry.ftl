@@ -45,7 +45,7 @@
                                     <a href="/tags/${tagTitle}">${tagTitle}</a>
                                 </h2>
                                 </#list>
-                                ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}, ${article.articleCommentCount}
+                                ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}, ${article.articleCommentCount}
                             </div>
                         </div>
                         <div>
@@ -60,7 +60,7 @@
                     <div class="clear"></div>
                 </dd>
             </dl>
-            <div class="comments">
+            <div id="comments">
                 <dl>
                     <#list article.articleComments as comment>
                     <dd id="${comment.oId}comment">
@@ -74,7 +74,7 @@
                             </#if>
                         </div>
                         <div class="left">
-                            ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
+                            ${comment.commentDate?string('yyyy-MM-dd HH:mm')}
                             <a href="javascript:index.replyComment('${comment.oId}');">${replyLabel}</a>
                             <div>
                                 ${comment.commentContent}
