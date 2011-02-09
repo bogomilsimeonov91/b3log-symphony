@@ -65,6 +65,10 @@ public final class Common {
      * User thumbnail file id.
      */
     public static final String USER_THUMBNAIL_FILE_ID = "userThumbnailFileId";
+    /**
+     * User thumbnail URL.
+     */
+    public static final String USER_THUMBNAIL_URL = "userThumbnailURL";
 
     /**
      * Private default constructor.

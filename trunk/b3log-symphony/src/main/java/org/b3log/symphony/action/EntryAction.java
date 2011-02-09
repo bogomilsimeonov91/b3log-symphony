@@ -16,8 +16,6 @@
 
 package org.b3log.symphony.action;
 
-import com.google.appengine.api.urlfetch.URLFetchService;
-import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -91,16 +89,11 @@ public final class EntryAction extends AbstractCacheablePageAction {
     /**
      * Default sign.
      */
-    private static final String DEFAULT_SIGN;
-    /**
-     * URL fetch service.
-     */
-    private static URLFetchService urlFetchService =
-            URLFetchServiceFactory.getURLFetchService();
+    public static final String DEFAULT_SIGN;
     /**
      * Default user thumbnail URL.
      */
-    private static final String DEFAULT_USER_THUMBNAIL_URL =
+    public static final String DEFAULT_USER_THUMBNAIL_URL =
             "/images/default-user-thumbnail.png";
 
     static {
