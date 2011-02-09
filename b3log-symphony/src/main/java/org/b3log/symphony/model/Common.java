@@ -20,7 +20,7 @@ package org.b3log.symphony.model;
  * This class defines all common model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 8, 2011
+ * @version 1.0.0.2, Feb 9, 2011
  */
 public final class Common {
 
@@ -28,6 +28,15 @@ public final class Common {
      * Key of from.
      */
     public static final String FROM = "from";
+    /**
+     * Key of version.
+     */
+    public static final String VERSION = "version";
+    /**
+     * Key of host.
+     */
+    public static final String HOST = "host";
+
     /**
      * Key of sign.
      */
