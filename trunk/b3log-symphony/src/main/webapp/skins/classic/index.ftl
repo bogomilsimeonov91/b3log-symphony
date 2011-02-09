@@ -101,9 +101,8 @@
                         "articleAuthorEmail": "DL88250@gmail.com",
                         "articleContent": "content"
                     },
-                    "blogTitle": "testBlogTitle",
-                    "blogHost": "test.com",
-                    "blogVersion": "0.2.5",
+                    "host": "test.com",
+                    "version": "0.2.5",
                     "from": "B3log Solo"
                 };
 
