@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.Date;
@@ -152,6 +151,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
         String commenterEmail = null;
         String commenterName = null;
         String commenterId = null;
+        String articleId = null;
+        String commentContent = null;
         try {
             commenterEmail = requestJSONObject.getString(User.USER_EMAIL);
 
@@ -160,13 +161,17 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             if (null == commenter) {
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
-                                 "/add-comment",
+                                 request.getRequestURI(),
                                  Langs.get("loginFirstLabel"));
                 return ret;
             }
 
             commenterId = commenter.getString(Keys.OBJECT_ID);
             commenterName = commenter.getString(User.USER_NAME);
+
+            articleId = requestJSONObject.getString(Keys.OBJECT_ID);
+            commentContent = requestJSONObject.getString(Comment.COMMENT_CONTENT).
+                    replaceAll("\\n", ENTER_ESC);
         } catch (final Exception e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
 
@@ -182,14 +187,9 @@ public final class UserAddEntryCommentAction extends AbstractAction {
         }
 
         final Transaction transaction = commentRepository.beginTransaction();
-        String articleId, commentId;
+        String commentId;
         try {
-            articleId = requestJSONObject.getString(Keys.OBJECT_ID);
             final JSONObject article = articleRepository.get(articleId);
-
-            String commentContent =
-                    requestJSONObject.getString(Comment.COMMENT_CONTENT).
-                    replaceAll("\\n", ENTER_ESC);
             commentContent = StringEscapeUtils.escapeHtml(commentContent);
             final String originalCommentId = requestJSONObject.optString(
                     Comment.COMMENT_ORIGINAL_COMMENT_ID);
