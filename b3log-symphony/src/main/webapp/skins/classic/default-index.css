@@ -43,11 +43,6 @@ h4{
     font-size:110%;
 }
 
-/* common */
-.tip{
-    color:red;
-}
-
 /* architecture */
 .header{
     height:108px;
@@ -73,6 +68,37 @@ h4{
     padding:0 3px;
     background-color:#FFF;
     line-height: 20px;
+}
+
+/* common */
+.tip{
+    color:red;
+}
+
+.small-head-img, .middle-head-img, .big-head-img {
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #C2C2C2 #5A5A5A #5A5A5A #C2C2C2;
+    padding: 3px 2px 2px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    height: 36px;
+    width: 36px;
+}
+
+.middle-head-img {
+    padding: 5px 4px 4px 5px;
+    height: 45px;
+    width: 45px;
+}
+
+.big-head-img {
+    height: 100px;
+    width: 100px;
+    padding: 5px 4px 4px 5px;
+}
+
+.small-head-img:hover, .middle-head-img:hover, .big-head-img:hover {
+    border-color: #5A5A5A;
 }
 
 /* common component */
@@ -213,24 +239,8 @@ h4{
     padding-top: 15px;
 }
 
-.index dt img {
-    height: 36px;
-    width: 36px;
-}
-
 .index .user-info img {
-    height: 45px;
-    width: 45px;
-    background-color: #FFFFFF;
-    border: 1px solid;
-    border-color: #C2C2C2 #5A5A5A #5A5A5A #C2C2C2;
-    padding: 5px 4px 4px 5px;
-    -moz-border-radius: 3px 3px 3px 3px;
     margin-right: 20px;
-}
-
-.index .user-info img:hover {
-    border-color: #5A5A5A;
 }
 
 .index .main {
@@ -250,10 +260,26 @@ h4{
     color: #005999;
 }
 
-/* user info */
-.user-info img {
-    height: 100px;
-    width: 100px;
+/* entry */
+#comments dd {
+    border-top: 1px dashed;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.entry .title {
+    margin: 10px 0;
+}
+
+.entry .main {
+    margin-left: 20px;
+    width: 629px;
+}
+
+.entry .sign {
+    border-top: 1px solid #CCCCCC;
+    margin-top: 10px;
+    padding: 5px;
 }
 
 /* user */

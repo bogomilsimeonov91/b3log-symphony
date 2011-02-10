@@ -31,12 +31,12 @@
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
                         <#if topAuthor.userURL != "">
-                        <a class="no-underline" href="http://${topAuthor.userURL}" target="_blank">
-                            <img alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                        <a href="http://${topAuthor.userURL}" target="_blank">
+                            <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
                                  src="${topAuthor.userThumbnailURL}"/>
                         </a>
                         <#else>
-                        <img alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                        <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
                              src="${topAuthor.userThumbnailURL}"/>
                         </#if>
                         </#list>
@@ -53,12 +53,12 @@
                     <div class="user-info left">
                         <#if article.articleAuthorURL != "">
                         <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
-                            <img alt="${article.articleAuthorName}" title="${article.articleAuthorName}"
-                                 src="${article.articleAuthorThumbnailURL}"/>
+                            <img class="middle-head-img" src="${article.articleAuthorThumbnailURL}"
+                                 title="${article.articleAuthorName}" alt="${article.articleAuthorName}"/>
                         </a>
                         <#else>
-                        <img alt="${article.articleAuthorName}" title="${article.articleAuthorName}"
-                             src="${article.articleAuthorThumbnailURL}"/>
+                        <img class="middle-head-img" src="${article.articleAuthorThumbnailURL}"
+                             alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                         </#if>
                     </div>
                     <div class="left main">
