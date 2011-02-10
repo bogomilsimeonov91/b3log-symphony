@@ -105,6 +105,7 @@
                     </dd>
                     </#list>
                 </dl>
+                <#if paginationPageNums?size != 0>
                 <div id="pagination">
                     <#if paginationPageNums?first != 1>
                     <a href="/entries/${article.oId}?p=1#comments" title="${firstPageLabel}"><<</a>
@@ -122,10 +123,9 @@
                     <a href="/entries/${article.oId}?p=${paginationPageCount}#comments"
                        title="${lastPageLabel}">>></a>
                     </#if>
-                    <#if paginationPageNums?size != 0>
                     ${sumLabel}${paginationPageCount}${pageLabel}
-                    </#if>
                 </div>
+                </#if>
                 <table id="commentForm" class="form none">
                     <tr>
                         <th>

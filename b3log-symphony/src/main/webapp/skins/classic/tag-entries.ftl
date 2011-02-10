@@ -52,6 +52,7 @@
                 </dd>
                 </#list>
             </dl>
+            <#if paginationPageNums?size != 0>
             <div id="pagination">
                 <#if paginationPageNums?first != 1>
                 <a href="/tags/${tagTitle}?p=1" title="${firstPageLabel}"><<</a>
@@ -69,10 +70,9 @@
                 <a href="/tags/${tagTitle}?p=${paginationPageCount}"
                    title="${lastPageLabel}">>></a>
                 </#if>
-                <#if paginationPageNums?size != 0>
                 ${sumLabel}${paginationPageCount}${pageLabel}
-                </#if>
             </div>
+            </#if>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
