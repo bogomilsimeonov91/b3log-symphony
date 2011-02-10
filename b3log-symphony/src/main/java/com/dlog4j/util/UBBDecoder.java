@@ -38,8 +38,8 @@ public class UBBDecoder {
      * @param convBr 是否把'\n'字符也转换为'<br>'
      * @return 转换后的包含HTML标签的文本
      */
-    public static final String decode(String s, UBBTagHandler th, int mode,
-                                      boolean convBr) {
+    private static String decode(String s, UBBTagHandler th, int mode,
+                                 boolean convBr) {
         StringBuffer buf = new StringBuffer(); // 当前文本
         char[] cc = s.toCharArray(); // 把输入转换为字符数组以提高处理性能
         int len = cc.length, pos = 0;
@@ -526,4 +526,3 @@ interface UBBTagHandler {
     public String compose(String tag, String[] attr, String data,
                           boolean isEmpty);
 }
-
