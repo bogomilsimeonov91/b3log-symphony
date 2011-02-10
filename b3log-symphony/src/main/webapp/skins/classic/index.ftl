@@ -24,7 +24,6 @@
             <#include "header.ftl"/>
         </div>
         <div class="content index">
-            <button onclick="testAddArticle()">Test Add Article</button>
             <#list tags as tag>
             <dl>
                 <dt>
@@ -99,7 +98,7 @@
                                     <span class="left">&nbsp;${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}</span>
                                 </span>
                                 <#else>
-                                <span class="sofa-icon" title="${sofaLabel}"></span>&nbsp;<a href="/entries/${article.oId}#commentContent">${sofaLabel}</a>
+                                <a href="/entries/${article.oId}#commentContent"><span class="sofa-icon" title="${sofaLabel}"></span></a>
                                 </#if>
                             </span>
                         </div>
@@ -122,29 +121,6 @@
                 }
             });
             index.initStatus();
-            function testAddArticle() {
-                var requestJSONObject = {
-                    "article": {
-                        "articleTitle": "title",
-                        "articlePermalink": "/permalink",
-                        "articleTags": "tag1, tag2, ....",
-                        "articleAuthorEmail": "DL88250@gmail.com",
-                        "articleContent": "content"
-                    },
-                    "host": "test.com",
-                    "version": "0.2.5",
-                    "from": "B3log Solo"
-                };
-
-                $.ajax({
-                    url: "/add-article",
-                    type: "POST",
-                    data: JSON.stringify(requestJSONObject),
-                    success: function(result, textStatus){
-                        window.location.reload();
-                    }
-                });
-            }
         </script>
     </body>
 </html>

@@ -105,5 +105,39 @@ $.extend(User.prototype, {
                 $("#headImg").attr("src", $iframe.find("#headImg").attr("src"));
             }
         });
+    },
+
+    postEntry: function() {
+        if (Util.validateForm("tip", [{
+            "id": "title",
+            "type": "empty",
+            "tip": this.labels.titleCannotEmptyLabel
+        }, {
+            "id": "tags",
+            "type": "empty",
+            "tip": this.labels.tagsCannotEmptyLabel
+        }, {
+            "id": "content",
+            "type": "empty",
+            "tip": this.labels.contentCannotEmptyLabel
+        }])) {
+            var requestJSONObject = {
+                "article": {
+                    "articleTitle": "",
+                    "articleTags": "tag1, tag2, ....",
+                    "articleAuthorEmail": "DL88250@gmail.com",
+                    "articleContent": "content"
+                }
+            };
+
+            $.ajax({
+                url: "/user-add-entry",
+                type: "POST",
+                data: JSON.stringify(requestJSONObject),
+                success: function(result, textStatus){
+                    
+                }
+            });
+        }
     }
 });
