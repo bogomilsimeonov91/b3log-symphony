@@ -158,21 +158,17 @@ $.extend(Index.prototype, {
     },
 
     submitComment: function (oId) {
-        var validateData = [{
-            "id": "commentContentReply",
-            "type": "empty",
-            "tip": this.labels.commentCannotEmptyLabel
-        }],
+        var currentEditor = editor,
         replyTag = "Reply";
-        
+
         if (oId === undefined) {
-            validateData[0].id = "commentContent";
             replyTag = "";
-        } 
-        if (Util.validateForm("tip", validateData)) {
+        }
+        
+        if (currentEditor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]") {
             var requestJSONObject = {
                 "oId": this.oId,
-                "commentContent": $("#commentContent" + replyTag).val(),
+                "commentContent": currentEditor.tGetUBB(),
                 "userName": Util.readCookie("userName"),
                 "userEmail": Util.readCookie("userEmail"),
                 "userURL": Util.readCookie("userURL")
@@ -198,6 +194,8 @@ $.extend(Index.prototype, {
                     }
                 }
             });
+        } else {
+            $("#tip").text(this.labels.commentCannotEmptyLabel);
         }
     },
 

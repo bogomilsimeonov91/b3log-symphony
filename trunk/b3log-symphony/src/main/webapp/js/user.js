@@ -117,7 +117,7 @@ $.extend(User.prototype, {
             "type": "empty",
             "tip": this.labels.tagsCannotEmptyLabel
         }])) {
-            if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "") {
+            if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]") {
                 var requestJSONObject = {
                     "article": {
                         "articleTitle": $("#title").val(),

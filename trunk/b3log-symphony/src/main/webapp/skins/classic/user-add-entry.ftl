@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
         <title>${titleUser}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,9 +9,9 @@
         <link rel="icon" type="image/png" href="/favicon.png"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
+        <script type="text/javascript" src="/js/lib/jtbceditor/jtbcEditor.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
         <script type="text/javascript" src="/js/user.js"></script>
-        <script type="text/javascript" src="/js/lib/jtbceditor/jtbcEditor.js"></script>
         <script type="text/javascript" src="/js/lib/completed.js"></script>
     </head>
     <body>
