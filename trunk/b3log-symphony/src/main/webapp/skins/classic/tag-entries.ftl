@@ -24,18 +24,38 @@
             <#include "header.ftl"/>
         </div>
         <div class="content index">
-            <h1 title="${tagTitle}">${tagTitle}</h1>
+            <h1>
+                <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
+                    ${tag.tagTitle}</a>
+            </h1>
+            <#list tagTopUsers as topAuthor>
+            <#if topAuthor.userURL != "">
+            <a href="http://${topAuthor.userURL}" target="_blank">
+                <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                     src="${topAuthor.userThumbnailURL}"/>
+            </a>
+            <#else>
+            <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                 src="${topAuthor.userThumbnailURL}"/>
+            </#if>
+            </#list>
+            <span class="right">
+                <span class="tag-icon" title="${tagRefCountLabel}"></span>&nbsp;
+                <span class="left">${tag.tagReferenceCount}&nbsp;|&nbsp;</span>
+                <span class="comment-icon" title="${commentCountLabel}"></span>
+                <span class="left">&nbsp;${tag.tagCommentCount}</span>
+            </span>
             <dl>
                 <#list articles as article>
                 <dd>
                     <div class="user-info left">
                         <#if article.articleAuthorURL != "">
                         <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
-                            <img class="middle-head-img" src="{article.articleAuthorThumbnailURL}"
+                            <img class="middle-head-img" src="${article.articleAuthorThumbnailURL}"
                                  title="${article.articleAuthorName}" alt="${article.articleAuthorName}"/>
                         </a>
                         <#else>
-                        <img class="middle-head-img" src="{article.articleAuthorThumbnailURL}"
+                        <img class="middle-head-img" src="${article.articleAuthorThumbnailURL}"
                              alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                         </#if>
                     </div>
@@ -87,19 +107,19 @@
             <#if paginationPageNums?size != 0>
             <div id="pagination">
                 <#if paginationPageNums?first != 1>
-                <a href="/tags/${tagTitle}?p=1" title="${firstPageLabel}"><<</a>
+                <a href="/tags/${tag.tagTitle?url('UTF-8')}?p=1" title="${firstPageLabel}"><<</a>
                 <a id="previousPage"
-                   href="/tags/${tagTitle}?p={paginationPageCount}"
+                   href="/tags/${tag.tagTitle?url('UTF-8')}?p={paginationPageCount}"
                    title="${previousPageLabel}"><</a>
                 </#if>
                 <#list paginationPageNums as page>
-                <a href="/tags/${tagTitle}?p=${page}" title="${page}">${page}</a>
+                <a href="/tags/${tag.tagTitle?url('UTF-8')}?p=${page}" title="${page}">${page}</a>
                 </#list>
                 <#if paginationPageNums?last!=paginationPageCount>
                 <a id="nextPage"
-                   href="/tags/${tagTitle}?p={paginationPageCount}"
+                   href="/tags/${tag.tagTitle?url('UTF-8')}?p={paginationPageCount}"
                    title="${nextPagePabel}">></a>
-                <a href="/tags/${tagTitle}?p=${paginationPageCount}"
+                <a href="/tags/${tag.tagTitle?url('UTF-8')}?p=${paginationPageCount}"
                    title="${lastPageLabel}">>></a>
                 </#if>
                 ${sumLabel}${paginationPageCount}${pageLabel}

@@ -25,29 +25,28 @@
         </div>
         <div class="content index">
             <#list tags as tag>
+            <h1>
+                <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
+                    ${tag.tagTitle}</a>
+            </h1>
+            <#list tag.tagTopAuthors as topAuthor>
+            <#if topAuthor.userURL != "">
+            <a href="http://${topAuthor.userURL}" target="_blank">
+                <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                     src="${topAuthor.userThumbnailURL}"/>
+            </a>
+            <#else>
+            <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                 src="${topAuthor.userThumbnailURL}"/>
+            </#if>
+            </#list>
+            <span class="right">
+                <span class="tag-icon" title="${tagRefCountLabel}"></span>&nbsp;
+                <span class="left">${tag.tagReferenceCount}&nbsp;|&nbsp;</span>
+                <span class="comment-icon" title="${commentCountLabel}"></span>
+                <span class="left">&nbsp;${tag.tagCommentCount}</span>
+            </span>
             <dl>
-                <dt>
-                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">${tag.tagTitle}</a>
-                    <span>
-                        <#list tag.tagTopAuthors as topAuthor>
-                        <#if topAuthor.userURL != "">
-                        <a href="http://${topAuthor.userURL}" target="_blank">
-                            <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
-                                 src="${topAuthor.userThumbnailURL}"/>
-                        </a>
-                        <#else>
-                        <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
-                             src="${topAuthor.userThumbnailURL}"/>
-                        </#if>
-                        </#list>
-                    </span>
-                    <span class="right">
-                        <span class="tag-icon" title="${tagRefCountLabel}"></span>&nbsp;
-                        <span class="left">${tag.tagReferenceCount}&nbsp;|&nbsp;</span>
-                        <span class="comment-icon" title="${commentCountLabel}"></span>
-                        <span class="left">&nbsp;${tag.tagCommentCount}</span>
-                    </span>
-                </dt>
                 <#list tag.tagArticles as article>
                 <dd>
                     <div class="user-info left">
