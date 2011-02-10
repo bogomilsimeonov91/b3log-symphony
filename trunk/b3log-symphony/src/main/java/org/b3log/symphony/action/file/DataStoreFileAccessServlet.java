@@ -51,7 +51,7 @@ import org.json.JSONObject;
  * Google Data Store Low-level API</a>.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.9, Feb 9, 2011
+ * @version 1.0.1.0, Feb 10, 2011
  */
 public final class DataStoreFileAccessServlet extends HttpServlet {
 
@@ -70,9 +70,9 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
     private FileRepository fileRepository =
             FileGAERepository.getInstance();
     /**
-     * Maximum file size(200K).
+     * Maximum file size(20K).
      */
-    private static final long MAX_SIZE = 1024 * 200;
+    private static final long MAX_SIZE = 1024 * 20;
     /**
      * User repository.
      */
