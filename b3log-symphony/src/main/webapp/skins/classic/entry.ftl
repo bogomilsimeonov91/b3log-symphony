@@ -144,7 +144,7 @@
                     <tr>
                         <th>
                             <span class="tip" id="tip"></span>
-                            <button onclick="index.submitComment();">
+                            <button onclick="index.submitEntry();">
                                 ${submitLabel}
                             </button>
                         </th>
@@ -172,7 +172,6 @@
             });
             index.initStatus();
             Util.initPagination();
-            $("#commentContent").val("");
             var editor = new jtbcEditor('commentContent');
             editor.tInit('editor', '/js/lib/jtbceditor/');
         </script>
