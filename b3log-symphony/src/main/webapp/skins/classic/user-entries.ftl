@@ -23,13 +23,13 @@
                     <th width="300px">
                         ${tagsLabel}
                     </th>
-                    <th width="150px">
+                    <th width="151px">
                         ${createDateLabel}
                     </th>
                     <th width="80px">
                         ${commentCountLabel}
                     </th>
-                    <th width="150px">
+                    <th width="151px">
                         ${lastCommentDateLabel}
                     </th>
                 </tr>

@@ -24,7 +24,9 @@
             <dl>
                 <dd>
                     <div class="title">
-                        <h1>${article.articleTitle}</h1>
+                        <h1>
+                            <a href="${article.articlePermalink}">${article.articleTitle}</a>
+                        </h1>
                         by
                         <#if article.articleAuthorURL != "">
                         <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
@@ -36,7 +38,7 @@
                     <img src="${article.articleAuthorThumbnailURL}" class="big-head-img left"
                          alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                     <div class="left main">
-                        <div class="marginB10">
+                        <div class="marginB5">
                             <div class="left">
                                 <#list article.articleTags?split(',') as tagTitle>
                                 <h2 title="${tagTitle}">
@@ -58,7 +60,7 @@
                         <div>
                             ${article.articleContent}
                         </div>
-                        <div>
+                        <div class="premarlink">
                             ${articlePermalinkLabel}:
                             <a href="${article.articlePermalink}">${article.articlePermalink}</a>
                         </div>
@@ -75,8 +77,8 @@
                     <dd id="${comment.oId}comment">
                         <img src="${comment.commentThumbnailURL}" class="middle-head-img left"
                              alt="${comment.commenterName}" title="${comment.commenterName}"/>
-                        <div class="left main" style="width: 684px;">
-                            <div class="marginB10">
+                        <div class="left main" style="width: 664px;">
+                            <div class="marginB5">
                                 <span class="left">
                                     by
                                     <#if comment.commenterURL != "">
