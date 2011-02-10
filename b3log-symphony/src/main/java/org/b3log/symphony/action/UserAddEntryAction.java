@@ -29,14 +29,18 @@ import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
+import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Ids;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
 import org.b3log.symphony.model.Common;
+import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
+import org.b3log.symphony.repository.TagRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
+import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
 import org.b3log.symphony.util.Errors;
@@ -80,17 +84,21 @@ public final class UserAddEntryAction extends AbstractAction {
      * Article utilities.
      */
     private Articles articleUtils = Articles.getInstance();
+    /**
+     * Tag repository.
+     */
+    private TagRepository tagRepository = TagGAERepository.getInstance();
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
             final freemarker.template.Template template,
             final HttpServletRequest request,
             final HttpServletResponse response) throws ActionException {
-       final Map<String, Object> ret = new HashMap<String, Object>();
+        final Map<String, Object> ret = new HashMap<String, Object>();
 
         ret.putAll(Langs.all());
 
-         try {
+       try {
             final HttpSession session = request.getSession();
             if (null == session) {
                 final String cause = Langs.get(
@@ -113,8 +121,42 @@ public final class UserAddEntryAction extends AbstractAction {
                 return ret;
             }
         } catch (final Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
+            try {
+                final String cause = Langs.get("forbiddenLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "/file", cause);
+
+                return ret;
+            } catch (final Exception ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new ActionException(e);
+            }
+        }
+
+        final StringBuilder stringBuilder = new StringBuilder("[");
+        try {
+            final JSONObject result =
+                    tagRepository.get(new Query());
+            final JSONArray tagArray = result.getJSONArray(Keys.RESULTS);
+
+            for (int i = 0; i < tagArray.length(); i++) {
+                final JSONObject tag = tagArray.getJSONObject(i);
+                final String tagTitle = "\"" + tag.get(Tag.TAG_TITLE) + "\"";
+                stringBuilder.append(tagTitle);
+                if (i < tagArray.length() - 1) {
+                    stringBuilder.append(",");
+                }
+            }
+        } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
+
+        stringBuilder.append("]");
+
+        ret.put(Tag.TAGS, stringBuilder.toString());
 
         return ret;
     }
@@ -172,9 +214,20 @@ public final class UserAddEntryAction extends AbstractAction {
                 return ret;
             }
         } catch (final Exception e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
+            try {
+                final String cause = Langs.get("forbiddenLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "/file", cause);
+            } catch (final Exception ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new ActionException(e);
+            }
+            return ret;
         }
-        
+
         final Transaction transaction = articleRepository.beginTransaction();
 
         try {

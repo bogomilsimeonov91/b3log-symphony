@@ -125,8 +125,7 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
             }
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            final String cause = Langs.get(
-                    "unknownErrorLabel");
+            final String cause = Langs.get("forbiddenLabel");
             Errors.sendError(request, response, HttpServletResponse.SC_FORBIDDEN,
                              "/file", cause);
 

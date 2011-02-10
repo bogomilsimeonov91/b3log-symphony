@@ -196,6 +196,14 @@
         <url-pattern>/user-comments</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>GetTags</servlet-name>
+        <servlet-class>org.b3log.symphony.action.GetTagsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetTags</servlet-name>
+        <url-pattern>/get-tags</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>Error404</servlet-name>
         <servlet-class>org.b3log.symphony.action.error.Error404Action</servlet-class>
     </servlet>
