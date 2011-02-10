@@ -126,9 +126,9 @@
                     ${sumLabel}${paginationPageCount}${pageLabel}
                 </div>
                 </#if>
-                <table id="commentForm" class="form none">
+                <table id="commentForm" class="form none" width="100%">
                     <tr>
-                        <th>
+                        <th width="24px">
                             ${commentLabel}
                         </th>
                         <td>

@@ -205,9 +205,9 @@ $.extend(Index.prototype, {
         if ($("#" + oId + "commentForm").length === 0) {
             $("#" + this.originalId + "commentForm").remove();
             var replyCommentHTML =
-            '<table id="' + oId + 'commentForm" class="form">\
+            '<table id="' + oId + 'commentForm" class="form" width="100%">\
                 \<tr>\
-                    \<th>' + this.labels.commentLabel + '</th>\
+                    \<th width="96px">' + this.labels.commentLabel + '</th>\
                     \<td>\
                         \<textarea id="commentContentReply"></textarea>\
                     \</td>\
