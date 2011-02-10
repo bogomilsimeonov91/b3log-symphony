@@ -144,8 +144,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
      */
     @Override
     public JSONObject doAjaxAction(final JSONObject requestJSONObject,
-            final HttpServletRequest request,
-            final HttpServletResponse response)
+                                   final HttpServletRequest request,
+                                   final HttpServletResponse response)
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
@@ -194,16 +194,20 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             commentContent = StringEscapeUtils.escapeHtml(commentContent);
             final String originalCommentId = requestJSONObject.optString(
                     Comment.COMMENT_ORIGINAL_COMMENT_ID);
+
+            final String beginDiv = "<div class='rel'>";
+            final String endDiv = "</div>";
+            commentContent = beginDiv + commentContent;
+
             // Add comment
             final JSONObject comment = new JSONObject();
             JSONObject originalComment = null;
             comment.put(Comment.COMMENTER_NAME, commenterName);
             comment.put(Comment.COMMENTER_EMAIL, commenterEmail);
-            comment.put(Comment.COMMENT_CONTENT, commentContent);
             comment.put(Common.COMMENTER_ID, commenterId);
             comment.put(Comment.COMMENT_ENTRY_ID, articleId);
             comment.put(Comment.COMMENT_ENTRY_TITLE,
-                    article.getString(Article.ARTICLE_TITLE));
+                        article.getString(Article.ARTICLE_TITLE));
             final Date date = timeZoneUtils.getTime(
                     SymphonyServletListener.TIME_ZONE_ID);
             comment.put(Comment.COMMENT_DATE, date);
@@ -230,36 +234,32 @@ public final class UserAddEntryCommentAction extends AbstractAction {
                         commentRepository.get(originalCommentId);
                 if (null != originalComment) {
                     comment.put(Comment.COMMENT_ORIGINAL_COMMENT_ID,
-                            originalCommentId);
+                                originalCommentId);
                     final String originalCommenterName =
                             originalComment.getString(Comment.COMMENTER_NAME);
                     comment.put(Comment.COMMENT_ORIGINAL_COMMENT_NAME,
-                            originalCommenterName);
+                                originalCommenterName);
                     ret.put(Comment.COMMENT_ORIGINAL_COMMENT_NAME,
                             originalCommenterName);
 
                     final String originalCommentContent =
                             originalComment.getString(Comment.COMMENT_CONTENT);
-                    final StringBuilder contentBuilder =
-                            new StringBuilder("<div class='rel'>");
-                    contentBuilder.append(originalCommentContent).
-                            append("<div class='rel'>").append(commentContent).
-                            append("</div></div>");
-
-                    comment.put(Comment.COMMENT_CONTENT,
-                            contentBuilder.toString());
+                    commentContent += originalCommentContent;
                 } else {
                     LOGGER.log(Level.WARNING,
-                            "Not found orginal comment[id={0}] of reply[name={1}, content={2}]",
-                            new String[]{originalCommentId, commenterName,
-                                commentContent});
+                               "Not found orginal comment[id={0}] of reply[name={1}, content={2}]",
+                               new String[]{originalCommentId, commenterName,
+                                            commentContent});
                 }
             }
+            commentContent += endDiv;
+            comment.put(Comment.COMMENT_CONTENT, commentContent);
+
             commentId = commentRepository.add(comment);
             // Save comment sharp URL
             final String commentSharpURL =
                     getCommentSharpURLForArticle(article,
-                    commentId);
+                                                 commentId);
             comment.put(Comment.COMMENT_SHARP_URL, commentSharpURL);
             ret.put(Comment.COMMENT_SHARP_URL, commentSharpURL);
             comment.put(Keys.OBJECT_ID, commentId);
@@ -267,9 +267,9 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             // Add article-comment relation
             final JSONObject articleCommentRelation = new JSONObject();
             articleCommentRelation.put(Article.ARTICLE + "_" + Keys.OBJECT_ID,
-                    articleId);
+                                       articleId);
             articleCommentRelation.put(Comment.COMMENT + "_" + Keys.OBJECT_ID,
-                    commentId);
+                                       commentId);
             articleCommentRepository.add(articleCommentRelation);
             // Update article comment
             articleUtils.updateArticleComment(articleId, comment);
@@ -299,7 +299,7 @@ public final class UserAddEntryCommentAction extends AbstractAction {
      * @throws JSONException json exception
      */
     private static String getCommentSharpURLForArticle(final JSONObject article,
-            final String commentId)
+                                                       final String commentId)
             throws JSONException {
         final String articleLink = article.getString(Article.ARTICLE_PERMALINK);
 
