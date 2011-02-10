@@ -153,11 +153,7 @@ public final class AddArticleCommentAction extends AbstractAction {
         String commenterName = null;
         String commenterId = null;
         try {
-            commenterEmail =
-                    requestJSONObject.getString(User.USER_EMAIL);
-            if (Strings.isEmptyOrNull(commenterEmail)) {
-                throw new Exception("Email is empty!");
-            }
+            commenterEmail = requestJSONObject.getString(User.USER_EMAIL);
 
             final JSONObject commenter = userRepository.getByEmail(
                     commenterEmail);
