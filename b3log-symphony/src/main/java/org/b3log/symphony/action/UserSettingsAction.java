@@ -104,7 +104,7 @@ public final class UserSettingsAction extends AbstractAction {
                 return ret;
             } catch (final Exception ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(e);
+                throw new ActionException(ex);
             }
         }
 
@@ -176,7 +176,7 @@ public final class UserSettingsAction extends AbstractAction {
                 return ret;
             } catch (final Exception ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(e);
+                throw new ActionException(ex);
             }
         }
 
