@@ -180,7 +180,7 @@ $.extend(Index.prototype, {
                 requestJSONObject.commentOriginalCommentId = oId;
             }
             $.ajax({
-                url: "/add-comment",
+                url: "/user-add-comment",
                 type: "POST",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){

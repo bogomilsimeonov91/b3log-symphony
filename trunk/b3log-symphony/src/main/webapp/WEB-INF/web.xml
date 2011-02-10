@@ -121,7 +121,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AddEntryCommentAction</servlet-name>
-        <url-pattern>/add-comment</url-pattern>
+        <url-pattern>/user-add-comment</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Register</servlet-name>
