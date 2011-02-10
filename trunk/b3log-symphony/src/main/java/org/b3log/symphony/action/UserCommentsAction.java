@@ -122,7 +122,7 @@ public final class UserCommentsAction extends AbstractAction {
                 return ret;
             } catch (final Exception ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(e);
+                throw new ActionException(ex);
             }
         }
 

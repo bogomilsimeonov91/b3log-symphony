@@ -32,6 +32,7 @@ import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Ids;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
 import org.b3log.symphony.model.Common;
@@ -98,7 +99,7 @@ public final class UserAddEntryAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
-       try {
+        try {
             final HttpSession session = request.getSession();
             if (null == session) {
                 final String cause = Langs.get(
@@ -132,7 +133,7 @@ public final class UserAddEntryAction extends AbstractAction {
                 return ret;
             } catch (final Exception ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(e);
+                throw new ActionException(ex);
             }
         }
 
@@ -225,9 +226,21 @@ public final class UserAddEntryAction extends AbstractAction {
                 return ret;
             } catch (final Exception ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new ActionException(ex);
+            }
+        }
+
+        if (isInvalid(data)) {
+            try {
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, Langs.get("badRequestLabel"));
+
+            } catch (final Exception e) {
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 throw new ActionException(e);
             }
         }
+
 
         final Transaction transaction = articleRepository.beginTransaction();
 
@@ -297,5 +310,52 @@ public final class UserAddEntryAction extends AbstractAction {
 
             return ret;
         }
+    }
+
+    /**
+     * Checks whether the specified data is invalid.
+     * 
+     * @param data the specified data, for example,
+     * <pre>
+     * {
+     *     "article": {
+     *         "articleTitle": "",
+     *         "articleTags": "tag1, tag2, ....",
+     *         "articleAuthorEmail": "",
+     *         "articleContent": "" // by UBB
+     *     }
+     * }
+     * </pre>
+     * @return {@code true} if the specified data is invalid, {@code false}
+     * otherwise
+     */
+    private static boolean isInvalid(final JSONObject data) {
+        final JSONObject article = data.optJSONObject(ARTICLE);
+        if (null == article) {
+            return true;
+        }
+
+        final String title = article.optString(ARTICLE_TITLE);
+        if (Strings.isEmptyOrNull(title)) {
+            return true;
+        }
+
+        final String tagsString = article.optString(ARTICLE_TAGS);
+        if (Strings.isEmptyOrNull(tagsString)) {
+            return true;
+        }
+
+        final String authorEmail = article.optString(
+                ARTICLE_AUTHOR_EMAIL_REF);
+        if (Strings.isEmptyOrNull(authorEmail)) {
+            return true;
+        }
+
+        final String content = article.optString(ARTICLE_CONTENT);
+        if (Strings.isEmptyOrNull(content)) {
+            return true;
+        }
+
+        return false;
     }
 }

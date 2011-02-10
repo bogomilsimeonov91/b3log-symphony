@@ -177,7 +177,6 @@ public final class AddEntryCommentAction extends AbstractAction {
                 return ret;
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-
                 throw new ActionException(ex);
             }
         }

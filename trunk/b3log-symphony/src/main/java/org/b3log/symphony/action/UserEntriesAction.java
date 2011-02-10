@@ -115,7 +115,7 @@ public final class UserEntriesAction extends AbstractAction {
                 return ret;
             } catch (final Exception ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(e);
+                throw new ActionException(ex);
             }
         }
 
