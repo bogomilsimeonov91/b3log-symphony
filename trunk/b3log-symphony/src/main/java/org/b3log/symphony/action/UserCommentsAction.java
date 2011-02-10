@@ -35,7 +35,6 @@ import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.symphony.model.Comment;
-import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
@@ -137,7 +136,7 @@ public final class UserCommentsAction extends AbstractAction {
             final String userId = user.getString(Keys.OBJECT_ID);
             final Query query = new Query();
             query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
-                    addFilter(Common.COMMENTER_ID, FilterOperator.EQUAL, userId).
+                    addFilter(Comment.COMMENTER_ID, FilterOperator.EQUAL, userId).
                     addSort(Comment.COMMENT_DATE, SortDirection.DESCENDING);
 
             final JSONObject result = commentRepository.get(query);
@@ -149,7 +148,7 @@ public final class UserCommentsAction extends AbstractAction {
                 comment.put(Comment.COMMENT_CONTENT,
                             comment.getString(Comment.COMMENT_CONTENT).
                         replaceAll(
-                        AddArticleCommentAction.ENTER_ESC, "<br/>"));
+                        UserAddEntryCommentAction.ENTER_ESC, "<br/>"));
 
                 comments.add(comment);
             }

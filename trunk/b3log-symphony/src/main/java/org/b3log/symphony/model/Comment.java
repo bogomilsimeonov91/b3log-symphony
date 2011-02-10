@@ -40,17 +40,13 @@ public final class Comment {
      */
     public static final String COMMENT_CONTENT = "commentContent";
     /**
-     * Key of commenter name.
-     */
-    public static final String COMMENTER_NAME = "commenterName";
-    /**
-     * Key of commenter email.
-     */
-    public static final String COMMENTER_EMAIL = "commenterEmail";
-    /**
      * Key of commenter URL.
      */
     public static final String COMMENTER_URL_REF = "commenterURL";
+    /**
+     * Key of commenter name.
+     */
+    public static final String COMMENTER_NAME_REF = "commenterName";
     /**
      * Key of comment sharp URL.
      */
@@ -69,10 +65,14 @@ public final class Comment {
     public static final String COMMENT_ORIGINAL_COMMENT_ID =
             "commentOriginalCommentId";
     /**
-     * Key of original comment user name.
+     * Key of original commenter id.
      */
-    public static final String COMMENT_ORIGINAL_COMMENT_NAME =
-            "commentOriginalCommentName";
+    public static final String COMMENT_ORIGINAL_COMMENTER_ID =
+            "commentOriginalCommenterId";
+    /**
+     * Key of commenter id.
+     */
+    public static final String COMMENTER_ID = "commenterId";
     /**
      * Date format(yyyy/MM/dd hh:mm:ss).
      */

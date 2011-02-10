@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
  * This class defines all article model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 9, 2011
+ * @version 1.0.0.4, Feb 10, 2011
  */
 public final class Article {
 
@@ -60,9 +60,9 @@ public final class Article {
      */
     public static final String ARTICLE_LAST_CMT_DATE = "articleLastCmtDate";
     /**
-     * Key of the last comment name.
+     * Key of the last commenter id.
      */
-    public static final String ARTICLE_LAST_CMT_NAME = "articleLastCmtName";
+    public static final String ARTICLE_LAST_CMTER_ID = "articleLastCmterId";
     /**
      * Key of comments.
      */
