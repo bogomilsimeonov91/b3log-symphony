@@ -215,7 +215,7 @@ public final class UserAddEntryAction extends AbstractAction {
             } else {
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
-                                 "/add-entry",
+                                 request.getRequestURI(),
                                  Langs.get("loginFirstLabel"));
                 return ret;
             }
