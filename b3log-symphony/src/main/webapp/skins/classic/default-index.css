@@ -157,6 +157,12 @@ h4{
     line-height: 24px;
 }
 
+.form caption {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 11px 0;
+}
+
 .table {
     border-left: 1px solid #BBBBBB;
 }
@@ -212,7 +218,7 @@ h4{
 }
 
 .completed-panel {
-    background-color: #D6EDF5;
+    background-color: #E1EDF3;
     border: 1px solid #505460;
     display: none;
     padding: 2px;
@@ -340,4 +346,10 @@ h4{
 #headImg {
     height: 100px;
     width: 100px;
+}
+
+.settings .info {
+    border-right: 1px solid #CCCCCC;
+    padding-right: 40px;
+    margin-right: 40px;
 }

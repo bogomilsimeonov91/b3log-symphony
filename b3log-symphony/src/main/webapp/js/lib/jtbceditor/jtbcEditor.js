@@ -638,7 +638,7 @@ function jtbcEditor(_id)
         for (var tk = 0; tk < tColorHexAryLength; tk ++)
         {
           tni += 1;
-          tColorTableHTML +='    <td bgcolor="#' + tColorHexAry[ti] + tColorHexAry[tj] + tColorHexAry[tk] + '"><img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/space.gif" onclick="' + this.tName + '.tsetCommand(\'TextColorS\', \'#' + tColorHexAry[ti] + tColorHexAry[tj] + tColorHexAry[tk] + '\');" width="11" height="11" /></td>';
+          tColorTableHTML +='    <td bgcolor="#' + tColorHexAry[ti] + tColorHexAry[tj] + tColorHexAry[tk] + '"><img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/space.gif" onclick="' + this.tName + '.tsetCommand(\'TextColorS\', \'#' + tColorHexAry[ti] + tColorHexAry[tj] + tColorHexAry[tk] + '\');" width="16" height="16" /></td>';
           if (tni % tRowNum == 0 && tni != (tColorHexAryLength*tColorHexAryLength*tColorHexAryLength))
           {
             tColorTableHTML += '  </tr>';
@@ -669,7 +669,7 @@ function jtbcEditor(_id)
         for (var tk = 0; tk < tColorHexAryLength; tk ++)
         {
           tni += 1;
-          tColorTableHTML +='    <td bgcolor="#' + tColorHexAry[ti] + tColorHexAry[tj] + tColorHexAry[tk] + '"><img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/space.gif" onclick="' + this.tName + '.tsetCommand(\'BGColorS\', \'#' + tColorHexAry[ti] + tColorHexAry[tj] + tColorHexAry[tk] + '\');" width="11" height="11" /></td>';
+          tColorTableHTML +='    <td bgcolor="#' + tColorHexAry[ti] + tColorHexAry[tj] + tColorHexAry[tk] + '"><img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/space.gif" onclick="' + this.tName + '.tsetCommand(\'BGColorS\', \'#' + tColorHexAry[ti] + tColorHexAry[tj] + tColorHexAry[tk] + '\');" width="16" height="16" /></td>';
           if (tni % tRowNum == 0 && tni != (tColorHexAryLength*tColorHexAryLength*tColorHexAryLength))
           {
             tColorTableHTML += '  </tr>';

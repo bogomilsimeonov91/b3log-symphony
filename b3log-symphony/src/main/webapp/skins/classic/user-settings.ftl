@@ -17,9 +17,9 @@
         <div class="header">
             <#include "user-header.ftl"/>
         </div>
-        <div class="content">
-            <div class="left">
-                <table class="form" id="userInfoForm">
+        <div class="content settings">
+            <div class="left info">
+                <table class="form" id="userInfoForm" width="300px">
                     <caption>${basicInfoLabel}</caption>
                     <tr>
                         <th>
@@ -71,7 +71,7 @@
                     </tr>
                 </table>
                 <form action="/file" method="POST" enctype="multipart/form-data" target="hideFrame">
-                    <table cellpadding="0" cellspacing="0">
+                    <table class="form" width="300px">
                         <caption>
                             ${headSettingLabel}
                         </caption>
@@ -84,7 +84,7 @@
                         </tr>
                         <tr>
                             <td id="uploadFile">
-                                <input type='file' name='myFile'/>
+                                <input type='file' name='myFile' size="36"/>
                             </td>
                         </tr>
                         <tr>
@@ -96,12 +96,12 @@
                     </table>
                 </form>
             </div>
-            <table class="form left" id="userSettingsForm">
+            <table class="form right" id="userSettingsForm" width="379px">
                 <caption>
                     ${settingsInfoLabel}
                 </caption>
                 <tr>
-                    <th>
+                    <th width="96px;">
                         ${userURLLabel} http://
                     </th>
                     <td>

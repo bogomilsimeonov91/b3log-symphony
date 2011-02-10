@@ -88,8 +88,8 @@
                             </#list>
                             <span class="right">
                                 <#if "1970" != article.articleLastCmtDate?string('yyyy')>
-                                <a href="/entries/${article.oId}#comments">
-                                    <span class="comment-icon" title="${commentCountLabel}"></span>
+                                <a href="/entries/${article.oId}#comments" title="${commentCountLabel}">
+                                    <span class="comment-icon"></span>
                                     <span class="left">&nbsp;${article.articleCommentCount}</span>
                                 </a>
                                 <span class="left">
