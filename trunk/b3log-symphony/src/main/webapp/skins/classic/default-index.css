@@ -196,7 +196,7 @@ h4{
 }
 
 #pagination {
-    margin-top: 20px;
+    margin: 20px 0;
     text-align: right;
 }
 
@@ -301,17 +301,21 @@ h4{
 }
 
 .index dd, #comments dd {
-    border-top: 1px dotted;
-    margin: 10px 10px 0;
-    padding-top: 10px;
-}  
+    border-top: 1px dashed;
+    margin: 0 10px;
+    padding: 10px;
+}
+
+.index dd:hover, #comments dd:hover {
+    background-color: #E1EDF3;
+}
 
 .index .user-info img {
     margin-right: 20px;
 }
 
-.index .main {
-    width: 654px;
+.index .main, .entry .main {
+    width: 644px;
 }
 
 .index .main h2 {
@@ -359,10 +363,6 @@ h4{
     font-size: 9pt;
     margin: 0 0 10px;
     padding: 2px;
-}
-
-#commentForm {
-    margin-top: 20px;
 }
 
 /* user */
