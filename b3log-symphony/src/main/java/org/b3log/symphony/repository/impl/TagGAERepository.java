@@ -23,7 +23,6 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.QueryResultIterable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.Keys;
@@ -42,7 +41,7 @@ import org.json.JSONObject;
  * Tag Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 8, 2011
+ * @version 1.0.0.3, Feb 10, 2011
  */
 public final class TagGAERepository extends AbstractGAERepository
         implements TagRepository {
@@ -128,9 +127,7 @@ public final class TagGAERepository extends AbstractGAERepository
                 return null;
             }
 
-            final Map<String, Object> properties = entity.getProperties();
-
-            ret = new JSONObject(properties);
+            ret = entity2JSONObject(entity);
             CACHE.put(cacheKey, ret);
         }
 

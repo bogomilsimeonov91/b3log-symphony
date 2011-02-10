@@ -116,11 +116,11 @@
         <url-pattern>/user-add-entry</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>AddArticleCommentAction</servlet-name>
-        <servlet-class>org.b3log.symphony.action.AddArticleCommentAction</servlet-class>
+        <servlet-name>AddEntryCommentAction</servlet-name>
+        <servlet-class>org.b3log.symphony.action.AddEntryCommentAction</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AddArticleCommentAction</servlet-name>
+        <servlet-name>AddEntryCommentAction</servlet-name>
         <url-pattern>/add-comment</url-pattern>
     </servlet-mapping>
     <servlet>

@@ -220,12 +220,13 @@ public final class UserAddEntryAction extends AbstractAction {
                 final String cause = Langs.get("forbiddenLabel");
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
-                                 "/file", cause);
+                                 request.getRequestURI(), cause);
+
+                return ret;
             } catch (final Exception ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new ActionException(e);
             }
-            return ret;
         }
 
         final Transaction transaction = articleRepository.beginTransaction();
