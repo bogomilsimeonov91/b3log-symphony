@@ -19,6 +19,7 @@ package org.b3log.symphony.action;
 import com.dlog4j.util.UBBDecoder;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import org.b3log.latke.action.ActionException;
 import java.util.Map;
@@ -29,7 +30,6 @@ import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
-import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Ids;
 import org.b3log.symphony.model.Article;
@@ -138,15 +138,15 @@ public final class UserAddEntryAction extends AbstractAction {
 
         final StringBuilder stringBuilder = new StringBuilder("[");
         try {
-            final JSONObject result =
-                    tagRepository.get(new Query());
-            final JSONArray tagArray = result.getJSONArray(Keys.RESULTS);
+            final int num = 100;
 
-            for (int i = 0; i < tagArray.length(); i++) {
-                final JSONObject tag = tagArray.getJSONObject(i);
+            final List<JSONObject> tags = tagRepository.getMostUsedTags(num);
+
+            for (int i = 0; i < tags.size(); i++) {
+                final JSONObject tag = tags.get(i);
                 final String tagTitle = "\"" + tag.get(Tag.TAG_TITLE) + "\"";
                 stringBuilder.append(tagTitle);
-                if (i < tagArray.length() - 1) {
+                if (i < tags.size() - 1) {
                     stringBuilder.append(",");
                 }
             }
