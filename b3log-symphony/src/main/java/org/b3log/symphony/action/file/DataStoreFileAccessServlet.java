@@ -240,6 +240,7 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
         final String id = request.getParameter(Keys.OBJECT_ID);
 
         if (Strings.isEmptyOrNull(id)) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
