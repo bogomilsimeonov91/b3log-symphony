@@ -50,7 +50,8 @@
                         ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}
                     </td>
                     <td align="center">
-                        <a href="/entries/${article.oId}#comments" title="${commentCountLabel}:${article.articleCommentCount}">
+                        <a href="/entries/${article.oId}#comments" target="_blank"
+                           title="${commentCountLabel}:${article.articleCommentCount}">
                             <span class="comment-icon"></span>
                             <span class="left">&nbsp;${article.articleCommentCount}</span>
                         </a>
@@ -60,7 +61,7 @@
                         ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
                         <#else>
                         <span class="left">${noCommentLabel}&nbsp;</span>
-                        <a href="/entries/${article.oId}#commentContent">
+                        <a href="/entries/${article.oId}#commentContent" target="_blank">
                             <span class="sofa-icon" title="${sofaLabel}"></span>
                         </a>
                         </#if>
@@ -68,12 +69,27 @@
                 </tr>
                 </#list>
             </table>
-            <#list paginationPageNums as page>
-            <a href="/user-entries?p=${page}">${page}</a>
-            </#list>
-            <#if paginationPageNums?size != 0>
-            ${sumLabel}${paginationPageCount}${pageLabel}
-            </#if>
+            <div id="pagination">
+                <#if paginationPageNums?first != 1>
+                <a href="/user-entries?p=1" title="${firstPageLabel}"><<</a>
+                <a id="previousPage"
+                   href="/user-entries?p={paginationPageCount}"
+                   title="${previousPageLabel}"><</a>
+                </#if>
+                <#list paginationPageNums as page>
+                <a href="/user-entries?p=${page}" title="${page}">${page}</a>
+                </#list>
+                <#if paginationPageNums?last!=paginationPageCount>
+                <a id="nextPage"
+                   href="/user-entries?p={paginationPageCount}"
+                   title="${nextPagePabel}">></a>
+                <a href="/user-entries?p=${paginationPageCount}"
+                   title="${lastPageLabel}">>></a>
+                </#if>
+                <#if paginationPageNums?size != 0>
+                ${sumLabel}${paginationPageCount}${pageLabel}
+                </#if>
+            </div>
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>
@@ -87,6 +103,7 @@
                 }
             });
             user.initStatus();
+            Util.initPagination();
         </script>
     </body>
 </html>

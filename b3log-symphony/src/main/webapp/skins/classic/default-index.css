@@ -176,9 +176,38 @@ h4{
     background-color: #FFFFCC;
 }
 
+#pagination {
+    margin: 20px 0;
+    text-align: right;
+}
+
+#pagination a {
+    background: url("/images/icon.png") repeat scroll center bottom transparent;
+    border: 1px solid #C5C3C2;
+    color: #505460;
+    font-size: 10px;
+    margin: 2px;
+    padding: 1px 6px;
+    text-decoration: none;
+}
+
+#pagination a.current {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #C5C3C2;
+    color: #3E3E3E;
+    font-weight: bold;
+    padding: 1px 7px 2px 6px;
+}
+
+#pagination a:hover {
+    background: none repeat scroll 0 0 #C1CDDD;
+    color: #005999;
+    border: 1px solid #005999;
+}
+
 /* icon */
 .login-icon, .admin-icon, .logout-icon, .index-icon, .comment-icon,
-.date-icon, .last-date-icon, .sofa-icon, .tag-icon {
+.date-icon, .last-date-icon, .sofa-icon, .tag-icon, .reply-icon {
     background-image: url(/images/icon.png);
     width: 16px;
     height: 16px;
@@ -204,7 +233,8 @@ h4{
     background-position:-64px -16px;
 }
 
-.comment-icon, .date-icon, .last-date-icon, .sofa-icon, .tag-icon {
+.comment-icon, .date-icon, .last-date-icon, .sofa-icon, .tag-icon,
+.reply-icon {
     background-position: -32px -16px;
     float: left;
     display: block;    
@@ -224,6 +254,10 @@ h4{
 
 .sofa-icon {
     background-position: 0px -48px;
+}
+
+.reply-icon {
+    background-position: -16px -16px;
 }
 
 /* index */

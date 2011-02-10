@@ -33,6 +33,7 @@ $.extend(Index.prototype, {
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.logoutLabel
                             + "' onclick=\"Util.logout();\" class='logout-icon'></span>");
+                        $("#commentForm").show();
                         break;
                     case false:
                         $("#userStatus").html("<span title='" + labels.loginLabel

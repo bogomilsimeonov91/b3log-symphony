@@ -20,7 +20,7 @@
         <div class="content">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <tr>
-                    <th>
+                    <th width="200px">
                         ${titleLabel}
                     </th>
                     <th style="min-width: 300px;">
@@ -29,14 +29,14 @@
                     <th width="150px">
                         ${commentDateLabel}
                     </th>
-                    <th width="80px">
+                    <th width="32px">
                         ${commentLabel}
                     </th>
                 </tr>
                 <#list comments as comment>
                 <tr>
                     <td>
-                        <a href="/entries/${comment.commentEntryId}">
+                        <a href="/entries/${comment.commentEntryId}" target="_blank">
                             ${comment.commentEntryTitle}
                         </a>
                     </td>
@@ -46,20 +46,35 @@
                     <td align="center">
                         ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
                     </td>
-                    <td  align="center" style="border-color: #BBBBBB;padding-left: 32px;">
-                        <a href="/entries/${comment.commentEntryId}#${comment.oId}comment">
+                    <td  align="center" style="border-color: #BBBBBB;">
+                        <a target="_blank" href="/entries/${comment.commentEntryId}#${comment.oId}comment">
                             <span class="comment-icon"></span>
                         </a>
                     </td>
                 </tr>
                 </#list>
             </table>
-            <#list paginationPageNums as page>
-            <a href="/user-comments?p=${page}">${page}</a>
-            </#list>
-            <#if paginationPageNums?size != 0>
-            ${sumLabel}${paginationPageCount}${pageLabel}
-            </#if>
+            <div id="pagination">
+                <#if paginationPageNums?first != 1>
+                <a href="/user-comments?p=1" title="${firstPageLabel}"><<</a>
+                <a id="previousPage"
+                   href="/user-comments?p={paginationPageCount}"
+                   title="${previousPageLabel}"><</a>
+                </#if>
+                <#list paginationPageNums as page>
+                <a href="/user-comments?p=${page}" title="${page}">${page}</a>
+                </#list>
+                <#if paginationPageNums?last!=paginationPageCount>
+                <a id="nextPage"
+                   href="/user-comments?p={paginationPageCount}"
+                   title="${nextPagePabel}">></a>
+                <a href="/user-comments?p=${paginationPageCount}"
+                   title="${lastPageLabel}">>></a>
+                </#if>
+                <#if paginationPageNums?size != 0>
+                ${sumLabel}${paginationPageCount}${pageLabel}
+                </#if>
+            </div>
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>
@@ -73,6 +88,7 @@
                 }
             });
             user.initStatus();
+            Util.initPagination();
         </script>
     </body>
 </html>

@@ -77,7 +77,8 @@
                         </caption>
                         <tr>
                             <td>
-                                <img id="headImg" src="${userThumbnailURL}" alt="${userName}" title="${userName}"/>
+                                <img id="headImg" src="${userThumbnailURL}"
+                                     class="big-head-img" alt="${userName}" title="${userName}"/>
                                 (<200K, 1:1)
                             </td>
                         </tr>

@@ -74,7 +74,7 @@
                     <dd id="${comment.oId}comment">
                         <img src="${comment.commentThumbnailURL}" class="middle-head-img left"
                              alt="${comment.commenterName}" title="${comment.commenterName}"/>
-                        <div class="left main">
+                        <div class="left main" style="width: 684px;">
                             <div class="marginB10">
                                 <span class="left">
                                     by
@@ -85,8 +85,12 @@
                                     </#if>
                                 </span>
                                 <span class="right">
-                                    ${comment.commentDate?string('yyyy-MM-dd HH:mm')}
-                                    <a href="javascript:index.replyComment('${comment.oId}');">${replyLabel}</a>
+                                    <a title="${replyLabel}" href="javascript:index.replyComment('${comment.oId}');">
+                                        <span class="reply-icon"></span>
+                                    </a>
+                                    <span class="left">&nbsp;|&nbsp;</span>
+                                    <span class="date-icon" title="${createDateLabel}"></span>
+                                    <span class="left">&nbsp;${comment.commentDate?string('yyyy-MM-dd HH:mm')}</span>
                                 </span>
                                 <span class="clear"></span>
                             </div>
@@ -101,13 +105,28 @@
                     </dd>
                     </#list>
                 </dl>
-                <#list paginationPageNums as page>
-                <a href="/entries/${article.oId}?p=${page}">${page}</a>
-                </#list>
-                <#if paginationPageNums?size != 0>
-                ${sumLabel}${paginationPageCount}${pageLabel}
-                </#if>
-                <table id="commentForm" class="form">
+                <div id="pagination">
+                    <#if paginationPageNums?first != 1>
+                    <a href="/entries/${article.oId}?p=1#comments" title="${firstPageLabel}"><<</a>
+                    <a id="previousPage"
+                       href="/entries/${article.oId}?p={paginationPageCount}#comments"
+                       title="${previousPageLabel}"><</a>
+                    </#if>
+                    <#list paginationPageNums as page>
+                    <a href="/entries/${article.oId}?p=${page}#comments" title="${page}">${page}</a>
+                    </#list>
+                    <#if paginationPageNums?last!=paginationPageCount>
+                    <a id="nextPage"
+                       href="/entries/${article.oId}?p={paginationPageCount}#comments"
+                       title="${nextPagePabel}">></a>
+                    <a href="/entries/${article.oId}?p=${paginationPageCount}#comments"
+                       title="${lastPageLabel}">>></a>
+                    </#if>
+                    <#if paginationPageNums?size != 0>
+                    ${sumLabel}${paginationPageCount}${pageLabel}
+                    </#if>
+                </div>
+                <table id="commentForm" class="form none">
                     <tr>
                         <th>
                             ${commentLabel}
@@ -146,7 +165,7 @@
                 "paginationPageCount": "${paginationPageCount}"
             });
             index.initStatus();
-            Util.bindSubmitAction("commentForm");
+            Util.initPagination();
             $("#commentContent").val("");
         </script>
     </body>
