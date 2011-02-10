@@ -207,7 +207,7 @@ public final class UserAddEntryAction extends AbstractAction {
 
             final String authorEmail =
                     originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF).
-                    toLowerCase();
+                    toLowerCase().trim();
             final JSONObject author = userRepository.getByEmail(authorEmail);
             if (null != author) {
                 final String authodId = author.getString(Keys.OBJECT_ID);
