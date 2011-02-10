@@ -26,35 +26,44 @@
                     <th width="300px">
                         ${tagsLabel}
                     </th>
+                    <th width="80px">
+                        ${commentCountLabel}
+                    </th>
                     <th width="150px">
                         ${createDateLabel}
                     </th>
                     <th width="150px">
                         ${lastCommentDateLabel}
                     </th>
-                    <th width="80px">
-                        ${commentCountLabel}
-                    </th>
                 </tr>
                 <#list articles as article>
                 <tr>
                     <td>
-                        <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                        <a href="/entries/${article.oId}" target="_blank">${article.articleTitle}</a>
                     </td>
                     <td>
                         <#list article.articleTags?split(',') as tagTitle>
-                        <a href="/tags/${tagTitle}">${tagTitle}</a>
+                        <a href="/tags/${tagTitle}" target="_blank">${tagTitle}</a>
                         </#list>
+                    </td>
+                    <td align="center">
+                        <a href="/entries/${article.oId}#comments" title="${commentCountLabel}:${article.articleCommentCount}">
+                            <span class="comment-icon"></span>
+                            <span class="left">&nbsp;${article.articleCommentCount}</span>
+                        </a>
                     </td>
                     <td align="center">
                         ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}
                     </td>
-                    <td align="center">
-                        ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
-                    </td>
                     <td style="border-color: #BBBBBB;" align="center">
-                        <span class="comment-icon" title="${commentCountLabel}:${article.articleCommentCount}"></span>
-                        <span class="left">${article.articleCommentCount}</span>
+                        <#if "1970" != article.articleLastCmtDate?string('yyyy')>
+                        ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}
+                        <#else>
+                        ${noCommentLabel}
+                        <a href="/entries/${article.oId}#commentContent">
+                            <span class="sofa-icon" title="${sofaLabel}"></span>
+                        </a>
+                        </#if>
                     </td>
                 </tr>
                 </#list>
