@@ -23,32 +23,64 @@
         <div class="header">
             <#include "header.ftl"/>
         </div>
-        <div class="content">
+        <div class="content index">
             <h1 title="${tagTitle}">${tagTitle}</h1>
             <dl>
                 <#list articles as article>
                 <dd>
-                    <h2 title="${article.articleTitle}">
-                        <a href="/entries/${article.oId}">${article.articleTitle}</a>
-                    </h2>
-                    <#list article.articleTags?split(',') as tagTitle>
-                    <h3 title="${tagTitle}">
-                        <a href="/tags/${tagTitle}">${tagTitle}</a>
-                    </h3>
-                    </#list>
-                    <span>
-                        ${article.articleCommentCount}
-                    </span>
-                    <span>
+                    <div class="user-info left">
                         <#if article.articleAuthorURL != "">
-                        <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
+                        <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
+                            <img class="middle-head-img" src="{article.articleAuthorThumbnailURL}"
+                                 title="${article.articleAuthorName}" alt="${article.articleAuthorName}"/>
+                        </a>
                         <#else>
-                        ${article.articleAuthorName}
+                        <img class="middle-head-img" src="{article.articleAuthorThumbnailURL}"
+                             alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                         </#if>
-                    </span>
-                    <span>
-                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')} / last comment date
-                    </span>
+                    </div>
+                    <div class="left main">
+                        <div class="left">
+                            <h2 title="${article.articleTitle}">
+                                <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                            </h2>
+                            by
+                            <#if article.articleAuthorURL != "">
+                            <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
+                            <#else>
+                            ${article.articleAuthorName}
+                            </#if>
+                        </div>
+                        <div class="right">
+                            <span class="date-icon" title="${createDateLabel}"></span>
+                            <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}</span>
+                        </div>
+                        <span class="clear"></span>
+                        <div class="left">
+                            <#list article.articleTags?split(',') as tagTitle>
+                            <h3 title="${tagTitle}">
+                                <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
+                            </h3>
+                            </#list>
+                        </div>
+                        <div class="right">
+                            <#if "1970" != article.articleLastCmtDate?string('yyyy')>
+                            <a href="/entries/${article.oId}#comments" title="${commentCountLabel}">
+                                <span class="comment-icon"></span>
+                                <span class="left">&nbsp;${article.articleCommentCount}</span>
+                            </a>
+                            <span class="left">
+                                <span class="left">&nbsp;|&nbsp;</span>
+                                <span class="last-date-icon" title="${lastCommentDateLabel}"></span>
+                                <span class="left">&nbsp;${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}</span>
+                            </span>
+                            <#else>
+                            <a href="/entries/${article.oId}#commentContent"><span class="sofa-icon" title="${sofaLabel}"></span></a>
+                            </#if>
+                        </div>
+                        <span class="clear"></span>
+                    </div>
+                    <span class="clear"></span>
                 </dd>
                 </#list>
             </dl>
