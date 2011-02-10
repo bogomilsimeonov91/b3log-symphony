@@ -20,9 +20,6 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="header">
-            <#include "header.ftl"/>
-        </div>
         <div class="content index">
             <#list tags as tag>
             <h1>

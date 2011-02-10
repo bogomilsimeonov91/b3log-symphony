@@ -14,9 +14,6 @@
     </head>
     <body>
         <#include "user-top.ftl"/>
-        <div class="header">
-            <#include "user-header.ftl"/>
-        </div>
         <div class="content settings">
             <div class="left info">
                 <table class="form" id="userInfoForm" width="300px">

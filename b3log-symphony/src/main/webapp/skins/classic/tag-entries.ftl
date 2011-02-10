@@ -20,9 +20,6 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="header">
-            <#include "header.ftl"/>
-        </div>
         <div class="content index">
             <h1>
                 <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
