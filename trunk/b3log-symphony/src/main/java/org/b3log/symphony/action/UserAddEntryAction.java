@@ -172,8 +172,7 @@ public final class UserAddEntryAction extends AbstractAction {
 
         try {
             if (Strings.isEmptyOrNull(Sessions.currentUserName(request))) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
+                final String cause = Langs.get("loginFirstLabel");
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
                                  request.getRequestURI(), cause);
