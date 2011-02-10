@@ -57,7 +57,7 @@
                             </div>
                             <span class="clear"></span>
                         </div>
-                        <div>
+                        <div class="article-body">
                             ${article.articleContent}
                         </div>
                         <div class="premarlink">
@@ -97,7 +97,7 @@
                                 </span>
                                 <span class="clear"></span>
                             </div>
-                            <div class="comment">
+                            <div class="article-body comment">
                                 ${comment.commentContent}
                             </div>
                             <div class="sign">
