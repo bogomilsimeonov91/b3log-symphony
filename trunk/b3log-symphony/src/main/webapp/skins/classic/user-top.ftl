@@ -10,13 +10,13 @@
     <span class="right" id="userStatus">
         <span class='left'></span>
         <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-entries">user-entries</a>
+        <a class="left" href="/user-add-entry">${postEntryLabel}</a>
         <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-comments">user-comments</a>
+        <a class="left" href="/user-entries">${entriesLabel}</a>
         <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-add-entry">user-add-entry</a>
+        <a class="left" href="/user-comments">${repliesLabel}</a>
         <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-settings">user-settings</a>
+        <a class="left" href="/user-settings">${settingsLabel}</a>
         <span class="left">&nbsp;|</span>
         <a href="/" title="${indexLabel}"><span class="index-icon"></span></a>
         <span class="left">&nbsp;|</span>
