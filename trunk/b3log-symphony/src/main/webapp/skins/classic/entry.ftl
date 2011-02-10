@@ -25,7 +25,7 @@
                 <dd>
                     <div class="title">
                         <h1>
-                            <a href="${article.articlePermalink}">${article.articleTitle}</a>
+                            <a href="/entries/${article.oId}">${article.articleTitle}</a>
                         </h1>
                         by
                         <#if article.articleAuthorURL != "">
@@ -62,7 +62,7 @@
                         </div>
                         <div class="premarlink">
                             ${articlePermalinkLabel}:
-                            <a href="${article.articlePermalink}">${article.articlePermalink}</a>
+                            <a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
                         </div>
                         <div class="sign">
                             ${article.sign}

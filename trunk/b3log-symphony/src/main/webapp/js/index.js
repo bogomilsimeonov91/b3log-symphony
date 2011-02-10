@@ -207,7 +207,7 @@ $.extend(Index.prototype, {
             var replyCommentHTML =
             '<table id="' + oId + 'commentForm" class="form" width="100%">\
                 \<tr>\
-                    \<th width="96px">' + this.labels.commentLabel + '</th>\
+                    \<th width="108px">' + this.labels.commentLabel + '</th>\
                     \<td>\
                         \<textarea id="commentContentReply"></textarea>\
                     \</td>\

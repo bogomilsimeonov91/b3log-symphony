@@ -2,11 +2,11 @@
 body{
     background-image: url(images/bg-body.png);
     color: #505460;
-    font-family: '微软雅黑',Arial,sans-serif;
-    font-size: 12px;
+    font-family: Arial,sans-serif;
+    font-size: small;
 }
 
-a {
+a, h1 a:hover, h2 a:hover {
     color: #005999;
 }
 
@@ -16,6 +16,7 @@ a:hover {
 
 h1 a, h2 a {
     color: #505561;
+    text-decoration: none;
 }
 
 img{
@@ -108,9 +109,10 @@ h4{
 }
 
 /* common component */
-.form th{
+.form th {
     text-align:right;
     white-space:nowrap;
+    padding-right: 6px;
 }
 
 .form input, .form textarea{
@@ -332,7 +334,7 @@ h4{
     border-style: solid;
     border-width: 1px 1px 1px 12px;
     margin: 5px;
-    padding: 5px;
+    padding: 3px;
 }
 
 .entry .title {
@@ -346,7 +348,7 @@ h4{
 }
 
 .entry .sign {
-    border-top: 1px solid #CCCCCC;
+    border-top: 1px solid #DDDDDD;
     margin-top: 5px;
     padding: 5px 5px 0 5px;
 }
