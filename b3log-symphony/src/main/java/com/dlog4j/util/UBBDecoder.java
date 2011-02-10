@@ -303,20 +303,6 @@ class UBBNode {
  * @version 1.0.0.0, Feb 10, 2011
  */
 final class SimpleTagHandler implements UBBTagHandler {
-    //    [b]文字加粗体效果[/b]
-    //    [i]文字加倾斜效果[/i]
-    //    [u]文字加下划线效果[/u]
-    //    [size=4]改变文字大小[/size]
-    //    [color=red]改变文字颜色[/color]
-    //    [quote]这个标签是用来做为引用所设置的，如果你有什么内容是引用自别的地方，请加上这个标签！[/quote]
-    //    [url]http://www.cnjm.net[/url]
-    //    [url=http://www.cnjm.net]JAVA手机网[/url]
-    //    [email=webmaster@cnjm.net]写信给我[/email]
-    //    [email]webmaster@cnjm.net[/email]
-    //    [img]http://www.cnjm.net/myimages/mainlogo.gif[/img]
-
-    public SimpleTagHandler() {
-    }
 
     @Override
     public String[] parseTag(String s, boolean isEmpty) {
@@ -339,14 +325,15 @@ final class SimpleTagHandler implements UBBTagHandler {
         String tmp = tag.toLowerCase(); // 大小写不敏感
         // 只有下面的标记是本处理器支持的
         if ("b".equals(tmp) || "i".equals(tmp) || "u".equals(tmp)
-            || "size".equals(tmp) || "color".equals(tmp)
+            || "size".equals(tmp) || "color".equals(tmp) || "hilitecolor".
+                equals(tmp)
             || "quote".equals(tmp) || "url".equals(tmp)
-            || "email".equals(tmp) || "img".equals(tmp) || "*".equals(tmp)
-            || "list".equals(tmp) || "fly".equals(tmp)
-            || "move".equals(tmp) || "align".equals(tmp)
+            || "email".equals(tmp) || "img".equals(tmp)
+            || "ul".equals(tmp) || "ol".equals(tmp) || "li".equals(tmp)
+            || "fly".equals(tmp) || "move".equals(tmp) || "align".equals(tmp)
             || "flash".equals(tmp) || "wmv".equals(tmp) || "rm".equals(tmp)
-            || "code".equals(tmp) || "glow".equals(tmp)
-            || "sign".equals(tmp) || "em".equals(tmp) || "p".equals(tmp)) {
+            || "code".equals(tmp) || "glow".equals(tmp) || "sign".equals(tmp)
+            || "em".equals(tmp) || "p".equals(tmp) || "br".equals(tmp)) {
             return new String[]{tag, attr};
 
         }
@@ -359,10 +346,15 @@ final class SimpleTagHandler implements UBBTagHandler {
         // 针对不同标记进行组合工作
         String tmp = tag;
         String style = null;
-        if ("b".equals(tmp) || "i".equals(tmp) || "u".equals(tmp)) {
+        if ("p".equals(tmp) || "br".equals(tmp)
+            || "b".equals(tmp) || "i".equals(tmp) || "u".equals(tmp)
+            || "ol".equals(tmp) || "ul".equals(tmp) || "li".equals(tmp)) {
             return "<" + tag + ">" + data + "</" + tag + ">";
         } else if ("size".equals(tmp) || "color".equals(tmp)) {
             return "<font " + tag + "='" + attr[0] + "'>" + data + "</font>";
+        } else if ("hilitecolor".equals(tmp)) {
+            return "<font style='background-color: " + attr[0] + "'>" + data
+                   + "</font>";
         } else if ("quote".equals(tmp)) {
             return "<div class=\"clearfix\">&nbsp;</div><div class='quote'><div class='fheader_fillet'><div class='fheader_fillet1'><div class='fheader_fillet2'></div></div></div><div class='quotemain'><div class='quotemain1'><div class='quotemain2'>"
                    + data
@@ -409,10 +401,6 @@ final class SimpleTagHandler implements UBBTagHandler {
             return "<a href='mailto:" + email + "'>" + data + "</a>";
         } else if ("img".equals(tmp)) {
             return "<img src='" + data + "' border=0>";
-        } else if ("*".equals(tmp)) {
-            return "<li>" + data + "</li>";
-        } else if ("list".equals(tmp)) {
-            return "<ul>" + data + "</ul>";
         } else if ("fly".equals(tmp)) {
             return "<marquee width=90% behavior=alternate scrollamount=3>"
                    + data + "</marquee>";
