@@ -157,25 +157,15 @@ $.extend(Index.prototype, {
         }
     },
 
-    submitComment: function (oId) {
-        var currentEditor = editor,
-        replyTag = "Reply";
-
-        if (oId === undefined) {
-            replyTag = "";
-        }
-        
-        if (currentEditor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]") {
+    submitEntry: function () {
+        if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]") {
             var requestJSONObject = {
                 "oId": this.oId,
-                "commentContent": currentEditor.tGetUBB(),
+                "commentContent": editor.tGetUBB(),
                 "userName": Util.readCookie("userName"),
                 "userEmail": Util.readCookie("userEmail"),
                 "userURL": Util.readCookie("userURL")
             };
-            if (replyTag === "Reply") {
-                requestJSONObject.commentOriginalCommentId = oId;
-            }
             $.ajax({
                 url: "/user-add-comment",
                 type: "POST",
@@ -186,8 +176,6 @@ $.extend(Index.prototype, {
                             window.location.reload();
                             break;
                         case false:
-                            $("#tip").text(result.msg);
-                            break;
                         default:
                             $("#tip").text(result.msg);
                             break;
@@ -199,20 +187,53 @@ $.extend(Index.prototype, {
         }
     },
 
+    submitComment: function (oId) {
+        if (Util.validateForm("tipReply", [{
+            "id": "commentContentReply",
+            "type": "empty",
+            "tip": this.labels.commentCannotEmptyLabel
+        }])) {
+            var requestJSONObject = {
+                "oId": this.oId,
+                "commentContent": $("#commentContentReply").val(),
+                "userName": Util.readCookie("userName"),
+                "userEmail": Util.readCookie("userEmail"),
+                "userURL": Util.readCookie("userURL"),
+                "commentOriginalCommentId": oId
+            };
+            $.ajax({
+                url: "/user-add-comment",
+                type: "POST",
+                data: JSON.stringify(requestJSONObject),
+                success: function(result, textStatus){
+                    switch(result.sc) {
+                        case true:
+                            window.location.reload();
+                            break;
+                        case false:
+                        default:
+                            $("#tipReply").text(result.msg);
+                            break;
+                    }
+                }
+            });
+        }
+    },
+
     replyComment: function (oId) {
         if ($("#" + oId + "commentForm").length === 0) {
             $("#" + this.originalId + "commentForm").remove();
             var replyCommentHTML =
-            '<table id="' + oId + 'commentForm" class="form" width="100%">\
+            '<table id="' + oId + 'commentForm" class="form" width="100%" cellspacing="10">\
                 \<tr>\
-                    \<th width="108px">' + this.labels.commentLabel + '</th>\
+                    \<th width="99px">' + this.labels.commentLabel + '</th>\
                     \<td>\
                         \<textarea id="commentContentReply"></textarea>\
                     \</td>\
                 \</tr>\
                 \<tr>\
                     \<th colspan="2">\
-                        \<span class="red" id="tipReply"></span>\
+                        \<span class="tip" id="tipReply"></span>\
                         \<button onclick="index.submitComment(' + oId + ');">' + this.labels.submitLabel + '</button>\
                     \</th>\
                 \</tr>\
