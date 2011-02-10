@@ -302,6 +302,7 @@ class SimpleTagHandler implements UBBTagHandler {
     public SimpleTagHandler() {
     }
 
+    @Override
     public String[] parseTag(String s, boolean isEmpty) {
         if (isEmpty) { // 本处理器不支持空标签
             return null;
