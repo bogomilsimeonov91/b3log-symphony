@@ -325,8 +325,8 @@ final class SimpleTagHandler implements UBBTagHandler {
         String tmp = tag.toLowerCase(); // 大小写不敏感
         // 只有下面的标记是本处理器支持的
         if ("b".equals(tmp) || "i".equals(tmp) || "u".equals(tmp)
-            || "size".equals(tmp) || "color".equals(tmp) || "hilitecolor".
-                equals(tmp)
+            || "size".equals(tmp) || "color".equals(tmp) || "hilitecolor".equals(
+                tmp)
             || "quote".equals(tmp) || "url".equals(tmp)
             || "email".equals(tmp) || "img".equals(tmp)
             || "ul".equals(tmp) || "ol".equals(tmp) || "li".equals(tmp)
@@ -351,9 +351,11 @@ final class SimpleTagHandler implements UBBTagHandler {
             || "ol".equals(tmp) || "ul".equals(tmp) || "li".equals(tmp)) {
             return "<" + tag + ">" + data + "</" + tag + ">";
         } else if ("size".equals(tmp) || "color".equals(tmp)) {
-            return "<font " + tag + "='" + attr[0] + "'>" + data + "</font>";
+            return "<font " + tag + "='" + attr[0] + "," + attr[1] + ","
+                   + attr[2] + "'>" + data + "</font>";
         } else if ("hilitecolor".equals(tmp)) {
-            return "<font style='background-color: " + attr[0] + "'>" + data
+            return "<font style='background-color: " + attr[0] + "," + attr[1]
+                   + "," + attr[2] + "'>" + data
                    + "</font>";
         } else if ("quote".equals(tmp)) {
             return "<div class=\"clearfix\">&nbsp;</div><div class='quote'><div class='fheader_fillet'><div class='fheader_fillet1'><div class='fheader_fillet2'></div></div></div><div class='quotemain'><div class='quotemain1'><div class='quotemain2'>"
@@ -498,11 +500,10 @@ final class SimpleTagHandler implements UBBTagHandler {
     // 比如java util.SimpleTagHandler "[color=red]你[color=blue]好[/color]啊[/color]"
     public static void main(String[] args) throws Exception {
         String ubb =
-                "[url=http://t.qq.com/DL88250][img]http://v.t.qq.com/cgi-bin/signature?name=DL88250&sign=abb22474ba852614448ac7c6acf7d64535da052b&type=1[/img][/url]";
+                "[color=rgb(0,204,136)]fsdfsdf[/color]";
         System.out.println(">>>>" + ubb);
         System.out.println("=========================\n"
-                           + UBBDecoder.decode(ubb, new SimpleTagHandler(),
-                                               UBBDecoder.MODE_CLOSE));
+                           + UBBDecoder.decode(ubb));
     }
 }
 
