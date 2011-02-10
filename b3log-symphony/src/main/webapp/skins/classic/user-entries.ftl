@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         <#list article.articleTags?split(',') as tagTitle>
-                        <a href="/tags/${tagTitle}" target="_blank">${tagTitle}</a>
+                        <a href="/tags/${tagTitle}" target="_blank">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                         </#list>
                     </td>
                     <td align="center">

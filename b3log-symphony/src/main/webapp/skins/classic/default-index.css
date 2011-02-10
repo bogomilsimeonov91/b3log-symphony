@@ -334,6 +334,7 @@ h4{
 .entry .main {
     margin-left: 20px;
     width: 629px;
+    overflow: hidden;
 }
 
 .entry .sign {

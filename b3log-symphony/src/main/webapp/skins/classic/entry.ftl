@@ -61,6 +61,10 @@
                         <div>
                             ${article.articleContent}
                         </div>
+                        <div>
+                            ${articlePermalinkLabel}:
+                            <a href="${article.articlePermalink}">${article.articlePermalink}</a>
+                        </div>
                         <div class="sign">
                             ${article.sign}
                         </div>
