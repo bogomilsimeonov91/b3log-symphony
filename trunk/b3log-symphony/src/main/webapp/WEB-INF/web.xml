@@ -52,19 +52,6 @@
     </filter-mapping>
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>User Actions</web-resource-name>
-            <url-pattern>/user-settings</url-pattern>
-            <url-pattern>/user-entries</url-pattern>
-            <url-pattern>/user-comments</url-pattern>
-            <url-pattern>/user-add-entry</url-pattern>
-            <url-pattern>/add-comment</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>*</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-constraint>
-        <web-resource-collection>
             <web-resource-name>Admin Actions</web-resource-name>
             <url-pattern>/admin-settings</url-pattern>
         </web-resource-collection>
