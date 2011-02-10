@@ -286,7 +286,14 @@ class UBBNode {
     }
 }
 
-class SimpleTagHandler implements UBBTagHandler {
+/**
+ * Default simple tag handler.
+ *
+ * @author unascribed
+ * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
+ * @version 1.0.0.0, Feb 10, 2011
+ */
+final class SimpleTagHandler implements UBBTagHandler {
     //    [b]文字加粗体效果[/b]
     //    [i]文字加倾斜效果[/i]
     //    [u]文字加下划线效果[/u]
@@ -330,7 +337,7 @@ class SimpleTagHandler implements UBBTagHandler {
             || "move".equals(tmp) || "align".equals(tmp)
             || "flash".equals(tmp) || "wmv".equals(tmp) || "rm".equals(tmp)
             || "code".equals(tmp) || "glow".equals(tmp)
-            || "sign".equals(tmp) || "em".equals(tmp)) {
+            || "sign".equals(tmp) || "em".equals(tmp) || "p".equals(tmp)) {
             return new String[]{tag, attr};
 
         }
