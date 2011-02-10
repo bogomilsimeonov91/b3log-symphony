@@ -133,6 +133,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 final String cmtId = articleCmtRelation.getString(
                         Comment.COMMENT + "_" + Keys.OBJECT_ID);
                 final JSONObject cmt = commentRepository.get(cmtId);
+                
                 if (!cmt.getBoolean(Common.STATE)) { // This comment is forbidden
                     cmt.put(Comment.COMMENT_CONTENT, "自由、开放的环境需要大家共同维护 :-)");
                     cmt.put(Common.SIGN, DEFAULT_SIGN);
@@ -161,6 +162,12 @@ public final class EntryAction extends AbstractCacheablePageAction {
                         cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
                                 "/file?oId=" + thumbnailFileId);
                     }
+                }
+
+                final String originalCmtId = cmt.optString(
+                        cmt.getString(Comment.COMMENT_ORIGINAL_COMMENT_ID));
+                if (!Strings.isEmptyOrNull(originalCmtId)) {
+                    // TODO: fill ref cmt
                 }
 
                 comments.add(cmt);
