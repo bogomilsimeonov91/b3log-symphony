@@ -16,13 +16,13 @@
 
 package org.b3log.symphony.action;
 
+import com.dlog4j.util.UBBDecoder;
 import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.ActionException;
@@ -123,7 +123,7 @@ public final class UserAddEntryCommentAction extends AbstractAction {
      * {
      *     "oId": articleId,
      *     "userEmail": "",
-     *     "commentContent": "",
+     *     "commentContent": "", // by UBB
      *     "commentOriginalCommentId": "" // optional, if exists this key, the comment
      *                                    // is an reply
      * }
@@ -191,7 +191,9 @@ public final class UserAddEntryCommentAction extends AbstractAction {
         String commentId;
         try {
             final JSONObject article = articleRepository.get(articleId);
-            commentContent = StringEscapeUtils.escapeHtml(commentContent);
+            commentContent = commentContent.replaceAll("<", "&lt;").
+                    replaceAll(">", "&gt;");
+            commentContent = UBBDecoder.decode(commentContent);
             final String originalCommentId = requestJSONObject.optString(
                     Comment.COMMENT_ORIGINAL_COMMENT_ID);
 
