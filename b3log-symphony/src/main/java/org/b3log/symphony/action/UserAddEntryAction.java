@@ -24,8 +24,10 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Ids;
 import org.b3log.symphony.model.Article;
@@ -87,6 +89,32 @@ public final class UserAddEntryAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
+         try {
+            final HttpSession session = request.getSession();
+            if (null == session) {
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
+
+                return ret;
+            }
+
+            final String email = (String) session.getAttribute(User.USER_EMAIL);
+            if (null == email) {
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
+
+                return ret;
+            }
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+
         return ret;
     }
 
@@ -120,6 +148,32 @@ public final class UserAddEntryAction extends AbstractAction {
                                       final HttpServletResponse response)
             throws ActionException {
         final JSONObject ret = new JSONObject();
+        try {
+            final HttpSession session = request.getSession();
+            if (null == session) {
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
+
+                return ret;
+            }
+
+            final String email = (String) session.getAttribute(User.USER_EMAIL);
+            if (null == email) {
+                final String cause = Langs.get(
+                        "loginFirstLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 request.getRequestURI(), cause);
+
+                return ret;
+            }
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+        
         final Transaction transaction = articleRepository.beginTransaction();
 
         try {
