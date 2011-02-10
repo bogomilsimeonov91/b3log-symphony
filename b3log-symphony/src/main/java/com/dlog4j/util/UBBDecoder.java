@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * UBB解码类
+ * UBB 解码器。
+ *
  * @author liudong
+ * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
+ * @version 1.0.0.0, Feb 10, 2011
  */
-public class UBBDecoder {
+public final class UBBDecoder {
 
     public static final int MODE_IGNORE = 0;
     public static final int MODE_CLOSE = 1;
@@ -218,6 +221,12 @@ public class UBBDecoder {
             }
         }
         return -1;
+    }
+
+    /**
+     * Private default constructor.
+     */
+    private UBBDecoder() {
     }
 }
 
