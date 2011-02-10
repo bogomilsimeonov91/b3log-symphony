@@ -31,14 +31,17 @@ import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.TagArticleRepository;
+import org.b3log.symphony.repository.TagUserRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagArticleGAERepository;
+import org.b3log.symphony.repository.impl.TagUserGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
 import org.json.JSONArray;
@@ -67,6 +70,11 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
     private TagArticleRepository tagArticleRepository =
             TagArticleGAERepository.getInstance();
     /**
+     * Tag-User repository.
+     */
+    private TagUserRepository tagUserRepository =
+            TagUserGAERepository.getInstance();
+    /**
      * Article repository.
      */
     private ArticleRepository articleRepository =
@@ -94,6 +102,32 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                 return ret;
             }
             ret.put(Tag.TAG_TITLE, tag.getString(Tag.TAG_TITLE));
+
+            final List<JSONObject> topAuthors = new ArrayList<JSONObject>();
+            final List<String> topAuthorIds = tagUserRepository.getTopTagUsers(
+                    tag.getString(Keys.OBJECT_ID), 5);
+            for (final String topAuthorId : topAuthorIds) {
+                final JSONObject user = userRepository.get(topAuthorId);
+
+                final JSONObject topAuthor = new JSONObject();
+                topAuthor.put(Keys.OBJECT_ID, topAuthorId);
+                final String topAuthorName = user.getString(User.USER_NAME);
+                topAuthor.put(User.USER_NAME, topAuthorName);
+                final String topAuthorURL = user.getString(User.USER_URL);
+                topAuthor.put(User.USER_URL, topAuthorURL);
+                topAuthors.add(topAuthor);
+                final String thumbnailFileId =
+                        user.optString(Common.USER_THUMBNAIL_FILE_ID);
+                if (Strings.isEmptyOrNull(thumbnailFileId)) {
+                    topAuthor.put(Common.USER_THUMBNAIL_URL,
+                                  EntryAction.DEFAULT_USER_THUMBNAIL_URL);
+                } else {
+                    topAuthor.put(Common.USER_THUMBNAIL_URL,
+                                  "/file?oId=" + thumbnailFileId);
+                }
+            }
+
+            ret.put(Common.TAG_TOP_USERS, topAuthors);
 
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
 
@@ -131,6 +165,15 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                 article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
                 final String sign = author.getString(Common.SIGN);
                 article.put(Common.SIGN, sign);
+                final String thumbnailFileId =
+                        author.optString(Common.USER_THUMBNAIL_FILE_ID);
+                if (Strings.isEmptyOrNull(thumbnailFileId)) {
+                    article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
+                                EntryAction.DEFAULT_USER_THUMBNAIL_URL);
+                } else {
+                    article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
+                                "/file?oId=" + thumbnailFileId);
+                }
 
                 articles.add(article);
             }
