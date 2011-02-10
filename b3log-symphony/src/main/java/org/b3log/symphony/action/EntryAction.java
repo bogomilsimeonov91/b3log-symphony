@@ -43,6 +43,7 @@ import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Symphonys;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -135,17 +136,18 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 if (!cmt.getBoolean(Common.STATE)) { // This comment is forbidden
                     cmt.put(Comment.COMMENT_CONTENT, "自由、开放的环境需要大家共同维护 :-)");
                     cmt.put(Common.SIGN, DEFAULT_SIGN);
-                    cmt.put(Comment.COMMENTER_URL_REF, "http://www.b3log.org");
+                    cmt.put(Comment.COMMENTER_URL_REF, Symphonys.get("host"));
                 } else {
                     cmt.put(Comment.COMMENT_CONTENT,
                             cmt.getString(Comment.COMMENT_CONTENT).replaceAll(
                             UserAddEntryCommentAction.ENTER_ESC, "<br/>"));
-                    final String commenterEmail = cmt.getString(
-                            Comment.COMMENTER_EMAIL);
-                    final JSONObject user = userRepository.getByEmail(
-                            commenterEmail);
+                    final String commenterId = cmt.getString(
+                            Comment.COMMENTER_ID);
+                    final JSONObject user = userRepository.get(commenterId);
                     cmt.put(Comment.COMMENTER_URL_REF,
                             user.getString(User.USER_URL));
+                    cmt.put(Comment.COMMENTER_URL_REF,
+                            user.getString(User.USER_NAME));
                     String sign = user.getString(Common.SIGN);
                     sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
                     sign = UBBDecoder.decode(sign);

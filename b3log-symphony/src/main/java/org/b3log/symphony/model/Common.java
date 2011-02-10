@@ -49,10 +49,6 @@ public final class Common {
      */
     public static final String AUTHOR_ID = "authorId";
     /**
-     * Key of commenter id.
-     */
-    public static final String COMMENTER_ID = "commenterId";
-    /**
      * Available state.
      */
     public static final boolean AVAILABLE = true;

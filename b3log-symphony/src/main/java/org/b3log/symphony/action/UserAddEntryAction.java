@@ -45,6 +45,7 @@ import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
 import org.b3log.symphony.util.Errors;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Symphonys;
 import org.b3log.symphony.util.Tags;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -223,7 +224,8 @@ public final class UserAddEntryAction extends AbstractAction {
             article.put(ARTICLE_TITLE, originalArticle.getString(ARTICLE_TITLE));
             final String tagString = originalArticle.getString(ARTICLE_TAGS);
             article.put(ARTICLE_TAGS, Tags.removeWhitespaces(tagString));
-            final String permalink = "http://www.b3log.org/entries/" + articleId;
+            final String permalink = "http://" + Symphonys.get("host")
+                                     + "/entries/" + articleId;
             article.put(ARTICLE_PERMALINK, permalink);
             String content = originalArticle.getString(ARTICLE_CONTENT);
             content = content.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
@@ -235,7 +237,7 @@ public final class UserAddEntryAction extends AbstractAction {
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
             article.put(Common.STATE, Common.AVAILABLE);
             article.put(Article.ARTICLE_FROM, "B3log Symphony");
-            article.put(Common.HOST, "http://www.b3log.org:80");
+            article.put(Common.HOST, "http://" + Symphonys.get("host"));
             article.put(Common.VERSION, Langs.get("version"));
 
             articleRepository.add(article);

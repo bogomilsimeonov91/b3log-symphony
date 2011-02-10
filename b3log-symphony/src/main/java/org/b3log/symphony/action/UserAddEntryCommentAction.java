@@ -195,16 +195,10 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             final String originalCommentId = requestJSONObject.optString(
                     Comment.COMMENT_ORIGINAL_COMMENT_ID);
 
-            final String beginDiv = "<div class='rel'>";
-            final String endDiv = "</div>";
-            commentContent = beginDiv + commentContent;
-
             // Add comment
             final JSONObject comment = new JSONObject();
             JSONObject originalComment = null;
-            comment.put(Comment.COMMENTER_NAME, commenterName);
-            comment.put(Comment.COMMENTER_EMAIL, commenterEmail);
-            comment.put(Common.COMMENTER_ID, commenterId);
+            comment.put(Comment.COMMENTER_ID, commenterId);
             comment.put(Comment.COMMENT_ENTRY_ID, articleId);
             comment.put(Comment.COMMENT_ENTRY_TITLE,
                         article.getString(Article.ARTICLE_TITLE));
@@ -235,16 +229,10 @@ public final class UserAddEntryCommentAction extends AbstractAction {
                 if (null != originalComment) {
                     comment.put(Comment.COMMENT_ORIGINAL_COMMENT_ID,
                                 originalCommentId);
-                    final String originalCommenterName =
-                            originalComment.getString(Comment.COMMENTER_NAME);
-                    comment.put(Comment.COMMENT_ORIGINAL_COMMENT_NAME,
-                                originalCommenterName);
-                    ret.put(Comment.COMMENT_ORIGINAL_COMMENT_NAME,
-                            originalCommenterName);
-
-                    final String originalCommentContent =
-                            originalComment.getString(Comment.COMMENT_CONTENT);
-                    commentContent += originalCommentContent;
+                    final String originalCommenterId =
+                            originalComment.getString(Comment.COMMENTER_ID);
+                    comment.put(Comment.COMMENT_ORIGINAL_COMMENT_ID,
+                                originalCommenterId);
                 } else {
                     LOGGER.log(Level.WARNING,
                                "Not found orginal comment[id={0}] of reply[name={1}, content={2}]",
@@ -252,7 +240,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
                                             commentContent});
                 }
             }
-            commentContent += endDiv;
             comment.put(Comment.COMMENT_CONTENT, commentContent);
 
             commentId = commentRepository.add(comment);

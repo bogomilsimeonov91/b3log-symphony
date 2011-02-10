@@ -131,8 +131,8 @@ public final class Articles {
         newArticle.put(Article.ARTICLE_COMMENT_COUNT, commentCnt + 1);
         newArticle.put(Article.ARTICLE_LAST_CMT_DATE,
                        comment.get(Comment.COMMENT_DATE));
-        newArticle.put(Article.ARTICLE_LAST_CMT_NAME,
-                       comment.get(Comment.COMMENTER_NAME));
+        newArticle.put(Article.ARTICLE_LAST_CMTER_ID,
+                       comment.get(Comment.COMMENTER_ID));
 
         articleRepository.updateAsync(articleId, newArticle);
     }
