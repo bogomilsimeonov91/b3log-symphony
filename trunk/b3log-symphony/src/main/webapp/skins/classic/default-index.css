@@ -73,6 +73,7 @@ h4{
 /* common */
 .tip{
     color:red;
+    line-height: 28px;
 }
 
 .small-head-img, .middle-head-img, .big-head-img {
@@ -151,6 +152,11 @@ h4{
     border-color:#BBB;
 }
 
+.form label {
+    font-weight: bold;
+    line-height: 24px;
+}
+
 .table {
     border-left: 1px solid #BBBBBB;
 }
@@ -203,6 +209,20 @@ h4{
     background: none repeat scroll 0 0 #C1CDDD;
     color: #005999;
     border: 1px solid #005999;
+}
+
+.completed-panel {
+    background-color: #D6EDF5;
+    border: 1px solid #505460;
+    display: none;
+    padding: 2px;
+    position: absolute;
+    color: #005999;
+    overflow:auto;
+}
+
+.completed-panel div.selected {
+    background-color: #C1CDDD;
 }
 
 /* icon */

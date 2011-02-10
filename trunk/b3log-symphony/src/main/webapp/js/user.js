@@ -116,38 +116,45 @@ $.extend(User.prototype, {
             "id": "tags",
             "type": "empty",
             "tip": this.labels.tagsCannotEmptyLabel
-        }, {
-            "id": "content",
-            "type": "empty",
-            "tip": this.labels.contentCannotEmptyLabel
         }])) {
-            var requestJSONObject = {
-                "article": {
-                    "articleTitle": $("#title").val(),
-                    "articleTags": $("#tags").val(),
-                    "articleAuthorEmail": Util.readCookie("userEmail"),
-                    "articleContent": $("#content").val()
-                }
-            };
-
-            $.ajax({
-                url: "/user-add-entry",
-                type: "POST",
-                data: JSON.stringify(requestJSONObject),
-                success: function(result, textStatus){
-                    if (result.sc) {
-                        window.location.href = "/user-entries";
-                    } else {
-                        $("#tip").text(result.msg);
+            if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "") {
+                var requestJSONObject = {
+                    "article": {
+                        "articleTitle": $("#title").val(),
+                        "articleTags": $("#tags").val().replace(/(^\s*)|(\s*$)/g, ""),
+                        "articleAuthorEmail": Util.readCookie("userEmail"),
+                        "articleContent": editor.tGetUBB()
                     }
-                }
-            });
+                };
+
+                $.ajax({
+                    url: "/user-add-entry",
+                    type: "POST",
+                    data: JSON.stringify(requestJSONObject),
+                    success: function(result, textStatus){
+                        if (result.sc) {
+                            window.location.href = "/user-entries";
+                        } else {
+                            $("#tip").text(result.msg);
+                        }
+                    }
+                });
+            } else {
+                $("#tip").text(this.labels.contentCannotEmptyLabel);
+            }
         }
     },
 
-    initPostEntry: function () {
+    initPostEntry: function (tags) {
         $("#title").val("");
         $("#tags").val("");
         $("#content").val("");
+        var editor = new jtbcEditor('content');
+        editor.tInit('editor', '/js/lib/jtbceditor/');
+        $("#tags").completed({
+            height: 90,
+            data: tags
+        });
+        return editor;
     }
 });

@@ -11,6 +11,8 @@
         <script type="text/javascript" src="/js/lib/json2.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
         <script type="text/javascript" src="/js/user.js"></script>
+        <script type="text/javascript" src="/js/lib/jtbceditor/jtbcEditor.js"></script>
+        <script type="text/javascript" src="/js/lib/completed.js"></script>
     </head>
     <body>
         <#include "user-top.ftl"/>
@@ -18,41 +20,20 @@
             <#include "user-header.ftl"/>
         </div>
         <div class="content">
-            <table class="form" id="postEntryForm">
-                <tr>
-                    <th>
-                        ${titleLabel}
-                    </th>
-                    <td>
-                        <input id="title"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${tagsLabel}
-                    </th>
-                    <td>
-                        <input id="tags" value=""/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        ${contentLabel}
-                    </th>
-                    <td>
-                        <input id="content"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <span class="tip" id="tip"></span>
-                        <button onclick="user.postEntry();">
-                            ${submitLabel}
-                        </button>
-                    </th>
-                </tr>
-            </table>
-            ${tags}
+            <div class="form" id="postEntryForm" width="100%">
+                <label for="title">${titleLabel}</label>
+                <input id="title"/>
+                <label for="content">${contentLabel}</label>
+                <textarea id="content" style="width: 100%;height: 360px;"></textarea>
+                <label for="tags">${tagsLabel}</label>
+                <input id="tags" value=""/>
+                <div align="right" class="marginT12">
+                    <span class="tip" id="tip"></span>
+                    <button onclick="user.postEntry();">
+                        ${submitLabel}
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>
@@ -67,8 +48,7 @@
                 }
             });
             user.initStatus();
-            user.initPostEntry();
-            Util.bindSubmitAction("postEntryForm");
+            var editor = user.initPostEntry(${tags});
         </script>
     </body>
 </html>
