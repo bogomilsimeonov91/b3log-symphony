@@ -21,7 +21,7 @@
     <body>
         <#include "top.ftl"/>
         <div class="content entry">
-            <dl>
+            <dl class="marginB20">
                 <dd>
                     <div class="title">
                         <h1>
@@ -77,7 +77,7 @@
                     <dd id="${comment.oId}comment">
                         <img src="${comment.commentThumbnailURL}" class="middle-head-img left"
                              alt="${comment.commenterName}" title="${comment.commenterName}"/>
-                        <div class="left main" style="width: 664px;">
+                        <div class="left main">
                             <div class="marginB5">
                                 <span class="left">
                                     by
