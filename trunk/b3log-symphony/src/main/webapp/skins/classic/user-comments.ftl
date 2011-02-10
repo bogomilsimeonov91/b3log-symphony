@@ -14,9 +14,6 @@
     </head>
     <body>
         <#include "user-top.ftl"/>
-        <div class="header">
-            <#include "user-header.ftl"/>
-        </div>
         <div class="content">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <tr>

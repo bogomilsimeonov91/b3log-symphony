@@ -16,9 +16,6 @@
     </head>
     <body>
         <#include "user-top.ftl"/>
-        <div class="header">
-            <#include "user-header.ftl"/>
-        </div>
         <div class="content">
             <div class="form" id="postEntryForm" width="100%">
                 <label for="title">${titleLabel}</label>
