@@ -101,7 +101,7 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
 
                 return ret;
             }
-            ret.put(Tag.TAG_TITLE, tag.getString(Tag.TAG_TITLE));
+            ret.put(Tag.TAG, tag);
 
             final List<JSONObject> topAuthors = new ArrayList<JSONObject>();
             final List<String> topAuthorIds = tagUserRepository.getTopTagUsers(
