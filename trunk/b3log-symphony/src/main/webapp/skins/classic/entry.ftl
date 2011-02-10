@@ -23,12 +23,12 @@
         <div class="header">
             <#include "header.ftl"/>
         </div>
-        <div class="content">
-            <dl class="entry">
+        <div class="content entry">
+            <dl>
                 <dd>
-                    <div class="user-info left">
-                        <img src="${article.articleAuthorThumbnailURL}" alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
-                        <br/>
+                    <div class="title">
+                        <h1>${article.articleTitle}</h1>
+                        by
                         <#if article.articleAuthorURL != "">
                         <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
                             ${article.articleAuthorName}</a>
@@ -36,25 +36,33 @@
                         ${article.articleAuthorName}
                         </#if>
                     </div>
-                    <div class="left">
-                        <div class="title">
-                            <h1>${article.articleTitle}</h1>
-                            <div>
+                    <img src="${article.articleAuthorThumbnailURL}" class="big-head-img left"
+                         alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
+                    <div class="left main">
+                        <div class="marginB10">
+                            <div class="left">
                                 <#list article.articleTags?split(',') as tagTitle>
                                 <h2 title="${tagTitle}">
-                                    <a href="/tags/${tagTitle}">${tagTitle}</a>
+                                    <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                                 </h2>
                                 </#list>
-                                ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}, ${article.articleCommentCount}
                             </div>
+                            <div class="right">
+                                <a href="${article.oId}#comments" title="${commentCountLabel}">
+                                    <span class="comment-icon"></span>
+                                    <span class="left">&nbsp;${article.articleCommentCount}</span>
+                                </a>
+                                <span class="left">&nbsp;|&nbsp;</span>
+                                <span class="date-icon" title="${createDateLabel}"></span>
+                                <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}</span>
+                            </div>
+                            <span class="clear"></span>
                         </div>
                         <div>
-                            <div>
-                                ${article.articleContent}
-                            </div>
-                            <div class="sign">
-                                ${article.sign}
-                            </div>
+                            ${article.articleContent}
+                        </div>
+                        <div class="sign">
+                            ${article.sign}
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -64,37 +72,41 @@
                 <dl>
                     <#list article.articleComments as comment>
                     <dd id="${comment.oId}comment">
-                        <div class="left user-info">
-                            <img src="${comment.commentThumbnailURL}" alt="${comment.commenterName}" title="${comment.commenterName}"/>
-                            <br/>
-                            <#if comment.commenterURL != "">
-                            <a href="http://${comment.commenterURL}" target="_blank">${comment.commenterName}</a>
-                            <#else>
-                            ${comment.commenterName}
-                            </#if>
-                        </div>
-                        <div class="left">
-                            ${comment.commentDate?string('yyyy-MM-dd HH:mm')}
-                            <a href="javascript:index.replyComment('${comment.oId}');">${replyLabel}</a>
+                        <img src="${comment.commentThumbnailURL}" class="middle-head-img left"
+                             alt="${comment.commenterName}" title="${comment.commenterName}"/>
+                        <div class="left main">
+                            <div class="marginB10">
+                                <span class="left">
+                                    by
+                                    <#if comment.commenterURL != "">
+                                    <a href="http://${comment.commenterURL}" target="_blank">${comment.commenterName}</a>
+                                    <#else>
+                                    ${comment.commenterName}
+                                    </#if>
+                                </span>
+                                <span class="right">
+                                    ${comment.commentDate?string('yyyy-MM-dd HH:mm')}
+                                    <a href="javascript:index.replyComment('${comment.oId}');">${replyLabel}</a>
+                                </span>
+                                <span class="clear"></span>
+                            </div>
                             <div>
                                 ${comment.commentContent}
                             </div>
-                            <div>
+                            <div class="sign">
                                 ${comment.sign}
                             </div>
                         </div>
                         <span class="clear"></span>
                     </dd>
                     </#list>
-                    <dd>
-                        <#list paginationPageNums as page>
-                        <a href="/entries/${article.oId}?p=${page}">${page}</a>
-                        </#list>
-                        <#if paginationPageNums?size != 0>
-                        ${sumLabel}${paginationPageCount}${pageLabel}
-                        </#if>
-                    </dd>
                 </dl>
+                <#list paginationPageNums as page>
+                <a href="/entries/${article.oId}?p=${page}">${page}</a>
+                </#list>
+                <#if paginationPageNums?size != 0>
+                ${sumLabel}${paginationPageCount}${pageLabel}
+                </#if>
                 <table id="commentForm" class="form">
                     <tr>
                         <th>

@@ -39,12 +39,17 @@
     margin-right:12px;
 }
 
+.marginB10 {
+    margin-bottom: 10px;
+}
+
 .nowrap{
     white-space: nowrap;
 }
 
 .break-word {
     word-break: break-all;
+    word-wrap:break-word;
 }
 
 .left{
