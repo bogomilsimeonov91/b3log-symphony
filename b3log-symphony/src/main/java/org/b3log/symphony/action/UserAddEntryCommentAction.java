@@ -58,7 +58,7 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.0, Feb 10, 2011
  */
-public final class AddEntryCommentAction extends AbstractAction {
+public final class UserAddEntryCommentAction extends AbstractAction {
 
     /**
      * Default serial version uid.
@@ -68,7 +68,7 @@ public final class AddEntryCommentAction extends AbstractAction {
      * Logger.
      */
     private static final Logger LOGGER =
-            Logger.getLogger(AddEntryCommentAction.class.getName());
+            Logger.getLogger(UserAddEntryCommentAction.class.getName());
     /**
      * Comment repository.
      */
