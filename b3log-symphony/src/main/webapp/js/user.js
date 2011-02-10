@@ -123,10 +123,10 @@ $.extend(User.prototype, {
         }])) {
             var requestJSONObject = {
                 "article": {
-                    "articleTitle": "",
-                    "articleTags": "tag1, tag2, ....",
-                    "articleAuthorEmail": "DL88250@gmail.com",
-                    "articleContent": "content"
+                    "articleTitle": $("#title").val(),
+                    "articleTags": $("#tags").val(),
+                    "articleAuthorEmail": Util.readCookie("userEmail"),
+                    "articleContent": $("#content").val()
                 }
             };
 
@@ -135,9 +135,19 @@ $.extend(User.prototype, {
                 type: "POST",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
-                    
+                    if (result.sc) {
+                        window.location.href = "/user-entries";
+                    } else {
+                        $("#tip").text(result.msg);
+                    }
                 }
             });
         }
+    },
+
+    initPostEntry: function () {
+        $("#title").val("");
+        $("#tags").val("");
+        $("#content").val("");
     }
 });

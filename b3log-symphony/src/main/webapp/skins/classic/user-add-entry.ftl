@@ -46,7 +46,7 @@
                 <tr>
                     <th colspan="2">
                         <span class="tip" id="tip"></span>
-                        <button onclick="index.postEntry();">
+                        <button onclick="user.postEntry();">
                             ${submitLabel}
                         </button>
                     </th>
@@ -66,6 +66,7 @@
                 }
             });
             user.initStatus();
+            user.initPostEntry();
             Util.bindSubmitAction("postEntryForm");
         </script>
     </body>
