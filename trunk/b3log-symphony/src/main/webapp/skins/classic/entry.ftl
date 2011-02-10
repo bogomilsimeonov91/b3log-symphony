@@ -43,7 +43,7 @@
                             <div class="left">
                                 <#list article.articleTags?split(',') as tagTitle>
                                 <h2 title="${tagTitle}">
-                                    <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
+                                    <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                                 </h2>
                                 </#list>
                             </div>

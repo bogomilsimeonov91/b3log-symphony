@@ -27,7 +27,7 @@
             <#list tags as tag>
             <dl>
                 <dt>
-                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle}">${tag.tagTitle}</a>
+                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">${tag.tagTitle}</a>
                     <span>
                         <#list tag.tagTopAuthors as topAuthor>
                         <#if topAuthor.userURL != "">
@@ -83,7 +83,7 @@
                         <div>
                             <#list article.articleTags?split(',') as tagTitle>
                             <h3 title="${tagTitle}">
-                                <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
+                                <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                             </h3>
                             </#list>
                             <span class="right">
