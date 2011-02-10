@@ -1,5 +1,5 @@
 <div id="top">
-    <a href="/" class="logo" target="_blank">
+    <a href="/" class="logo">
         <span style="color: orange;margin-left:0px;">B</span>
         <span style="font-size: 9px; color: blue;"><sup>3</sup></span>
         <span style="color: green;">L</span>
@@ -17,6 +17,8 @@
         <a class="left" href="/user-add-entry">user-add-entry</a>
         <span class="left">&nbsp;|&nbsp;</span>
         <a class="left" href="/user-settings">user-settings</a>
+        <span class="left">&nbsp;|</span>
+        <a href="/" title="${indexLabel}"><span class="index-icon"></span></a>
         <span class="left">&nbsp;|</span>
         <span title="${logoutLabel}" onclick="Util.logout();" class="logout-icon"></span>
     </span>
