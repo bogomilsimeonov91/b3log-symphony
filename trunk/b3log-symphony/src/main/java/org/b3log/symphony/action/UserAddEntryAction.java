@@ -26,10 +26,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
-import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Ids;
 import org.b3log.latke.util.Sessions;
@@ -101,19 +99,7 @@ public final class UserAddEntryAction extends AbstractAction {
         ret.putAll(Langs.all());
 
         try {
-            final HttpSession session = request.getSession();
-            if (null == session) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-
-            final String email = (String) session.getAttribute(User.USER_EMAIL);
-            if (null == email) {
+            if (Strings.isEmptyOrNull(Sessions.currentUserName(request))) {
                 final String cause = Langs.get(
                         "loginFirstLabel");
                 Errors.sendError(request, response,
@@ -125,17 +111,7 @@ public final class UserAddEntryAction extends AbstractAction {
         } catch (final Exception e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
 
-            try {
-                final String cause = Langs.get("forbiddenLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 "/file", cause);
-
-                return ret;
-            } catch (final Exception ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
+            throw new ActionException(e);
         }
 
         final StringBuilder stringBuilder = new StringBuilder("[");
