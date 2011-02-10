@@ -32,7 +32,7 @@
                         ${tagsLabel}
                     </th>
                     <td>
-                        <input id="tags"/>
+                        <input id="tags" value=""/>
                     </td>
                 </tr>
                 <tr>
@@ -52,6 +52,7 @@
                     </th>
                 </tr>
             </table>
+            ${tags}
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>

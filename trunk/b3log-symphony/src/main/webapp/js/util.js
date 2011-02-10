@@ -94,5 +94,31 @@ var Util = {
             expires = "; expires=" + date.toGMTString();
         }
         document.cookie = name + "=" + value + expires + "; path=/";
+    },
+
+    initPagination: function () {
+        var currentPage = 0,
+        search = window.location.search;
+        if (search === "") {
+            currentPage = 1;
+        } else {
+            currentPage = parseInt(search.split('p=')[1]);
+        }
+
+        $("#pagination a").each(function () {
+            var $it = $(this);
+            if (currentPage === parseInt($it.text())) {
+                $it.addClass("current");
+            } else {
+                $it.removeClass("current");
+            }
+        });
+        
+        if ($("#nextPage").length > 0) {
+            $("#nextPage").attr("href", $("#nextPage").attr("href").replace("{paginationPageCount}", currentPage + 1));
+        }
+        if ($("#previousPage").length > 0) {
+            $("#previousPage").attr("href", $("#previousPage").attr("href").replace("{paginationPageCount}", currentPage - 1));
+        }
     }
 };

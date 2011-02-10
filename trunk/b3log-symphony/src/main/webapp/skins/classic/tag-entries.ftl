@@ -52,10 +52,27 @@
                 </dd>
                 </#list>
             </dl>
-            <#list paginationPageNums as page>
-            <a href="/tags/${tagTitle}?p=${page}">${page}</a>
-            </#list>
-            ${sumLabel}${paginationPageCount}${pageLabel}
+            <div id="pagination">
+                <#if paginationPageNums?first != 1>
+                <a href="/tags/${tagTitle}?p=1" title="${firstPageLabel}"><<</a>
+                <a id="previousPage"
+                   href="/tags/${tagTitle}?p={paginationPageCount}"
+                   title="${previousPageLabel}"><</a>
+                </#if>
+                <#list paginationPageNums as page>
+                <a href="/tags/${tagTitle}?p=${page}" title="${page}">${page}</a>
+                </#list>
+                <#if paginationPageNums?last!=paginationPageCount>
+                <a id="nextPage"
+                   href="/tags/${tagTitle}?p={paginationPageCount}"
+                   title="${nextPagePabel}">></a>
+                <a href="/tags/${tagTitle}?p=${paginationPageCount}"
+                   title="${lastPageLabel}">>></a>
+                </#if>
+                <#if paginationPageNums?size != 0>
+                ${sumLabel}${paginationPageCount}${pageLabel}
+                </#if>
+            </div>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
@@ -69,6 +86,7 @@
                 }
             });
             index.initStatus();
+            Util.initPagination();
         </script>
     </body>
 </html>
