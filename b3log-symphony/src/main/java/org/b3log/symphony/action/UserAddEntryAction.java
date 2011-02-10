@@ -16,6 +16,7 @@
 
 package org.b3log.symphony.action;
 
+import com.dlog4j.util.UBBDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -202,8 +203,10 @@ public final class UserAddEntryAction extends AbstractAction {
             article.put(ARTICLE_TAGS, Tags.removeWhitespaces(tagString));
             final String permalink = "http://www.b3log.org/entries/" + articleId;
             article.put(ARTICLE_PERMALINK, permalink);
-            article.put(ARTICLE_CONTENT,
-                        originalArticle.getString(ARTICLE_CONTENT));
+            String content = originalArticle.getString(ARTICLE_CONTENT);
+            content = content.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+            content = UBBDecoder.decode(content);
+            article.put(ARTICLE_CONTENT, content);
             final long createDateTime = Long.parseLong(articleId);
             article.put(Article.ARTICLE_CREATE_DATE, new Date(createDateTime));
             article.put(Article.ARTICLE_LAST_CMT_DATE, new Date(0));
