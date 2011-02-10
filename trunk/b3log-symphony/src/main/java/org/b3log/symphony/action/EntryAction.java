@@ -146,7 +146,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     final JSONObject user = userRepository.get(commenterId);
                     cmt.put(Comment.COMMENTER_URL_REF,
                             user.getString(User.USER_URL));
-                    cmt.put(Comment.COMMENTER_URL_REF,
+                    cmt.put(Comment.COMMENTER_NAME_REF,
                             user.getString(User.USER_NAME));
                     String sign = user.getString(Common.SIGN);
                     sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
