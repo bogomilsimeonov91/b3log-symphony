@@ -166,9 +166,9 @@ public final class EntryAction extends AbstractCacheablePageAction {
 
                 final String originalCmtId = cmt.optString(
                         cmt.getString(Comment.COMMENT_ORIGINAL_COMMENT_ID));
-                if (!Strings.isEmptyOrNull(originalCmtId)) {
-                    // TODO: fill ref cmt
-                }
+//                if (!Strings.isEmptyOrNull(originalCmtId)) {
+//                    // TODO: fill ref cmt
+//                }
 
                 comments.add(cmt);
             }
