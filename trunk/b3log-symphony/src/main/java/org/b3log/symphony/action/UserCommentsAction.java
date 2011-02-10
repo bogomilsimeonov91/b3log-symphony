@@ -91,8 +91,7 @@ public final class UserCommentsAction extends AbstractAction {
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
+                final String cause = Langs.get("loginFirstLabel");
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
                                  request.getRequestURI(), cause);
