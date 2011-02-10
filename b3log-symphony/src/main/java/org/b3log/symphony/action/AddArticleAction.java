@@ -140,11 +140,11 @@ public final class AddArticleAction extends AbstractAction {
                     LOGGER.log(Level.SEVERE, e.getMessage(), e);
                     throw new ActionException(e);
                 }
-                
+
                 return null;
             }
         }
-        
+
         final JSONObject ret = new JSONObject();
         final Transaction transaction = articleRepository.beginTransaction();
 
@@ -172,7 +172,11 @@ public final class AddArticleAction extends AbstractAction {
                 final String authodId = author.getString(Keys.OBJECT_ID);
                 article.put(Common.AUTHOR_ID, authodId);
             } else {
-                throw new Exception("Unauthorized request!");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "/add-article",
+                                 Langs.get("loginFirstLabel"));
+                return ret;
             }
 
             article.put(ARTICLE_TITLE, originalArticle.getString(ARTICLE_TITLE));
@@ -221,6 +225,7 @@ public final class AddArticleAction extends AbstractAction {
 
             try {
                 ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, e.getMessage());
             } catch (final JSONException ex) {
                 LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new ActionException(ex);
