@@ -75,10 +75,12 @@ $.extend(Index.prototype, {
                 $("#tip").text(this.labels.passwordNoMatchLabel);
                 $("#confirmPassword").focus();
             } else {
+                var userName =  $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
+                email = $("#email").val().replace(/(^\s*)|(\s*$)/g, "");
                 var requestJSONObject = {
                     "captcha": $("#captcha").val().replace(/(^\s*)|(\s*$)/g, ""),
-                    "userName": $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
-                    "userEmail": $("#email").val().replace(/(^\s*)|(\s*$)/g, ""),
+                    "userName": userName,
+                    "userEmail": email,
                     "userPassword": $("#password").val()
                 };
 
@@ -89,8 +91,9 @@ $.extend(Index.prototype, {
                     success: function(result, textStatus){
                         switch(result.sc) {
                             case true:
-                                Util.createCookie("userName", $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
-                                Util.createCookie("userEmail", $("#email").val().replace(/(^\s*)|(\s*$)/g, ""), 365);
+                                Util.createCookie("userName", userName, 365);
+                                Util.createCookie("userEmail", email, 365);
+                                Util.createCookie("userURL", "", 365);
                                 window.location.href = '/user-settings';
                                 break;
                             case "duplicated":
@@ -123,9 +126,10 @@ $.extend(Index.prototype, {
             "type": "empty",
             "tip": this.labels.captchaCannotEmptyLabel
         }])) {
+            var email = $("#emailLogin").val().replace(/(^\s*)|(\s*$)/g, "");
             var requestJSONObject = {
                 "captcha": $("#captchaLogin").val(),
-                "userEmail": $("#emailLogin").val(),
+                "userEmail": email,
                 "userPassword": $("#passwordLogin").val()
             };
             $.ajax({
@@ -136,7 +140,7 @@ $.extend(Index.prototype, {
                     switch(result.sc) {
                         case true:
                             Util.createCookie("userName", result.userName, 365);
-                            Util.createCookie("userEmail", $("#emailLogin").val(), 365);
+                            Util.createCookie("userEmail", email, 365);
                             Util.createCookie("userURL", result.userURL, 365);
                             window.location.href='/';
                             break;
@@ -158,8 +162,7 @@ $.extend(Index.prototype, {
             "type": "empty",
             "tip": this.labels.commentCannotEmptyLabel
         }],
-        replyTag = "Reply",
-        paginationPageCount = this.paginationPageCount;
+        replyTag = "Reply";
         
         if (oId === undefined) {
             validateData[0].id = "commentContent";
