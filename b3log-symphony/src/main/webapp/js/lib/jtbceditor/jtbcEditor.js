@@ -600,17 +600,17 @@ function jtbcEditor(_id)
   this.tLoadSmileyTable = function()
   {
     var tni = 0;
-    var tRowNum = 6;
+    var tRowNum = 5;
     var tSmileyTableHTML = '<table cellpadding="0" cellspacing="5" class="jtbcEditorSmileyTable">';
     tSmileyTableHTML += '  <tr>';
     tSmileyTableHTML += '    <td colspan="' + tRowNum + '">' + jtbcEditorLang.tSmileyImage + '</td>';
     tSmileyTableHTML += '  </tr>';
     tSmileyTableHTML += '  <tr>';
-    for (var ti = 0; ti < 24; ti ++)
+    for (var ti = 0; ti < 15; ti ++)
     {
       tni += 1;
-      tSmileyTableHTML +='    <td><img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/smiley/' + tni + '.gif" onclick="' + this.tName + '.tsetCommand(\'SmileyS\', this.src);" /></td>';
-      if (tni % tRowNum == 0 && tni != 25)
+      tSmileyTableHTML +='    <td><img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/smiley/' + tni + '.png" onclick="' + this.tName + '.tsetCommand(\'SmileyS\', this.src);" /></td>';
+      if (tni % tRowNum == 0 && tni != 16)
       {
         tSmileyTableHTML += '  </tr>';
         tSmileyTableHTML += '  <tr>';
