@@ -80,10 +80,11 @@ public final class UserEntriesAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
+        String email = null;
         try {
             final HttpSession session = request.getSession();
             if (null == session) {
-                  final String cause = Langs.get(
+                final String cause = Langs.get(
                         "loginFirstLabel");
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
@@ -92,9 +93,9 @@ public final class UserEntriesAction extends AbstractAction {
                 return ret;
             }
 
-            final String email = (String) session.getAttribute(User.USER_EMAIL);
+            email = (String) session.getAttribute(User.USER_EMAIL);
             if (null == email) {
-                  final String cause = Langs.get(
+                final String cause = Langs.get(
                         "loginFirstLabel");
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
@@ -102,6 +103,23 @@ public final class UserEntriesAction extends AbstractAction {
 
                 return ret;
             }
+        } catch (final Exception e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+
+            try {
+                final String cause = Langs.get("forbiddenLabel");
+                Errors.sendError(request, response,
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "/file", cause);
+
+                return ret;
+            } catch (final Exception ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new ActionException(e);
+            }
+        }
+
+        try {
 
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
