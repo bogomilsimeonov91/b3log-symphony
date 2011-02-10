@@ -345,14 +345,18 @@ h4{
     margin: 10px 0;
 }
 
+.entry .entry-main {
+    padding: 0 20px;
+    width: 609px;
+}
+
 .entry .main {
     margin-left: 20px;
-    width: 629px;
     overflow: hidden;
 }
 
 .entry .sign {
-    border-top: 1px solid #DDDDDD;
+    border-top: 1px solid #E1EDF3;
     margin-top: 5px;
     padding: 5px 5px 0 5px;
 }
