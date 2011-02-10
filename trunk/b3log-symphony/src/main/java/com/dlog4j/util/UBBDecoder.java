@@ -351,7 +351,7 @@ final class SimpleTagHandler implements UBBTagHandler {
             || "ol".equals(tmp) || "ul".equals(tmp) || "li".equals(tmp)) {
             return "<" + tag + ">" + data + "</" + tag + ">";
         } else if ("size".equals(tmp) || "color".equals(tmp)) {
-            return "<font " + tag + "='" + attr[0] + "," + attr[1] + ","
+            return "<font style='color:" + attr[0] + "," + attr[1] + ","
                    + attr[2] + "'>" + data + "</font>";
         } else if ("hilitecolor".equals(tmp)) {
             return "<font style='background-color: " + attr[0] + "," + attr[1]
