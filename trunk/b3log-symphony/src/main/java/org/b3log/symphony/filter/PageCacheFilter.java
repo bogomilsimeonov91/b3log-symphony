@@ -36,6 +36,7 @@ import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
+import org.b3log.symphony.util.Symphonys;
 import org.json.JSONObject;
 
 /**
@@ -46,7 +47,7 @@ import org.json.JSONObject;
  * </p>
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 7, 2011
+ * @version 1.0.0.2, Feb 10, 2011
  * @see org.b3log.latke.action.AbstractCacheablePageAction#afterDoFreeMarkerTemplateAction(
  * javax.servlet.http.HttpServletRequest,
  * javax.servlet.http.HttpServletResponse,
@@ -64,7 +65,8 @@ public final class PageCacheFilter implements Filter {
     /**
      * Enables page cache?
      */
-    private static final boolean PAGE_CACHE_ENABLED = false;
+    private static final boolean PAGE_CACHE_ENABLED = 
+            Boolean.valueOf(Symphonys.get("enablePageCache"));
 
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
