@@ -117,7 +117,7 @@ public final class UserCommentsAction extends AbstractAction {
                 final String cause = Langs.get("forbiddenLabel");
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
-                                 "/file", cause);
+                                 request.getRequestURI(), cause);
 
                 return ret;
             } catch (final Exception ex) {
