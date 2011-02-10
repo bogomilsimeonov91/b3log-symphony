@@ -40,7 +40,7 @@ import org.json.JSONObject;
  * Tag utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 31, 2011
+ * @version 1.0.0.2, Feb 10, 2011
  */
 public final class Tags {
 
@@ -68,6 +68,27 @@ public final class Tags {
      * Tag repository.
      */
     private TagRepository tagRepository = TagGAERepository.getInstance();
+
+    /**
+     * Removes white spaces for the specified tag string.
+     *
+     * @param tagsString the specified tag string, for example "tag1, tag2, tag3"
+     * @return tag string without space, for example "tag1,tag2,tag3"
+     */
+    public static String removeWhitespaces(final String tagsString) {
+        final String[] tagStrings = tagsString.split(",");
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tagStrings.length; i++) {
+            final String tagString = tagStrings[i];
+            stringBuilder.append(tagString.trim());
+
+            if (i != tagStrings.length - 1) {
+                stringBuilder.append(",");
+            }
+        }
+
+        return stringBuilder.toString();
+    }
 
     /**
      * Tags the specified article with the specified tag titles.

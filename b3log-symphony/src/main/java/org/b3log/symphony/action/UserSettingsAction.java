@@ -65,7 +65,6 @@ public final class UserSettingsAction extends AbstractAction {
             final freemarker.template.Template template,
             final HttpServletRequest request,
             final HttpServletResponse response) throws ActionException {
-
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         ret.putAll(Langs.all());
