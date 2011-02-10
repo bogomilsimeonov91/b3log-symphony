@@ -79,7 +79,7 @@
                             <td>
                                 <img id="headImg" src="${userThumbnailURL}"
                                      class="big-head-img" alt="${userName}" title="${userName}"/>
-                                (<200K, 1:1)
+                                ( < 20K, 1:1)
                             </td>
                         </tr>
                         <tr>
