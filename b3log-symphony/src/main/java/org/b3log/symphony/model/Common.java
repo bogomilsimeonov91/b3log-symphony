@@ -20,7 +20,7 @@ package org.b3log.symphony.model;
  * This class defines all common model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 9, 2011
+ * @version 1.0.0.3, Feb 10, 2011
  */
 public final class Common {
 
@@ -36,7 +36,6 @@ public final class Common {
      * Key of host.
      */
     public static final String HOST = "host";
-
     /**
      * Key of sign.
      */
@@ -62,13 +61,17 @@ public final class Common {
      */
     public static final boolean DISABLED = false;
     /**
-     * User thumbnail file id.
+     * Key of user thumbnail file id.
      */
     public static final String USER_THUMBNAIL_FILE_ID = "userThumbnailFileId";
     /**
-     * User thumbnail URL.
+     * Key of user thumbnail URL.
      */
     public static final String USER_THUMBNAIL_URL = "userThumbnailURL";
+    /**
+     * Key of tag top users.
+     */
+    public static final String TAG_TOP_USERS = "tagTopUsers";
 
     /**
      * Private default constructor.
