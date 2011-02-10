@@ -32,7 +32,7 @@
     FONT-SIZE: 12px; FONT-WEIGHT: bold
 }
 .jtbcEditorSmileyTable TD IMG {
-    CURSOR: pointer; MARGIN: 3px; WIDTH: 19px; HEIGHT: 19px
+    CURSOR: pointer; WIDTH: 24px; HEIGHT: 24px
 }
 .jtbcEditorMessageTable {
     MARGIN: 0px; BACKGROUND: #E1EDF3; BORDER: #999999 1px solid
