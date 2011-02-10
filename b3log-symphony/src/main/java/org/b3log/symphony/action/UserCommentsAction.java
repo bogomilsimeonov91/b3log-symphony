@@ -33,6 +33,7 @@ import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
+import org.b3log.latke.repository.SortDirection;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -50,7 +51,7 @@ import org.json.JSONObject;
  * User comments. user-comments.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 8, 2011
+ * @version 1.0.0.1, Feb 10, 2011
  */
 public final class UserCommentsAction extends AbstractAction {
 
@@ -126,7 +127,6 @@ public final class UserCommentsAction extends AbstractAction {
         }
 
         try {
-
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
@@ -137,7 +137,8 @@ public final class UserCommentsAction extends AbstractAction {
             final String userId = user.getString(Keys.OBJECT_ID);
             final Query query = new Query();
             query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
-                    addFilter(Common.COMMENTER_ID, FilterOperator.EQUAL, userId);
+                    addFilter(Common.COMMENTER_ID, FilterOperator.EQUAL, userId).
+                    addSort(Comment.COMMENT_DATE, SortDirection.DESCENDING);
 
             final JSONObject result = commentRepository.get(query);
             final JSONArray commentArray = result.getJSONArray(Keys.RESULTS);
