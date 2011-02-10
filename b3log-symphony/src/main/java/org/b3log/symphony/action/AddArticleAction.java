@@ -107,8 +107,9 @@ public final class AddArticleAction extends AbstractAction {
      *         "articleContent": ""
      *         "articleCreateDate": long
      *     },
+     *     "key": "",
      *     "host": "",
-     *     "from": ""
+     *     "from": "",
      *     "version": "",
      * }
      * </pre>
