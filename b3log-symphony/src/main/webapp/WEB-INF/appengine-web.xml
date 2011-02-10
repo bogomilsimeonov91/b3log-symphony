@@ -42,6 +42,7 @@
         <include path="/js/**.htm" />
         <include path="/js/**.html" />
         <include path="/js/**.gif" />
+        <include path="/js/**.png" />
         <include path="/skins/**.css" />
         <include path="/skins/**.png" />
         <include path="/skins/**.jpg" />
