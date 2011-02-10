@@ -97,7 +97,7 @@
                                 </span>
                                 <span class="clear"></span>
                             </div>
-                            <div>
+                            <div class="comment">
                                 ${comment.commentContent}
                             </div>
                             <div class="sign">
