@@ -257,7 +257,7 @@ public final class DataStoreFileAccessServlet extends HttpServlet {
             if (request.getLocale().getLanguage().equals("zh")) {
                 charset = "GBK";
             }
-            response.addHeader("Cache-Control", "max-age=172800");
+            response.addHeader("Cache-Control", "max-age=86400");
             response.addHeader("Content-Disposition",
                                "attachment; filename="
                                + new String(name.getBytes(charset), "ISO-8859-1"));
