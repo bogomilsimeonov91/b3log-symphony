@@ -56,6 +56,8 @@
             <url-pattern>/user-settings</url-pattern>
             <url-pattern>/user-entries</url-pattern>
             <url-pattern>/user-comments</url-pattern>
+            <url-pattern>/user-add-entry</url-pattern>
+            <url-pattern>/add-comment</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>*</role-name>
@@ -117,6 +119,14 @@
     <servlet-mapping>
         <servlet-name>AddArticleAction</servlet-name>
         <url-pattern>/add-article</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AddEntryAction</servlet-name>
+        <servlet-class>org.b3log.symphony.action.UserAddEntryAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddEntryAction</servlet-name>
+        <url-pattern>/user-add-entry</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AddArticleCommentAction</servlet-name>
