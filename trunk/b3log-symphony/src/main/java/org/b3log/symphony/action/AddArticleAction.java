@@ -46,7 +46,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Adds articles submitted from B3log Solo.
+ * Adds articles submitted from <a href="http://b3log-rhythm.googlecode.com">
+ * B3log Rhythm</a>.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.5, Feb 9, 2011
