@@ -280,10 +280,10 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final String originalCmtContent =
                     originalComment.getString(Comment.COMMENT_CONTENT);
 
-            repliesBuilder.append(BEGIN_CMT_REF_HTML);
+            repliesBuilder.append(BEGIN_CMT_REF_HTML).append("by ");
             final boolean hasCmterURL = !Strings.isEmptyOrNull(cmterURL);
             if (hasCmterURL) {
-                repliesBuilder.append("by <a href='http://").append(cmterURL).
+                repliesBuilder.append("<a href='http://").append(cmterURL).
                         append("'>");
             }
             repliesBuilder.append(cmterName);
