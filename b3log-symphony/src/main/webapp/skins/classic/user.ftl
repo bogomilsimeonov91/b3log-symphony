@@ -69,19 +69,19 @@
             <#if paginationPageNums?size != 0>
             <div id="pagination">
                 <#if paginationPageNums?first != 1>
-                <a href="/user-entries?p=1" title="${firstPageLabel}"><<</a>
+                <a href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p=1'" title="${firstPageLabel}"><<</a>
                 <a id="previousPage"
-                   href="/user-entries?p={paginationPageCount}"
+                   href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p={paginationPageCount}'"
                    title="${previousPageLabel}"><</a>
                 </#if>
                 <#list paginationPageNums as page>
-                <a href="/user-entries?p=${page}" title="${page}">${page}</a>
+                <a href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p=${page}'" title="${page}">${page}</a>
                 </#list>
                 <#if paginationPageNums?last!=paginationPageCount>
                 <a id="nextPage"
-                   href="/user-entries?p={paginationPageCount}"
+                   href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p={paginationPageCount}'"
                    title="${nextPagePabel}">></a>
-                <a href="/user-entries?p=${paginationPageCount}"
+                <a href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p=${paginationPageCount}'"
                    title="${lastPageLabel}">>></a>
                 </#if>
                 ${sumLabel}${paginationPageCount}${pageLabel}

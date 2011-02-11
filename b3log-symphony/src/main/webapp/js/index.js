@@ -31,7 +31,7 @@ $.extend(Index.prototype, {
                             + "<a class='left' href='/user-add-entry'>" + labels.postEntryLabel + "</a>"
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.adminConsoleLabel
-                            + "' onclick=\"window.location='/users/'" + Util.readCookie("userName") +"\" class='admin-icon'></span>"
+                            + "' onclick=\"window.location='/users/" + Util.readCookie("userName") +"'\" class='admin-icon'></span>"
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.logoutLabel
                             + "' onclick=\"Util.logout();\" class='logout-icon'></span>");
