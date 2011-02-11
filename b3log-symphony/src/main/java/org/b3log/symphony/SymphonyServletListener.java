@@ -35,6 +35,7 @@ import javax.servlet.ServletRequestEvent;
 import javax.servlet.http.HttpSessionEvent;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.RunsOnEnv;
+import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.servlet.AbstractServletListener;
 import org.b3log.latke.util.freemarker.Templates;
@@ -113,7 +114,13 @@ public final class SymphonyServletListener extends AbstractServletListener {
         registerEventProcessor();
         skinUtils.loadSkin();
 
-        Templates.enableCache(Boolean.valueOf(Symphonys.get("enablePageCache")));
+        final boolean enablePageCache =
+                Boolean.valueOf(Symphonys.get("enablePageCache"));
+        Templates.enableCache(enablePageCache);
+
+        if (!enablePageCache) {
+            PageCaches.removeAll();
+        }
 
         LOGGER.info("Initialized the context");
     }
