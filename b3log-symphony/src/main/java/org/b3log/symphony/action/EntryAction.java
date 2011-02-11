@@ -37,9 +37,11 @@ import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleCommentRepository;
+import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
+import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
@@ -79,6 +81,11 @@ public final class EntryAction extends AbstractCacheablePageAction {
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
     /**
+     * Article repository.
+     */
+    private ArticleRepository articleRepository = ArticleGAERepository.
+            getInstance();
+    /**
      * Default sign.
      */
     public static final String DEFAULT_SIGN;
@@ -106,10 +113,10 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final HttpServletRequest request,
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();
-
+        final String entryId = request.getRequestURI().substring(
+                "/entries/".length());
         try {
-            final JSONObject article = (JSONObject) request.getAttribute(
-                    Article.ARTICLE);
+            final JSONObject article = articleRepository.get(entryId);
             if (null == article) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
 
@@ -227,6 +234,11 @@ public final class EntryAction extends AbstractCacheablePageAction {
         }
 
         return ret;
+    }
+
+    @Override
+    protected String getPageName(final String requestURI) {
+        return "entry.ftl";
     }
 
     @Override
