@@ -27,17 +27,19 @@ $.extend(Index.prototype, {
             success: function(result, textStatus){
                 switch(result.sc) {
                     case true:
-                        $("#userStatus").html("<span class='left'>" + result.userName + " |</span>"
+                        $("#userStatus").html("<span class='left'>" + result.userName + "&nbsp;|&nbsp;</span>"
+                            + "<a class='left' href='/user-add-entry'>" + labels.postEntryLabel + "</a>"
+                            + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.adminConsoleLabel
                             + "' onclick=\"window.location='/user-entries'\" class='admin-icon'></span>"
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.logoutLabel
                             + "' onclick=\"Util.logout();\" class='logout-icon'></span>");
-                        $("#commentForm").show();
                         break;
                     case false:
                         $("#userStatus").html("<span title='" + labels.loginLabel
                             + "' onclick=\"window.location='/register'\" class='login-icon'></span>");
+                        $("#commentForm").hide();
                         break;
                 }
             }
@@ -158,14 +160,16 @@ $.extend(Index.prototype, {
     },
 
     submitEntry: function () {
-        if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]") {
+        if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]"
+            && editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[p][br][p]") {
             var requestJSONObject = {
                 "oId": this.oId,
-                "commentContent": editor.tGetUBB(),
+                "commentContent": editor.tGetUBB().replace("[br]", ""),
                 "userName": Util.readCookie("userName"),
                 "userEmail": Util.readCookie("userEmail"),
                 "userURL": Util.readCookie("userURL")
             };
+            alert(editor.tGetUBB().replace("[br]", ""));
             $.ajax({
                 url: "/user-add-comment",
                 type: "POST",

@@ -31,7 +31,8 @@
                 "labels": {
                     "loginLabel": "${loginLabel}",
                     "logoutLabel": "${logoutLabel}",
-                    "adminConsoleLabel": "${adminConsoleLabel}"
+                    "adminConsoleLabel": "${adminConsoleLabel}",
+                    "postEntryLabel": "${postEntryLabel}"
                 }
             });
             index.initStatus();

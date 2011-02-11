@@ -24,54 +24,50 @@
         <div class="content entry">
             <dl class="marginB20">
                 <dd>
-                    <div class="title">
-                        <h1>
-                            <a href="/entries/${article.oId}">${article.articleTitle}</a>
-                        </h1>
-                        by
-                        <#if article.articleAuthorURL != "">
-                        <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
-                            ${article.articleAuthorName}</a>
-                        <#else>
-                        ${article.articleAuthorName}
-                        </#if>
-                    </div>
                     <img src="${article.articleAuthorThumbnailURL}" class="big-head-img left"
                          alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
                     <div class="left entry-main">
-                        <div class="marginB5">
-                            <div class="left">
-                                <#list article.articleTags?split(',') as tagTitle>
-                                <h2 title="${tagTitle}">
-                                    <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
-                                </h2>
-                                </#list>
-                            </div>
+                        <div>
+                            <h1>
+                                <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                            </h1>
+                            by
+                            <#if article.articleAuthorURL != "">
+                            <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
+                                ${article.articleAuthorName}</a>
+                            <#else>
+                            ${article.articleAuthorName}
+                            </#if>
+                            &nbsp;
                             <div class="right">
+                                <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;</span>
                                 <a href="${article.oId}#comments" title="${commentCountLabel}">
                                     <span class="comment-icon"></span>
                                     <span class="left">&nbsp;${article.articleCommentCount}</span>
                                 </a>
-                                <span class="left">&nbsp;|&nbsp;</span>
-                                <span class="date-icon" title="${createDateLabel}"></span>
-                                <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}</span>
                             </div>
                             <span class="clear"></span>
                         </div>
-                        <div class="article-body">
-                            ${article.articleContent}
-                        </div>
-                        <div class="premarlink">
-                            <#if "B3log Symphony" != article.articleFrom>
-                            ${from1Label}<a href="http://${article.host}" target="_blank">${article.fromTitle}</a>
-                            <br/>
-                            ${originalArticleLink1Label}<#else>${articlePermalink1Label}</#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
-                        </div>
-                        <div class="sign">
-                            ${article.sign}
-                        </div>
+                        <#list article.articleTags?split(',') as tagTitle>
+                        <h2 title="${tagTitle}">
+                            <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a></h2><#if tagTitle_has_next>,</#if>
+                        </#list>
                     </div>
-                    <div class="clear"></div>
+                    <div class="article-body">
+                        ${article.articleContent}
+                    </div>
+                    <div class="premarlink">
+                        <#if "B3log Symphony" != article.articleFrom>
+                        ${from1Label}<a href="http://${article.host}" target="_blank">${article.fromTitle}</a>
+                        <br/>
+                        ${originalArticleLink1Label}<#else>
+                        ${articlePermalink1Label}</#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
+                    </div>
+                    <#if "" != article.sign>
+                    <div class="sign">
+                        ${article.sign}
+                    </div>
+                    </#if>
                 </dd>
             </dl>
             <div id="comments">
@@ -94,8 +90,6 @@
                                     <a title="${replyLabel}" href="javascript:index.replyComment('${comment.oId}');">
                                         <span class="reply-icon"></span>
                                     </a>
-                                    <span class="left">&nbsp;|&nbsp;</span>
-                                    <span class="date-icon" title="${createDateLabel}"></span>
                                     <span class="left">&nbsp;${comment.commentDate?string('yyyy-MM-dd HH:mm')}</span>
                                 </span>
                                 <span class="clear"></span>
@@ -103,9 +97,11 @@
                             <div class="article-body comment">
                                 ${comment.commentContent}
                             </div>
+                            <#if "" != comment.sign>
                             <div class="sign">
                                 ${comment.sign}
                             </div>
+                            </#if>
                         </div>
                         <span class="clear"></span>
                     </dd>
@@ -167,7 +163,8 @@
                     "submitLabel": "${submitLabel}",
                     "loginLabel": "${loginLabel}",
                     "logoutLabel": "${logoutLabel}",
-                    "adminConsoleLabel": "${adminConsoleLabel}"
+                    "adminConsoleLabel": "${adminConsoleLabel}",
+                    "postEntryLabel": "${postEntryLabel}"
                 },
                 "oId": "${article.oId}",
                 "paginationPageCount": "${paginationPageCount}"
