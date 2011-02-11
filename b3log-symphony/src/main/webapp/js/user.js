@@ -134,7 +134,7 @@ $.extend(User.prototype, {
                     data: JSON.stringify(requestJSONObject),
                     success: function(result, textStatus){
                         if (result.sc) {
-                            window.location.href = "/user-entries";
+                            window.location.href = "/users/" + Util.readCookie("userName");
                         } else {
                             $("#tip").text(result.msg);
                         }
