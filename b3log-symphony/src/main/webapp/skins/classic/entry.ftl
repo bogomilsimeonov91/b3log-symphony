@@ -67,8 +67,7 @@
                             <br/>
                             ${originalArticleLink1Label}
                             <#else>
-                            ${articlePermalink1Label}
-                            </#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
+                            ${articlePermalink1Label}</#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
                         </div>
                         <div class="sign">
                             ${article.sign}
