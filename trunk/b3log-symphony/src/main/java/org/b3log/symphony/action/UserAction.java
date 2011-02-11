@@ -24,12 +24,10 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
-import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
@@ -40,18 +38,17 @@ import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
-import org.b3log.symphony.util.Errors;
 import org.b3log.symphony.util.Langs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * User entries. user-entries.ftl
+ * User action. user.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 10, 2011
+ * @version 1.0.0.3, Feb 11, 2011
  */
-public final class UserEntriesAction extends AbstractAction {
+public final class UserAction extends AbstractAction {
 
     /**
      * Default serial version uid.
@@ -61,7 +58,7 @@ public final class UserEntriesAction extends AbstractAction {
      * Logger.
      */
     private static final Logger LOGGER =
-            Logger.getLogger(UserEntriesAction.class.getName());
+            Logger.getLogger(UserAction.class.getName());
     /**
      * User repository.
      */
@@ -81,58 +78,27 @@ public final class UserEntriesAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
-        String email = null;
+        final String userName = request.getRequestURI().substring(
+                "/users/".length());
         try {
-            final HttpSession session = request.getSession();
-            if (null == session) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
+            final JSONObject user = userRepository.getByName(userName);
+            if (null == user) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
 
                 return ret;
             }
 
-            email = (String) session.getAttribute(User.USER_EMAIL);
-            if (null == email) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-        } catch (final Exception e) {
-            LOGGER.log(Level.WARNING, e.getMessage(), e);
-
-            try {
-                final String cause = Langs.get("forbiddenLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            } catch (final Exception ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
-        }
-
-        try {
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
             final int fetchSize = 5;
 
-            final JSONObject user = userRepository.getByEmail(email);
-
             final String userId = user.getString(Keys.OBJECT_ID);
             final Query query = new Query();
             query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
                     addFilter(Common.AUTHOR_ID, FilterOperator.EQUAL, userId).
-                    addSort(Article.ARTICLE_CREATE_DATE, SortDirection.DESCENDING);
+                    addSort(Article.ARTICLE_CREATE_DATE,
+                            SortDirection.DESCENDING);
             final JSONObject result = articleRepository.get(query);
             final JSONArray articles = result.getJSONArray(Keys.RESULTS);
             ret.put(Article.ARTICLES, CollectionUtils.jsonArrayToList(articles));
@@ -159,5 +125,10 @@ public final class UserEntriesAction extends AbstractAction {
                                       final HttpServletResponse response)
             throws ActionException {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected String getPageName(final String requestURI) {
+        return "user.ftl";
     }
 }
