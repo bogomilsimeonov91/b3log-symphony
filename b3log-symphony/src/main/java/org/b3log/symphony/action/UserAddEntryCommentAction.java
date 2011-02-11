@@ -171,8 +171,7 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             commenterName = commenter.getString(User.USER_NAME);
 
             articleId = requestJSONObject.getString(Keys.OBJECT_ID);
-            commentContent = requestJSONObject.getString(Comment.COMMENT_CONTENT).
-                    replaceAll("\\n", ENTER_ESC);
+            commentContent = requestJSONObject.getString(Comment.COMMENT_CONTENT);
         } catch (final Exception e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
 
