@@ -27,7 +27,7 @@ $.extend(User.prototype, {
         if (Util.validateForm("tipUserInfo", [{
             "id": "userName",
             "type": "length",
-            "tip": this.labels.nameTooLongLabel
+            "tip": this.labels.nameErrorLabel
         }, {
             "id": "originalPassword",
             "type": "empty",

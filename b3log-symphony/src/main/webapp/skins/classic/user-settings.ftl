@@ -133,7 +133,7 @@
                 "labels": {
                     "passwordEmptyLabel": "${passwordEmptyLabel}",
                     "passwordNoMatchLabel": "${passwordNoMatchLabel}",
-                    "nameTooLongLabel": "${nameTooLongLabel}",
+                    "nameErrorLabel": "${nameErrorLabel}",
                     "changeSuccLabel": "${changeSuccLabel}",
                     "setSuccLabel": "${setSuccLabel}"
                 }

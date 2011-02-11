@@ -125,7 +125,7 @@
                     "passwordEmptyLabel": "${passwordEmptyLabel}",
                     "passwordNoMatchLabel": "${passwordNoMatchLabel}",
                     "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
-                    "nameTooLongLabel": "${nameTooLongLabel}"
+                    "nameErrorLabel": "${nameErrorLabel}"
                 }
             });
 

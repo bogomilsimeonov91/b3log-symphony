@@ -58,7 +58,7 @@ $.extend(Index.prototype, {
         if (Util.validateForm("tip", [{
             "id": "userName",
             "type": "length",
-            "tip": this.labels.nameTooLongLabel
+            "tip": this.labels.nameErrorLabel
         }, {
             "id": "email",
             "type": "email",
