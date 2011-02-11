@@ -100,7 +100,7 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
 
         try {
             String tagTitle = request.getRequestURI().substring(
-                    ("/tags/").length());
+                    "/tags/".length());
             tagTitle = URLDecoder.decode(tagTitle, "UTF-8");
             LOGGER.log(Level.FINER, "Tag[title={0}]", tagTitle);
             final JSONObject tag = tagRepository.getByTitle(tagTitle);
