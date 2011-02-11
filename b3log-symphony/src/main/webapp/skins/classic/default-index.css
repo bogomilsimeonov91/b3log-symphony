@@ -348,6 +348,7 @@ h4{
 .entry .entry-main {
     padding: 0 20px;
     width: 609px;
+    overflow: hidden;
 }
 
 .entry .main {
