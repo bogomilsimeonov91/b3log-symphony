@@ -39,7 +39,7 @@ $.extend(User.prototype, {
         }])) {
             if ($("#newPassword").val() === $("#confirmPassword").val()) {
                 var requestJSONObject = {
-                    "userName": $("#userName").val().replace(/(^\s*)|(\s*$)/g, ""),
+                    "userName": $("#userName").val(),
                     "userNewPassword": $("#newPassword").val(),
                     "userPassword" : $("#originalPassword").val()
                 },
@@ -52,6 +52,7 @@ $.extend(User.prototype, {
                     success: function(result, textStatus){
                         switch (result.sc) {
                             case true:
+                                Util.createCookie("userName", $("#userName").val(), 365);
                                 $("#tipUserInfo").text(changeSuccLabel);
                                 break;
                             case false:

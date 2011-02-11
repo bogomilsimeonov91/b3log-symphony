@@ -68,10 +68,7 @@
                             ${article.articleAuthorName}
                             </#if>
                         </div>
-                        <div class="right">
-                            <span class="date-icon" title="${createDateLabel}"></span>
-                            <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}</span>
-                        </div>
+                        <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}</span>
                         <span class="clear"></span>
                         <div class="left">
                             <#list article.articleTags?split(',') as tagTitle>
@@ -86,11 +83,7 @@
                                 <span class="comment-icon"></span>
                                 <span class="left">&nbsp;${article.articleCommentCount}</span>
                             </a>
-                            <span class="left">
-                                <span class="left">&nbsp;|&nbsp;</span>
-                                <span class="last-date-icon" title="${lastCommentDateLabel}"></span>
-                                <span class="left">&nbsp;${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}</span>
-                            </span>
+                            <span class="left">&nbsp;${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}</span>
                             <#else>
                             <a href="/entries/${article.oId}#commentContent"><span class="sofa-icon" title="${sofaLabel}"></span></a>
                             </#if>
@@ -131,7 +124,8 @@
                 "labels": {
                     "loginLabel": "${loginLabel}",
                     "logoutLabel": "${logoutLabel}",
-                    "adminConsoleLabel": "${adminConsoleLabel}"
+                    "adminConsoleLabel": "${adminConsoleLabel}",
+                    "postEntryLabel": "${postEntryLabel}"
                 }
             });
             index.initStatus();

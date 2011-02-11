@@ -6,17 +6,12 @@ body{
     font-size: small;
 }
 
-a, h1 a:hover, h2 a:hover {
+a {
     color: #005999;
 }
 
 a:hover {
     color: #505561;
-}
-
-h1 a, h2 a {
-    color: #505561;
-    text-decoration: none;
 }
 
 img{
@@ -30,22 +25,6 @@ li{
 
 h1, h2, h3, h4, h5, h6 {
     display: inline;
-}
-
-h1{
-    font-size:160%;
-}
-
-h2{
-    font-size:140%;
-}
-
-h3{
-    font-size:120%;
-}
-
-h4{
-    font-size:110%;
 }
 
 /* architecture */
@@ -95,26 +74,31 @@ h4{
     background-color: #FFFFFF;
     border: 1px solid;
     border-color: #C2C2C2 #5A5A5A #5A5A5A #C2C2C2;
-    padding: 3px 2px 2px 3px;
+    padding: 2px 1px 1px 2px;
     -moz-border-radius: 3px 3px 3px 3px;
+    height: 24px;
+    width: 24px;
+}
+
+.middle-head-img {
+    padding: 3px 2px 2px 3px;
     height: 36px;
     width: 36px;
 }
 
-.middle-head-img {
-    padding: 5px 4px 4px 5px;
-    height: 45px;
-    width: 45px;
-}
-
 .big-head-img {
-    height: 100px;
-    width: 100px;
-    padding: 5px 4px 4px 5px;
+    height: 64px;
+    width: 64px;
+    padding: 4px 3px 3px 4px;
 }
 
 .small-head-img:hover, .middle-head-img:hover, .big-head-img:hover {
     border-color: #5A5A5A;
+}
+
+.count {
+    float: left;
+    margin: 7px 0 0 10px;
 }
 
 /* common component */
@@ -249,7 +233,7 @@ h4{
 
 /* icon */
 .login-icon, .admin-icon, .logout-icon, .index-icon, .comment-icon,
-.date-icon, .last-date-icon, .sofa-icon, .tag-icon, .reply-icon {
+.last-date-icon, .sofa-icon, .tag-icon, .reply-icon {
     background-image: url(/images/icon.png);
     width: 16px;
     height: 16px;
@@ -275,19 +259,10 @@ h4{
     background-position:-64px -16px;
 }
 
-.comment-icon, .date-icon, .last-date-icon, .sofa-icon, .tag-icon,
-.reply-icon {
+.comment-icon, .sofa-icon, .tag-icon, .reply-icon {
     background-position: -32px -16px;
     float: left;
     display: block;    
-}
-
-.date-icon {
-    background-position:-144px -16px;
-}
-
-.last-date-icon {
-    background-position: -128px -32px;
 }
 
 .tag-icon {
@@ -304,49 +279,47 @@ h4{
 
 /* index */
 .index dl {
-    border-bottom: 1px solid;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
+    margin-bottom: 10px;
+    padding: 5px 0 10px 0;
+    border-top: 1px dashed #E1EDF3;
 }
 
 .index dd, #comments dd {
-    border-top: 1px dashed;
-    margin: 0 10px;
-    padding: 10px;
+    margin: 0 5px;
+    padding: 5px;
 }
 
 .index dd:hover, #comments dd:hover {
     background-color: #E1EDF3;
 }
 
-.index .user-info img {
-    margin-right: 20px;
-}
-
 .index .main, .entry .main {
-    width: 644px;
-}
-
-.index .main h2 {
-    line-height: 30px;
-}
-
-.index .main h2 a {
-    color: #505561;
-    text-decoration: none;
-}
-
-.index .main h2 a:hover {
-    color: #005999;
+    width: 677px;
+    padding-left: 20px;
+    overflow: hidden;
 }
 
 /* entry */
+.entry h1 a{
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.entry h2 {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.entry .big-head-img {
+    margin: 0 20px 16px 0;
+}
+
 .entry .premarlink {
     background-color: #E1EDF3;
     border-color: #C1CDDD;
     border-style: solid;
     border-width: 1px 1px 1px 12px;
-    margin: 5px;
+    margin: 10px 5px 5px 5px;
     padding: 3px;
 }
 
@@ -355,14 +328,9 @@ h4{
 }
 
 .entry .entry-main {
-    padding: 0 20px;
-    width: 609px;
     overflow: hidden;
-}
-
-.entry .main {
-    margin-left: 20px;
-    overflow: hidden;
+    margin-bottom: 10px;
+    width: 662px
 }
 
 .entry .sign {
@@ -377,6 +345,10 @@ h4{
     font-size: 9pt;
     margin: 0 0 10px;
     padding: 2px;
+}
+
+#comments dd {
+    border-top: 1px dashed #E1EDF3;
 }
 
 /* user */
