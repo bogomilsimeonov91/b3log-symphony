@@ -22,9 +22,6 @@
         <#include "top.ftl"/>
         <div class="content">
             ${aboutContentLabel}
-            <div style="color: darkgray;margin-top: 24px; font-size: 9px;">
-                By <a href="http://88250.b3log.org">88250</a>, Feb 2, 2011
-            </div>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
