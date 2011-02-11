@@ -65,9 +65,7 @@
                             <#if "B3log Symphony" != article.articleFrom>
                             ${from1Label}<a href="http://${article.host}" target="_blank">${article.fromTitle}</a>
                             <br/>
-                            ${originalArticleLink1Label}
-                            <#else>
-                            ${articlePermalink1Label}</#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
+                            ${originalArticleLink1Label}<#else>${articlePermalink1Label}</#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
                         </div>
                         <div class="sign">
                             ${article.sign}
