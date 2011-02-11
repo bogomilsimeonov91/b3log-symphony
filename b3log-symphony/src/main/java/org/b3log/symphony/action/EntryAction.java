@@ -284,7 +284,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final boolean hasCmterURL = !Strings.isEmptyOrNull(cmterURL);
             if (hasCmterURL) {
                 repliesBuilder.append("<a href='http://").append(cmterURL).
-                        append("'>");
+                        append("' target='_blank'>");
             }
             repliesBuilder.append(cmterName);
             if (hasCmterURL) {
