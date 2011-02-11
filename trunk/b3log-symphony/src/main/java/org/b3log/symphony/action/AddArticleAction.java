@@ -160,7 +160,7 @@ public final class AddArticleAction extends AbstractAction {
             final String host = data.getString(Common.HOST);
 
             LOGGER.log(Level.INFO,
-                       "Data[title={0}, host={1}, version={2}, from{3}]",
+                       "Data[title={0}, host={1}, version={2}, from={3}]",
                        new String[]{title, host, version, from});
 
             final JSONObject originalArticle = data.getJSONObject(ARTICLE);
