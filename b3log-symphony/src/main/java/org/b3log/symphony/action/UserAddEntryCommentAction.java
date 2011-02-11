@@ -56,7 +56,7 @@ import org.json.JSONObject;
  * Adds entry comment submitted locally.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 10, 2011
+ * @version 1.0.0.1, Feb 11, 2011
  */
 public final class UserAddEntryCommentAction extends AbstractAction {
 
@@ -231,10 +231,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
                 if (null != originalComment) {
                     comment.put(Comment.COMMENT_ORIGINAL_COMMENT_ID,
                                 originalCommentId);
-                    final String originalCommenterId =
-                            originalComment.getString(Comment.COMMENTER_ID);
-                    comment.put(Comment.COMMENT_ORIGINAL_COMMENT_ID,
-                                originalCommenterId);
                 } else {
                     LOGGER.log(Level.WARNING,
                                "Not found orginal comment[id={0}] of reply[name={1}, content={2}]",
