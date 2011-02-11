@@ -35,6 +35,7 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Errors;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Users;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +43,7 @@ import org.json.JSONObject;
  * User settings. user-settings.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 8, 2011
+ * @version 1.0.0.2, Feb 11, 2011
  */
 public final class UserSettingsAction extends AbstractAction {
 
@@ -188,7 +189,7 @@ public final class UserSettingsAction extends AbstractAction {
                 ret.put(Keys.MSG,
                         Langs.get(
                         "userNotFoundOrPwdErrorLabel"));
-                
+
                 return ret;
             }
 
@@ -213,7 +214,21 @@ public final class UserSettingsAction extends AbstractAction {
                 }
 
                 final String userName =
-                        requestJSONObject.getString(User.USER_NAME);
+                        requestJSONObject.optString(User.USER_NAME);
+                if (Users.isInvalidUserName(userName)) {
+                    ret.put(Keys.STATUS_CODE, false);
+                    ret.put(Keys.MSG, Langs.get("nameErrorLabel"));
+
+                    return ret;
+                }
+
+                if (null != userRepository.getByName(userName)) {
+                    ret.put(Keys.STATUS_CODE, false);
+                    ret.put(Keys.MSG, Langs.get("nameDuplicatedLabel"));
+
+                    return ret;
+                }
+
                 pwdHash = MD5.hash(
                         requestJSONObject.getString(User.USER_NEW_PASSWORD));
 

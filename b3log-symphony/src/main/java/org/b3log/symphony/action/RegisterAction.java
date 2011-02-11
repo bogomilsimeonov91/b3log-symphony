@@ -29,10 +29,12 @@ import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.MD5;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Users;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +42,7 @@ import org.json.JSONObject;
  * Register new user.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 9, 2011
+ * @version 1.0.0.4, Feb 11, 2011
  */
 public final class RegisterAction extends AbstractAction {
 
@@ -77,9 +79,49 @@ public final class RegisterAction extends AbstractAction {
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
+        final String userName = requestJSONObject.optString(User.USER_NAME);
+        final String userEmail = requestJSONObject.optString(User.USER_EMAIL).
+                toLowerCase();
+        final String userPwd = requestJSONObject.optString(User.USER_PASSWORD);
+        final String captcha = requestJSONObject.optString("captcha");
+
+        try {
+            if (Users.isInvalidUserName(userName)) {
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, Langs.get("nameErrorLabel"));
+
+                return ret;
+            }
+
+            if (Users.isInvalidEmail(userEmail)) {
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, Langs.get("emailErrorLabel"));
+
+                return ret;
+            }
+
+            if (Strings.isEmptyOrNull(captcha)) {
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, Langs.get("emailErrorLabel"));
+
+                return ret;
+            }
+        } catch (final Exception e) {
+            LOGGER.log(Level.FINE, e.getMessage(), e);
+
+            try {
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, "Internal Error!");
+
+                return ret;
+            } catch (final JSONException ex) {
+                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new ActionException(ex);
+            }
+        }
+
         final Transaction transaction = userRepository.beginTransaction();
         try {
-            final String captcha = requestJSONObject.getString("captcha");
             final HttpSession session = request.getSession();
             final String storedCaptcha =
                     (String) session.getAttribute("captcha");
@@ -95,21 +137,21 @@ public final class RegisterAction extends AbstractAction {
                 return ret;
             }
 
-            final String userName =
-                    requestJSONObject.getString(User.USER_NAME);
-            final String userEmail =
-                    requestJSONObject.getString(User.USER_EMAIL).toLowerCase();
-            final String userPwd =
-                    requestJSONObject.getString(User.USER_PASSWORD);
-
             JSONObject user = userRepository.getByEmail(userEmail);
             if (null != user) {
                 if (transaction.isActive()) {
                     transaction.rollback();
                 }
-                ret.put(Keys.STATUS_CODE, "duplicated");
-                ret.put(Keys.MSG,
-                        Langs.get("emailDuplicatedLabel"));
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, Langs.get("emailDuplicatedLabel"));
+
+                return ret;
+            }
+
+            user = userRepository.getByName(userName);
+            if (null != user) {
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, Langs.get("nameDuplicatedLabel"));
 
                 return ret;
             }
