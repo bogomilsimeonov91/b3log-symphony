@@ -237,7 +237,7 @@ public final class UserAddEntryAction extends AbstractAction {
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
             article.put(Common.STATE, Common.AVAILABLE);
             article.put(Article.ARTICLE_FROM, "B3log Symphony");
-            article.put(Common.HOST, "http://" + Symphonys.get("host"));
+            article.put(Common.HOST, Symphonys.get("host"));
             article.put(Common.VERSION, Langs.get("version"));
 
             articleRepository.add(article);

@@ -63,9 +63,12 @@
                         </div>
                         <div class="premarlink">
                             <#if "B3log Symphony" != article.articleFrom>
-                            ${article.fromTitle}
+                            ${from1Label}<a href="http://${article.host}">${article.fromTitle}</a>
+                            <br/>
+                            ${originalArticleLink1Label}
+                            <#else>
+                            ${articlePermalink1Label}
                             </#if>
-                            ${articlePermalinkLabel}:
                             <a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
                         </div>
                         <div class="sign">
