@@ -174,6 +174,7 @@ public final class AddArticleAction extends AbstractAction {
                 final String authodId = author.getString(Keys.OBJECT_ID);
                 article.put(Common.AUTHOR_ID, authodId);
             } else {
+                LOGGER.warning("Unauthorized request, register an account first");
                 Errors.sendError(request, response,
                                  HttpServletResponse.SC_FORBIDDEN,
                                  "/add-article",
