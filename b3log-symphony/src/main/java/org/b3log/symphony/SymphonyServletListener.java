@@ -113,8 +113,7 @@ public final class SymphonyServletListener extends AbstractServletListener {
         registerEventProcessor();
         skinUtils.loadSkin();
 
-        // TODO: To enable the template cache
-        Templates.enableCache(false);
+        Templates.enableCache(Boolean.valueOf(Symphonys.get("enablePageCache")));
 
         LOGGER.info("Initialized the context");
     }
