@@ -18,6 +18,7 @@ package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +38,12 @@ import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.TagArticleRepository;
+import org.b3log.symphony.repository.TagRepository;
 import org.b3log.symphony.repository.TagUserRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagArticleGAERepository;
+import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.TagUserGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
@@ -80,6 +83,10 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
     private ArticleRepository articleRepository =
             ArticleGAERepository.getInstance();
     /**
+     * Tag repository.
+     */
+    private TagRepository tagRepository = TagGAERepository.getInstance();
+    /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
@@ -95,7 +102,11 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
 
-            final JSONObject tag = (JSONObject) request.getAttribute(Tag.TAG);
+            String tagTitle = request.getRequestURI().substring(
+                    ("/" + Tag.TAGS + "/").length());
+            tagTitle = URLDecoder.decode(tagTitle, "UTF-8");
+            LOGGER.log(Level.FINER, "Tag[title={0}]", tagTitle);
+            final JSONObject tag = tagRepository.getByTitle(tagTitle);
             if (null == tag) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
 
@@ -200,6 +211,11 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
         }
 
         return ret;
+    }
+
+    @Override
+    protected String getPageName(final String requestURI) {
+        return "tag-entries.ftl";
     }
 
     @Override
