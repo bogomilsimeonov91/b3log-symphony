@@ -50,7 +50,7 @@ import org.json.JSONObject;
  * B3log Rhythm</a>.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 9, 2011
+ * @version 1.0.0.6, Feb 11, 2011
  */
 public final class AddArticleAction extends AbstractAction {
 
@@ -108,6 +108,7 @@ public final class AddArticleAction extends AbstractAction {
      *         "articleCreateDate": long
      *     },
      *     "key": "",
+     *     "title": "",
      *     "host": "",
      *     "from": "",
      *     "version": "",
@@ -154,12 +155,13 @@ public final class AddArticleAction extends AbstractAction {
             }
 
             final String from = data.getString(Common.FROM);
+            final String title = data.getString(Common.TITLE);
             final String version = data.optString(Common.VERSION);
             final String host = data.getString(Common.HOST);
 
             LOGGER.log(Level.INFO,
-                       "Data[from={0}, host={1}, version={2}]",
-                       new String[]{from, host, version});
+                       "Data[title={0}, host={1}, version={2}, from{3}]",
+                       new String[]{title, host, version, from});
 
             final JSONObject originalArticle = data.getJSONObject(ARTICLE);
             final JSONObject article = new JSONObject();
@@ -199,6 +201,7 @@ public final class AddArticleAction extends AbstractAction {
             article.put(Article.ARTICLE_LAST_CMT_DATE, new Date(0));
             article.put(Article.ARTICLE_COMMENT_COUNT, 0);
             article.put(Common.STATE, Common.AVAILABLE);
+            article.put(Common.FROM_TITLE, title);
             article.put(Article.ARTICLE_FROM, from);
             article.put(Common.HOST, host);
             article.put(Common.VERSION, version);
