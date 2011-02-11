@@ -24,17 +24,27 @@ import org.json.JSONObject;
  * User repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 28, 2011
+ * @version 1.0.0.2, Feb 11, 2011
  */
 public interface UserRepository extends Repository {
 
     /**
-     * Gets a user by the specified email.
+     * Gets a user by the specified user name.
+     *
+     * @param userName the specified user name
+     * @return user, returns {@code null} if not found
+     * @throws RepositoryException repository exception
+     */
+    JSONObject getByName(final String userName) throws RepositoryException;
+
+    /**
+     * Gets a user by the specified email ignored case.
      *
      * @param email the specified email
      * @return user, returns {@code null} if not found
+     * @throws RepositoryException repository exception
      */
-    JSONObject getByEmail(final String email);
+    JSONObject getByEmail(final String email) throws RepositoryException;
 
     /**
      * Determine whether the specified email is administrator's.

@@ -16,16 +16,17 @@
 
 package org.b3log.symphony.repository.impl;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.b3log.latke.Keys;
 import org.b3log.latke.model.Role;
 import org.b3log.latke.model.User;
+import org.b3log.latke.repository.FilterOperator;
+import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.gae.AbstractGAERepository;
 import org.b3log.symphony.repository.UserRepository;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +34,7 @@ import org.json.JSONObject;
  * User Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.6, Feb 8, 2011
+ * @version 1.0.0.7, Feb 11, 2011
  */
 public final class UserGAERepository extends AbstractGAERepository
         implements UserRepository {
@@ -50,43 +51,23 @@ public final class UserGAERepository extends AbstractGAERepository
     }
 
     @Override
-    public void update(final String id, final JSONObject userToUpdate)
-            throws RepositoryException {
-        try {
-            super.update(id, userToUpdate);
+    public JSONObject getByName(final String name) throws RepositoryException {
+        final Query query = new Query().addFilter(User.USER_NAME,
+                                                  FilterOperator.EQUAL,
+                                                  name);
+        final JSONArray result = get(query).optJSONArray(Keys.RESULTS);
 
-            final String email = userToUpdate.getString(User.USER_EMAIL);
-            final String cacheKey = "GetByEmail[" + email + "]";
-            if (isCacheEnabled()) {
-                CACHE.put(cacheKey, userToUpdate);
-            }
-        } catch (final Exception e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new RepositoryException(e);
-        }
+        return result.optJSONObject(0);
     }
 
     @Override
-    public JSONObject getByEmail(final String email) {
-        final String cacheKey = "GetByEmail[" + email + "]";
-        JSONObject ret = (JSONObject) CACHE.get(cacheKey);
-        if (null == ret) {
-            final Query query = new Query(getName());
-            query.addFilter(User.USER_EMAIL, Query.FilterOperator.EQUAL,
-                            email.toLowerCase());
-            final PreparedQuery preparedQuery = getDatastoreService().prepare(
-                    query);
-            final Entity entity = preparedQuery.asSingleEntity();
-            if (null == entity) {
-                return null;
-            }
+    public JSONObject getByEmail(final String email) throws RepositoryException {
+        final Query query = new Query().addFilter(User.USER_EMAIL,
+                                                  FilterOperator.EQUAL,
+                                                  email.toLowerCase());
+        final JSONArray result = get(query).optJSONArray(Keys.RESULTS);
 
-            ret = entity2JSONObject(entity);
-
-            CACHE.put(cacheKey, ret);
-        }
-
-        return ret;
+        return result.optJSONObject(0);
     }
 
     @Override
