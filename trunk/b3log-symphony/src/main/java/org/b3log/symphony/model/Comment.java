@@ -65,11 +65,6 @@ public final class Comment {
     public static final String COMMENT_ORIGINAL_COMMENT_ID =
             "commentOriginalCommentId";
     /**
-     * Key of original commenter id.
-     */
-    public static final String COMMENT_ORIGINAL_COMMENTER_ID =
-            "commentOriginalCommenterId";
-    /**
      * Key of commenter id.
      */
     public static final String COMMENTER_ID = "commenterId";

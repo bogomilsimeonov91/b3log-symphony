@@ -51,7 +51,7 @@ import org.json.JSONObject;
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 9, 2011
+ * @version 1.0.0.6, Feb 11, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -87,6 +87,14 @@ public final class EntryAction extends AbstractCacheablePageAction {
      */
     public static final String DEFAULT_USER_THUMBNAIL_URL =
             "/images/default-user-thumbnail.png";
+    /**
+     * Begin comment reference(reply) HTML.
+     */
+    public static final String BEGIN_CMT_REF_HTML = "<div class='ref'>";
+    /**
+     * End comment reference(reply) HTML.
+     */
+    public static final String END_CMT_REF_HTML = "</div>";
 
     static {
         DEFAULT_SIGN = Langs.get("defaultSign");
@@ -133,7 +141,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 final String cmtId = articleCmtRelation.getString(
                         Comment.COMMENT + "_" + Keys.OBJECT_ID);
                 final JSONObject cmt = commentRepository.get(cmtId);
-                
+
                 if (!cmt.getBoolean(Common.STATE)) { // This comment is forbidden
                     cmt.put(Comment.COMMENT_CONTENT, "自由、开放的环境需要大家共同维护 :-)");
                     cmt.put(Common.SIGN, DEFAULT_SIGN);
@@ -164,11 +172,14 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     }
                 }
 
-                final String originalCmtId = cmt.optString(
-                        cmt.getString(Comment.COMMENT_ORIGINAL_COMMENT_ID));
-//                if (!Strings.isEmptyOrNull(originalCmtId)) {
-//                    // TODO: fill ref cmt
-//                }
+                final String originalCmtId =
+                        cmt.optString(Comment.COMMENT_ORIGINAL_COMMENT_ID);
+                final StringBuilder repliesBuilder = new StringBuilder();
+                composeReplies(originalCmtId, repliesBuilder);
+                final String cmtContent =
+                        cmt.getString(Comment.COMMENT_CONTENT);
+                repliesBuilder.append("<br/>").append(cmtContent);
+                cmt.put(Comment.COMMENT_CONTENT, repliesBuilder.toString());
 
                 comments.add(cmt);
             }
@@ -224,5 +235,61 @@ public final class EntryAction extends AbstractCacheablePageAction {
                                       final HttpServletResponse response)
             throws ActionException {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * Composes comment and its replies withe the specified original comment id
+     * and replies composite builder.
+     *
+     * <p>
+     * The specified replies composite string as the following finally:
+     * <pre>
+     * &lt;div class='ref'&gt;
+     *     cmt block(commter info and comment content, etc)
+     *     &lt;div class='ref'&gt;
+     *         cmt ref block
+     *         &lt;div class='ref'&gt;
+     *             cmt ref ref block
+     *         &lt;/div&gt;
+     *     &lt;/div&gt;
+     * &lt;/div&gt;
+     * </pre>
+     * </p>
+     *
+     * @param originalCommentId the specified original comment id
+     * @param repliesBuilder the specified replies composite builder
+     * @throws Exception exception
+     */
+    private void composeReplies(final String originalCommentId,
+                                final StringBuilder repliesBuilder)
+            throws Exception {
+        if (Strings.isEmptyOrNull(originalCommentId)) {
+            return;
+        }
+
+        final JSONObject originalComment =
+                commentRepository.get(originalCommentId);
+        // TODO: for forbidden comment
+        if (null != originalComment) {
+            LOGGER.log(Level.FINEST, "Comment[id={0}]", originalCommentId);
+            final String cmterId =
+                    originalComment.getString(Comment.COMMENTER_ID);
+            final JSONObject cmter = userRepository.get(cmterId);
+            final String cmterName = cmter.getString(User.USER_NAME);
+            final String cmterURL = cmter.getString(User.USER_URL);
+            final String originalCmtContent =
+                    originalComment.getString(Comment.COMMENT_CONTENT);
+
+            repliesBuilder.append(BEGIN_CMT_REF_HTML).
+                    append("by <a href='").append(cmterURL).
+                    append("'>").append(cmterName).append("</a>").
+                    append("<br/>").append(originalCmtContent);
+
+            final String moreOriginalCmtId = originalComment.optString(
+                    Comment.COMMENT_ORIGINAL_COMMENT_ID);
+            composeReplies(moreOriginalCmtId, repliesBuilder);
+
+            repliesBuilder.append(END_CMT_REF_HTML);
+        }
     }
 }
