@@ -63,8 +63,15 @@ h4{
 }
 
 .footer {
+    background-color: #FFFFFF;
     text-align:center;
     padding:12px;
+}
+
+.footerNav a {
+    font-weight: bold;
+    color: #505460;
+    text-decoration: none;
 }
 
 /* header */
