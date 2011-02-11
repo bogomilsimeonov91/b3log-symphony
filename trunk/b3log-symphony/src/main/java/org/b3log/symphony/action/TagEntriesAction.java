@@ -99,9 +99,6 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
         final Map<String, Object> ret = new HashMap<String, Object>();
 
         try {
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-
             String tagTitle = request.getRequestURI().substring(
                     ("/tags/").length());
             tagTitle = URLDecoder.decode(tagTitle, "UTF-8");
@@ -112,6 +109,9 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
 
                 return ret;
             }
+
+            final JSONObject queryStringJSONObject =
+                    getQueryStringJSONObject(request);
             ret.put(Tag.TAG, tag);
 
             final List<JSONObject> topAuthors = new ArrayList<JSONObject>();
