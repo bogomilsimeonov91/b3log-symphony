@@ -81,7 +81,7 @@
                 "labels": {
                     "passwordEmptyLabel": "${passwordEmptyLabel}",
                     "passwordNoMatchLabel": "${passwordNoMatchLabel}",
-                    "nameTooLongLabel": "${nameTooLongLabel}"
+                    "nameErrorLabel": "${nameErrorLabel}"
                 }
             });
             user.initStatus();
