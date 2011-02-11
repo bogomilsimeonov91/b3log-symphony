@@ -59,13 +59,14 @@ h4{
     background-color: #FFFFFF;
     margin: 0 auto;
     width: 760px;
-    padding: 24px
+    padding: 24px;
 }
 
 .footer {
     background-color: #FFFFFF;
     text-align:center;
     padding:12px;
+    margin-top: 30px;
 }
 
 .footerNav a {
