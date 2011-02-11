@@ -64,6 +64,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 30px;
 }
 
+#top a {
+    text-decoration: none;
+}
+
 /* common */
 .tip{
     color:red;
@@ -94,11 +98,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .small-head-img:hover, .middle-head-img:hover, .big-head-img:hover {
     border-color: #5A5A5A;
-}
-
-.count {
-    float: left;
-    margin: 7px 0 0 10px;
 }
 
 /* common component */
@@ -278,22 +277,48 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* index */
-.index dl {
+.index .title, .tag .title {
+    margin: 5px 10px;
+}
+
+.index .count, .tag .count {
+    float: left;
+    margin: 7px 0 0 10px;
+}
+
+.index h2 a, .tag h1 a {
+    color: #505561;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.index h3 a, .tag h2 a {
+    text-decoration: none;
+    line-height: 22px;
+    font-size: 15px;
+}
+
+.index h4, .tag h3 {
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.index dl, .tag dl {
     margin-bottom: 10px;
     padding: 5px 0 10px 0;
     border-top: 1px dashed #E1EDF3;
 }
 
-.index dd, #comments dd {
+.index dd, #comments dd, .tag dd {
     margin: 0 5px;
     padding: 5px;
 }
 
-.index dd:hover, #comments dd:hover {
+.index dd:hover, #comments dd:hover, .tag dd:hover {
     background-color: #E1EDF3;
 }
 
-.index .main, .entry .main {
+.index .main, .entry .main, .tag .main {
     width: 677px;
     padding-left: 20px;
     overflow: hidden;

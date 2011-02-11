@@ -22,10 +22,11 @@
         <#include "top.ftl"/>
         <div class="content index">
             <#list tags as tag>
-            <div class="marginB5">
+            <div class="title">
                 <h2 class="left">
-                    Tag:<a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
-                        ${tag.tagTitle}</a>
+                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
+                        ${tag.tagTitle}
+                    </a>
                 </h2>
                 <div class="count">
                     <span class="tag-icon" title="${tagRefCountLabel}"></span>
@@ -51,7 +52,7 @@
             <dl>
                 <#list tag.tagArticles as article>
                 <dd>
-                    <div class="user-info left">
+                    <div class="left">
                         <#if article.articleAuthorURL != "">
                         <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
                             <img class="middle-head-img" src="${article.articleAuthorThumbnailURL}"
@@ -76,28 +77,30 @@
                             ${article.articleAuthorName}
                             </#if>
                             <span class="right">
-                                <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}</span>
-                            </span>
-                            <span class="clear"></span>
-                        </div>
-                        <div>
-                            <#list article.articleTags?split(',') as tagTitle>
-                            <h4 title="${tagTitle}">
-                                <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
-                            </h4>
-                            </#list>
-                            <span class="right">
+                                <span class="left">
+                                    ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
+                                </span>
                                 <#if "1970" != article.articleLastCmtDate?string('yyyy')>
-                                <a href="/entries/${article.oId}#comments" title="${commentCountLabel}">
+                                <a href="/entries/${article.oId}#comments"
+                                   title="${lastCommentDateLabel}：${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}">
                                     <span class="comment-icon"></span>
                                     <span class="left">&nbsp;${article.articleCommentCount}</span>
                                 </a>
-                                <span class="left">&nbsp;${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}</span>
                                 <#else>
-                                <a href="/entries/${article.oId}#commentContent"><span class="sofa-icon" title="${sofaLabel}"></span></a>
+                                <span class="left">&nbsp;&nbsp;</span>
+                                <a href="/entries/${article.oId}#commentContent">
+                                    <span class="sofa-icon" title="${sofaLabel}"></span>
+                                </a>
+                                <span class="left">&nbsp;</span>
                                 </#if>
                             </span>
+                            <span class="clear"></span>
                         </div>
+                        <#list article.articleTags?split(',') as tagTitle>
+                        <h4 title="${tagTitle}">
+                            <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
+                        </h4>
+                        </#list>
                     </div>
                     <div class="clear"></div>
                 </dd>

@@ -20,32 +20,37 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="content index">
-            <h1>
-                <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
-                    ${tag.tagTitle}</a>
-            </h1>
-            <#list tagTopUsers as topAuthor>
-            <#if topAuthor.userURL != "">
-            <a href="http://${topAuthor.userURL}" target="_blank">
-                <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
-                     src="${topAuthor.userThumbnailURL}"/>
-            </a>
-            <#else>
-            <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
-                 src="${topAuthor.userThumbnailURL}"/>
-            </#if>
-            </#list>
-            <span class="right">
-                <span class="tag-icon" title="${tagRefCountLabel}"></span>&nbsp;
-                <span class="left">${tag.tagReferenceCount}&nbsp;|&nbsp;</span>
-                <span class="comment-icon" title="${commentCountLabel}"></span>
-                <span class="left">&nbsp;${tag.tagCommentCount}</span>
-            </span>
+        <div class="content tag">
+            <div class="title">
+                <h1 class="left">
+                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
+                        ${tag.tagTitle}</a>
+                </h1>
+                <div class="count">
+                    <span class="tag-icon" title="${tagRefCountLabel}"></span>&nbsp;
+                    <span class="left">${tag.tagReferenceCount}&nbsp;|&nbsp;</span>
+                    <span class="comment-icon" title="${commentCountLabel}"></span>
+                    <span class="left">&nbsp;${tag.tagCommentCount}</span>
+                </div>
+                <div class="right">
+                    <#list tagTopUsers as topAuthor>
+                    <#if topAuthor.userURL != "">
+                    <a href="http://${topAuthor.userURL}" target="_blank">
+                        <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                             src="${topAuthor.userThumbnailURL}"/>
+                    </a>
+                    <#else>
+                    <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                         src="${topAuthor.userThumbnailURL}"/>
+                    </#if>
+                    </#list>
+                </div>
+                <span class="clear"></span>
+            </div>
             <dl>
                 <#list articles as article>
                 <dd>
-                    <div class="user-info left">
+                    <div class="left">
                         <#if article.articleAuthorURL != "">
                         <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
                             <img class="middle-head-img" src="${article.articleAuthorThumbnailURL}"
@@ -57,40 +62,39 @@
                         </#if>
                     </div>
                     <div class="left main">
-                        <div class="left">
-                            <h2 title="${article.articleTitle}">
-                                <a href="/entries/${article.oId}">${article.articleTitle}</a>
-                            </h2>
-                            by
-                            <#if article.articleAuthorURL != "">
-                            <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
-                            <#else>
-                            ${article.articleAuthorName}
-                            </#if>
-                        </div>
-                        <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}</span>
-                        <span class="clear"></span>
-                        <div class="left">
-                            <#list article.articleTags?split(',') as tagTitle>
-                            <h3 title="${tagTitle}">
-                                <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
-                            </h3>
-                            </#list>
-                        </div>
-                        <div class="right">
+                        <h2 title="${article.articleTitle}">
+                            <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                        </h2>
+                        by
+                        <#if article.articleAuthorURL != "">
+                        <a href="http://${article.articleAuthorURL}" target="_blank">${article.articleAuthorName}</a>
+                        <#else>
+                        ${article.articleAuthorName}
+                        </#if>
+                        <span class="right">
+                            <span class="left">${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;</span>
                             <#if "1970" != article.articleLastCmtDate?string('yyyy')>
-                            <a href="/entries/${article.oId}#comments" title="${commentCountLabel}">
+                            <a href="/entries/${article.oId}#comments"
+                               title="${lastCommentDateLabel}：${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}">
                                 <span class="comment-icon"></span>
                                 <span class="left">&nbsp;${article.articleCommentCount}</span>
                             </a>
-                            <span class="left">&nbsp;${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}</span>
                             <#else>
-                            <a href="/entries/${article.oId}#commentContent"><span class="sofa-icon" title="${sofaLabel}"></span></a>
+                            <span class="left">&nbsp;&nbsp;</span>
+                            <a href="/entries/${article.oId}#commentContent">
+                                <span class="sofa-icon" title="${sofaLabel}"></span>
+                            </a>
+                            <span class="left">&nbsp;</span>
                             </#if>
-                        </div>
+                        </span>
                         <span class="clear"></span>
+                        <#list article.articleTags?split(',') as tagTitle>
+                        <h3 title="${tagTitle}">
+                            <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
+                        </h3>
+                        </#list>
                     </div>
-                    <span class="clear"></span>
+                    <div class="clear"></div>
                 </dd>
                 </#list>
             </dl>
