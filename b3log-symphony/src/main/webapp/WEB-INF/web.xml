@@ -196,6 +196,14 @@
         <url-pattern>/user-comments</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>About</servlet-name>
+        <servlet-class>org.b3log.symphony.action.AboutAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>About</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>GetTags</servlet-name>
         <servlet-class>org.b3log.symphony.action.GetTagsServlet</servlet-class>
     </servlet>
