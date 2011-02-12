@@ -89,8 +89,6 @@ public final class UserCommentsAction extends AbstractAction {
         final JSONObject user = Users.getCurrentUser();
 
         try {
-            final String email = user.getString(User.USER_EMAIL);
-
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
