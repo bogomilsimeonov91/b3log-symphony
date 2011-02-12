@@ -65,10 +65,6 @@ public final class Common {
      */
     public static final boolean DISABLED = false;
     /**
-     * Key of user thumbnail file id.
-     */
-    public static final String USER_THUMBNAIL_FILE_ID = "userThumbnailFileId";
-    /**
      * Key of user thumbnail URL.
      */
     public static final String USER_THUMBNAIL_URL = "userThumbnailURL";

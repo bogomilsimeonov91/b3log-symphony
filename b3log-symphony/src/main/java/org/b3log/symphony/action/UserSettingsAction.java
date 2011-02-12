@@ -27,7 +27,6 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
-import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -75,15 +74,8 @@ public final class UserSettingsAction extends AbstractAction {
             ret.put(User.USER_EMAIL, email);
             ret.put(User.USER_NAME, user.getString(User.USER_NAME));
             ret.put(User.USER_URL, user.getString(User.USER_URL));
-            final String userThumbnailFileId =
-                    user.optString(Common.USER_THUMBNAIL_FILE_ID);
-            if (Strings.isEmptyOrNull(userThumbnailFileId)) {
-                ret.put(Common.USER_THUMBNAIL_URL,
-                        EntryAction.DEFAULT_USER_THUMBNAIL_URL);
-            } else {
-                ret.put(Common.USER_THUMBNAIL_URL,
-                        "/file?oId=" + userThumbnailFileId);
-            }
+            ret.put(Common.USER_THUMBNAIL_URL,
+                    EntryAction.DEFAULT_USER_THUMBNAIL_URL);
 
             ret.put(Common.SIGN, user.getString(Common.SIGN));
         } catch (final Exception e) {
