@@ -169,7 +169,7 @@ $.extend(Index.prototype, {
                 "userEmail": Util.readCookie("userEmail"),
                 "userURL": Util.readCookie("userURL")
             };
-            alert(editor.tGetUBB().replace("[br]", ""));
+            //alert(editor.tGetUBB().replace("[br]", ""));
             $.ajax({
                 url: "/user-add-comment",
                 type: "POST",
