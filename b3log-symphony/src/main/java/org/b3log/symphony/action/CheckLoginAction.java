@@ -16,6 +16,8 @@
 
 package org.b3log.symphony.action;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import org.b3log.latke.action.ActionException;
 import java.util.Map;
 import java.util.logging.Level;
@@ -25,15 +27,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
-import org.b3log.latke.util.Sessions;
-import org.b3log.latke.util.Strings;
+import org.b3log.symphony.model.Common;
+import org.b3log.symphony.util.Users;
 import org.json.JSONObject;
 
 /**
  * Check login.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 7, 2011
+ * @version 1.0.0.2, Feb 12, 2011
  */
 public final class CheckLoginAction extends AbstractAction {
 
@@ -46,6 +48,10 @@ public final class CheckLoginAction extends AbstractAction {
      */
     private static final Logger LOGGER =
             Logger.getLogger(CheckLoginAction.class.getName());
+    /**
+     * User service.
+     */
+    private UserService userService = UserServiceFactory.getUserService();
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -62,15 +68,18 @@ public final class CheckLoginAction extends AbstractAction {
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        final String userName = Sessions.currentUserName(request);
+        final JSONObject currentUser = Users.getCurrentUser();
         try {
             ret.put(Keys.STATUS_CODE, false);
-            
-            if (!Strings.isEmptyOrNull(userName)) {
-                ret.put(Keys.STATUS_CODE, true);
-                ret.put(User.USER_NAME, userName);
-                ret.put("userId", request.getSession().getAttribute("userId"));
+
+            if (null == currentUser) {
+                ret.put(Common.LOGIN_URL, userService.createLoginURL("/"));
+                return ret;
             }
+
+            final String userName = currentUser.getString(User.USER_NAME);
+            ret.put(Keys.STATUS_CODE, true);
+            ret.put(User.USER_NAME, userName);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
