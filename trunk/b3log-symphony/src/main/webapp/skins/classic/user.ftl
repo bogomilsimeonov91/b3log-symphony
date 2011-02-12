@@ -15,57 +15,41 @@
     <body>
         <#include "user-top.ftl"/>
         <div class="content">
-            <table cellpadding="0" cellspacing="0" width="100%" class="table">
-                <tr>
-                    <th style="min-width: 200px;">
-                        ${titleLabel}
-                    </th>
-                    <th width="300px">
-                        ${tagsLabel}
-                    </th>
-                    <th width="151px">
-                        ${createDateLabel}
-                    </th>
-                    <th width="80px">
-                        ${commentCountLabel}
-                    </th>
-                    <th width="151px">
-                        ${lastCommentDateLabel}
-                    </th>
-                </tr>
+            <dl>
                 <#list articles as article>
-                <tr>
-                    <td>
-                        <a href="/entries/${article.oId}" target="_blank">${article.articleTitle}</a>
-                    </td>
-                    <td>
-                        <#list article.articleTags?split(',') as tagTitle>
-                        <a href="/tags/${tagTitle}" target="_blank">${tagTitle}</a><#if tagTitle_has_next>,</#if>
-                        </#list>
-                    </td>
-                    <td align="center">
-                        ${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}
-                    </td>
-                    <td align="center">
-                        <a href="/entries/${article.oId}#comments" target="_blank"
-                           title="${commentCountLabel}:${article.articleCommentCount}">
-                            <span class="comment-icon"></span>
-                            <span class="left">&nbsp;${article.articleCommentCount}</span>
-                        </a>
-                    </td>
-                    <td style="border-color: #BBBBBB;" align="center">
-                        <#if "1970" != article.articleLastCmtDate?string('yyyy')>
-                        ${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm:ss')}
-                        <#else>
-                        <span class="left">${noCommentLabel}&nbsp;</span>
-                        <a href="/entries/${article.oId}#commentContent" target="_blank">
-                            <span class="sofa-icon" title="${sofaLabel}"></span>
-                        </a>
-                        </#if>
-                    </td>
-                </tr>
-                </#list>
-            </table>
+                <dd>
+                    <div>
+                        <h3 title="${article.articleTitle}">
+                            <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                        </h3>
+                        <span class="right">
+                            <span class="left date">
+                                ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
+                            </span>
+                            <#if "1970" != article.articleLastCmtDate?string('yyyy')>
+                            <a href="/entries/${article.oId}#comments"
+                               title="${lastCommentDateLabel}：${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}">
+                                <span class="comment-icon"></span>
+                                <span class="left">&nbsp;${article.articleCommentCount}</span>
+                            </a>
+                            <#else>
+                            <span class="left">&nbsp;&nbsp;</span>
+                            <a href="/entries/${article.oId}#commentContent">
+                                <span class="sofa-icon" title="${sofaLabel}"></span>
+                            </a>
+                            <span class="left">&nbsp;</span>
+                            </#if>
+                        </span>
+                        <span class="clear"></span>
+                    </div>
+                    <#list article.articleTags?split(',') as tagTitle>
+                    <h4 title="${tagTitle}">
+                        <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
+                    </h4>
+                    </#list>
+                    </#list>
+                </dd>
+            </dl>
             <#if paginationPageNums?size != 0>
             <div id="pagination">
                 <#if paginationPageNums?first != 1>
