@@ -56,6 +56,7 @@ $.extend(User.prototype, {
 
     setUserSettings: function () {
         var requestJSONObject = {
+            "userThumbnailURL": $("#userThumbnailURL").val(),
             "sign": $("#sign").val(),
             "userURL": $("#userURL").val()
         },

@@ -48,6 +48,14 @@
                 <caption>
                     ${settingsInfoLabel}
                 </caption>
+                 <tr>
+                    <th width="96px;">
+                        ${thumbnailURLLabel}
+                    </th>
+                    <td>
+                        <input id="userThumbnailURL" value="${userThumbnailURL}"/>
+                    </td>
+                </tr>
                 <tr>
                     <th width="96px;">
                         ${userURLLabel} http://
