@@ -117,14 +117,6 @@
         <url-pattern>/user-add-comment</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>Register</servlet-name>
-        <servlet-class>org.b3log.symphony.action.RegisterAction</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Register</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>CheckLogin</servlet-name>
         <servlet-class>org.b3log.symphony.action.CheckLoginAction</servlet-class>
     </servlet>
@@ -147,14 +139,6 @@
     <servlet-mapping>
         <servlet-name>AdminSettings</servlet-name>
         <url-pattern>/admin-settings</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>FileAccess</servlet-name>
-        <servlet-class>org.b3log.symphony.action.file.DataStoreFileAccessServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FileAccess</servlet-name>
-        <url-pattern>/file</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>User</servlet-name>

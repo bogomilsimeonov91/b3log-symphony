@@ -18,7 +18,6 @@ package org.b3log.symphony.action;
 
 import java.util.HashMap;
 import java.util.logging.Level;
-import javax.servlet.http.HttpSession;
 import org.b3log.latke.action.ActionException;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -33,7 +32,6 @@ import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
-import org.b3log.symphony.util.Errors;
 import org.b3log.symphony.util.Langs;
 import org.b3log.symphony.util.Users;
 import org.json.JSONException;
@@ -70,49 +68,10 @@ public final class UserSettingsAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
-        String email = null;
-        try {
-            final HttpSession session = request.getSession();
-            if (null == session) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-
-            email = (String) session.getAttribute(User.USER_EMAIL);
-            if (null == email) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-        } catch (final Exception e) {
-            LOGGER.log(Level.WARNING, e.getMessage(), e);
-
-            try {
-                final String cause = Langs.get("forbiddenLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            } catch (final Exception ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
-        }
+        final JSONObject user = Users.getCurrentUser();
 
         try {
-            LOGGER.log(Level.FINER, "Current logged in user[email={0}]", email);
-
-            final JSONObject user = userRepository.getByEmail(email);
+            final String email = user.getString(User.USER_EMAIL);
 
             ret.put(User.USER_EMAIL, email);
             ret.put(User.USER_NAME, user.getString(User.USER_NAME));
@@ -145,15 +104,6 @@ public final class UserSettingsAction extends AbstractAction {
         final Transaction transaction = userRepository.beginTransaction();
         try {
             final JSONObject oldUser = Users.getCurrentUser();
-            if (null == oldUser) {
-                ret.put(Keys.STATUS_CODE, false);
-                ret.put(Keys.MSG,
-                        Langs.get(
-                        "userNotFoundOrPwdErrorLabel"));
-
-                return ret;
-            }
-
             final String userId = oldUser.getString(Keys.OBJECT_ID);
 
             final JSONObject queryStringJSONObject =

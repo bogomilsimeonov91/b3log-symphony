@@ -27,7 +27,6 @@
             0.4.3
         </org.b3log.latke-cache-gae.version>
         <commons-lang.version>2.5</commons-lang.version>
-        <commons-fileupload.version>1.2.2</commons-fileupload.version>
         <gae.version>1.4.0</gae.version>
         <!-- maven plugin -->
         <maven-license-plugin.version>1.8.0</maven-license-plugin.version>
@@ -155,12 +154,6 @@
                 <version>${commons-lang.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -209,11 +202,6 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
         </dependency>
 
     </dependencies>
