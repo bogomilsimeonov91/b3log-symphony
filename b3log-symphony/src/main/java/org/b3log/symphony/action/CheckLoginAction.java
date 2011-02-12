@@ -80,6 +80,7 @@ public final class CheckLoginAction extends AbstractAction {
             final String userName = currentUser.getString(User.USER_NAME);
             ret.put(Keys.STATUS_CODE, true);
             ret.put(User.USER_NAME, userName);
+            ret.put(Common.LOGOUT_URL, userService.createLogoutURL("/"));
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
