@@ -129,7 +129,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
-            final int fetchSize = 4;
+            final int fetchSize = 20;
             final int windowSize = 10;
             final JSONObject result =
                     articleCommentRepository.getByArticleId(articleId,
