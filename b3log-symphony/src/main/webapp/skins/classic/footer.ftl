@@ -1,4 +1,4 @@
-<span class="footerNav" <a href="/about">${aboutLabel}</a> | </span>
+<span><a href="/about" class="about">${aboutLabel}</a> | </span>
 <img src="http://code.google.com/appengine/images/appengine-noborder-120x30.gif"
 alt="Powered by Google App Engine" />
 <a title="B3log Symphony" href="/" class="logo">

@@ -30,21 +30,16 @@
                 </h2>
                 <div class="count">
                     <span class="tag-icon" title="${tagRefCountLabel}"></span>
-                    <span class="left">&nbsp;${tag.tagReferenceCount}&nbsp;|&nbsp;</span>
+                    <span class="left">&nbsp;${tag.tagReferenceCount}&nbsp;&nbsp;</span>
                     <span class="comment-icon" title="${commentCountLabel}"></span>
                     <span class="left">&nbsp;${tag.tagCommentCount}</span>
                 </div>
                 <div class="right">
                     <#list tag.tagTopAuthors as topAuthor>
-                    <#if topAuthor.userURL != "">
-                    <a href="http://${topAuthor.userURL}" target="_blank">
+                    <a href="/users/${topAuthor.userName}">
                         <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
                              src="${topAuthor.userThumbnailURL}"/>
                     </a>
-                    <#else>
-                    <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
-                         src="${topAuthor.userThumbnailURL}"/>
-                    </#if>
                     </#list>
                 </div>
                 <span class="clear"></span>
@@ -53,15 +48,10 @@
                 <#list tag.tagArticles as article>
                 <dd>
                     <div class="left">
-                        <#if article.articleAuthorURL != "">
-                        <a title="${article.articleAuthorName}" href="http://${article.articleAuthorURL}" target="_blank">
+                        <a title="${article.articleAuthorName}" href="/users/${article.articleAuthorName}" >
                             <img class="middle-head-img" src="${article.articleAuthorThumbnailURL}"
                                  title="${article.articleAuthorName}" alt="${article.articleAuthorName}"/>
                         </a>
-                        <#else>
-                        <img class="middle-head-img" src="${article.articleAuthorThumbnailURL}"
-                             alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
-                        </#if>
                     </div>
                     <div class="left main">
                         <div>
@@ -77,7 +67,7 @@
                             ${article.articleAuthorName}
                             </#if>
                             <span class="right">
-                                <span class="left">
+                                <span class="left date">
                                     ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
                                 </span>
                                 <#if "1970" != article.articleLastCmtDate?string('yyyy')>

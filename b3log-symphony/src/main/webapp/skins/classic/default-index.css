@@ -49,12 +49,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 30px;
 }
 
-.footerNav a {
-    font-weight: bold;
-    color: #505460;
-    text-decoration: none;
-}
-
 /* header */
 #top{
     border-bottom:1px solid #C9D7F1;
@@ -68,10 +62,22 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
+/* footer */
+.about {
+    font-weight: bold;
+    color: #505460;
+    text-decoration: none;
+}
+
 /* common */
 .tip{
     color:red;
     line-height: 28px;
+}
+
+.date {
+    color: darkgrey;
+    font-size: 10px;
 }
 
 .small-head-img, .middle-head-img, .big-head-img {
@@ -283,7 +289,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .index .count, .tag .count {
     float: left;
-    margin: 7px 0 0 10px;
+    margin: 7px 0 0 15px;
 }
 
 .index h2 a, .tag h1 a {
