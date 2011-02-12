@@ -28,6 +28,7 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
@@ -35,8 +36,10 @@ import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
+import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
+import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
 import org.json.JSONArray;
@@ -68,7 +71,12 @@ public final class UserAction extends AbstractAction {
      */
     private ArticleRepository articleRepository = ArticleGAERepository.
             getInstance();
-
+ /**
+     * Comment repository.
+     */
+    private CommentRepository commentRepository = CommentGAERepository.
+            getInstance();
+    
     @Override
     protected Map<?, ?> doFreeMarkerAction(
             final freemarker.template.Template template,
@@ -87,6 +95,10 @@ public final class UserAction extends AbstractAction {
 
                 return ret;
             }
+
+            ret.put(User.USER_NAME, userName);
+            ret.put(Common.USER_THUMBNAIL_URL,
+                    user.getString(Common.USER_THUMBNAIL_URL));
 
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
