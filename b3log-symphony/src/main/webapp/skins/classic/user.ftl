@@ -14,16 +14,16 @@
     </head>
     <body>
         <#include "user-top.ftl"/>
-        <div class="content index">
-            <dl>
+        <div class="content user">
+            <dl class="entry-list">
                 <#list articles as article>
                 <dd>
                     <div>
                         <h3 title="${article.articleTitle}">
-                            <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                            <a href="/entries/${article.oId}" class="big-font">${article.articleTitle}</a>
                         </h3>
                         <span class="right">
-                            <span class="left date">
+                            <span class="left small-font">
                                 ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
                             </span>
                             <#if "1970" != article.articleLastCmtDate?string('yyyy')>
@@ -43,7 +43,7 @@
                         <span class="clear"></span>
                     </div>
                     <#list article.articleTags?split(',') as tagTitle>
-                    <h4 title="${tagTitle}">
+                    <h4 title="${tagTitle}" class="middle-font">
                         <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                     </h4>
                     </#list>

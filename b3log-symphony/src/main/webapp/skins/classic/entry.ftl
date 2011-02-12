@@ -31,7 +31,9 @@
                     <div class="left entry-main">
                         <div>
                             <h1>
-                                <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                                <a href="/entries/${article.oId}" class="bigger-font">
+                                    ${article.articleTitle}
+                                </a>
                             </h1>
                             by
                             <#if article.articleAuthorURL != "">
@@ -42,7 +44,7 @@
                             </#if>
                             &nbsp;
                             <div class="right">
-                                <span class="left date">
+                                <span class="left small-font">
                                     &nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
                                 </span>
                                 <a href="${article.oId}#comments" title="${commentCountLabel}">
@@ -53,7 +55,7 @@
                             <span class="clear"></span>
                         </div>
                         <#list article.articleTags?split(',') as tagTitle>
-                        <h2 title="${tagTitle}">
+                        <h2 title="${tagTitle}" class="middle-font">
                             <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a></h2><#if tagTitle_has_next>,</#if>
                         </#list>
                     </div>
@@ -75,14 +77,14 @@
                 </dd>
             </dl>
             <div id="comments">
-                <dl>
+                <dl class="entry-list">
                     <#list article.articleComments as comment>
                     <dd id="${comment.oId}comment">
                         <a href="/users/${comment.commenterName}">
                             <img src="${comment.commentThumbnailURL}" class="middle-head-img left"
                                  alt="${comment.commenterName}" title="${comment.commenterName}"/>
                         </a>
-                        <div class="left main">
+                        <div class="left title-tag">
                             <div class="marginB5">
                                 <span class="left">
                                     by
@@ -93,12 +95,13 @@
                                     </#if>
                                 </span>
                                 <span class="right">
+                                    <span class="left small-font">
+                                        ${comment.commentDate?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;&nbsp;
+                                    </span>
                                     <a title="${replyLabel}" href="javascript:index.replyComment('${comment.oId}');">
                                         <span class="reply-icon"></span>
                                     </a>
-                                    <span class="left date">
-                                        &nbsp;${comment.commentDate?string('yyyy-MM-dd HH:mm')}
-                                    </span>
+                                    <span class="left">&nbsp;</span>
                                 </span>
                                 <span class="clear"></span>
                             </div>
