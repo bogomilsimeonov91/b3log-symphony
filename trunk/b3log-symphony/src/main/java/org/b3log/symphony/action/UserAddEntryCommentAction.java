@@ -101,10 +101,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
      */
     private static ArticleCommentRepository articleCommentRepository =
             ArticleCommentGAERepository.getInstance();
-    /**
-     * Enter escape.
-     */
-    public static final String ENTER_ESC = "_esc_enter_88250_";
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(

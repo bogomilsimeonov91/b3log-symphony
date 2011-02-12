@@ -159,8 +159,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     cmt.put(Comment.COMMENTER_URL_REF, Symphonys.get("host"));
                 } else {
                     cmt.put(Comment.COMMENT_CONTENT,
-                            cmt.getString(Comment.COMMENT_CONTENT).replaceAll(
-                            UserAddEntryCommentAction.ENTER_ESC, "<br/>"));
+                            cmt.getString(Comment.COMMENT_CONTENT));
                     final String commenterId = cmt.getString(
                             Comment.COMMENTER_ID);
                     final JSONObject user = userRepository.get(commenterId);
