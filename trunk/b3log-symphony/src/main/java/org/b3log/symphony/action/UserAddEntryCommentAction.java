@@ -46,9 +46,8 @@ import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
-import org.b3log.symphony.util.Errors;
-import org.b3log.symphony.util.Langs;
 import org.b3log.symphony.util.TimeZones;
+import org.b3log.symphony.util.Users;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -149,46 +148,23 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        String commenterEmail = null;
         String commenterName = null;
         String commenterId = null;
         String articleId = null;
         String commentContent = null;
-        try {
-            commenterEmail = requestJSONObject.getString(User.USER_EMAIL);
 
-            final JSONObject commenter = userRepository.getByEmail(
-                    commenterEmail);
-            if (null == commenter) {
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(),
-                                 Langs.get("loginFirstLabel"));
-                return ret;
-            }
-
-            commenterId = commenter.getString(Keys.OBJECT_ID);
-            commenterName = commenter.getString(User.USER_NAME);
-
-            articleId = requestJSONObject.getString(Keys.OBJECT_ID);
-            commentContent = requestJSONObject.getString(Comment.COMMENT_CONTENT);
-        } catch (final Exception e) {
-            LOGGER.log(Level.WARNING, e.getMessage(), e);
-
-            try {
-                ret.put(Keys.STATUS_CODE, HttpServletResponse.SC_BAD_REQUEST);
-                ret.put(Keys.MSG, e.getMessage());
-
-                return ret;
-            } catch (final JSONException ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
-        }
+        final JSONObject commenter = Users.getCurrentUser();
 
         final Transaction transaction = commentRepository.beginTransaction();
         String commentId;
         try {
+            commenterId = commenter.getString(Keys.OBJECT_ID);
+            commenterName = commenter.getString(User.USER_NAME);
+
+            articleId = requestJSONObject.getString(Keys.OBJECT_ID);
+            commentContent =
+                    requestJSONObject.getString(Comment.COMMENT_CONTENT);
+
             final JSONObject article = articleRepository.get(articleId);
             commentContent = commentContent.replaceAll("<", "&lt;").
                     replaceAll(">", "&gt;");

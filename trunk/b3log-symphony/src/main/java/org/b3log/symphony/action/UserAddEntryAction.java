@@ -30,7 +30,6 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Ids;
-import org.b3log.latke.util.Sessions;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
@@ -99,22 +98,6 @@ public final class UserAddEntryAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
-        try {
-            if (Strings.isEmptyOrNull(Sessions.currentUserName(request))) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-        } catch (final Exception e) {
-            LOGGER.log(Level.WARNING, e.getMessage(), e);
-
-            throw new ActionException(e);
-        }
-
         final StringBuilder stringBuilder = new StringBuilder("[");
         try {
             final int num = 100;
@@ -170,21 +153,6 @@ public final class UserAddEntryAction extends AbstractAction {
                                       final HttpServletResponse response)
             throws ActionException {
         final JSONObject ret = new JSONObject();
-
-        try {
-            if (Strings.isEmptyOrNull(Sessions.currentUserName(request))) {
-                final String cause = Langs.get("loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-        } catch (final Exception e) {
-            LOGGER.log(Level.WARNING, e.getMessage(), e);
-
-            throw new ActionException(e);
-        }
 
         if (isInvalid(data)) {
             try {
