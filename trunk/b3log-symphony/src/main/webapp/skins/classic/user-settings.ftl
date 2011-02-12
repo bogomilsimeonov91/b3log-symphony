@@ -15,60 +15,59 @@
     <body>
         <#include "user-top.ftl"/>
         <div class="content settings">
-            <div class="left info">
-                <table class="form" id="userInfoForm" width="300px">
-                    <caption>${basicInfoLabel}</caption>
-                    <tr>
-                        <th>
-                            ${emailLabel}
-                        </th>
-                        <td>
-                            ${userEmail}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            ${userNameLabel}
-                        </th>
-                        <td>
-                            <input id="userName" value="${userName}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">
-                            <span class="tip" id="tipUserInfo"></span>
-                            <button onclick="user.setUserInfo();">
-                                ${submitLabel}
-                            </button>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-            <table class="form right" id="userSettingsForm" width="379px">
+            <table class="form left" id="userInfoForm" width="300px" cellspacing="10">
+                <caption>${basicInfoLabel}</caption>
+                <tr>
+                    <th width="57px">
+                        ${emailLabel}
+                    </th>
+                    <td>
+                        ${userEmail}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        ${userNameLabel}
+                    </th>
+                    <td>
+                        <input id="userName" value="${userName}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <span class="tip" id="tipUserInfo"></span>
+                        <button onclick="user.setUserInfo();">
+                            ${submitLabel}
+                        </button>
+                    </th>
+                </tr>
+            </table>
+            <table class="form info" id="userSettingsForm" width="416px" cellspacing="10">
                 <caption>
                     ${settingsInfoLabel}
                 </caption>
                 <tr>
-                    <th width="96px;">
-                        ${thumbnailURLLabel}
-                    </th>
+                    <td width="57px"></td>
                     <td>
-                        <input id="userThumbnailURL" value="${userThumbnailURL}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <img id="headImg" src="${userThumbnailURL}"
+                        <img src="${userThumbnailURL}"
                              class="big-head-img" alt="${userName}" title="${userName}"/>
                     </td>
                 </tr>
                 <tr>
-                    <th width="96px;">
-                        ${userURLLabel} http://
+                    <th>
+                        ${thumbnailURLLabel}
                     </th>
                     <td>
-                        <input id="userURL" value="${userURL}"/>
+                        <input id="userThumbnailURL" style="width: 263px;" value="${userThumbnailURL}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        ${userURLLabel} 
+                    </th>
+                    <td>
+                        <div class="input-label">http://</div>
+                        <input style="border-left-width: 0;width: 219px;" id="userURL" value="${userURL}"/>
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +75,7 @@
                         ${signLabel}
                     </th>
                     <td>
-                        <textarea id="sign">${sign}</textarea>
+                        <textarea style="width: 263px;" id="sign">${sign}</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -93,7 +92,6 @@
         <div class="footer">
             <#include "user-footer.ftl"/>
         </div>
-        <iframe name="hideFrame" class="none" id="hideFrame"></iframe>
         <script type="text/javascript">
             var user = new User({
                 "labels": {
@@ -103,8 +101,12 @@
                 }
             });
             user.initStatus();
-            user.setHead();
             Util.bindSubmitAction("userInfoForm", "userSettingsForm");
+            $("#userURL").focus(function () {
+                $(this).prev()[0].className = "input-label-focus";
+            }).blur(function () {
+                $(this).prev()[0].className = "input-label";
+            });
         </script>
     </body>
 </html>
