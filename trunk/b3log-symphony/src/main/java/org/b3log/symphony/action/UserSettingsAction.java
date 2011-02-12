@@ -27,7 +27,6 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
-import org.b3log.latke.util.MD5;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
@@ -114,16 +113,6 @@ public final class UserSettingsAction extends AbstractAction {
                     oldUser, JSONObject.getNames(oldUser));
 
             if ("basic".equals(action)) {
-                String pwdHash =
-                        MD5.hash(requestJSONObject.getString(User.USER_PASSWORD));
-                if (!oldUser.getString(User.USER_PASSWORD).equals(pwdHash)) {
-                    ret.put(Keys.STATUS_CODE, false);
-                    ret.put(Keys.MSG,
-                            Langs.get("oldPwdErrorLabel"));
-
-                    return ret;
-                }
-
                 final String userName =
                         requestJSONObject.optString(User.USER_NAME);
                 if (Users.isInvalidUserName(userName)) {
@@ -140,11 +129,7 @@ public final class UserSettingsAction extends AbstractAction {
                     return ret;
                 }
 
-                pwdHash = MD5.hash(
-                        requestJSONObject.getString(User.USER_NEW_PASSWORD));
-
                 userToUpdate.put(User.USER_NAME, userName);
-                userToUpdate.put(User.USER_PASSWORD, pwdHash);
                 userRepository.update(userId, userToUpdate);
 
                 transaction.commit();
