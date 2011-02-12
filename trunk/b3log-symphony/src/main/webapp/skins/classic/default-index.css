@@ -14,7 +14,7 @@ a:hover {
     color: #505561;
 }
 
-img{
+img {
     vertical-align:middle;
     border: 0px;
 }
@@ -51,11 +51,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* header */
 #top{
-    border-bottom:1px solid #C9D7F1;
-    padding:0 3px;
-    background-color:#FFF;
-    line-height: 20px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #C9D7F1;
+    height: 20px;
+    line-height:20px;
     margin-bottom: 30px;
+    padding: 1px 3px;
 }
 
 #top a {
@@ -135,7 +136,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size:12px;
     border:2px inset #CCCCCC;
     color: #505460;
-    font-family: '宋体',Arial,sans-serif;
+    font-family: Arial,sans-serif;
 }
 
 .form textarea{
@@ -285,7 +286,7 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
     display: block;
     float: left;
-    margin: 3px 0 0 3px;
+    margin: 1px 0 0 3px;
 }
 
 .admin-icon {
@@ -389,4 +390,12 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 40px;
     margin-left: 40px;
     float: right;
+}
+
+.comment-hidden {
+    font-size: 12px;
+    line-height: 12px;
+    height: 22px;
+    overflow: hidden;
+    width: 361px;
 }
