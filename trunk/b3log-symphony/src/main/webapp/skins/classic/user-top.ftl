@@ -12,10 +12,6 @@
         <span class="left">&nbsp;|&nbsp;</span>
         <a class="left" href="/user-add-entry">${postEntryLabel}</a>
         <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" style="text-decoration: none;" href="javascript:window.location.href='/users/' + Util.readCookie('userName')">${entriesLabel}</a>
-        <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-comments">${repliesLabel}</a>
-        <span class="left">&nbsp;|&nbsp;</span>
         <a class="left" href="/user-settings">${settingsLabel}</a>
         <span class="left">&nbsp;|</span>
         <a href="/" title="${indexLabel}"><span class="index-icon"></span></a>

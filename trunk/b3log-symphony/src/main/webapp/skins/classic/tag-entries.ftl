@@ -23,7 +23,7 @@
         <div class="content tag">
             <div class="title">
                 <h1 class="left">
-                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
+                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}" class="bigger-font">
                         ${tag.tagTitle}</a>
                 </h1>
                 <div class="count">
@@ -42,7 +42,7 @@
                 </div>
                 <span class="clear"></span>
             </div>
-            <dl>
+            <dl class="entry-list">
                 <#list articles as article>
                 <dd>
                     <div class="left">
@@ -51,9 +51,11 @@
                                  title="${article.articleAuthorName}" alt="${article.articleAuthorName}"/>
                         </a>
                     </div>
-                    <div class="left main">
+                    <div class="left title-tag">
                         <h2 title="${article.articleTitle}">
-                            <a href="/entries/${article.oId}">${article.articleTitle}</a>
+                            <a href="/entries/${article.oId}" class="big-font">
+                                ${article.articleTitle}
+                            </a>
                         </h2>
                         by
                         <#if article.articleAuthorURL != "">
@@ -62,7 +64,7 @@
                         ${article.articleAuthorName}
                         </#if>
                         <span class="right">
-                            <span class="left date">
+                            <span class="left small-font">
                                 ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
                             </span>
                             <#if "1970" != article.articleLastCmtDate?string('yyyy')>
@@ -81,7 +83,7 @@
                         </span>
                         <span class="clear"></span>
                         <#list article.articleTags?split(',') as tagTitle>
-                        <h3 title="${tagTitle}">
+                        <h3 title="${tagTitle}" class="middle-font">
                             <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                         </h3>
                         </#list>

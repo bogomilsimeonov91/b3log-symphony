@@ -3,43 +3,7 @@
     padding:0;
 }
 
-.padding12{
-    padding:12px;
-}
-
-.paddingB12{
-    padding-bottom:12px;
-}
-
-.paddingT12{
-    padding-top:12px;
-}
-
-.margin12{
-    margin:12px;
-}
-
-.marginT12{
-    margin-top:12px;
-}
-
-.marginB12{
-    margin-bottom:12px;
-}
-
-.marginL12{
-    margin-left:12px;
-}
-
-.marginL6{
-    margin-left:6px;
-}
-
-.marginR12{
-    margin-right:12px;
-}
-
-.marginB5 {
+.marginB5{
     margin-bottom: 5px;
 }
 

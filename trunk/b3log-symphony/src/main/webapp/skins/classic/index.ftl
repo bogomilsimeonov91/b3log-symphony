@@ -24,7 +24,8 @@
             <#list tags as tag>
             <div class="title">
                 <h2 class="left">
-                    <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}">
+                    <a title="${tag.tagTitle}" class="bigger-font"
+                       href="/tags/${tag.tagTitle?url('UTF-8')}">
                         ${tag.tagTitle}
                     </a>
                 </h2>
@@ -44,7 +45,7 @@
                 </div>
                 <span class="clear"></span>
             </div>
-            <dl>
+            <dl class="entry-list">
                 <#list tag.tagArticles as article>
                 <dd>
                     <div class="left">
@@ -53,10 +54,10 @@
                                  title="${article.articleAuthorName}" alt="${article.articleAuthorName}"/>
                         </a>
                     </div>
-                    <div class="left main">
+                    <div class="left title-tag">
                         <div>
                             <h3 title="${article.articleTitle}">
-                                <a href="/entries/${article.oId}">
+                                <a href="/entries/${article.oId}" class="big-font">
                                     ${article.articleTitle}</a>
                             </h3>
                             by
@@ -67,7 +68,7 @@
                             ${article.articleAuthorName}
                             </#if>
                             <span class="right">
-                                <span class="left date">
+                                <span class="left small-font">
                                     ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
                                 </span>
                                 <#if "1970" != article.articleLastCmtDate?string('yyyy')>
@@ -87,7 +88,7 @@
                             <span class="clear"></span>
                         </div>
                         <#list article.articleTags?split(',') as tagTitle>
-                        <h4 title="${tagTitle}">
+                        <h4 title="${tagTitle}" class="middle-font">
                             <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                         </h4>
                         </#list>

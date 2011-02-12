@@ -75,7 +75,24 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 28px;
 }
 
-.date {
+.bigger-font {
+    color: #505561;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.big-font {
+    text-decoration: none;
+    line-height: 22px;
+    font-size: 15px;
+}
+
+.middle-font {
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.small-font {
     color: darkgrey;
     font-size: 10px;
 }
@@ -292,53 +309,26 @@ h1, h2, h3, h4, h5, h6 {
     margin: 7px 0 0 15px;
 }
 
-.index h2 a, .tag h1 a {
-    color: #505561;
-    text-decoration: none;
-    font-size: 20px;
-}
-
-.index h3 a, .tag h2 a {
-    text-decoration: none;
-    line-height: 22px;
-    font-size: 15px;
-}
-
-.index h4, .tag h3 {
-    font-weight: normal;
-    font-size: 13px;
-}
-
-.index dl, .tag dl {
+/* entry */
+.entry-list {
     margin-bottom: 10px;
     padding: 5px 0 10px 0;
     border-top: 1px dashed #E1EDF3;
 }
 
-.index dd, #comments dd, .tag dd {
+.entry-list dd {
     margin: 0 5px;
     padding: 5px;
 }
 
-.index dd:hover, #comments dd:hover, .tag dd:hover {
+.entry-list dd:hover {
     background-color: #E1EDF3;
 }
 
-.index .main, .entry .main, .tag .main {
+.entry-list dd .title-tag {
     width: 677px;
     padding-left: 20px;
     overflow: hidden;
-}
-
-/* entry */
-.entry h1 a{
-    font-size: 20px;
-    text-decoration: none;
-}
-
-.entry h2 {
-    font-size: 14px;
-    font-weight: normal;
 }
 
 .entry .big-head-img {
@@ -352,10 +342,6 @@ h1, h2, h3, h4, h5, h6 {
     border-width: 1px 1px 1px 12px;
     margin: 10px 5px 5px 5px;
     padding: 3px;
-}
-
-.entry .title {
-    margin: 10px 0;
 }
 
 .entry .entry-main {
@@ -376,10 +362,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 9pt;
     margin: 0 0 10px;
     padding: 2px;
-}
-
-#comments dd {
-    border-top: 1px dashed #E1EDF3;
 }
 
 /* user */
