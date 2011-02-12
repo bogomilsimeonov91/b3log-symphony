@@ -17,10 +17,10 @@
         <div class="content">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <tr>
-                    <th width="200px">
+                    <th style="width: 200px;">
                         ${titleLabel}
                     </th>
-                    <th style="min-width: 300px;">
+                    <th width="361px">
                         ${commentContentLabel}
                     </th>
                     <th width="150px">
@@ -38,7 +38,9 @@
                         </a>
                     </td>
                     <td>
-                        ${comment.commentContent}
+                        <div class="comment-hidden">
+                            ${comment.commentContent}
+                        </div>
                     </td>
                     <td align="center">
                         ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
