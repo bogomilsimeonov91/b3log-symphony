@@ -121,7 +121,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
      * <pre>
      * {
      *     "oId": articleId,
-     *     "userEmail": "",
      *     "commentContent": "", // by UBB
      *     "commentOriginalCommentId": "" // optional, if exists this key, the comment
      *                                    // is an reply
