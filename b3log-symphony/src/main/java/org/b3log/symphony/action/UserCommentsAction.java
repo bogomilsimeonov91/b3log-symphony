@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.util.Paginator;
@@ -41,8 +40,8 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
-import org.b3log.symphony.util.Errors;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Users;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,7 +49,7 @@ import org.json.JSONObject;
  * User comments. user-comments.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 10, 2011
+ * @version 1.0.0.2, Feb 12, 2011
  */
 public final class UserCommentsAction extends AbstractAction {
 
@@ -87,51 +86,15 @@ public final class UserCommentsAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
-        String email = null;
-        try {
-            final HttpSession session = request.getSession();
-            if (null == session) {
-                final String cause = Langs.get("loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-
-            email = (String) session.getAttribute(User.USER_EMAIL);
-            if (null == email) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-        } catch (final Exception e) {
-            LOGGER.log(Level.WARNING, e.getMessage(), e);
-
-            try {
-                final String cause = Langs.get("forbiddenLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            } catch (final Exception ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
-        }
+        final JSONObject user = Users.getCurrentUser();
 
         try {
+            final String email = user.getString(User.USER_EMAIL);
+
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
             final int fetchSize = 5;
-
-            final JSONObject user = userRepository.getByEmail(email);
 
             final String userId = user.getString(Keys.OBJECT_ID);
             final Query query = new Query();

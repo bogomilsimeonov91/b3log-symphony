@@ -128,8 +128,10 @@ public final class UserSettingsAction extends AbstractAction {
                 ret.put(Keys.STATUS_CODE, true);
             } else if ("advanced".equals(action)) {
                 final String url = requestJSONObject.getString(User.USER_URL);
-
                 userToUpdate.put(User.USER_URL, url);
+                userToUpdate.put(Common.USER_THUMBNAIL_URL,
+                                 requestJSONObject.getString(
+                        Common.USER_THUMBNAIL_URL));
                 final String sign = requestJSONObject.getString(Common.SIGN);
                 userToUpdate.put(Common.SIGN, sign);
 
