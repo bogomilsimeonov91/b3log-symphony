@@ -35,30 +35,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            ${originalPasswordLabel}
-                        </th>
-                        <td>
-                            <input type="password" id="originalPassword"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            ${newPasswordLabel}
-                        </th>
-                        <td>
-                            <input type="password" id="newPassword"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            ${confirmPasswordLabel}
-                        </th>
-                        <td>
-                            <input type="password" id="confirmPassword"/>
-                        </td>
-                    </tr>
-                    <tr>
                         <th colspan="2">
                             <span class="tip" id="tipUserInfo"></span>
                             <button onclick="user.setUserInfo();">
@@ -67,31 +43,6 @@
                         </th>
                     </tr>
                 </table>
-                <form action="/file" method="POST" enctype="multipart/form-data" target="hideFrame">
-                    <table class="form" width="300px">
-                        <caption>
-                            ${headSettingLabel}
-                        </caption>
-                        <tr>
-                            <td>
-                                <img id="headImg" src="${userThumbnailURL}"
-                                     class="big-head-img" alt="${userName}" title="${userName}"/>
-                                ( < 20K, 1:1)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="uploadFile">
-                                <input type='file' name='myFile' size="36"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <span class="tip" id="tipHead"></span>
-                                <button type="submit">${submitLabel}</button>
-                            </th>
-                        </tr>
-                    </table>
-                </form>
             </div>
             <table class="form right" id="userSettingsForm" width="379px">
                 <caption>
@@ -131,8 +82,6 @@
         <script type="text/javascript">
             var user = new User({
                 "labels": {
-                    "passwordEmptyLabel": "${passwordEmptyLabel}",
-                    "passwordNoMatchLabel": "${passwordNoMatchLabel}",
                     "nameErrorLabel": "${nameErrorLabel}",
                     "changeSuccLabel": "${changeSuccLabel}",
                     "setSuccLabel": "${setSuccLabel}"
