@@ -14,7 +14,7 @@
     </head>
     <body>
         <#include "user-top.ftl"/>
-        <div class="content">
+        <div class="content index">
             <dl>
                 <#list articles as article>
                 <dd>
