@@ -34,6 +34,7 @@ import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Article;
+import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
@@ -42,6 +43,7 @@ import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Symphonys;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -76,6 +78,16 @@ public final class UserAction extends AbstractAction {
      */
     private CommentRepository commentRepository = CommentGAERepository.
             getInstance();
+    /**
+     * Entry fetch size.
+     */
+    public static final int ENTRY_FETCH_SIZE = Integer.valueOf(
+            Symphonys.get("userEntriesCntPerPage"));
+    /**
+     * Comment fetch size.
+     */
+    public static final int CMT_FETCH_SIZE = Integer.valueOf(
+            Symphonys.get("userCmtsCntPerPage"));
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -104,6 +116,7 @@ public final class UserAction extends AbstractAction {
                     getQueryStringJSONObject(request);
 
             fillEntries(queryStringJSONObject, user, ret);
+            fillComments(queryStringJSONObject, user, ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -125,10 +138,9 @@ public final class UserAction extends AbstractAction {
                              final Map<String, Object> dataModel)
             throws Exception {
         final int currentPageNum = queryStringJSONObject.optInt("p", 1);
-        final int fetchSize = 5;
         final String userId = user.getString(Keys.OBJECT_ID);
         final Query query = new Query();
-        query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
+        query.setCurrentPageNum(currentPageNum).setPageSize(ENTRY_FETCH_SIZE).
                 addFilter(Common.AUTHOR_ID,
                           FilterOperator.EQUAL, userId).
                 addSort(Article.ARTICLE_CREATE_DATE,
@@ -143,10 +155,36 @@ public final class UserAction extends AbstractAction {
                 getInt(Pagination.PAGINATION_PAGE_COUNT);
         final int windowSize = 10;
         final List<Integer> pageNums =
-                Paginator.paginate(currentPageNum, fetchSize, pageCount,
+                Paginator.paginate(currentPageNum, ENTRY_FETCH_SIZE, pageCount,
                                    windowSize);
         dataModel.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
         dataModel.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+    }
+
+    /**
+     * Fills the specified data model with comments by the specified query
+     * string json object and user.
+     *
+     * @param queryStringJSONObject the specified query string json object
+     * @param user the specified user
+     * @param dataModel the specified data model
+     * @throws Exception exception
+     */
+    private void fillComments(final JSONObject queryStringJSONObject,
+                              final JSONObject user,
+                              final Map<String, Object> dataModel)
+            throws Exception {
+        final String userId = user.getString(Keys.OBJECT_ID);
+        final Query query = new Query();
+        query.setPageSize(CMT_FETCH_SIZE).
+                addFilter(Comment.COMMENTER_ID, FilterOperator.EQUAL, userId).
+                addSort(Comment.COMMENT_DATE, SortDirection.DESCENDING);
+
+        final JSONObject result = commentRepository.get(query);
+        final JSONArray commentArray = result.getJSONArray(Keys.RESULTS);
+        
+        dataModel.put(Comment.COMMENTS, CollectionUtils.jsonArrayToList(
+                    commentArray));
     }
 
     @Override
