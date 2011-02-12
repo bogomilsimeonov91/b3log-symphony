@@ -22,7 +22,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import org.b3log.latke.model.User;
-import org.b3log.latke.repository.Transaction;
 import org.b3log.symphony.action.EntryAction;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -96,10 +95,7 @@ public final class Users {
         try {
             JSONObject ret = USER_REPOSITORY.getByEmail(email);
             if (null == ret) {
-                final Transaction transaction
-                        = USER_REPOSITORY.beginTransaction();
                 ret = registerUser(email);
-                transaction.commit();
             }
 
             return ret;
@@ -121,7 +117,7 @@ public final class Users {
             throws Exception {
         final JSONObject ret = new JSONObject();
 
-        ret.put(User.USER_EMAIL, userEmail);
+        ret.put(User.USER_EMAIL, userEmail.toLowerCase());
         ret.put(User.USER_NAME, UserGAERepository.genTimeMillisId());
         ret.put(User.USER_URL, "");
         ret.put(Common.STATE, Common.AVAILABLE);
