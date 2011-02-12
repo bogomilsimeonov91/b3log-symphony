@@ -108,7 +108,6 @@ $.extend(User.prototype, {
                     "article": {
                         "articleTitle": $("#title").val(),
                         "articleTags": $("#tags").val().replace(/(^\s*)|(\s*$)/g, ""),
-                        "articleAuthorEmail": Util.readCookie("userEmail"),
                         "articleContent": editor.tGetUBB()
                     }
                 };

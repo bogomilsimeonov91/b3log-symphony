@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Ids;
 import org.b3log.latke.util.Strings;
@@ -46,6 +47,7 @@ import org.b3log.symphony.util.Errors;
 import org.b3log.symphony.util.Langs;
 import org.b3log.symphony.util.Symphonys;
 import org.b3log.symphony.util.Tags;
+import org.b3log.symphony.util.Users;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -132,7 +134,6 @@ public final class UserAddEntryAction extends AbstractAction {
      *     "article": {
      *         "articleTitle": "",
      *         "articleTags": "tag1, tag2, ....",
-     *         "articleAuthorEmail": "",
      *         "articleContent": "" // by UBB
      *     }
      * }
@@ -165,7 +166,6 @@ public final class UserAddEntryAction extends AbstractAction {
             }
         }
 
-
         final Transaction transaction = articleRepository.beginTransaction();
 
         try {
@@ -174,9 +174,8 @@ public final class UserAddEntryAction extends AbstractAction {
             final String articleId = Ids.genTimeMillisId();
             article.put(Keys.OBJECT_ID, articleId);
 
-            final String authorEmail =
-                    originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF).
-                    toLowerCase().trim();
+            final JSONObject user = Users.getCurrentUser();
+            final String authorEmail = user.getString(User.USER_EMAIL);
             final JSONObject author = userRepository.getByEmail(authorEmail);
             if (null != author) {
                 final String authodId = author.getString(Keys.OBJECT_ID);
@@ -246,7 +245,6 @@ public final class UserAddEntryAction extends AbstractAction {
      *     "article": {
      *         "articleTitle": "",
      *         "articleTags": "tag1, tag2, ....",
-     *         "articleAuthorEmail": "",
      *         "articleContent": "" // by UBB
      *     }
      * }
@@ -267,12 +265,6 @@ public final class UserAddEntryAction extends AbstractAction {
 
         final String tagsString = article.optString(ARTICLE_TAGS);
         if (Strings.isEmptyOrNull(tagsString)) {
-            return true;
-        }
-
-        final String authorEmail = article.optString(
-                ARTICLE_AUTHOR_EMAIL_REF);
-        if (Strings.isEmptyOrNull(authorEmail)) {
             return true;
         }
 
