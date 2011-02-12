@@ -182,7 +182,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 composeReplies(originalCmtId, repliesBuilder);
                 final String cmtContent =
                         cmt.getString(Comment.COMMENT_CONTENT);
-                repliesBuilder.append("<br/>").append(cmtContent);
+                repliesBuilder.append(cmtContent);
                 cmt.put(Comment.COMMENT_CONTENT, repliesBuilder.toString());
 
                 comments.add(cmt);
