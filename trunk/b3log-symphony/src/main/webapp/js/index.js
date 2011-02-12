@@ -34,7 +34,7 @@ $.extend(Index.prototype, {
                             + "' onclick=\"window.location='/users/" + result.userName +"'\" class='admin-icon'></span>"
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.logoutLabel
-                            + "' onclick=\"" + result.logoutURL + "\" class='logout-icon'></span>");
+                            + "' onclick=\"window.location.href='" + result.logoutURL + "' class='logout-icon'></span>");
                         break;
                     case false:
                         $("#userStatus").html("<span title='" + labels.loginLabel
