@@ -14,7 +14,7 @@
     </head>
     <body>
         <#include "user-top.ftl"/>
-        <div class="content">
+        <div class="content user-comments">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <tr>
                     <th style="width: 200px;">
@@ -38,7 +38,7 @@
                         </a>
                     </td>
                     <td>
-                        <div class="comment-hidden">
+                        <div class="comment-hidden" id="${comment.oId}">
                             ${comment.commentContent}
                         </div>
                     </td>
@@ -74,6 +74,13 @@
                 ${sumLabel}${paginationPageCount}${pageLabel}
             </div>
             </#if>
+            <div class="comment-tip">
+                <#list comments as comment>
+                <div class="article-body none" id="${comment.oId}comment">
+                    ${comment.commentContent}
+                </div>
+                </#list>
+            </div>
         </div>
         <div class="footer">
             <#include "user-footer.ftl"/>
@@ -86,6 +93,7 @@
             });
             user.initStatus();
             Util.initPagination();
+            user.commentTip();
         </script>
     </body>
 </html>

@@ -20,6 +20,12 @@ var Index = function (args) {
 
 $.extend(Index.prototype, {
     initStatus: function () {
+        if ($.browser.msie) {
+            if ($.browser.version === "6.0") {
+                alert("Let's kill IE6!");
+                return;
+            }
+        }
         var labels = this.labels;
         $.ajax({
             url: "/check-login",
@@ -61,7 +67,7 @@ $.extend(Index.prototype, {
             && editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[p][br][p]") {
             var requestJSONObject = {
                 "oId": this.oId,
-                "commentContent": editor.tGetUBB().replace("[br]", ""),
+                "commentContent": editor.tGetUBB().replace("[br]", "")
             };
             //alert(editor.tGetUBB().replace("[br]", ""));
             $.ajax({
