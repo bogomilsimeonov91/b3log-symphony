@@ -80,20 +80,6 @@ $.extend(User.prototype, {
         });
     },
 
-    setHead: function () {
-        var labels = this.labels;
-        $("#hideFrame").load(function () {
-            var $iframe = $("#hideFrame").contents();
-            if ($iframe.find("pre").length === 1) {
-                $("#tipHead").text($iframe.find("pre").html());
-            } else if ($iframe.find("#headImg").length === 1) {
-                $("#tipHead").text(labels.setSuccLabel);
-                $("#uploadFile").html("<input type='file' name='myFile'>");
-                $("#headImg").attr("src", $iframe.find("#headImg").attr("src"));
-            }
-        });
-    },
-
     postEntry: function() {
         if (Util.validateForm("tip", [{
             "id": "title",

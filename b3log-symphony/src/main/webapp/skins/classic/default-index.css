@@ -134,6 +134,8 @@ h1, h2, h3, h4, h5, h6 {
     width:100%;
     font-size:12px;
     border:2px inset #CCCCCC;
+    color: #505460;
+    font-family: '宋体',Arial,sans-serif;
 }
 
 .form textarea{
@@ -183,6 +185,23 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 20px;
     font-weight: bold;
     margin: 11px 0;
+}
+
+.form .input-label {
+    border-color: #CCCCCC;
+    border-style: inset none inset inset;
+    border-width: 2px 0 2px 2px;
+    float: left;
+    height: 24px;
+    line-height: 24px;
+}
+
+.form .input-label-focus{
+    border:2px solid #73A6FF;
+    border-right-width: 0px;
+    float: left;
+    height: 24px;
+    line-height: 24px;
 }
 
 .table {
@@ -365,13 +384,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* user */
-#headImg {
-    height: 100px;
-    width: 100px;
-}
-
 .settings .info {
-    border-right: 1px solid #CCCCCC;
-    padding-right: 40px;
-    margin-right: 40px;
+    border-left: 1px solid #CCCCCC;
+    padding-left: 40px;
+    margin-left: 40px;
+    float: right;
 }
