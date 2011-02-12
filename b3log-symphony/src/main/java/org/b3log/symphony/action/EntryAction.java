@@ -102,6 +102,11 @@ public final class EntryAction extends AbstractCacheablePageAction {
      * End comment reference(reply) HTML.
      */
     public static final String END_CMT_REF_HTML = "</div>";
+    /**
+     * Entry comments per page.
+     */
+    public static final int ENTRY_CMTS_PER_PAGE =
+            Integer.valueOf(Symphonys.get("entryCmtsCntPerPage"));
 
     static {
         DEFAULT_SIGN = Langs.get("defaultSign");
@@ -129,12 +134,11 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
-            final int fetchSize = 20;
             final int windowSize = 10;
             final JSONObject result =
                     articleCommentRepository.getByArticleId(articleId,
                                                             currentPageNum,
-                                                            fetchSize);
+                                                            ENTRY_CMTS_PER_PAGE);
 
             final int pageCount = result.getJSONObject(
                     Pagination.PAGINATION).getInt(
@@ -215,7 +219,8 @@ public final class EntryAction extends AbstractCacheablePageAction {
             ret.put(Article.ARTICLE, article);
 
             final List<Integer> pageNums =
-                    Paginator.paginate(currentPageNum, fetchSize, pageCount,
+                    Paginator.paginate(currentPageNum, ENTRY_CMTS_PER_PAGE,
+                                       pageCount,
                                        windowSize);
             ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
