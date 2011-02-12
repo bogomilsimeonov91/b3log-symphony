@@ -293,7 +293,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             if (hasCmterURL) {
                 repliesBuilder.append("</a>");
             }
-            repliesBuilder.append(originalCmtContent);
+            repliesBuilder.append("<br/>").append(originalCmtContent);
 
             final String moreOriginalCmtId = originalComment.optString(
                     Comment.COMMENT_ORIGINAL_COMMENT_ID);
