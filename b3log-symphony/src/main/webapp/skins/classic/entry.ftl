@@ -142,7 +142,7 @@
                     <tr>
                         <th>
                             <span class="tip" id="tip"></span>
-                            <button onclick="index.submitComment();">
+                            <button onclick="index.submitEntryComment();">
                                 ${submitLabel}
                             </button>
                         </th>
