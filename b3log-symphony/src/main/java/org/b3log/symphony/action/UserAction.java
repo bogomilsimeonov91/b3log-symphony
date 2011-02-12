@@ -71,12 +71,12 @@ public final class UserAction extends AbstractAction {
      */
     private ArticleRepository articleRepository = ArticleGAERepository.
             getInstance();
- /**
+    /**
      * Comment repository.
      */
     private CommentRepository commentRepository = CommentGAERepository.
             getInstance();
-    
+
     @Override
     protected Map<?, ?> doFreeMarkerAction(
             final freemarker.template.Template template,
@@ -102,33 +102,51 @@ public final class UserAction extends AbstractAction {
 
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
-            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
-            final int fetchSize = 5;
 
-            final String userId = user.getString(Keys.OBJECT_ID);
-            final Query query = new Query();
-            query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
-                    addFilter(Common.AUTHOR_ID, FilterOperator.EQUAL, userId).
-                    addSort(Article.ARTICLE_CREATE_DATE,
-                            SortDirection.DESCENDING);
-            final JSONObject result = articleRepository.get(query);
-            final JSONArray articles = result.getJSONArray(Keys.RESULTS);
-            ret.put(Article.ARTICLES, CollectionUtils.jsonArrayToList(articles));
-
-            final int pageCount = result.getJSONObject(
-                    Pagination.PAGINATION).getInt(
-                    Pagination.PAGINATION_PAGE_COUNT);
-            final int windowSize = 10;
-            final List<Integer> pageNums =
-                    Paginator.paginate(currentPageNum, fetchSize, pageCount,
-                                       windowSize);
-            ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
-            ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+            fillEntries(queryStringJSONObject, user, ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
 
         return ret;
+    }
+
+    /**
+     * Fills the specified data model with entries by the specified query string
+     * json object and user.
+     *
+     * @param queryStringJSONObject the specified query string json object
+     * @param user the specified user
+     * @param dataModel the specified data model
+     * @throws Exception exception
+     */
+    private void fillEntries(final JSONObject queryStringJSONObject,
+                             final JSONObject user,
+                             final Map<String, Object> dataModel)
+            throws Exception {
+        final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+        final int fetchSize = 5;
+        final String userId = user.getString(Keys.OBJECT_ID);
+        final Query query = new Query();
+        query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
+                addFilter(Common.AUTHOR_ID,
+                          FilterOperator.EQUAL, userId).
+                addSort(Article.ARTICLE_CREATE_DATE,
+                        SortDirection.DESCENDING);
+        final JSONObject result = articleRepository.get(query);
+        final JSONArray articles =
+                result.getJSONArray(Keys.RESULTS);
+        dataModel.put(Article.ARTICLES,
+                      CollectionUtils.jsonArrayToList(articles));
+        final int pageCount =
+                result.getJSONObject(Pagination.PAGINATION).
+                getInt(Pagination.PAGINATION_PAGE_COUNT);
+        final int windowSize = 10;
+        final List<Integer> pageNums =
+                Paginator.paginate(currentPageNum, fetchSize, pageCount,
+                                   windowSize);
+        dataModel.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+        dataModel.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
     }
 
     @Override
