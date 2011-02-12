@@ -110,9 +110,9 @@ public final class IndexAction extends AbstractCacheablePageAction {
                     topAuthor.put(User.USER_NAME, topAuthorName);
                     final String topAuthorURL = user.getString(User.USER_URL);
                     topAuthor.put(User.USER_URL, topAuthorURL);
-                    topAuthors.add(topAuthor);
                     topAuthor.put(Common.USER_THUMBNAIL_URL,
-                                  EntryAction.DEFAULT_USER_THUMBNAIL_URL);
+                                  topAuthor.getString(Common.USER_THUMBNAIL_URL));
+                    topAuthors.add(topAuthor);
                 }
                 LOGGER.log(Level.FINE, "Got top authors for tag[title={0}]",
                            tagTitle);
@@ -133,7 +133,7 @@ public final class IndexAction extends AbstractCacheablePageAction {
                     final String sign = author.getString(Common.SIGN);
                     article.put(Common.SIGN, sign);
                     article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
-                                EntryAction.DEFAULT_USER_THUMBNAIL_URL);
+                                author.getString(Common.USER_THUMBNAIL_URL));
                 }
                 tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
                 LOGGER.log(Level.FINE, "Got recent articles for tag[title={0}]",

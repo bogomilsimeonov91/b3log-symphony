@@ -127,7 +127,7 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                 topAuthor.put(User.USER_URL, topAuthorURL);
                 topAuthors.add(topAuthor);
                 topAuthor.put(Common.USER_THUMBNAIL_URL,
-                              EntryAction.DEFAULT_USER_THUMBNAIL_URL);
+                              topAuthor.getString(Common.USER_THUMBNAIL_URL));
             }
 
             ret.put(Common.TAG_TOP_USERS, topAuthors);
@@ -169,7 +169,7 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                 final String sign = author.getString(Common.SIGN);
                 article.put(Common.SIGN, sign);
                 article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
-                            EntryAction.DEFAULT_USER_THUMBNAIL_URL);
+                            author.getString(Common.USER_THUMBNAIL_URL));
 
                 articles.add(article);
             }

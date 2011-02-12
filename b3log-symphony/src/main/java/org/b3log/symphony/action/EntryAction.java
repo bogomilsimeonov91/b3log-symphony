@@ -173,7 +173,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     sign = UBBDecoder.decode(sign);
                     cmt.put(Common.SIGN, sign);
                     cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
-                            DEFAULT_USER_THUMBNAIL_URL);
+                            user.getString(Common.USER_THUMBNAIL_URL));
                 }
 
                 final String originalCmtId =
@@ -196,7 +196,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final String url = author.getString(User.USER_URL);
             article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
             article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
-                        DEFAULT_USER_THUMBNAIL_URL);
+                        author.getString(Common.USER_THUMBNAIL_URL));
             String sign = author.getString(Common.SIGN);
             sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             sign = UBBDecoder.decode(sign);
