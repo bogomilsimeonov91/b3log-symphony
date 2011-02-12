@@ -94,8 +94,6 @@
         <script type="text/javascript">
             var user = new User({
                 "labels": {
-                    "passwordEmptyLabel": "${passwordEmptyLabel}",
-                    "passwordNoMatchLabel": "${passwordNoMatchLabel}",
                     "nameErrorLabel": "${nameErrorLabel}"
                 }
             });

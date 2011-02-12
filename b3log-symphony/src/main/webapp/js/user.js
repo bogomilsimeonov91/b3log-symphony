@@ -28,44 +28,29 @@ $.extend(User.prototype, {
             "id": "userName",
             "type": "length",
             "tip": this.labels.nameErrorLabel
-        }, {
-            "id": "originalPassword",
-            "type": "empty",
-            "tip": this.labels.passwordEmptyLabel
-        }, {
-            "id": "newPassword",
-            "type": "empty",
-            "tip": this.labels.passwordEmptyLabel
         }])) {
-            if ($("#newPassword").val() === $("#confirmPassword").val()) {
-                var requestJSONObject = {
-                    "userName": $("#userName").val(),
-                    "userNewPassword": $("#newPassword").val(),
-                    "userPassword" : $("#originalPassword").val()
-                },
-                changeSuccLabel = this.labels.changeSuccLabel;
+            var requestJSONObject = {
+                "userName": $("#userName").val()
+            },
+            changeSuccLabel = this.labels.changeSuccLabel;
 
-                $.ajax({
-                    url: "/user-settings?action=basic",
-                    type: "POST",
-                    data: JSON.stringify(requestJSONObject),
-                    success: function(result, textStatus){
-                        switch (result.sc) {
-                            case true:
-                                Util.createCookie("userName", $("#userName").val(), 365);
-                                $("#tipUserInfo").text(changeSuccLabel);
-                                break;
-                            case false:
-                            default:
-                                $("#tipUserInfo").text(result.msg);
-                                break;
-                        }
+            $.ajax({
+                url: "/user-settings?action=basic",
+                type: "POST",
+                data: JSON.stringify(requestJSONObject),
+                success: function(result, textStatus){
+                    switch (result.sc) {
+                        case true:
+                            Util.createCookie("userName", $("#userName").val(), 365);
+                            $("#tipUserInfo").text(changeSuccLabel);
+                            break;
+                        case false:
+                        default:
+                            $("#tipUserInfo").text(result.msg);
+                            break;
                     }
-                });
-            } else {
-                $("#tipUserInfo").text(this.labels.passwordNoMatchLabel);
-                $("#confirmPassword").focus();
-            }
+                }
+            });
         }
     },
 
