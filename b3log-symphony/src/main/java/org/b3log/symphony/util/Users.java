@@ -113,7 +113,8 @@ public final class Users {
      * @return the registered new user
      * @throws Exception exception
      */
-    public static JSONObject registerUser(final String userEmail) throws Exception {
+    public static JSONObject registerUser(final String userEmail)
+            throws Exception {
         final JSONObject ret = new JSONObject();
 
         ret.put(User.USER_EMAIL, userEmail);
