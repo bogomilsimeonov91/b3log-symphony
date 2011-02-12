@@ -69,6 +69,8 @@ public final class UserSettingsAction extends AbstractAction {
         final JSONObject user = Users.getCurrentUser();
 
         try {
+            LOGGER.log(Level.FINER, "Current logged in user[name={0}]",
+                    user.getString(User.USER_NAME));
             final String email = user.getString(User.USER_EMAIL);
 
             ret.put(User.USER_EMAIL, email);
