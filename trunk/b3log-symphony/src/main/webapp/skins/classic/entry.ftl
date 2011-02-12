@@ -24,8 +24,10 @@
         <div class="content entry">
             <dl class="marginB20">
                 <dd>
-                    <img src="${article.articleAuthorThumbnailURL}" class="big-head-img left"
-                         alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
+                    <a href="/users/${article.articleAuthorName}">
+                        <img src="${article.articleAuthorThumbnailURL}" class="big-head-img left"
+                             alt="${article.articleAuthorName}" title="${article.articleAuthorName}"/>
+                    </a>
                     <div class="left entry-main">
                         <div>
                             <h1>
@@ -40,7 +42,9 @@
                             </#if>
                             &nbsp;
                             <div class="right">
-                                <span class="left">&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;</span>
+                                <span class="left date">
+                                    &nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
+                                </span>
                                 <a href="${article.oId}#comments" title="${commentCountLabel}">
                                     <span class="comment-icon"></span>
                                     <span class="left">&nbsp;${article.articleCommentCount}</span>
@@ -74,8 +78,10 @@
                 <dl>
                     <#list article.articleComments as comment>
                     <dd id="${comment.oId}comment">
-                        <img src="${comment.commentThumbnailURL}" class="middle-head-img left"
-                             alt="${comment.commenterName}" title="${comment.commenterName}"/>
+                        <a href="/users/${comment.commenterName}">
+                            <img src="${comment.commentThumbnailURL}" class="middle-head-img left"
+                                 alt="${comment.commenterName}" title="${comment.commenterName}"/>
+                        </a>
                         <div class="left main">
                             <div class="marginB5">
                                 <span class="left">
@@ -90,7 +96,9 @@
                                     <a title="${replyLabel}" href="javascript:index.replyComment('${comment.oId}');">
                                         <span class="reply-icon"></span>
                                     </a>
-                                    <span class="left">&nbsp;${comment.commentDate?string('yyyy-MM-dd HH:mm')}</span>
+                                    <span class="left date">
+                                        &nbsp;${comment.commentDate?string('yyyy-MM-dd HH:mm')}
+                                    </span>
                                 </span>
                                 <span class="clear"></span>
                             </div>
