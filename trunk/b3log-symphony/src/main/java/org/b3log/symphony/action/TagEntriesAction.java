@@ -127,7 +127,7 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                 topAuthor.put(User.USER_URL, topAuthorURL);
                 topAuthors.add(topAuthor);
                 topAuthor.put(Common.USER_THUMBNAIL_URL,
-                              topAuthor.getString(Common.USER_THUMBNAIL_URL));
+                              user.getString(Common.USER_THUMBNAIL_URL));
             }
 
             ret.put(Common.TAG_TOP_USERS, topAuthors);
