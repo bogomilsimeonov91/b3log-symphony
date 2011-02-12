@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import org.b3log.latke.model.User;
+import org.b3log.symphony.action.EntryAction;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.json.JSONObject;
@@ -120,6 +121,8 @@ public final class Users {
         ret.put(User.USER_URL, "");
         ret.put(Common.STATE, Common.AVAILABLE);
         ret.put(Common.SIGN, "");
+        ret.put(Common.USER_THUMBNAIL_URL,
+                EntryAction.DEFAULT_USER_THUMBNAIL_URL);
 
         USER_REPOSITORY.addAsync(ret);
 
