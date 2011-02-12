@@ -51,6 +51,26 @@ public final class UserGAERepository extends AbstractGAERepository
     }
 
     @Override
+    public void update(final String id, final JSONObject userToUpdate)
+            throws RepositoryException {
+        super.updateAsync(id, userToUpdate);
+
+        // TODO: ugly, resolve it in Latke repository component
+        final String name = userToUpdate.optString(User.USER_NAME);
+        Query query = new Query().addFilter(User.USER_NAME,
+                                                  FilterOperator.EQUAL,
+                                                  name);
+        String cacheKey = INSTANCE_ID + query.hashCode() + "_"+ getName();
+        CACHE.remove(cacheKey);
+        final String email = userToUpdate.optString(User.USER_EMAIL);
+        query = new Query().addFilter(User.USER_EMAIL,
+                                                  FilterOperator.EQUAL,
+                                                  email.toLowerCase());
+        cacheKey = INSTANCE_ID + query.hashCode() + "_"+ getName();
+        CACHE.remove(cacheKey);
+    }
+
+    @Override
     public JSONObject getByName(final String name) throws RepositoryException {
         final Query query = new Query().addFilter(User.USER_NAME,
                                                   FilterOperator.EQUAL,
