@@ -20,6 +20,12 @@ var User = function (args) {
 
 $.extend(User.prototype, {
     initStatus: function () {
+        if ($.browser.msie) {
+            if ($.browser.version === "6.0") {
+                alert("Let's kill IE6!");
+                return;
+            }
+        }
         $("#userStatus span")[0].innerHTML = Util.readCookie("userName");
     },
 
@@ -128,5 +134,19 @@ $.extend(User.prototype, {
             data: tags
         });
         return editor;
+    },
+
+    commentTip: function () {
+        $(".comment-hidden").each(function () {
+            $(this).hover(function (event) {
+                var pos = $(this).position();
+                $("#" + this.id + "comment").show().css({
+                    "left": pos.left,
+                    "top": pos.top + 32
+                });
+            }, function () {
+                $("#" + this.id + "comment").hide();
+            });
+        });
     }
 });
