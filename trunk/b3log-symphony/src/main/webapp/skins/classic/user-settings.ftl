@@ -48,12 +48,19 @@
                 <caption>
                     ${settingsInfoLabel}
                 </caption>
-                 <tr>
+                <tr>
                     <th width="96px;">
                         ${thumbnailURLLabel}
                     </th>
                     <td>
                         <input id="userThumbnailURL" value="${userThumbnailURL}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <img id="headImg" src="${userThumbnailURL}"
+                             class="big-head-img" alt="${userName}" title="${userName}"/>
                     </td>
                 </tr>
                 <tr>
