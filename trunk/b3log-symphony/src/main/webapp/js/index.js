@@ -56,14 +56,13 @@ $.extend(Index.prototype, {
         }
     },
 
-    submitEntry: function () {
+    submitComment: function () {
         if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]"
             && editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[p][br][p]") {
             var requestJSONObject = {
                 "oId": this.oId,
                 "commentContent": editor.tGetUBB().replace("[br]", ""),
                 "userName": Util.readCookie("userName"),
-                "userEmail": Util.readCookie("userEmail"),
                 "userURL": Util.readCookie("userURL")
             };
             //alert(editor.tGetUBB().replace("[br]", ""));
