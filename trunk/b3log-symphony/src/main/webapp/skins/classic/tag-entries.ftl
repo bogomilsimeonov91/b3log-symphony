@@ -28,7 +28,7 @@
                 </h1>
                 <div class="count">
                     <span class="tag-icon" title="${tagRefCountLabel}"></span>&nbsp;
-                    <span class="left">${tag.tagReferenceCount}&nbsp;&nbsp;</span>
+                    <span class="left">&nbsp;${tag.tagReferenceCount}&nbsp;&nbsp;</span>
                     <span class="comment-icon" title="${commentCountLabel}"></span>
                     <span class="left">&nbsp;${tag.tagCommentCount}</span>
                 </div>
