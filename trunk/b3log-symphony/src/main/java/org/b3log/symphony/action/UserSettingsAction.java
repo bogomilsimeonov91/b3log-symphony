@@ -43,7 +43,7 @@ import org.json.JSONObject;
  * User settings. user-settings.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 11, 2011
+ * @version 1.0.0.3, Feb 12, 2011
  */
 public final class UserSettingsAction extends AbstractAction {
 
@@ -142,48 +142,9 @@ public final class UserSettingsAction extends AbstractAction {
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        String email = null;
-        try {
-            final HttpSession session = request.getSession();
-            if (null == session) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-
-            email = (String) session.getAttribute(User.USER_EMAIL);
-            if (null == email) {
-                final String cause = Langs.get(
-                        "loginFirstLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            }
-        } catch (final Exception e) {
-            LOGGER.log(Level.WARNING, e.getMessage(), e);
-
-            try {
-                final String cause = Langs.get("forbiddenLabel");
-                Errors.sendError(request, response,
-                                 HttpServletResponse.SC_FORBIDDEN,
-                                 request.getRequestURI(), cause);
-
-                return ret;
-            } catch (final Exception ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
-        }
-
         final Transaction transaction = userRepository.beginTransaction();
         try {
-            final JSONObject oldUser = userRepository.getByEmail(email);
+            final JSONObject oldUser = Users.getCurrentUser();
             if (null == oldUser) {
                 ret.put(Keys.STATUS_CODE, false);
                 ret.put(Keys.MSG,
@@ -238,8 +199,6 @@ public final class UserSettingsAction extends AbstractAction {
 
                 transaction.commit();
                 ret.put(Keys.STATUS_CODE, true);
-
-                LoginAction.login(userToUpdate, request);
             } else if ("advanced".equals(action)) {
                 final String url = requestJSONObject.getString(User.USER_URL);
 

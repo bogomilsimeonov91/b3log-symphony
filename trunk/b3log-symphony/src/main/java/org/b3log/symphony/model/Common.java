@@ -76,7 +76,14 @@ public final class Common {
      * Key of tag top users.
      */
     public static final String TAG_TOP_USERS = "tagTopUsers";
-
+    /**
+     * Key of login URL.
+     */
+    public static final String LOGIN_URL = "loginURL";
+    /**
+     * Key of logout URL.
+     */
+    public static final String LOGOUT_URL = "logoutURL";
     /**
      * Private default constructor.
      */

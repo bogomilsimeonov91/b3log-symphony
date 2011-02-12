@@ -16,17 +16,41 @@
 
 package org.b3log.symphony.util;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import org.b3log.latke.model.User;
+import org.b3log.symphony.model.Common;
+import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.json.JSONObject;
 
 /**
  * User utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 11, 2011
+ * @version 1.0.0.1, Feb 12, 2011
  */
 public final class Users {
 
-   /**
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER =
+            Logger.getLogger(Users.class.getName());
+    /**
+     * User repository.
+     */
+    private static final UserGAERepository USER_REPOSITORY =
+            UserGAERepository.getInstance();
+    /**
+     * User service.
+     */
+    private static final UserService USER_SVC =
+            UserServiceFactory.getUserService();
+
+    /**
      * Checks whether the specified email is invalid.
      *
      * @param email the specified email
@@ -52,6 +76,54 @@ public final class Users {
         final Pattern pattern = Pattern.compile("^[a-zA-Z0-9_]{2,20}$");
 
         return !pattern.matcher(userName).matches();
+    }
+
+    /**
+     * Gets the current user.
+     *
+     * @return the current user, {@code null} if not found
+     */
+    public static JSONObject getCurrentUser() {
+        final com.google.appengine.api.users.User currentUser =
+                USER_SVC.getCurrentUser();
+        if (null == currentUser) {
+            return null;
+        }
+
+        final String email = currentUser.getEmail();
+        try {
+            JSONObject ret = USER_REPOSITORY.getByEmail(email);
+            if (null == ret) {
+                ret = registerUser(email);
+            }
+
+            return ret;
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+
+            return null;
+        }
+    }
+
+    /**
+     * Registers a new user with the specified email.
+     *
+     * @param userEmail the specified email
+     * @return the registered new user
+     * @throws Exception exception
+     */
+    public static JSONObject registerUser(final String userEmail) throws Exception {
+        final JSONObject ret = new JSONObject();
+
+        ret.put(User.USER_EMAIL, userEmail);
+        ret.put(User.USER_NAME, UserGAERepository.genTimeMillisId());
+        ret.put(User.USER_URL, "");
+        ret.put(Common.STATE, Common.AVAILABLE);
+        ret.put(Common.SIGN, "");
+
+        USER_REPOSITORY.addAsync(ret);
+
+        return ret;
     }
 
     /**

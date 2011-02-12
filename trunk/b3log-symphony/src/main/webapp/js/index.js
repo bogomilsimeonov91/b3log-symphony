@@ -31,14 +31,14 @@ $.extend(Index.prototype, {
                             + "<a class='left' href='/user-add-entry'>" + labels.postEntryLabel + "</a>"
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.adminConsoleLabel
-                            + "' onclick=\"window.location='/users/" + Util.readCookie("userName") +"'\" class='admin-icon'></span>"
+                            + "' onclick=\"window.location='/users/" + result.userName +"'\" class='admin-icon'></span>"
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.logoutLabel
-                            + "' onclick=\"Util.logout();\" class='logout-icon'></span>");
+                            + "' onclick=\"" + result.logoutURL + "\" class='logout-icon'></span>");
                         break;
                     case false:
                         $("#userStatus").html("<span title='" + labels.loginLabel
-                            + "' onclick=\"window.location='/register'\" class='login-icon'></span>");
+                            + "' onclick=\"window.location.href='" + result.loginURL + "' class='login-icon'></span>");
                         $("#commentForm").hide();
                         break;
                 }

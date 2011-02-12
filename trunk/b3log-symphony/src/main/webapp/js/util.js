@@ -15,16 +15,6 @@
  */
 
 var Util = {
-    logout: function () {
-        $.ajax({
-            url: "/logout",
-            type: "POST",
-            success: function(result, textStatus){
-                window.location.href = '/';
-            }
-        });
-    },
-
     bindSubmitAction: function () {
         for (var i = 0; i < arguments.length; i++) {
             $("#" + arguments[i] + ".form input").keypress(function (event) {
