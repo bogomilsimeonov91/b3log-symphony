@@ -172,15 +172,8 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
                     sign = UBBDecoder.decode(sign);
                     cmt.put(Common.SIGN, sign);
-                    final String thumbnailFileId =
-                            user.optString(Common.USER_THUMBNAIL_FILE_ID);
-                    if (Strings.isEmptyOrNull(thumbnailFileId)) {
-                        cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
-                                DEFAULT_USER_THUMBNAIL_URL);
-                    } else {
-                        cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
-                                "/file?oId=" + thumbnailFileId);
-                    }
+                    cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
+                            DEFAULT_USER_THUMBNAIL_URL);
                 }
 
                 final String originalCmtId =
@@ -202,15 +195,8 @@ public final class EntryAction extends AbstractCacheablePageAction {
             article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
             final String url = author.getString(User.USER_URL);
             article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
-            final String userThumbnailFileId =
-                    author.optString(Common.USER_THUMBNAIL_FILE_ID);
-            String thumbnailURL = DEFAULT_USER_THUMBNAIL_URL;
-            if (!Strings.isEmptyOrNull(userThumbnailFileId)) {
-                thumbnailURL = "/file?oId=" + userThumbnailFileId;
-            }
-
             article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
-                        thumbnailURL);
+                        DEFAULT_USER_THUMBNAIL_URL);
             String sign = author.getString(Common.SIGN);
             sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             sign = UBBDecoder.decode(sign);

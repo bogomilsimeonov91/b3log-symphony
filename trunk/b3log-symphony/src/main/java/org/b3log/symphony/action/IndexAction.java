@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.model.User;
-import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
@@ -112,15 +111,8 @@ public final class IndexAction extends AbstractCacheablePageAction {
                     final String topAuthorURL = user.getString(User.USER_URL);
                     topAuthor.put(User.USER_URL, topAuthorURL);
                     topAuthors.add(topAuthor);
-                    final String thumbnailFileId =
-                            user.optString(Common.USER_THUMBNAIL_FILE_ID);
-                    if (Strings.isEmptyOrNull(thumbnailFileId)) {
-                        topAuthor.put(Common.USER_THUMBNAIL_URL,
-                                EntryAction.DEFAULT_USER_THUMBNAIL_URL);
-                    } else {
-                        topAuthor.put(Common.USER_THUMBNAIL_URL,
-                                "/file?oId=" + thumbnailFileId);
-                    }
+                    topAuthor.put(Common.USER_THUMBNAIL_URL,
+                                  EntryAction.DEFAULT_USER_THUMBNAIL_URL);
                 }
                 LOGGER.log(Level.FINE, "Got top authors for tag[title={0}]",
                            tagTitle);
@@ -140,15 +132,8 @@ public final class IndexAction extends AbstractCacheablePageAction {
                     article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
                     final String sign = author.getString(Common.SIGN);
                     article.put(Common.SIGN, sign);
-                    final String thumbnailFileId =
-                            author.optString(Common.USER_THUMBNAIL_FILE_ID);
-                    if (Strings.isEmptyOrNull(thumbnailFileId)) {
-                        article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
+                    article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
                                 EntryAction.DEFAULT_USER_THUMBNAIL_URL);
-                    } else {
-                        article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
-                                "/file?oId=" + thumbnailFileId);
-                    }
                 }
                 tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
                 LOGGER.log(Level.FINE, "Got recent articles for tag[title={0}]",

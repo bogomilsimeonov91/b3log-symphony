@@ -20,7 +20,7 @@
         <span class="left">&nbsp;|</span>
         <a href="/" title="${indexLabel}"><span class="index-icon"></span></a>
         <span class="left">&nbsp;|</span>
-        <span title="${logoutLabel}" onclick="Util.logout();" class="logout-icon"></span>
+        <span title="${logoutLabel}" onclick="" class="logout-icon"></span>
     </span>
     <div class="clear"></div>
 </div>
