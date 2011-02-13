@@ -12,6 +12,8 @@
         <span class="left">&nbsp;|&nbsp;</span>
         <a class="left" href="/user-add-entry">${postEntryLabel}</a>
         <span class="left">&nbsp;|&nbsp;</span>
+        <a class="left" href="/user-entries">${entryLabel}</a>
+        <span class="left">&nbsp;|&nbsp;</span>
         <a class="left" href="/user-comments">${commentLabel}</a>
         <span class="left">&nbsp;|</span>
         <span title="${settingsLabel}" onclick="window.location='/user-settings'" class='admin-icon'></span>
