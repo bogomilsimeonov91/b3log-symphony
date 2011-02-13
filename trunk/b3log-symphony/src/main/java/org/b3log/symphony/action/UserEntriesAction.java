@@ -40,6 +40,7 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Users;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -79,16 +80,9 @@ public final class UserEntriesAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
-        final String userName = request.getRequestURI().substring(
-                "/users/".length());
+        final JSONObject user = Users.getCurrentUser();
         try {
-            final JSONObject user = userRepository.getByName(userName);
-            if (null == user) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-
-                return ret;
-            }
-
+            final String userName = user.getString(User.USER_NAME);
             ret.put(User.USER_NAME, userName);
             ret.put(Common.USER_THUMBNAIL_URL,
                     user.getString(Common.USER_THUMBNAIL_URL));
