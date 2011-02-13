@@ -40,7 +40,6 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
-import org.b3log.symphony.util.Symphonys;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -70,11 +69,6 @@ public final class UserEntriesAction extends AbstractAction {
      */
     private ArticleRepository articleRepository = ArticleGAERepository.
             getInstance();
-    /**
-     * Entry fetch size.
-     */
-    public static final int ENTRY_FETCH_SIZE = Integer.valueOf(
-            Symphonys.get("userEntriesCntPerPage"));
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -126,9 +120,10 @@ public final class UserEntriesAction extends AbstractAction {
         final int currentPageNum = queryStringJSONObject.optInt("p", 1);
         final String userId = user.getString(Keys.OBJECT_ID);
         final Query query = new Query();
-        query.setCurrentPageNum(currentPageNum).setPageSize(ENTRY_FETCH_SIZE).
-                addFilter(Common.AUTHOR_ID,
-                          FilterOperator.EQUAL, userId).
+        query.setCurrentPageNum(currentPageNum).setPageSize(
+                UserAction.ENTRY_FETCH_SIZE).addFilter(Common.AUTHOR_ID,
+                                                       FilterOperator.EQUAL,
+                                                       userId).
                 addSort(Article.ARTICLE_CREATE_DATE,
                         SortDirection.DESCENDING);
         final JSONObject result = articleRepository.get(query);
@@ -141,7 +136,8 @@ public final class UserEntriesAction extends AbstractAction {
                 getInt(Pagination.PAGINATION_PAGE_COUNT);
         final int windowSize = 10;
         final List<Integer> pageNums =
-                Paginator.paginate(currentPageNum, ENTRY_FETCH_SIZE, pageCount,
+                Paginator.paginate(currentPageNum,
+                                   UserAction.ENTRY_FETCH_SIZE, pageCount,
                                    windowSize);
         dataModel.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
         dataModel.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
