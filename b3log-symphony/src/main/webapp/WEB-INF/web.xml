@@ -33,6 +33,7 @@
         <url-pattern>/entries/*</url-pattern>
         <url-pattern>/</url-pattern>
         <url-pattern>/index</url-pattern>
+        <url-pattern>/about</url-pattern>
     </filter-mapping>
     <security-constraint>
         <web-resource-collection>
