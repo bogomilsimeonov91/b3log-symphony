@@ -56,7 +56,7 @@ import org.json.JSONObject;
  * Adds entry submitted locally.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 10, 2011
+ * @version 1.0.0.1, Feb 13, 2011
  */
 public final class UserAddEntryAction extends AbstractAction {
 
@@ -144,6 +144,7 @@ public final class UserAddEntryAction extends AbstractAction {
      * <pre>
      * {
      *     "sc": true
+     *     "userName": ""
      * }
      * </pre>
      * @throws ActionException action exception
@@ -217,6 +218,7 @@ public final class UserAddEntryAction extends AbstractAction {
             transaction.commit();
 
             ret.put(Keys.STATUS_CODE, true);
+            ret.put(User.USER_NAME, author.getString(User.USER_NAME));
 
             return ret;
         } catch (final Exception e) {
