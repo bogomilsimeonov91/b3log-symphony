@@ -75,11 +75,6 @@ public final class UserEntriesAction extends AbstractAction {
      */
     public static final int ENTRY_FETCH_SIZE = Integer.valueOf(
             Symphonys.get("userEntriesCntPerPage"));
-    /**
-     * Comment fetch size.
-     */
-    public static final int CMT_FETCH_SIZE = Integer.valueOf(
-            Symphonys.get("userCmtsCntPerPage"));
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
