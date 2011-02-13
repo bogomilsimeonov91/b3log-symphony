@@ -15,7 +15,7 @@
         <script type="text/javascript" src="/js/lib/completed.js"></script>
     </head>
     <body>
-        <#include "user-top.ftl"/>
+        <#include "top.ftl"/>
         <div class="content">
             <div class="form" id="postEntryForm" width="100%">
                 <label for="title">${titleLabel}</label>

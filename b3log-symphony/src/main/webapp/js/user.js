@@ -100,7 +100,7 @@ $.extend(User.prototype, {
                     data: JSON.stringify(requestJSONObject),
                     success: function(result, textStatus){
                         if (result.sc) {
-                            window.location.href = "/users/" + result.userName;
+                            window.location.href = "/user-entries";
                         } else {
                             $("#tip").text(result.msg);
                         }

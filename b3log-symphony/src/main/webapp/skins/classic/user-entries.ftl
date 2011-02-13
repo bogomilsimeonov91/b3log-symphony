@@ -11,7 +11,7 @@
         <script type="text/javascript" src="/js/util.js"></script>
     </head>
     <body>
-        <#include "user-top.ftl"/>
+        <#include "top.ftl"/>
         <div class="content">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <caption class="bigger-font">
