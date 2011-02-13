@@ -108,6 +108,7 @@ public final class UserAction extends AbstractAction {
                 return ret;
             }
 
+            ret.put(User.USER_URL, user.getString(User.USER_URL));
             ret.put(User.USER_NAME, userName);
             ret.put(Common.USER_THUMBNAIL_URL,
                     user.getString(Common.USER_THUMBNAIL_URL));
