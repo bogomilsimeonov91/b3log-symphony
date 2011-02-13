@@ -44,7 +44,7 @@
                     "titleCannotEmptyLabel": "${titleCannotEmptyLabel}"
                 }
             });
-            user.initStatus();
+            Util.initStatus();
             var editor = user.initPostEntry(${tags});
         </script>
     </body>

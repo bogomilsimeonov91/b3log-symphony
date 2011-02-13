@@ -180,7 +180,7 @@
                 "oId": "${article.oId}",
                 "paginationPageCount": "${paginationPageCount}"
             });
-            index.initStatus();
+            Util.initStatus();
             Util.initPagination();
             var editor = new jtbcEditor('commentContent');
             editor.tInit('editor', '/js/lib/jtbceditor/');

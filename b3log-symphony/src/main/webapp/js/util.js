@@ -15,6 +15,35 @@
  */
 
 var Util = {
+    initStatus: function () {
+        if ($.browser.msie) {
+            if ($.browser.version === "6.0") {
+                alert("Let's kill IE6!");
+                return;
+            }
+        }
+        
+        $.ajax({
+            url: "/check-login",
+            type: "POST",
+            success: function(result, textStatus){
+                switch(result.sc) {
+                    case true:
+                        $("#userStatus span")[0].innerHTML = result.userName;
+                        $("#userStatus span").last().click(function () {
+                            window.location.href = result.logoutURL;
+                        });
+                        break;
+                    case false:
+                        $("#userStatus").html("<span onclick=\"window.location.href='"
+                            + result.loginURL + "'\" class='login-icon'></span>");
+                        $("#commentForm").hide();
+                        break;
+                }
+            }
+        });
+    },
+
     bindSubmitAction: function () {
         for (var i = 0; i < arguments.length; i++) {
             $("#" + arguments[i] + ".form input").keypress(function (event) {

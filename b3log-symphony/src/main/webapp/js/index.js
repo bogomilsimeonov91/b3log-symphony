@@ -19,41 +19,6 @@ var Index = function (args) {
 }
 
 $.extend(Index.prototype, {
-    initStatus: function () {
-        if ($.browser.msie) {
-            if ($.browser.version === "6.0") {
-                alert("Let's kill IE6!");
-                return;
-            }
-        }
-        var labels = this.labels;
-        $.ajax({
-            url: "/check-login",
-            type: "POST",
-            success: function(result, textStatus){
-                switch(result.sc) {
-                    case true:
-                        $("#userStatus").html("<a class='left' href='/users/" + result.userName + "'>"
-                            + result.userName + "</a>"
-                            + "<span class='left'>&nbsp;|&nbsp;</span>"
-                            + "<a class='left' href='/user-add-entry'>" + labels.postEntryLabel + "</a>"
-                            + "<span class='left'>&nbsp;|</span>"
-                            + "<span title='" + labels.settingsLabel
-                            + "' onclick=\"window.location='/user-settings'\" class='admin-icon'></span>"
-                            + "<span class='left'>&nbsp;|</span>"
-                            + "<span title='" + labels.logoutLabel
-                            + "' onclick=\"window.location.href='" + result.logoutURL + "'\" class='logout-icon'></span>");
-                        break;
-                    case false:
-                        $("#userStatus").html("<span title='" + labels.loginLabel
-                            + "' onclick=\"window.location.href='" + result.loginURL + "'\" class='login-icon'></span>");
-                        $("#commentForm").hide();
-                        break;
-                }
-            }
-        });
-    },
-
     bindSubmitAction: function () {
         for (var i = 0; i < arguments.length; i++) {
             $("#" + arguments[i] + ".form input").keypress(function (event) {
