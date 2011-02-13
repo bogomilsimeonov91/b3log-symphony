@@ -66,7 +66,7 @@ public final class Users {
         sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
         sign = UBBDecoder.decode(sign);
 
-        return user.getString(sign);
+        return sign;
     }
 
     /**
