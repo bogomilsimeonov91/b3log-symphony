@@ -8,7 +8,6 @@
         <link type="text/css" rel="stylesheet" href="/skins/classic/default-index.css"/>
         <link rel="icon" type="image/png" href="/favicon.png"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/lib/json2.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
         <script type="text/javascript" src="/js/user.js"></script>
     </head>
@@ -16,17 +15,17 @@
         <#include "user-top.ftl"/>
         <div class="content user-comments">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
+                <caption class="bigger-font">
+                    ${commentLabel}
+                </caption>
                 <tr>
-                    <th style="width: 200px;">
+                    <th width="200px">
                         ${titleLabel}
                     </th>
-                    <th width="361px">
+                    <th width="412px">
                         ${commentContentLabel}
                     </th>
-                    <th width="150px">
-                        ${commentDateLabel}
-                    </th>
-                    <th width="32px">
+                    <th width="127px" colspan="2">
                         ${commentLabel}
                     </th>
                 </tr>
@@ -42,10 +41,10 @@
                             ${comment.commentContent}
                         </div>
                     </td>
-                    <td align="center">
+                    <td class="small-font" width="95px">
                         ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
                     </td>
-                    <td  align="center" style="border-color: #BBBBBB;">
+                    <td width="32px">
                         <a target="_blank" href="/entries/${comment.commentEntryId}#${comment.oId}comment">
                             <span class="comment-icon"></span>
                         </a>
@@ -86,12 +85,8 @@
             <#include "user-footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var user = new User({
-                "labels": {
-                    "nameErrorLabel": "${nameErrorLabel}"
-                }
-            });
-            user.initStatus();
+            var user = new User();
+            Util.initStatus();
             Util.initPagination();
             user.commentTip();
         </script>

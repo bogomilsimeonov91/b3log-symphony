@@ -100,7 +100,7 @@
                     "setSuccLabel": "${setSuccLabel}"
                 }
             });
-            user.initStatus();
+            Util.initStatus();
             Util.bindSubmitAction("userInfoForm", "userSettingsForm");
             $("#userURL").focus(function () {
                 $(this).prev()[0].className = "input-label-focus";

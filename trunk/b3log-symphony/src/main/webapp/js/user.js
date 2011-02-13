@@ -19,25 +19,6 @@ var User = function (args) {
 }
 
 $.extend(User.prototype, {
-    initStatus: function () {
-        if ($.browser.msie) {
-            if ($.browser.version === "6.0") {
-                alert("Let's kill IE6!");
-                return;
-            }
-        }
-        $.ajax({
-            url: "/check-login",
-            type: "POST",
-            success: function(result, textStatus){
-                $("#userStatus span")[0].innerHTML = result.userName;
-                $("#userStatus span").last().click(function () {
-                    window.location.href = result.logoutURL;
-                });
-            }
-        });
-    },
-
     setUserInfo: function () {
         if (Util.validateForm("tipUserInfo", [{
             "id": "userName",

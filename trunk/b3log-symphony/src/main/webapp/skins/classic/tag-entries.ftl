@@ -14,9 +14,7 @@
         <link type="text/css" rel="stylesheet" href="/skins/classic/default-index.css"/>
         <link rel="icon" type="image/png" href="/favicon.png"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/lib/json2.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
-        <script type="text/javascript" src="/js/index.js"></script>
     </head>
     <body>
         <#include "top.ftl"/>
@@ -118,15 +116,7 @@
             <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var index = new Index({
-                "labels": {
-                    "loginLabel": "${loginLabel}",
-                    "logoutLabel": "${logoutLabel}",
-                    "settingsLabel": "${settingsLabel}",
-                    "postEntryLabel": "${postEntryLabel}"
-                }
-            });
-            index.initStatus();
+            Util.initStatus();
             Util.initPagination();
         </script>
     </body>
