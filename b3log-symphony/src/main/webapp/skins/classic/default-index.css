@@ -125,6 +125,40 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* common component */
+.entry-list {
+    margin-bottom: 10px;
+    padding: 5px 0 10px 0;
+    border-top: 1px dashed #C1CDDD;
+}
+
+.entry-list dd {
+    margin: 0 5px;
+    padding: 5px;
+}
+
+.entry-list dd:hover {
+    background-color: #E1EDF3;
+}
+
+.entry-list dd .title-tag {
+    width: 677px;
+    padding-left: 20px;
+    overflow: hidden;
+}
+
+.entry-list-top .even {
+    background-color: #E1EdF3;
+}
+
+.entry-list-top .article-body {
+    padding: 0 10px;
+    border-top: 1px dashed #FFFFFF;
+}
+
+.entry-list-top dd {
+    padding: 5px 10px;
+}
+
 .form th {
     text-align:right;
     white-space:nowrap;
@@ -182,8 +216,9 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 24px;
 }
 
-.form caption {
+.form caption, .table caption, .caption {
     font-size: 20px;
+    color: #505561;
     font-weight: bold;
     margin: 11px 0;
 }
@@ -221,14 +256,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .table tr:hover {
     background-color: #E1EDF3;
-}
-
-.table caption {
-    color: #505561;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 11px 0;
-    text-align: left;
 }
 
 #pagination {
@@ -331,28 +358,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* entry */
-.entry-list {
-    margin-bottom: 10px;
-    padding: 5px 0 10px 0;
-    border-top: 1px dashed #E1EDF3;
-}
-
-.entry-list dd {
-    margin: 0 5px;
-    padding: 5px;
-}
-
-.entry-list dd:hover {
-    background-color: #E1EDF3;
-}
-
-.entry-list dd .title-tag {
-    width: 677px;
-    padding-left: 20px;
-    overflow: hidden;
-}
-
-.entry .big-head-img {
+.entry .big-head-img, .user>.marginB20 img {
     margin: 0 20px 16px 0;
 }
 

@@ -19,79 +19,91 @@
     <body>
         <#include "top.ftl"/>
         <div class="content user">
-            <dl class="entry-list">
+            <div class="marginB20">
+                <a href="/users/${userName}">
+                    <img alt="${userName}" title="${userName}"
+                         src="${userThumbnailURL}" class="big-head-img left"/>
+                </a>
+                <div class="left">
+                    <h1 class="bigger-font" title="http://${userURL}">
+                        <a href="${userURL}">${userName}</a>
+                    </h1>
+                    <br/><br/>
+                    <h2 class="middle-font">
+                        ${sign}
+                    </h2>
+                </div>
+                <span class="clear"></span>
+            </div>
+            <dl class="entry-list-top marginB20">
+                <dt class="caption">
+                    ${lastEntryLabel}
+                </dt>
                 <#list articles as article>
-                <dd>
-                    <div>
-                        <h3 title="${article.articleTitle}">
-                            <a href="/entries/${article.oId}" class="big-font">${article.articleTitle}</a>
-                        </h3>
-                        <span class="right">
-                            <span class="left small-font">
-                                ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}&nbsp;
-                            </span>
-                            <#if "1970" != article.articleLastCmtDate?string('yyyy')>
-                            <a href="/entries/${article.oId}#comments"
-                               title="${lastCommentDateLabel}：${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}">
-                                <span class="comment-icon"></span>
-                                <span class="left">&nbsp;${article.articleCommentCount}</span>
-                            </a>
-                            <#else>
-                            <span class="left">&nbsp;&nbsp;</span>
-                            <a href="/entries/${article.oId}#commentContent">
-                                <span class="sofa-icon" title="${sofaLabel}"></span>
-                            </a>
-                            <span class="left">&nbsp;</span>
-                            </#if>
-                        </span>
-                        <span class="clear"></span>
-                    </div>
+                <#if article_index % 2 == 0>
+                <dd class="even">
+                <#else>
+                <dd class="odd">
+                </#if>
+                    <h3 title="${article.articleTitle}">
+                        <a href="/entries/${article.oId}" class="big-font">${article.articleTitle}</a>
+                        &nbsp;&nbsp;&nbsp;
+                    </h3>
                     <#list article.articleTags?split(',') as tagTitle>
                     <h4 title="${tagTitle}" class="middle-font">
                         <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                     </h4>
                     </#list>
+                    <span class="right">
+                        <#if "1970" != article.articleLastCmtDate?string('yyyy')>
+                        <a href="/entries/${article.oId}#comments"
+                           title="${lastCommentDateLabel}：${article.articleLastCmtDate?string('yyyy-MM-dd HH:mm')}">
+                            <span class="comment-icon"></span>
+                            <span class="left">&nbsp;${article.articleCommentCount}</span>
+                        </a>
+                        <#else>
+                        <a href="/entries/${article.oId}#commentContent">
+                            <span class="sofa-icon" title="${sofaLabel}"></span>
+                        </a>
+                        </#if>
+                        <span class="left small-font">
+                            &nbsp;&nbsp;&nbsp;${article.articleCreateDate?string('yyyy-MM-dd HH:mm:ss')}
+                        </span>
+                    </span>
+                    <span class="clear"></span>
                     </#list>
                 </dd>
             </dl>
-            <table cellpadding="0" cellspacing="0" width="100%" class="table">
-                <tr>
-                    <th style="width: 200px;">
-                        ${titleLabel}
-                    </th>
-                    <th width="361px">
-                        ${commentContentLabel}
-                    </th>
-                    <th width="150px">
-                        ${commentDateLabel}
-                    </th>
-                    <th width="32px">
-                        ${commentLabel}
-                    </th>
-                </tr>
+            <dl class="entry-list-top">
+                <dt class="caption">
+                    ${lastCommentLabel}
+                </dt>
                 <#list comments as comment>
-                <tr>
-                    <td>
-                        <a href="/entries/${comment.commentEntryId}" target="_blank">
+                <#if comment_index % 2 == 0>
+                <dd class="even">
+                <#else>
+                <dd class="odd">
+                </#if>
+                    <div class="left">
+                        <a href="/entries/${comment.commentEntryId}" class="big-font">
                             ${comment.commentEntryTitle}
                         </a>
-                    </td>
-                    <td>
-                        <div class="comment-hidden" id="${comment.oId}">
-                            ${comment.commentContent}
-                        </div>
-                    </td>
-                    <td align="center">
-                        ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
-                    </td>
-                    <td  align="center" style="border-color: #BBBBBB;">
-                        <a target="_blank" href="/entries/${comment.commentEntryId}#${comment.oId}comment">
+                    </div>
+                    <div class="right">
+                        <a href="/entries/${comment.commentEntryId}#${comment.oId}comment">
                             <span class="comment-icon"></span>
                         </a>
-                    </td>
-                </tr>
+                        <span class="small-font left">
+                            &nbsp;&nbsp;&nbsp;${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
+                        </span>
+                    </div>
+                    <span class="clear"></span>
+                    <div class="article-body">
+                        ${comment.commentContent}
+                    </div>
+                </dd>
                 </#list>
-            </table>
+            </dl>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
