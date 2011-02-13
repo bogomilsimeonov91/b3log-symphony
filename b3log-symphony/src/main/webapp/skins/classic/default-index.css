@@ -424,3 +424,10 @@ h1, h2, h3, h4, h5, h6 {
     word-break: break-all;
     word-wrap:break-word;
 }
+
+.user .marginB20>div {
+    word-break: break-all;
+    word-wrap:break-word;
+    width: 667px;
+    overflow: hidden;
+}
