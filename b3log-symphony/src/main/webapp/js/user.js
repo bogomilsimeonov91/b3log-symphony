@@ -30,9 +30,7 @@ $.extend(User.prototype, {
             url: "/check-login",
             type: "POST",
             success: function(result, textStatus){
-                $("#userStatus span")[0].innerHTML = "<a class='left' href='/users/"
-                + result.userName + "'>"
-                + result.userName + "</a>";
+                $("#userStatus span")[0].innerHTML = result.userName;
                 $("#userStatus span").last().click(function () {
                     window.location.href = result.logoutURL;
                 });
@@ -121,7 +119,7 @@ $.extend(User.prototype, {
                     data: JSON.stringify(requestJSONObject),
                     success: function(result, textStatus){
                         if (result.sc) {
-                            window.location.href = "/users/" + Util.readCookie("userName");
+                            window.location.href = "/users/" + result.userName;
                         } else {
                             $("#tip").text(result.msg);
                         }

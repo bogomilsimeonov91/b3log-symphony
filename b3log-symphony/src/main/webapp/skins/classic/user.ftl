@@ -50,27 +50,44 @@
                     </#list>
                 </dd>
             </dl>
-            <#if paginationPageNums?size != 0>
-            <div id="pagination">
-                <#if paginationPageNums?first != 1>
-                <a href="javascript:window.location.search='?p=1'" title="${firstPageLabel}"><<</a>
-                <a id="previousPage"
-                   href="javascript:window.location.search='?p={paginationPageCount}'"
-                   title="${previousPageLabel}"><</a>
-                </#if>
-                <#list paginationPageNums as page>
-                <a href="javascript:window.location.search='?p=${page}'" title="${page}">${page}</a>
+            <table cellpadding="0" cellspacing="0" width="100%" class="table">
+                <tr>
+                    <th style="width: 200px;">
+                        ${titleLabel}
+                    </th>
+                    <th width="361px">
+                        ${commentContentLabel}
+                    </th>
+                    <th width="150px">
+                        ${commentDateLabel}
+                    </th>
+                    <th width="32px">
+                        ${commentLabel}
+                    </th>
+                </tr>
+                <#list comments as comment>
+                <tr>
+                    <td>
+                        <a href="/entries/${comment.commentEntryId}" target="_blank">
+                            ${comment.commentEntryTitle}
+                        </a>
+                    </td>
+                    <td>
+                        <div class="comment-hidden" id="${comment.oId}">
+                            ${comment.commentContent}
+                        </div>
+                    </td>
+                    <td align="center">
+                        ${comment.commentDate?string('yyyy-MM-dd HH:mm:ss')}
+                    </td>
+                    <td  align="center" style="border-color: #BBBBBB;">
+                        <a target="_blank" href="/entries/${comment.commentEntryId}#${comment.oId}comment">
+                            <span class="comment-icon"></span>
+                        </a>
+                    </td>
+                </tr>
                 </#list>
-                <#if paginationPageNums?last!=paginationPageCount>
-                <a id="nextPage"
-                   href="javascript:window.location.search='?p={paginationPageCount}'"
-                   title="${nextPagePabel}">></a>
-                <a href="javascript:window.location.search='?p=${paginationPageCount}'"
-                   title="${lastPageLabel}">>></a>
-                </#if>
-                ${sumLabel}${paginationPageCount}${pageLabel}
-            </div>
-            </#if>
+            </table>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
