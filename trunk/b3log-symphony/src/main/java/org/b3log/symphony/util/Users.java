@@ -16,6 +16,7 @@
 
 package org.b3log.symphony.util;
 
+import com.dlog4j.util.UBBDecoder;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import java.util.logging.Level;
@@ -25,6 +26,7 @@ import org.b3log.latke.model.User;
 import org.b3log.symphony.action.EntryAction;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -50,6 +52,22 @@ public final class Users {
      */
     private static final UserService USER_SVC =
             UserServiceFactory.getUserService();
+
+    /**
+     * Gets the specified user's sign as HTML content.
+     *
+     * @param user the specified user
+     * @return sign HTML
+     * @throws JSONException json exception
+     */
+    public static String getUserSignHTML(final JSONObject user)
+            throws JSONException {
+        String sign = user.getString(Common.SIGN);
+        sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        sign = UBBDecoder.decode(sign);
+
+        return user.getString(sign);
+    }
 
     /**
      * Checks whether the specified email is invalid.

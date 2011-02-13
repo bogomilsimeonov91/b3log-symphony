@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.b3log.symphony.action;
 
-import com.dlog4j.util.UBBDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,6 +44,7 @@ import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
 import org.b3log.symphony.util.Symphonys;
+import org.b3log.symphony.util.Users;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -109,9 +110,7 @@ public final class UserAction extends AbstractAction {
             }
 
             ret.put(User.USER_URL, user.getString(User.USER_URL));
-            String sign = user.getString(Common.SIGN);
-            sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-            sign = UBBDecoder.decode(sign);
+            final String sign = Users.getUserSignHTML(user);
             ret.put(Common.SIGN, user.getString(sign));
             ret.put(User.USER_NAME, userName);
             ret.put(Common.USER_THUMBNAIL_URL,
