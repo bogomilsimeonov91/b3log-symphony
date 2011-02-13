@@ -26,7 +26,18 @@ $.extend(User.prototype, {
                 return;
             }
         }
-        $("#userStatus span")[0].innerHTML = Util.readCookie("userName");
+        $.ajax({
+            url: "/check-login",
+            type: "POST",
+            success: function(result, textStatus){
+                $("#userStatus span")[0].innerHTML = "<a class='left' href='/users/"
+                + result.userName + "'>"
+                + result.userName + "</a>";
+                $("#userStatus span").last().click(function () {
+                    window.location.href = result.logoutURL;
+                });
+            }
+        });
     },
 
     setUserInfo: function () {
@@ -47,7 +58,6 @@ $.extend(User.prototype, {
                 success: function(result, textStatus){
                     switch (result.sc) {
                         case true:
-                            Util.createCookie("userName", $("#userName").val(), 365);
                             $("#tipUserInfo").text(changeSuccLabel);
                             break;
                         case false:

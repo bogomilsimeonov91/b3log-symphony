@@ -174,7 +174,7 @@
                     "submitLabel": "${submitLabel}",
                     "loginLabel": "${loginLabel}",
                     "logoutLabel": "${logoutLabel}",
-                    "adminConsoleLabel": "${adminConsoleLabel}",
+                    "settingsLabel": "${settingsLabel}",
                     "postEntryLabel": "${postEntryLabel}"
                 },
                 "oId": "${article.oId}",

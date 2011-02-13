@@ -33,11 +33,13 @@ $.extend(Index.prototype, {
             success: function(result, textStatus){
                 switch(result.sc) {
                     case true:
-                        $("#userStatus").html("<span class='left'>" + result.userName + "&nbsp;|&nbsp;</span>"
+                        $("#userStatus").html("<a class='left' href='/users/" + result.userName + "'>"
+                            + result.userName + "</a>"
+                            + "<span class='left'>&nbsp;|&nbsp;</span>"
                             + "<a class='left' href='/user-add-entry'>" + labels.postEntryLabel + "</a>"
                             + "<span class='left'>&nbsp;|</span>"
-                            + "<span title='" + labels.adminConsoleLabel
-                            + "' onclick=\"window.location='/users/" + result.userName +"'\" class='admin-icon'></span>"
+                            + "<span title='" + labels.settingsLabel
+                            + "' onclick=\"window.location='/user-settings'\" class='admin-icon'></span>"
                             + "<span class='left'>&nbsp;|</span>"
                             + "<span title='" + labels.logoutLabel
                             + "' onclick=\"window.location.href='" + result.logoutURL + "'\" class='logout-icon'></span>");
@@ -100,9 +102,6 @@ $.extend(Index.prototype, {
             var requestJSONObject = {
                 "oId": this.oId,
                 "commentContent": $("#commentContentReply").val(),
-                "userName": Util.readCookie("userName"),
-                "userEmail": Util.readCookie("userEmail"),
-                "userURL": Util.readCookie("userURL"),
                 "commentOriginalCommentId": oId
             };
             $.ajax({

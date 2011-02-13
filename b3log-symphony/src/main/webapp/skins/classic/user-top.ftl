@@ -13,12 +13,10 @@
         <a class="left" href="/user-add-entry">${postEntryLabel}</a>
         <span class="left">&nbsp;|&nbsp;</span>
         <a class="left" href="/user-comments">${commentLabel}</a>
-        <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-settings">${settingsLabel}</a>
         <span class="left">&nbsp;|</span>
-        <a href="/" title="${indexLabel}"><span class="index-icon"></span></a>
+        <span title="${settingsLabel}" onclick="window.location='/user-settings'" class='admin-icon'></span>
         <span class="left">&nbsp;|</span>
-        <span title="${logoutLabel}" onclick="" class="logout-icon"></span>
+        <span title="${logoutLabel}" class="logout-icon"></span>
     </span>
     <div class="clear"></div>
 </div>
