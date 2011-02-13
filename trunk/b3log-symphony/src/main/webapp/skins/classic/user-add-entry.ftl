@@ -16,7 +16,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="content">
+        <div class="symphony-content">
             <div class="form" id="postEntryForm" width="100%">
                 <label for="title">${titleLabel}</label>
                 <input id="title"/>

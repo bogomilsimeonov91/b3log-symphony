@@ -16,7 +16,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="content">
+        <div class="symphony-content">
             ${aboutContentLabel}
         </div>
         <div class="footer">

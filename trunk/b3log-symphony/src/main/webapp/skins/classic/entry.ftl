@@ -21,7 +21,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="content entry">
+        <div class="symphony-content entry">
             <dl class="marginB20">
                 <dd>
                     <a href="/users/${article.articleAuthorName}">

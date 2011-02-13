@@ -18,7 +18,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="content user">
+        <div class="symphony-content user">
             <div class="marginB20">
                 <a href="/users/${userName}">
                     <img alt="${userName}" title="${userName}"

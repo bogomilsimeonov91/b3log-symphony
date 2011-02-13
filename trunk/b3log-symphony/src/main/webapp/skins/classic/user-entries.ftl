@@ -12,7 +12,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="content">
+        <div class="symphony-content">
             <table cellpadding="0" cellspacing="0" width="100%" class="table">
                 <caption class="bigger-font">
                     ${entryLabel}

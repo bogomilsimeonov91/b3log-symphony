@@ -32,9 +32,13 @@ h1, h2, h3, h4, h5, h6 {
     height:108px;
 }
 
-.content{
+.symphony-content{
     -moz-border-radius: 5px 5px 5px 5px;
     -moz-box-shadow: 0 0 16px #808A82;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -webkit-box-shadow: 0 0 16px #808A82;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 16px #808A82;
     background-color: #FFFFFF;
     margin: 0 auto;
     width: 760px;
@@ -104,6 +108,8 @@ h1, h2, h3, h4, h5, h6 {
     border-color: #C2C2C2 #5A5A5A #5A5A5A #C2C2C2;
     padding: 2px 1px 1px 2px;
     -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
     height: 24px;
     width: 24px;
 }
