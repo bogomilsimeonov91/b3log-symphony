@@ -10,10 +10,10 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="/js/lib/json2.js"></script>
         <script type="text/javascript" src="/js/util.js"></script>
-        <script type="text/javascript" src="/js/user.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
     </head>
     <body>
-        <#include "user-top.ftl"/>
+        <#include "top.ftl"/>
         <div class="content user">
             <dl class="entry-list">
                 <#list articles as article>
@@ -53,19 +53,19 @@
             <#if paginationPageNums?size != 0>
             <div id="pagination">
                 <#if paginationPageNums?first != 1>
-                <a href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p=1'" title="${firstPageLabel}"><<</a>
+                <a href="javascript:window.location.search='?p=1'" title="${firstPageLabel}"><<</a>
                 <a id="previousPage"
-                   href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p={paginationPageCount}'"
+                   href="javascript:window.location.search='?p={paginationPageCount}'"
                    title="${previousPageLabel}"><</a>
                 </#if>
                 <#list paginationPageNums as page>
-                <a href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p=${page}'" title="${page}">${page}</a>
+                <a href="javascript:window.location.search='?p=${page}'" title="${page}">${page}</a>
                 </#list>
                 <#if paginationPageNums?last!=paginationPageCount>
                 <a id="nextPage"
-                   href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p={paginationPageCount}'"
+                   href="javascript:window.location.search='?p={paginationPageCount}'"
                    title="${nextPagePabel}">></a>
-                <a href="javascript:window.location.href='/users/' + Util.readCookie('userName') + '?p=${paginationPageCount}'"
+                <a href="javascript:window.location.search='?p=${paginationPageCount}'"
                    title="${lastPageLabel}">>></a>
                 </#if>
                 ${sumLabel}${paginationPageCount}${pageLabel}
@@ -73,15 +73,18 @@
             </#if>
         </div>
         <div class="footer">
-            <#include "user-footer.ftl"/>
+            <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
-            var user = new User({
+            var index = new Index({
                 "labels": {
-                    "nameErrorLabel": "${nameErrorLabel}"
+                    "loginLabel": "${loginLabel}",
+                    "logoutLabel": "${logoutLabel}",
+                    "settingsLabel": "${settingsLabel}",
+                    "postEntryLabel": "${postEntryLabel}"
                 }
             });
-            user.initStatus();
+            index.initStatus();
             Util.initPagination();
         </script>
     </body>

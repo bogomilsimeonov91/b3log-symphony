@@ -107,7 +107,7 @@
                 "labels": {
                     "loginLabel": "${loginLabel}",
                     "logoutLabel": "${logoutLabel}",
-                    "adminConsoleLabel": "${adminConsoleLabel}",
+                    "settingsLabel": "${settingsLabel}",
                     "postEntryLabel": "${postEntryLabel}"
                 }
             });
