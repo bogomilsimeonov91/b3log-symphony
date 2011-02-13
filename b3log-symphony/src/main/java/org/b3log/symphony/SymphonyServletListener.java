@@ -46,7 +46,7 @@ import org.b3log.symphony.util.Symphonys;
  * B3log Symphony servlet listener.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 9, 2011
+ * @version 1.0.0.3, Feb 14, 2011
  */
 public final class SymphonyServletListener extends AbstractServletListener {
 

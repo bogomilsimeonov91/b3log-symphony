@@ -33,10 +33,8 @@ import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Comment;
-import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
-import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
@@ -66,11 +64,6 @@ public final class UserCommentsAction extends AbstractAction {
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
     /**
-     * Article repository.
-     */
-    private ArticleRepository articleRepository =
-            ArticleGAERepository.getInstance();
-    /**
      * Comment repository.
      */
     private CommentRepository commentRepository = CommentGAERepository.
@@ -91,11 +84,11 @@ public final class UserCommentsAction extends AbstractAction {
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
-            final int fetchSize = 5;
 
             final String userId = user.getString(Keys.OBJECT_ID);
             final Query query = new Query();
-            query.setCurrentPageNum(currentPageNum).setPageSize(fetchSize).
+            query.setCurrentPageNum(currentPageNum).setPageSize(
+                    UserAction.CMT_FETCH_SIZE).
                     addFilter(Comment.COMMENTER_ID, FilterOperator.EQUAL, userId).
                     addSort(Comment.COMMENT_DATE, SortDirection.DESCENDING);
 
@@ -109,8 +102,8 @@ public final class UserCommentsAction extends AbstractAction {
                     Pagination.PAGINATION_PAGE_COUNT);
             final int windowSize = 10;
             final List<Integer> pageNums =
-                    Paginator.paginate(currentPageNum, fetchSize, pageCount,
-                                       windowSize);
+                    Paginator.paginate(currentPageNum, UserAction.CMT_FETCH_SIZE,
+                                       pageCount, windowSize);
             ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
         } catch (final Exception e) {
