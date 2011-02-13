@@ -18,7 +18,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="content tag">
+        <div class="symphony-content tag">
             <div class="title">
                 <h1 class="left">
                     <a title="${tag.tagTitle}" href="/tags/${tag.tagTitle?url('UTF-8')}" class="bigger-font">

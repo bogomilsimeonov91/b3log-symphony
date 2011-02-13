@@ -65,6 +65,9 @@ $.extend(User.prototype, {
                 switch (result.sc) {
                     case true:
                         $("#tip").text(changeSuccLabel);
+                        $("#userImg").html("<img src='" + $("#userThumbnailURL").val() + "'"
+                            + "class='big-head-img' alt='" + $("#userName").val()
+                            + "' title='" + $("#userName").val() + "'/>");
                         break;
                     case false:
                     default:

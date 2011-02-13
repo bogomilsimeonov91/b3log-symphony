@@ -14,7 +14,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="content settings">
+        <div class="symphony-content settings">
             <table class="form left" id="userInfoForm" width="300px" cellspacing="10">
                 <caption>${basicInfoLabel}</caption>
                 <tr>
@@ -48,7 +48,7 @@
                 </caption>
                 <tr>
                     <td width="57px"></td>
-                    <td>
+                    <td id="userImg">
                         <img src="${userThumbnailURL}"
                              class="big-head-img" alt="${userName}" title="${userName}"/>
                     </td>
