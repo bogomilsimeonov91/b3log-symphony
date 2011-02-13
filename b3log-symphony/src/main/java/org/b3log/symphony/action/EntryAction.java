@@ -16,7 +16,6 @@
 
 package org.b3log.symphony.action;
 
-import com.dlog4j.util.UBBDecoder;
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +45,7 @@ import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
 import org.b3log.symphony.util.Symphonys;
+import org.b3log.symphony.util.Users;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -88,7 +88,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
     /**
      * Default sign.
      */
-    public static final String DEFAULT_SIGN;
+    public static final String DEFAULT_SIGN = Langs.get("defaultSign");
     /**
      * Default user thumbnail URL.
      */
@@ -107,10 +107,6 @@ public final class EntryAction extends AbstractCacheablePageAction {
      */
     public static final int ENTRY_CMTS_PER_PAGE =
             Integer.valueOf(Symphonys.get("entryCmtsCntPerPage"));
-
-    static {
-        DEFAULT_SIGN = Langs.get("defaultSign");
-    }
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -167,9 +163,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
                             user.getString(User.USER_URL));
                     cmt.put(Comment.COMMENTER_NAME_REF,
                             user.getString(User.USER_NAME));
-                    String sign = user.getString(Common.SIGN);
-                    sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-                    sign = UBBDecoder.decode(sign);
+                    final String sign = Users.getUserSignHTML(user);
                     cmt.put(Common.SIGN, sign);
                     cmt.put(Comment.COMMENT_THUMBNAIL_URL_REF,
                             user.getString(Common.USER_THUMBNAIL_URL));
@@ -196,9 +190,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
             article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
             article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
                         author.getString(Common.USER_THUMBNAIL_URL));
-            String sign = author.getString(Common.SIGN);
-            sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-            sign = UBBDecoder.decode(sign);
+            final String sign = Users.getUserSignHTML(author);
             article.put(Common.SIGN, sign);
 
             ret.put(Article.ARTICLE, article);

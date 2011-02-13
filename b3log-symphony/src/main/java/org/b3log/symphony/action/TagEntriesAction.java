@@ -46,6 +46,7 @@ import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.TagUserGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Users;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -166,7 +167,7 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                 article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
                 final String url = author.getString(User.USER_URL);
                 article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
-                final String sign = author.getString(Common.SIGN);
+                final String sign = Users.getUserSignHTML(author);
                 article.put(Common.SIGN, sign);
                 article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
                             author.getString(Common.USER_THUMBNAIL_URL));
