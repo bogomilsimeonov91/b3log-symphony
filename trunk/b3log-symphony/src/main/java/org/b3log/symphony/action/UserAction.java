@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
+import com.dlog4j.util.UBBDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -109,7 +109,10 @@ public final class UserAction extends AbstractAction {
             }
 
             ret.put(User.USER_URL, user.getString(User.USER_URL));
-            ret.put(Common.SIGN, user.getString(Common.SIGN));
+            String sign = user.getString(Common.SIGN);
+            sign = sign.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+            sign = UBBDecoder.decode(sign);
+            ret.put(Common.SIGN, user.getString(sign));
             ret.put(User.USER_NAME, userName);
             ret.put(Common.USER_THUMBNAIL_URL,
                     user.getString(Common.USER_THUMBNAIL_URL));
@@ -183,9 +186,9 @@ public final class UserAction extends AbstractAction {
 
         final JSONObject result = commentRepository.get(query);
         final JSONArray commentArray = result.getJSONArray(Keys.RESULTS);
-        
+
         dataModel.put(Comment.COMMENTS, CollectionUtils.jsonArrayToList(
-                    commentArray));
+                commentArray));
     }
 
     @Override
