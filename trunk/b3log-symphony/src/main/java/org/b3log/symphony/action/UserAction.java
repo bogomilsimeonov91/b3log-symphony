@@ -51,7 +51,7 @@ import org.json.JSONObject;
  * User action. user.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 11, 2011
+ * @version 1.0.0.4, Feb 13, 2011
  */
 public final class UserAction extends AbstractAction {
 
@@ -137,10 +137,9 @@ public final class UserAction extends AbstractAction {
                              final JSONObject user,
                              final Map<String, Object> dataModel)
             throws Exception {
-        final int currentPageNum = queryStringJSONObject.optInt("p", 1);
         final String userId = user.getString(Keys.OBJECT_ID);
         final Query query = new Query();
-        query.setCurrentPageNum(currentPageNum).setPageSize(ENTRY_FETCH_SIZE).
+        query.setPageSize(ENTRY_FETCH_SIZE).
                 addFilter(Common.AUTHOR_ID,
                           FilterOperator.EQUAL, userId).
                 addSort(Article.ARTICLE_CREATE_DATE,
@@ -155,7 +154,7 @@ public final class UserAction extends AbstractAction {
                 getInt(Pagination.PAGINATION_PAGE_COUNT);
         final int windowSize = 10;
         final List<Integer> pageNums =
-                Paginator.paginate(currentPageNum, ENTRY_FETCH_SIZE, pageCount,
+                Paginator.paginate(1, ENTRY_FETCH_SIZE, pageCount,
                                    windowSize);
         dataModel.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
         dataModel.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
