@@ -13,7 +13,7 @@
         <script type="text/javascript" src="/js/user.js"></script>
     </head>
     <body>
-        <#include "user-top.ftl"/>
+        <#include "top.ftl"/>
         <div class="content settings">
             <table class="form left" id="userInfoForm" width="300px" cellspacing="10">
                 <caption>${basicInfoLabel}</caption>

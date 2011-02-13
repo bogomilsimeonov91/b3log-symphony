@@ -29,7 +29,8 @@ var Util = {
             success: function(result, textStatus){
                 switch(result.sc) {
                     case true:
-                        $("#userStatus span")[0].innerHTML = result.userName;
+                        $("#userStatus span")[0].innerHTML = "<a href='/users/" + result.userName + "'>"
+                        + result.userName + "</a>";
                         $("#userStatus span").last().click(function () {
                             window.location.href = result.logoutURL;
                         });
