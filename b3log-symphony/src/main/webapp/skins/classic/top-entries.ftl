@@ -18,10 +18,33 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <#include "header.ftl"/>
-        <div class="symphony-content index">
-            <dl>
-                <#list articles as article>
+        <div class="symphony-content top-entries">
+            <#list tags as tag>
+            <div class="title">
+                <h2 class="left">
+                    <a title="${tag.tagTitle}" class="bigger-font"
+                       href="/tags/${tag.tagTitle?url('UTF-8')}">
+                        ${tag.tagTitle}
+                    </a>
+                </h2>
+                <div class="count">
+                    <span class="tag-icon" title="${tagRefCountLabel}"></span>
+                    <span class="left">&nbsp;${tag.tagReferenceCount}&nbsp;&nbsp;</span>
+                    <span class="comment-icon" title="${commentCountLabel}"></span>
+                    <span class="left">&nbsp;${tag.tagCommentCount}</span>
+                </div>
+                <div class="right">
+                    <#list tag.tagTopAuthors as topAuthor>
+                    <a href="/users/${topAuthor.userName}">
+                        <img class="small-head-img" alt="${topAuthor.userName}" title="${topAuthor.userName}"
+                             src="${topAuthor.userThumbnailURL}"/>
+                    </a>
+                    </#list>
+                </div>
+                <span class="clear"></span>
+            </div>
+            <dl class="entry-list">
+                <#list tag.tagArticles as article>
                 <dd>
                     <div class="left">
                         <a title="${article.articleAuthorName}" href="/users/${article.articleAuthorName}" >
@@ -72,6 +95,7 @@
                 </dd>
                 </#list>
             </dl>
+            </#list>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>

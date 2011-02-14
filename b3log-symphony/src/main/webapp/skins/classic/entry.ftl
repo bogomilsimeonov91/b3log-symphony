@@ -21,6 +21,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
+        <#include "header.ftl"/>
         <div class="symphony-content entry">
             <dl class="marginB20">
                 <dd>
