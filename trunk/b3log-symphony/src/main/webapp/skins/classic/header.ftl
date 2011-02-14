@@ -1,7 +1,7 @@
 <div class="header">
     <ul>
         <li>
-            <a href="/index" class="current" title="${indexLabel}">${indexLabel}</a>
+            <a href="/" class="current" title="${indexLabel}">${indexLabel}</a>
         </li>
         <!--li>
             <a href="/tags" title="${tagsLabel}">${tagsLabel}</a>
