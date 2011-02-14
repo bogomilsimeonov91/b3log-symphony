@@ -25,7 +25,7 @@ import org.json.JSONObject;
  * Tag repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Jan 30, 2011
+ * @version 1.0.0.3, Feb 14, 2011
  */
 public interface TagRepository extends Repository {
 
@@ -57,6 +57,18 @@ public interface TagRepository extends Repository {
      */
     List<JSONObject> getRecentArticles(final String tagTitle,
                                        final int fetchSize)
+            throws RepositoryException;
+
+    /**
+     * Gets top comment articles of the specified tag title and fetch size.
+     *
+     * @param tagTitle the specified tag title
+     * @param fetchSize the specified fetch size
+     * @return a list of articles, returns an empty list if not fount
+     * @throws RepositoryException repository exception
+     */
+    List<JSONObject> getTopArticles(final String tagTitle,
+                                    final int fetchSize)
             throws RepositoryException;
 
     /**

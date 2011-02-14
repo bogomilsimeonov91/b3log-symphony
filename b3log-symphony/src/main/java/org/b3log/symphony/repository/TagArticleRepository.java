@@ -72,4 +72,31 @@ public interface TagArticleRepository extends Repository {
     JSONObject getByTagId(final String tagId,
                           final int currentPageNum,
                           final int pageSize) throws RepositoryException;
+
+     /**
+     * Gets top comment tag-article relations by the specified tag id.
+     *
+     * @param tagId the specified tag id
+     * @param currentPageNum the specified current page number, MUST greater
+     * then {@code 0}
+     * @param pageSize the specified page size(count of a page contains objects),
+     * MUST greater then {@code 0}
+     * @return for example
+     * <pre>
+     * {
+     *     "pagination": {
+     *       "paginationPageCount": 88250
+     *     },
+     *     "rslts": [{
+     *         "oId": "",
+     *         "tag_oId": tagId,
+     *         "article_oId": ""
+     *     }, ....]
+     * }
+     * </pre>
+     * @throws RepositoryException repository exception
+     */
+    JSONObject getTopByTagId(final String tagId,
+                          final int currentPageNum,
+                          final int pageSize) throws RepositoryException;
 }

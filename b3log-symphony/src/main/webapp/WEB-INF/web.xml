@@ -81,6 +81,14 @@
         <servlet-name>IndexAction</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
+     <servlet>
+        <servlet-name>TopEntries</servlet-name>
+        <servlet-class>org.b3log.symphony.action.TopEntriesAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TopEntries</servlet-name>
+        <url-pattern>/top-entries</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>TagEntriesAction</servlet-name>
         <servlet-class>org.b3log.symphony.action.TagEntriesAction</servlet-class>

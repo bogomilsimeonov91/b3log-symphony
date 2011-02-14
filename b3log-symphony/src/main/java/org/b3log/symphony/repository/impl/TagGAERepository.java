@@ -41,7 +41,7 @@ import org.json.JSONObject;
  * Tag Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 10, 2011
+ * @version 1.0.0.4, Feb 14, 2011
  */
 public final class TagGAERepository extends AbstractGAERepository
         implements TagRepository {
@@ -81,6 +81,40 @@ public final class TagGAERepository extends AbstractGAERepository
                     tagArticleRepository.getByTagId(tagId,
                                                     currentPageNum,
                                                     pageSize);
+            final JSONArray tagArticleRelations =
+                    result.getJSONArray(Keys.RESULTS);
+
+            for (int i = 0; i < tagArticleRelations.length(); i++) {
+                final JSONObject tagArticleRelation =
+                        tagArticleRelations.getJSONObject(i);
+                final String articleId =
+                        tagArticleRelation.getString(Article.ARTICLE + "_"
+                                                     + Keys.OBJECT_ID);
+                final JSONObject article = articleRepository.get(articleId);
+                if (article.getBoolean(Common.STATE)) {
+                    ret.add(article);
+                }
+            }
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new RepositoryException(e);
+        }
+
+        return ret;
+    }
+
+    @Override
+    public List<JSONObject> getTopArticles(final String tagTitle,
+                                              final int fetchSize)
+            throws RepositoryException {
+        final List<JSONObject> ret = new ArrayList<JSONObject>();
+        try {
+            final JSONObject tag = getByTitle(tagTitle);
+            final String tagId = tag.getString(Keys.OBJECT_ID);
+            final JSONObject result =
+                    tagArticleRepository.getTopByTagId(tagId,
+                                                    1,
+                                                    fetchSize);
             final JSONArray tagArticleRelations =
                     result.getJSONArray(Keys.RESULTS);
 
