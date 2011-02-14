@@ -150,7 +150,8 @@ public final class EntryAction extends AbstractCacheablePageAction {
                 final JSONObject cmt = commentRepository.get(cmtId);
 
                 if (!cmt.getBoolean(Common.STATE)) { // This comment is forbidden
-                    cmt.put(Comment.COMMENT_CONTENT, "自由、开放的环境需要大家共同维护 :-)");
+                    cmt.put(Comment.COMMENT_CONTENT,
+                            Langs.get("defaultCmtContent"));
                     cmt.put(Common.SIGN, DEFAULT_SIGN);
                     cmt.put(Comment.COMMENTER_URL_REF, Symphonys.get("host"));
                 } else {
