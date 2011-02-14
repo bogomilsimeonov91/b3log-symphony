@@ -42,7 +42,7 @@ import org.json.JSONObject;
  * Tag-Article relation Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 28, 2011
+ * @version 1.0.0.1, Feb 14, 2011
  */
 public final class TagArticleGAERepository extends AbstractGAERepository
         implements TagArticleRepository {
@@ -87,6 +87,52 @@ public final class TagArticleGAERepository extends AbstractGAERepository
         query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
                         Query.FilterOperator.EQUAL, tagId);
         query.addSort(Article.ARTICLE + "_" + Keys.OBJECT_ID,
+                      Query.SortDirection.DESCENDING);
+
+        final PreparedQuery preparedQuery = getDatastoreService().prepare(query);
+        final int count = preparedQuery.countEntities(
+                FetchOptions.Builder.withDefaults());
+        final int pageCount =
+                (int) Math.ceil((double) count / (double) pageSize);
+
+        final JSONObject ret = new JSONObject();
+        final JSONObject pagination = new JSONObject();
+        try {
+            ret.put(Pagination.PAGINATION, pagination);
+            pagination.put(Pagination.PAGINATION, pagination);
+            pagination.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+
+            final int offset = pageSize * (currentPageNum - 1);
+            final QueryResultList<Entity> queryResultList =
+                    preparedQuery.asQueryResultList(
+                    withOffset(offset).limit(pageSize));
+            final JSONArray results = new JSONArray();
+            ret.put(Keys.RESULTS, results);
+            for (final Entity entity : queryResultList) {
+                final Map<String, Object> properties = entity.getProperties();
+                final JSONObject e = new JSONObject(properties);
+
+                results.put(e);
+            }
+        } catch (final JSONException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new RepositoryException(e);
+        }
+
+        return ret;
+    }
+
+     @Override
+    public JSONObject getTopByTagId(final String tagId,
+                                 final int currentPageNum,
+                                 final int pageSize)
+            throws RepositoryException {
+        final Query query = new Query(getName());
+        query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
+                        Query.FilterOperator.EQUAL, tagId);
+        query.addSort(Article.ARTICLE + "_" + Keys.OBJECT_ID,
+                      Query.SortDirection.DESCENDING).
+                      addSort(Article.ARTICLE_COMMENT_COUNT,
                       Query.SortDirection.DESCENDING);
 
         final PreparedQuery preparedQuery = getDatastoreService().prepare(query);

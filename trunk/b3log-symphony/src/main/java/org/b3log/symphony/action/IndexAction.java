@@ -18,7 +18,6 @@ package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,25 +27,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractCacheablePageAction;
+import org.b3log.latke.action.util.Paginator;
+import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
+import org.b3log.latke.repository.Query;
+import org.b3log.latke.repository.SortDirection;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
-import org.b3log.symphony.model.Tag;
-import org.b3log.symphony.repository.TagRepository;
-import org.b3log.symphony.repository.TagUserRepository;
+import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.UserRepository;
-import org.b3log.symphony.repository.impl.TagGAERepository;
-import org.b3log.symphony.repository.impl.TagUserGAERepository;
+import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Symphonys;
 import org.b3log.symphony.util.Users;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  * Index action. index.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 9, 2011
+ * @version 1.0.0.5, Feb 14, 2011
  */
 public final class IndexAction extends AbstractCacheablePageAction {
 
@@ -60,18 +62,19 @@ public final class IndexAction extends AbstractCacheablePageAction {
     private static final Logger LOGGER =
             Logger.getLogger(IndexAction.class.getName());
     /**
-     * Tag repository.
+     * Article repository.
      */
-    private TagRepository tagRepository = TagGAERepository.getInstance();
-    /**
-     * Tag-User repository.
-     */
-    private TagUserRepository tagUserRepository = TagUserGAERepository.
+    private ArticleRepository articleRepository = ArticleGAERepository.
             getInstance();
     /**
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
+    /**
+     * Recent articles count.
+     */
+    private static final int RECENT_ARTICLES_CNT =
+            Integer.valueOf(Symphonys.get("recentEntriesCntPerPage"));
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -83,66 +86,46 @@ public final class IndexAction extends AbstractCacheablePageAction {
         try {
             ret.putAll(Langs.all());
 
-            // Tags
-            final int maxTagCnt = 10;
-            final int maxAuthorCnt = 3;
-            final int maxArticleCnt = 3;
-            final List<JSONObject> tags =
-                    tagRepository.getMostUsedTags(maxTagCnt);
-            List<JSONObject> articles = null;
-            LOGGER.log(Level.FINE, "Getting tags....");
-            for (int i = 0; i < tags.size(); i++) {
-                final JSONObject tag = tags.get(i);
-                final String tagId = tag.getString(Keys.OBJECT_ID);
-                final String tagTitle = tag.getString(Tag.TAG_TITLE);
+            final JSONObject queryStringJSONObject =
+                    getQueryStringJSONObject(request);
+            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
 
-                LOGGER.log(Level.FINE, "Getting top authors for tag[title={0}]",
-                           tagTitle);
-                final List<JSONObject> topAuthors = new ArrayList<JSONObject>();
-                tag.put(Tag.TAG_TOP_AUTHORS_REF, (Object) topAuthors);
-                final List<String> topAuthorIds =
-                        tagUserRepository.getTopTagUsers(tagId, maxAuthorCnt);
-                for (final String topAuthorId : topAuthorIds) {
-                    final JSONObject user = userRepository.get(topAuthorId);
+            final Query query = new Query();
+            query.setCurrentPageNum(currentPageNum).
+                    setPageSize(RECENT_ARTICLES_CNT).
+                    addSort(Article.ARTICLE_COMMENT_COUNT,
+                    SortDirection.DESCENDING);
+            LOGGER.log(Level.FINE, "Getting articles....");
+            final JSONObject result = articleRepository.get(query);
 
-                    final JSONObject topAuthor = new JSONObject();
-                    topAuthor.put(Keys.OBJECT_ID, topAuthorId);
-                    final String topAuthorName = user.getString(User.USER_NAME);
-                    topAuthor.put(User.USER_NAME, topAuthorName);
-                    final String topAuthorURL = user.getString(User.USER_URL);
-                    topAuthor.put(User.USER_URL, topAuthorURL);
-                    topAuthor.put(Common.USER_THUMBNAIL_URL,
-                                  user.getString(Common.USER_THUMBNAIL_URL));
-                    topAuthors.add(topAuthor);
-                }
-                LOGGER.log(Level.FINE, "Got top authors for tag[title={0}]",
-                           tagTitle);
-
-                LOGGER.log(Level.FINE,
-                           "Getting recent articles for tag[title={0}]",
-                           tagTitle);
-                articles = tagRepository.getRecentArticles(tagTitle,
-                                                           maxArticleCnt);
-                for (final JSONObject article : articles) {
-                    final String authorId = article.getString(
-                            Common.AUTHOR_ID);
-                    final JSONObject author = userRepository.get(authorId);
-                    final String name = author.getString(User.USER_NAME);
-                    article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
-                    final String url = author.getString(User.USER_URL);
-                    article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
-                    final String sign = Users.getUserSignHTML(author);
-                    article.put(Common.SIGN, sign);
-                    article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
-                                author.getString(Common.USER_THUMBNAIL_URL));
-                }
-                tag.put(Tag.TAG_ARTICLES_REF, (Object) articles);
-                LOGGER.log(Level.FINE, "Got recent articles for tag[title={0}]",
-                           tagTitle);
+            final JSONArray articles = result.getJSONArray(Keys.RESULTS);
+            for (int i = 0; i < articles.length(); i++) {
+                final JSONObject article = articles.getJSONObject(i);
+                final String authorId = article.getString(
+                        Common.AUTHOR_ID);
+                final JSONObject author = userRepository.get(authorId);
+                final String name = author.getString(User.USER_NAME);
+                article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
+                final String url = author.getString(User.USER_URL);
+                article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
+                final String sign = Users.getUserSignHTML(author);
+                article.put(Common.SIGN, sign);
+                article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
+                            author.getString(Common.USER_THUMBNAIL_URL));
             }
-            LOGGER.log(Level.FINE, "Got tags");
+            LOGGER.log(Level.FINE, "Got articles....");
 
-            ret.put(Tag.TAGS, tags);
+            ret.put(Article.ARTICLES, (Object) articles);
+            final int pageCount =
+                    result.getJSONObject(Pagination.PAGINATION).
+                    getInt(Pagination.PAGINATION_PAGE_COUNT);
+            final int windowSize = 20;
+            final List<Integer> pageNums =
+                    Paginator.paginate(currentPageNum,
+                                       UserAction.ENTRY_FETCH_SIZE, pageCount,
+                                       windowSize);
+            ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+            ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 

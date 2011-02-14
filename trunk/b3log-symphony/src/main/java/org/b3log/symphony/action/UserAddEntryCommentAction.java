@@ -41,12 +41,10 @@ import org.b3log.symphony.repository.ArticleCommentRepository;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.TagRepository;
-import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
-import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
 import org.b3log.symphony.util.Langs;
 import org.b3log.symphony.util.Symphonys;
@@ -59,7 +57,7 @@ import org.json.JSONObject;
  * Adds entry comment submitted locally.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 14, 2011
+ * @version 1.0.0.3, Feb 14, 2011
  */
 public final class UserAddEntryCommentAction extends AbstractAction {
 
@@ -95,11 +93,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
      */
     private static TagRepository tagRepository =
             TagGAERepository.getInstance();
-    /**
-     * User repository.
-     */
-    private static UserRepository userRepository =
-            UserGAERepository.getInstance();
     /**
      * Article-Comment repository.
      */
@@ -256,6 +249,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
                                        articleId);
             articleCommentRelation.put(Comment.COMMENT + "_" + Keys.OBJECT_ID,
                                        commentId);
+            articleCommentRelation.put(Article.ARTICLE_COMMENT_COUNT,
+                    article.getInt(Article.ARTICLE_COMMENT_COUNT) + 1);
             articleCommentRepository.add(articleCommentRelation);
             // Update article comment
             articleUtils.updateArticleComment(articleId, comment);
