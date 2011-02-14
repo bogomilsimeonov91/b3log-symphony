@@ -1,7 +1,7 @@
 <div class="header">
     <ul>
-        <li class="current">
-            <a href="/index">index</a>
+        <li>
+            <a href="/index" class="current">index</a>
         </li>
          <li>
             <a href="/tags">tags</a>
@@ -14,3 +14,4 @@
         </li>
     </ul>
 </div>
+<div class="clear"></div>
