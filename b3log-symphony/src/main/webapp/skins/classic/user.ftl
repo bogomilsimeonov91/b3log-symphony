@@ -26,7 +26,7 @@
                 </a>
                 <div class="left">
                     <h1 class="bigger-font" title="http://${userURL}">
-                        <a href="${userURL}">${userName}</a>
+                        <a href="http://${userURL}">${userName}</a>
                     </h1>
                     <br/><br/>
                     <h2 class="middle-font">
