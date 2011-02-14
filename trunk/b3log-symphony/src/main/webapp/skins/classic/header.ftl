@@ -3,9 +3,9 @@
         <li>
             <a href="/index" class="current" title="${indexLabel}">${indexLabel}</a>
         </li>
-        <li>
+        <!--li>
             <a href="/tags" title="${tagsLabel}">${tagsLabel}</a>
-        </li>
+        </li-->
         <li>
             <a href="/top-entries" title="${topEntriesLabel}">${topEntriesLabel}</a>
         </li>

@@ -20,7 +20,7 @@
         <#include "top.ftl"/>
         <div class="symphony-content index">
             <#include "header.ftl"/>
-            <dl>
+            <dl class="entry-list">
                 <#list articles as article>
                 <dd>
                     <div class="left">
@@ -72,12 +72,34 @@
                 </dd>
                 </#list>
             </dl>
+            <#if paginationPageNums?size != 0>
+            <div id="pagination">
+                <#if paginationPageNums?first != 1>
+                <a href="/index?p=1" title="${firstPageLabel}"><<</a>
+                <a id="previousPage"
+                   href="/index?p={paginationPageCount}"
+                   title="${previousPageLabel}"><</a>
+                </#if>
+                <#list paginationPageNums as page>
+                <a href="/index?p=${page}" title="${page}">${page}</a>
+                </#list>
+                <#if paginationPageNums?last!=paginationPageCount>
+                <a id="nextPage"
+                   href="/index?p={paginationPageCount}"
+                   title="${nextPagePabel}">></a>
+                <a href="/index?p=${paginationPageCount}"
+                   title="${lastPageLabel}">>></a>
+                </#if>
+                ${sumLabel}${paginationPageCount}${pageLabel}
+            </div>
+            </#if>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
             Util.initStatus();
+            Util.initPagination();
         </script>
     </body>
 </html>
