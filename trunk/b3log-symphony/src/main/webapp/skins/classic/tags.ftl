@@ -18,7 +18,7 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="symphony-content index">
+        <div class="symphony-content">
             <#include "header.ftl"/>
             <dl>
                 <#list articles as article>

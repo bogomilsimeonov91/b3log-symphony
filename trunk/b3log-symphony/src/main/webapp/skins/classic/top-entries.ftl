@@ -19,6 +19,7 @@
     <body>
         <#include "top.ftl"/>
         <div class="symphony-content top-entries">
+            <#include "header.ftl"/>
             <#list tags as tag>
             <div class="title">
                 <h2 class="left">
