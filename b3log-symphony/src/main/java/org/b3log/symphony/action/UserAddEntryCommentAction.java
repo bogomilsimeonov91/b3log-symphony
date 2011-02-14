@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import com.dlog4j.util.UBBDecoder;
@@ -23,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.ActionException;
@@ -34,6 +34,7 @@ import org.b3log.symphony.SymphonyServletListener;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
+import org.b3log.symphony.model.Session;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleCommentRepository;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -46,6 +47,8 @@ import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Articles;
+import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Symphonys;
 import org.b3log.symphony.util.TimeZones;
 import org.b3log.symphony.util.Users;
 import org.json.JSONException;
@@ -55,7 +58,7 @@ import org.json.JSONObject;
  * Adds entry comment submitted locally.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 11, 2011
+ * @version 1.0.0.2, Feb 14, 2011
  */
 public final class UserAddEntryCommentAction extends AbstractAction {
 
@@ -142,6 +145,33 @@ public final class UserAddEntryCommentAction extends AbstractAction {
                                    final HttpServletResponse response)
             throws ActionException {
         final JSONObject ret = new JSONObject();
+
+        final HttpSession session = request.getSession();
+        Long latestPostTIme =
+                (Long) session.getAttribute(Session.LATEST_POST_TIME);
+        final Long currentPostTime = System.currentTimeMillis();
+        if (null == latestPostTIme) {
+            latestPostTIme = 0L;
+        }
+
+        final long minStepPostTime = Long.valueOf(
+                Symphonys.get("minStepPostTime"));
+        LOGGER.log(Level.FINER,
+                   "Current post time[{0}], the latest post time[{1}]",
+                   new Object[]{currentPostTime, latestPostTIme});
+        try {
+            if (latestPostTIme > (currentPostTime - minStepPostTime)) {
+                ret.put(Keys.STATUS_CODE, false);
+                ret.put(Keys.MSG, Langs.get("postTooFrequentLabel"));
+
+                return ret;
+            }
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new ActionException(e);
+        }
+
+        latestPostTIme = currentPostTime;
 
         String commenterName = null;
         String commenterId = null;
@@ -234,6 +264,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             transaction.commit();
             ret.put(Keys.STATUS_CODE, true);
             ret.put(Keys.OBJECT_ID, commentId);
+
+            session.setAttribute(Session.LATEST_POST_TIME, latestPostTIme);
         } catch (final Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
