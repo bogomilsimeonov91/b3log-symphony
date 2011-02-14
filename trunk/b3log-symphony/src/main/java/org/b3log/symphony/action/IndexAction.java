@@ -94,7 +94,7 @@ public final class IndexAction extends AbstractCacheablePageAction {
             final Query query = new Query();
             query.setCurrentPageNum(currentPageNum).
                     setPageSize(RECENT_ARTICLES_CNT).
-                    addSort(Article.ARTICLE_COMMENT_COUNT,
+                    addSort(Article.ARTICLE_CREATE_DATE,
                     SortDirection.DESCENDING);
             LOGGER.log(Level.FINE, "Getting articles....");
             final JSONObject result = articleRepository.get(query);
