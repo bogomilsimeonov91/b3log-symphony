@@ -69,8 +69,7 @@ public final class TagArticleGAERepository extends AbstractGAERepository
 
         final List<JSONObject> ret = new ArrayList<JSONObject>();
         for (final Entity entity : entities) {
-            final Map<String, Object> properties = entity.getProperties();
-            final JSONObject e = new JSONObject(properties);
+            final JSONObject e = entity2JSONObject(entity);
 
             ret.add(e);
         }
@@ -127,18 +126,17 @@ public final class TagArticleGAERepository extends AbstractGAERepository
                                     final int currentPageNum,
                                     final int pageSize)
             throws RepositoryException {
+        LOGGER.info("TAG ID:" + tagId);
         final Query query = new Query(getName());
         query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        Query.FilterOperator.EQUAL, tagId).
-                addFilter(Article.ARTICLE_COMMENT_COUNT,
-                          Query.FilterOperator.GREATER_THAN_OR_EQUAL,
-                          0);
+                        Query.FilterOperator.EQUAL, tagId);
         query.addSort(Article.ARTICLE_COMMENT_COUNT,
                       Query.SortDirection.DESCENDING);
 
         final PreparedQuery preparedQuery = getDatastoreService().prepare(query);
         final int count = preparedQuery.countEntities(
                 FetchOptions.Builder.withDefaults());
+        LOGGER.fine("CNT: " + count);
         final int pageCount =
                 (int) Math.ceil((double) count / (double) pageSize);
 

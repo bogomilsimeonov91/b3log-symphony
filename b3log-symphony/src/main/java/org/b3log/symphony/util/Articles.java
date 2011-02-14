@@ -24,7 +24,6 @@ import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.ArticleRepository;
-import org.b3log.symphony.repository.TagArticleRepository;
 import org.b3log.symphony.repository.TagRepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.TagArticleGAERepository;
@@ -37,14 +36,14 @@ import org.json.JSONObject;
  * Article utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Jan 31, 2011
+ * @version 1.0.0.2, Feb 14, 2011
  */
 public final class Articles {
 
     /**
      * Tag-Article repository.
      */
-    private TagArticleRepository tagArticleRepository =
+    private TagArticleGAERepository tagArticleRepository =
             TagArticleGAERepository.getInstance();
     /**
      * Tag repository.
@@ -127,14 +126,24 @@ public final class Articles {
         final JSONObject newArticle =
                 new JSONObject(article, JSONObject.getNames(article));
 
-        final int commentCnt = article.getInt(Article.ARTICLE_COMMENT_COUNT);
-        newArticle.put(Article.ARTICLE_COMMENT_COUNT, commentCnt + 1);
+        int commentCnt = article.getInt(Article.ARTICLE_COMMENT_COUNT);
+        commentCnt += 1;
+        newArticle.put(Article.ARTICLE_COMMENT_COUNT, commentCnt);
         newArticle.put(Article.ARTICLE_LAST_CMT_DATE,
                        comment.get(Comment.COMMENT_DATE));
         newArticle.put(Article.ARTICLE_LAST_CMTER_ID,
                        comment.get(Comment.COMMENTER_ID));
 
         articleRepository.updateAsync(articleId, newArticle);
+
+        final List<JSONObject> tagArticleRelations =
+                tagArticleRepository.getByArticleId(articleId);
+        for (final JSONObject tagArticleRelation : tagArticleRelations) {
+            tagArticleRelation.put(Article.ARTICLE_COMMENT_COUNT, commentCnt);
+            tagArticleRepository.updateAsync(
+                    tagArticleRelation.getString(Keys.OBJECT_ID),
+                    tagArticleRelation);
+        }
     }
 
     /**
