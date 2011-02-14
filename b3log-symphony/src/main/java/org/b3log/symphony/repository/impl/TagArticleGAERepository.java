@@ -122,17 +122,18 @@ public final class TagArticleGAERepository extends AbstractGAERepository
         return ret;
     }
 
-     @Override
+    @Override
     public JSONObject getTopByTagId(final String tagId,
-                                 final int currentPageNum,
-                                 final int pageSize)
+                                    final int currentPageNum,
+                                    final int pageSize)
             throws RepositoryException {
         final Query query = new Query(getName());
         query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        Query.FilterOperator.EQUAL, tagId);
-        query.addSort(Article.ARTICLE + "_" + Keys.OBJECT_ID,
-                      Query.SortDirection.DESCENDING).
-                      addSort(Article.ARTICLE_COMMENT_COUNT,
+                        Query.FilterOperator.EQUAL, tagId).
+                addFilter(Article.ARTICLE_COMMENT_COUNT,
+                          Query.FilterOperator.GREATER_THAN_OR_EQUAL,
+                          0);
+        query.addSort(Article.ARTICLE_COMMENT_COUNT,
                       Query.SortDirection.DESCENDING);
 
         final PreparedQuery preparedQuery = getDatastoreService().prepare(query);
