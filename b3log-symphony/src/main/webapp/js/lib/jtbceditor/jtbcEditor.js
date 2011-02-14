@@ -387,7 +387,7 @@ function jtbcEditor(_id)
   };
   this.tGetHTML = function()
   {
-    var tHTML = this.tInstance.document.body.innerHTML.toLowerCase();
+    var tHTML = this.tInstance.document.body.innerHTML;
     return tHTML;
   };
   this.tGetUBB = function()
