@@ -32,6 +32,7 @@ import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
+import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -115,7 +116,7 @@ public final class IndexAction extends AbstractCacheablePageAction {
             }
             LOGGER.log(Level.FINE, "Got articles....");
 
-            ret.put(Article.ARTICLES, (Object) articles);
+            ret.put(Article.ARTICLES, CollectionUtils.jsonArrayToList(articles));
             final int pageCount =
                     result.getJSONObject(Pagination.PAGINATION).
                     getInt(Pagination.PAGINATION_PAGE_COUNT);
