@@ -105,6 +105,10 @@ $.extend(User.prototype, {
                     }
                 };
 
+                $("#addEntryButton").attr("disabled", "true");
+                $("#tip").html("<img src='/skins/classic/images/loading.gif' alt='"
+                + this.labels.loadingLabe + "' title='" + this.labels.loadingLabel + "'/>");
+
                 $.ajax({
                     url: "/user-add-entry",
                     type: "POST",
@@ -113,7 +117,8 @@ $.extend(User.prototype, {
                         if (result.sc) {
                             window.location.href = "/user-entries";
                         } else {
-                            $("#tip").text(result.msg);
+                            $("#addEntryButton").removeAttr("disabled");
+                            $("#tip").html(result.msg);
                         }
                     }
                 });

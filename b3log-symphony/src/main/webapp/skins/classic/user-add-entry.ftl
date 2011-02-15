@@ -23,10 +23,10 @@
                 <label for="content">${contentLabel}</label>
                 <textarea id="content" style="width: 100%;height: 360px;"></textarea>
                 <label for="tags">${tagsLabel}</label>
-                <input id="tags" value=""/>
+                <input id="tags" value="" class="marginB5"/>
                 <div align="right" class="marginT12">
                     <span class="tip" id="tip"></span>
-                    <button onclick="user.postEntry();">
+                    <button id="addEntryButton" onclick="user.postEntry();">
                         ${submitLabel}
                     </button>
                 </div>
@@ -41,7 +41,8 @@
                 "labels": {
                     "contentCannotEmptyLabel": "${contentCannotEmptyLabel}",
                     "tagsCannotEmptyLabel": "${tagsCannotEmptyLabel}",
-                    "titleCannotEmptyLabel": "${titleCannotEmptyLabel}"
+                    "titleCannotEmptyLabel": "${titleCannotEmptyLabel}",
+                    "loadingLabel": "${loadingLabel}"
                 }
             });
             Util.initStatus();
