@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.model.User;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
@@ -46,7 +47,7 @@ import org.json.JSONObject;
  * Top entries action. top-entries.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 14, 2011
+ * @version 1.0.0.1, Feb 15, 2011
  */
 public final class TopEntriesAction extends AbstractCacheablePageAction {
 
@@ -144,6 +145,8 @@ public final class TopEntriesAction extends AbstractCacheablePageAction {
             LOGGER.log(Level.FINE, "Got tags");
 
             ret.put(Tag.TAGS, tags);
+
+            Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 

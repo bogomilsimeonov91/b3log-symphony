@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.action.AbstractCacheablePageAction;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.util.Langs;
 import org.json.JSONObject;
 
@@ -30,7 +31,7 @@ import org.json.JSONObject;
  * About action. about.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 11, 2011
+ * @version 1.0.0.1, Feb 15, 2011
  */
 public final class AboutAction extends AbstractCacheablePageAction {
 
@@ -51,6 +52,8 @@ public final class AboutAction extends AbstractCacheablePageAction {
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();
         ret.putAll(Langs.all());
+
+        Filler.fillCommon(ret);
 
         return ret;
     }
