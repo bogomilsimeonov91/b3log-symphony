@@ -60,10 +60,10 @@ $.extend(Index.prototype, {
 
     submitComment: function (oId) {
         if (Util.validateForm("tipReply", [{
-            "id": "commentContentReply",
-            "type": "empty",
-            "tip": this.labels.commentCannotEmptyLabel
-        }])) {
+                "id": "commentContentReply",
+                "type": "empty",
+                "tip": this.labels.commentCannotEmptyLabel
+            }])) {
             var requestJSONObject = {
                 "oId": this.oId,
                 "commentContent": $("#commentContentReply").val(),
@@ -93,7 +93,7 @@ $.extend(Index.prototype, {
         if ($("#" + oId + "commentForm").length === 0) {
             $("#" + this.originalId + "commentForm").remove();
             var replyCommentHTML =
-            '<table id="' + oId + 'commentForm" class="form" width="100%" cellspacing="10">\
+                '<table id="' + oId + 'commentForm" class="form" width="100%" cellspacing="10">\
                 \<tr>\
                     \<th width="99px">' + this.labels.commentLabel + '</th>\
                     \<td>\
@@ -112,5 +112,16 @@ $.extend(Index.prototype, {
             this.originalId = oId;
         }
         $("#" + oId + "commentForm #commentContentReply").focus();
+    },
+    
+    postToWb: function () {
+        var _content = $("<p>${article.articleContent}<p>").text();
+        var _t = encodeURI("${article.articleTitle} - ${titleIndex}\n" + _content);
+        var _url = encodeURIComponent(document.location);
+        var _appkey = encodeURI("295bcd39428e4c098b31dc599ad07f6d");
+        var _pic = encodeURI('');//（例如：var _pic='图片url1|图片url2|图片url3....）
+        var _site = '';//你的网站地址
+        var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
+        window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
     }
 });
