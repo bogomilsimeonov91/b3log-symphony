@@ -70,17 +70,13 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 25px;
 }
 
-.header {
-    border-bottom: 1px dashed #C1CDDD;
-    padding-bottom: 30px;
-}
-
 .header-navi {
     -moz-border-radius: 36px 36px 10px 10px;
     -webkit-border-radius: 36px 36px 10px 10px;
     border-radius: 36px 36px 10px 10px;
     background-color: #E1EDF3;
     float: right;
+    margin-bottom: 30px;
     list-style-type: none;
 }
 
