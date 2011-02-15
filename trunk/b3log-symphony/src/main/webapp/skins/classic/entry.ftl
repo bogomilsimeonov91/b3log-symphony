@@ -73,7 +73,6 @@
                     </div>
                     <img onclick="index.postToWb();" alt="${postToWbLabel}" title="${postToWbLabel}"
                          src="http://v.t.qq.com/share/images/s/b24.png" class="right marginR5"/>
-
                     <span class="clear"></span>
                     <#if "" != article.sign>
                     <div class="sign">
@@ -185,7 +184,7 @@
                 },
                 "oId": "${article.oId}",
                 "paginationPageCount": "${paginationPageCount}",
-                "postToWbTitle": "${article.articleTitle} - ${titleIndex}\n"
+                "postToWbTitle": "${article.articleTitle} - ${titleIndex}"
             });
             Util.initStatus();
             Util.initPagination();
