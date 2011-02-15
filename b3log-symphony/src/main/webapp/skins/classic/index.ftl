@@ -76,19 +76,19 @@
             <#if paginationPageNums?size != 0>
             <div id="pagination">
                 <#if paginationPageNums?first != 1>
-                <a href="/index?p=1" title="${firstPageLabel}"><<</a>
+                <a href="/?p=1" title="${firstPageLabel}"><<</a>
                 <a id="previousPage"
-                   href="/index?p={paginationPageCount}"
+                   href="/?p={paginationPageCount}"
                    title="${previousPageLabel}"><</a>
                 </#if>
                 <#list paginationPageNums as page>
-                <a href="/index?p=${page}" title="${page}">${page}</a>
+                <a href="/?p=${page}" title="${page}">${page}</a>
                 </#list>
                 <#if paginationPageNums?last != paginationPageCount>
                 <a id="nextPage"
-                   href="/index?p={paginationPageCount}"
+                   href="/?p={paginationPageCount}"
                    title="${nextPagePabel}">></a>
-                <a href="/index?p=${paginationPageCount}"
+                <a href="/?p=${paginationPageCount}"
                    title="${lastPageLabel}">>></a>
                 </#if>
                 ${sumLabel} ${paginationPageCount} ${pageLabel}

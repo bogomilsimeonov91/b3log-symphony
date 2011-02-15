@@ -82,6 +82,7 @@
     <servlet-mapping>
         <servlet-name>IndexAction</servlet-name>
         <url-pattern>/index</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
      <servlet>
         <servlet-name>TopEntries</servlet-name>
