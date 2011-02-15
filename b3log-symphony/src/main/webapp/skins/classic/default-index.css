@@ -63,35 +63,42 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
+.header .small-font {
+    font-size: 12px;
+    float: left;
+    margin-left: 5px;
+    margin-top: 25px;
+}
+
 .header {
+    border-bottom: 1px dashed #C1CDDD;
+    padding-bottom: 30px;
+}
+
+.header-navi {
     -moz-border-radius: 36px 36px 10px 10px;
     -webkit-border-radius: 36px 36px 10px 10px;
     border-radius: 36px 36px 10px 10px;
     background-color: #E1EDF3;
     float: right;
-    margin-bottom: 30px;
-}
-
-.header ul {
     list-style-type: none;
 }
 
-.header li {
+.header-navi li {
     float: left;
     margin: 10px 20px;
 }
 
-.header li a {
+.header-navi li a {
     font-size: 20px;
     font-weight: bold;
     line-height: 20px;
     padding: 0 4px;
     text-decoration: none;
     color: #505460;
-    text-shadow: 1px 0 1px #505460;
 }
 
-.header li a.current, .header li a:hover {
+.header-navi li a.current, .header-navi li a:hover {
     -moz-border-radius: 5px 5px 5px 5px;
     -moz-box-shadow: 0 0 5px #505460;
     -webkit-border-radius: 5px 5px 5px 5px;
@@ -125,7 +132,7 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     line-height: 22px;
     font-size: 15px;
-    text-shadow: 1px 0 2px #C1CDDD;
+    text-shadow: 1px 0 1px #C1CDDD;
 }
 
 .middle-font {
@@ -169,6 +176,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .small-head-img:hover, .middle-head-img:hover, .big-head-img:hover {
     border-color: #5A5A5A;
+}
+
+.blue {
+    color: #005999;
 }
 
 /* common component */
