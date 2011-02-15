@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
-import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
@@ -52,9 +52,9 @@ import org.json.JSONObject;
  * User action. user.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 13, 2011
+ * @version 1.0.0.5, Feb 15, 2011
  */
-public final class UserAction extends AbstractAction {
+public final class UserAction extends AbstractCacheablePageAction {
 
     /**
      * Default serial version uid.
@@ -119,8 +119,8 @@ public final class UserAction extends AbstractAction {
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
 
-            fillEntries(queryStringJSONObject, user, ret);
-            fillComments(queryStringJSONObject, user, ret);
+            fillEntries(user, ret);
+            fillComments(user, ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -129,16 +129,13 @@ public final class UserAction extends AbstractAction {
     }
 
     /**
-     * Fills the specified data model with entries by the specified query string
-     * json object and user.
+     * Fills the specified data model with entries.
      *
-     * @param queryStringJSONObject the specified query string json object
      * @param user the specified user
      * @param dataModel the specified data model
      * @throws Exception exception
      */
-    private void fillEntries(final JSONObject queryStringJSONObject,
-                             final JSONObject user,
+    private void fillEntries(final JSONObject user,
                              final Map<String, Object> dataModel)
             throws Exception {
         final String userId = user.getString(Keys.OBJECT_ID);
@@ -165,16 +162,13 @@ public final class UserAction extends AbstractAction {
     }
 
     /**
-     * Fills the specified data model with comments by the specified query
-     * string json object and user.
+     * Fills the specified data model with comments.
      *
-     * @param queryStringJSONObject the specified query string json object
      * @param user the specified user
      * @param dataModel the specified data model
      * @throws Exception exception
      */
-    private void fillComments(final JSONObject queryStringJSONObject,
-                              final JSONObject user,
+    private void fillComments(final JSONObject user,
                               final Map<String, Object> dataModel)
             throws Exception {
         final String userId = user.getString(Keys.OBJECT_ID);

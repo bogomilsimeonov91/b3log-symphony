@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
-import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.repository.FilterOperator;
@@ -46,9 +46,9 @@ import org.json.JSONObject;
  * User comments. user-comments.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 12, 2011
+ * @version 1.0.0.3, Feb 15, 2011
  */
-public final class UserCommentsAction extends AbstractAction {
+public final class UserCommentsAction extends AbstractCacheablePageAction {
 
     /**
      * Default serial version uid.
