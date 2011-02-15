@@ -50,38 +50,40 @@ $.extend(User.prototype, {
     },
 
     setUserSettings: function () {
+        var labels = this.labels;
         $("#userImg").html("<img src='" + $("#userThumbnailURL").val() + "'"
             + "class='big-head-img' alt='" + $("#userName").val()
             + "' title='" + $("#userName").val() + "'/>");
         $("#userImg img")[0].onerror = function () {
-            $("#tip").text(this.labels.imgErrorLabel);
+            $("#tip").text(labels.imgErrorLabel);
             return;
         }
-        var requestJSONObject = {
-            "userThumbnailURL": $("#userThumbnailURL").val(),
-            "sign": $("#sign").val(),
-            "userURL": $("#userURL").val()
-        },
-        changeSuccLabel = this.labels.changeSuccLabel;
-        $.ajax({
-            url: "/user-settings?action=advanced",
-            type: "POST",
-            data: JSON.stringify(requestJSONObject),
-            success: function(result, textStatus){
-                switch (result.sc) {
-                    case true:
-                        $("#tip").text(changeSuccLabel);
-                        $("#userImg").html("<img src='" + $("#userThumbnailURL").val() + "'"
-                            + "class='big-head-img' alt='" + $("#userName").val()
-                            + "' title='" + $("#userName").val() + "'/>");
-                        break;
-                    case false:
-                    default:
-                        $("#tip").text(result.msg);
-                        break;
+        $("#userImg img")[0].onload = function () {
+            var requestJSONObject = {
+                "userThumbnailURL": $("#userThumbnailURL").val(),
+                "sign": $("#sign").val(),
+                "userURL": $("#userURL").val()
+            };
+            $.ajax({
+                url: "/user-settings?action=advanced",
+                type: "POST",
+                data: JSON.stringify(requestJSONObject),
+                success: function(result, textStatus){
+                    switch (result.sc) {
+                        case true:
+                            $("#tip").text(labels.changeSuccLabel);
+                            $("#userImg").html("<img src='" + $("#userThumbnailURL").val() + "'"
+                                + "class='big-head-img' alt='" + $("#userName").val()
+                                + "' title='" + $("#userName").val() + "'/>");
+                            break;
+                        case false:
+                        default:
+                            $("#tip").text(result.msg);
+                            break;
+                    }
                 }
-            }
-        });
+            });
+        }
     },
 
     postEntry: function() {
