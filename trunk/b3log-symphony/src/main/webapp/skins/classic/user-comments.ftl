@@ -70,7 +70,7 @@
                 <a href="/user-comments?p=${paginationPageCount}"
                    title="${lastPageLabel}">>></a>
                 </#if>
-                ${sumLabel}${paginationPageCount}${pageLabel}
+                ${sumLabel} ${paginationPageCount} ${pageLabel}
             </div>
             </#if>
             <div class="comment-tip">

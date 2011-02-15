@@ -84,7 +84,7 @@
                 <a href="/user-entries?p=${paginationPageCount}"
                    title="${lastPageLabel}">>></a>
                 </#if>
-                ${sumLabel}${paginationPageCount}${pageLabel}
+                ${sumLabel} ${paginationPageCount} ${pageLabel}
             </div>
             </#if>
         </div>

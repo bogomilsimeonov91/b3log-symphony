@@ -83,14 +83,14 @@
                 <#list paginationPageNums as page>
                 <a href="/index?p=${page}" title="${page}">${page}</a>
                 </#list>
-                <#if paginationPageNums?last!=paginationPageCount>
+                <#if paginationPageNums?last != paginationPageCount>
                 <a id="nextPage"
                    href="/index?p={paginationPageCount}"
                    title="${nextPagePabel}">></a>
                 <a href="/index?p=${paginationPageCount}"
                    title="${lastPageLabel}">>></a>
                 </#if>
-                ${sumLabel}${paginationPageCount}${pageLabel}
+                ${sumLabel} ${paginationPageCount} ${pageLabel}
             </div>
             </#if>
         </div>
