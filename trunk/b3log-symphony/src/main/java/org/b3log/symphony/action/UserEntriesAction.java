@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
-import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
@@ -48,9 +48,9 @@ import org.json.JSONObject;
  * User entries action. user-entries.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 13, 2011
+ * @version 1.0.0.5, Feb 15, 2011
  */
-public final class UserEntriesAction extends AbstractAction {
+public final class UserEntriesAction extends AbstractCacheablePageAction {
 
     /**
      * Default serial version uid.
