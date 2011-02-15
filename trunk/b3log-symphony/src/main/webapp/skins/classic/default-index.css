@@ -65,6 +65,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .header {
     -moz-border-radius: 36px 36px 10px 10px;
+    -webkit-border-radius: 36px 36px 10px 10px;
+    border-radius: 36px 36px 10px 10px;
     background-color: #E1EDF3;
     float: right;
     margin-bottom: 30px;
@@ -91,6 +93,10 @@ h1, h2, h3, h4, h5, h6 {
 .header li a.current, .header li a:hover {
     -moz-border-radius: 5px 5px 5px 5px;
     -moz-box-shadow: 0 0 5px #808A82;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -webkit-box-shadow: 0 0 5px #808A82;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 5px #808A82;
     background-color: #C1CDDD;
 }
 
@@ -463,4 +469,8 @@ h1, h2, h3, h4, h5, h6 {
     word-wrap:break-word;
     width: 667px;
     overflow: hidden;
+}
+
+.user .caption {
+    display: block;
 }

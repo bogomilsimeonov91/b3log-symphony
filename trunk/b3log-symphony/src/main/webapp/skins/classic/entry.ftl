@@ -60,6 +60,7 @@
                             <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a></h2><#if tagTitle_has_next>,</#if>
                         </#list>
                     </div>
+                    <span class="clear"></span>
                     <div class="article-body">
                         ${article.articleContent}
                     </div>
