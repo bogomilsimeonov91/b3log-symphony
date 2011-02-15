@@ -9,7 +9,7 @@ import java.util.Stack;
  *
  * @author liudong
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 10, 2011
+ * @version 1.0.0.1, Feb 15, 2011
  */
 public final class UBBDecoder {
 
@@ -351,8 +351,12 @@ final class SimpleTagHandler implements UBBTagHandler {
             || "ol".equals(tmp) || "ul".equals(tmp) || "li".equals(tmp)) {
             return "<" + tag + ">" + data + "</" + tag + ">";
         } else if ("size".equals(tmp) || "color".equals(tmp)) {
-            return "<font style='color:" + attr[0] + "," + attr[1] + ","
-                   + attr[2] + "'>" + data + "</font>";
+            if (3 == attr.length) {
+                return "<font style='color:" + attr[0] + "," + attr[1] + ","
+                       + attr[2] + "'>" + data + "</font>";
+            } else {
+                return "<font style='color:" + attr[0] + "'>" + data + "</font>";
+            }
         } else if ("hilitecolor".equals(tmp)) {
             return "<font style='background-color: " + attr[0] + "," + attr[1]
                    + "," + attr[2] + "'>" + data
@@ -500,7 +504,7 @@ final class SimpleTagHandler implements UBBTagHandler {
     // 比如java util.SimpleTagHandler "[color=red]你[color=blue]好[/color]啊[/color]"
     public static void main(String[] args) throws Exception {
         String ubb =
-                "[color=rgb(0,204,136)]fsdfsdf[/color]";
+                "[color=orangered][b]Solo[/b][/color]";
         System.out.println(">>>>" + ubb);
         System.out.println("=========================\n"
                            + UBBDecoder.decode(ubb));
