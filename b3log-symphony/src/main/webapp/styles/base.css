@@ -55,7 +55,9 @@
 .article-body {
     word-break: break-all;
     word-wrap:break-word;
+    overflow: hidden;
 }
+
 .article-body blockquote{
     border:1px dotted #98A47F;
     margin:12px;

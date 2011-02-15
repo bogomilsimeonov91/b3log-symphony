@@ -29,16 +29,14 @@
                         <a href="http://${userURL}">${userName}</a>
                     </h1>
                     <br/><br/>
-                    <h2 class="middle-font">
+                    <h4 class="middle-font">
                         ${sign}
-                    </h2>
+                    </h4>
                 </div>
                 <span class="clear"></span>
             </div>
+            <h2 class="caption">${lastEntryLabel}</h2>
             <dl class="entry-list-top marginB20">
-                <dt class="caption">
-                    ${lastEntryLabel}
-                </dt>
                 <#list articles as article>
                 <#if article_index % 2 == 0>
                 <dd class="even">
@@ -74,10 +72,10 @@
                     </#list>
                 </dd>
             </dl>
+            <h2 class="caption">
+                ${lastCommentLabel}
+            </h2>
             <dl class="entry-list-top">
-                <dt class="caption">
-                    ${lastCommentLabel}
-                </dt>
                 <#list comments as comment>
                 <#if comment_index % 2 == 0>
                 <dd class="even">
