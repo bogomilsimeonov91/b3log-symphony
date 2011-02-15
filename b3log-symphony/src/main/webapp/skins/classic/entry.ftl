@@ -138,7 +138,7 @@
                     <a href="/entries/${article.oId}?p=${paginationPageCount}#comments"
                        title="${lastPageLabel}">>></a>
                     </#if>
-                    ${sumLabel}${paginationPageCount}${pageLabel}
+                    ${sumLabel} ${paginationPageCount} ${pageLabel}
                 </div>
                 </#if>
                 <table id="commentForm" class="form" width="100%" cellpadding="0" cellspacing="10">

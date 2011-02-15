@@ -109,7 +109,7 @@
                 <a href="/tags/${tag.tagTitle?url('UTF-8')}?p=${paginationPageCount}"
                    title="${lastPageLabel}">>></a>
                 </#if>
-                ${sumLabel}${paginationPageCount}${pageLabel}
+                ${sumLabel} ${paginationPageCount} ${pageLabel}
             </div>
             </#if>
         </div>
