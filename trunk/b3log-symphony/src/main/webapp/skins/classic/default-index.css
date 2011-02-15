@@ -11,7 +11,7 @@ a {
 }
 
 a:hover {
-    color: #505561;
+    color: #505460;
 }
 
 img {
@@ -82,12 +82,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header li a {
-    color: #FFFFFF;
     font-size: 20px;
     font-weight: bold;
     line-height: 20px;
     padding: 0 4px;
     text-decoration: none;
+    color: #505460;
 }
 
 .header li a.current, .header li a:hover {
@@ -98,6 +98,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0 0 5px #808A82;
     background-color: #C1CDDD;
+    color: #FFFFFF;
 }
 
 /* footer */
@@ -114,7 +115,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bigger-font {
-    color: #505561;
+    color: #505460;
     font-size: 20px;
     text-decoration: none;
 }
@@ -128,6 +129,11 @@ h1, h2, h3, h4, h5, h6 {
 .middle-font {
     font-weight: normal;
     font-size: 13px;
+}
+
+.middle-font a {
+    text-decoration: none;
+    color: #505460;
 }
 
 .small-font {
@@ -257,7 +263,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .form caption, .table caption, .caption {
     font-size: 20px;
-    color: #505561;
     font-weight: bold;
     margin: 11px 0;
 }

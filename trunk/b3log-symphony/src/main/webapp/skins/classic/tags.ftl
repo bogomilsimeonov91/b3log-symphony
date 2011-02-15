@@ -62,7 +62,7 @@
                             </span>
                             <span class="clear"></span>
                         </div>
-                        <#list article.articleTags?split(',') as tagTitle>
+                        ${tagsLabel}：<#list article.articleTags?split(',') as tagTitle>
                         <h4 title="${tagTitle}" class="middle-font">
                             <a href="/tags/${tagTitle?url('UTF-8')}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
                         </h4>
