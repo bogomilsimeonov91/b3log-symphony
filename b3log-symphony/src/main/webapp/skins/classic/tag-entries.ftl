@@ -81,6 +81,7 @@
                             </#if>
                         </span>
                         <span class="clear"></span>
+                        ${tagsLabel}：
                         <#list article.articleTags?split(',') as tagTitle>
                         <h3 title="${tagTitle}" class="middle-font">
                             <a href="/tags/${tagTitle}">${tagTitle}</a><#if tagTitle_has_next>,</#if>
