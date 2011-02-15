@@ -180,7 +180,8 @@
                     "loginLabel": "${loginLabel}",
                     "logoutLabel": "${logoutLabel}",
                     "settingsLabel": "${settingsLabel}",
-                    "postEntryLabel": "${postEntryLabel}"
+                    "postEntryLabel": "${postEntryLabel}",
+                    "loadingLabel": "${loadingLabel}"
                 },
                 "oId": "${article.oId}",
                 "paginationPageCount": "${paginationPageCount}",

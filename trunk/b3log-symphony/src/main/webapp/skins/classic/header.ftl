@@ -1,5 +1,11 @@
 <div class="header">
-    <ul>
+    <div class="small-font">
+        ${tagCountLabel1}<span class="blue">${statTagCnt}</span>
+        ${userCountLabel1}<span class="blue">${statUserCnt}</span>
+        ${cmtCountLabel1}<span class="blue">${statCmtCnt}</span>
+        ${entryCountLabel1}<span class="blue">${statTagCnt}</span>
+    </div>
+    <ul class="header-navi">
         <li>
             <a href="/" title="${indexLabel}">${indexLabel}</a>
         </li>
@@ -13,5 +19,5 @@
             <a href="/about" title="${aboutLabel}">${aboutLabel}</a>
         </li>
     </ul>
+    <div class="clear"></div>
 </div>
-<div class="clear"></div>
