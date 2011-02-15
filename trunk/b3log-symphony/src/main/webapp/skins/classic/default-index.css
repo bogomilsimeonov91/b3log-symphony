@@ -88,13 +88,14 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 4px;
     text-decoration: none;
     color: #505460;
+    text-shadow: 1px 0 1px #505460;
 }
 
 .header li a.current, .header li a:hover {
     -moz-border-radius: 5px 5px 5px 5px;
-    -moz-box-shadow: 0 0 5px #808A82;
+    -moz-box-shadow: 0 0 5px #505460;
     -webkit-border-radius: 5px 5px 5px 5px;
-    -webkit-box-shadow: 0 0 5px #808A82;
+    -webkit-box-shadow: 0 0 5px #505460;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0 0 5px #808A82;
     background-color: #C1CDDD;
@@ -124,16 +125,17 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     line-height: 22px;
     font-size: 15px;
+    text-shadow: 1px 0 2px #C1CDDD;
 }
 
 .middle-font {
     font-weight: normal;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .middle-font a {
     text-decoration: none;
-    color: #505460;
+    color: #FFB02C;
 }
 
 .small-font {
