@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>${titleIndex}</title>
+        <title>${article.articleTitle} - ${titleIndex}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="${metaKeywords}"/>
         <meta name="description" content="${metaDescription}"/>
@@ -22,7 +22,7 @@
     <body>
         <#include "top.ftl"/>
         <div class="symphony-content entry">
-        <#include "header.ftl"/>
+            <#include "header.ftl"/>
             <dl class="marginB20">
                 <dd>
                     <a href="/users/${article.articleAuthorName}">
@@ -70,6 +70,19 @@
                         <br/>
                         ${originalArticleLink1Label}<#else>
                         ${articlePermalink1Label}</#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" onclick="postToWb();" class="tmblog"><img src="http://v.t.qq.com/share/images/s/b24.png"></a><script type="text/javascript">
+                            function postToWb(){
+                                var _t = encodeURI("${article.articleTitle}");
+                                var _url = encodeURIComponent(document.location);
+                                var _appkey = encodeURI("295bcd39428e4c098b31dc599ad07f6d");//你从腾讯获得的appkey
+                                var _pic = encodeURI('');//（例如：var _pic='图片url1|图片url2|图片url3....）
+                                var _site = '';//你的网站地址
+                                var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
+                                window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+                            }
+                        </script>
                     </div>
                     <#if "" != article.sign>
                     <div class="sign">
