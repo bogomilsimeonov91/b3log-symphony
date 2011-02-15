@@ -303,21 +303,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #pagination a {
-    background: url("/images/icon.png") repeat scroll center bottom transparent;
+    background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #C5C3C2;
-    color: #505460;
-    font-size: 10px;
-    margin: 2px;
     padding: 1px 6px;
+    font-size: 10px;
+    color: #505460;
+    margin: 2px;
     text-decoration: none;
 }
 
 #pagination a.current {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: url("/images/icon.png") repeat scroll center bottom transparent;
     border: 1px solid #C5C3C2;
-    color: #3E3E3E;
+    padding: 2px 7px;
     font-weight: bold;
-    padding: 1px 7px 2px 6px;
+    color: #3E3E3E;
 }
 
 #pagination a:hover {
