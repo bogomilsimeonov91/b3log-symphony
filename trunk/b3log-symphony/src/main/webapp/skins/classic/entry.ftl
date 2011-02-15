@@ -74,9 +74,10 @@
                     <div>
                         <a href="javascript:void(0)" onclick="postToWb();" class="tmblog"><img src="http://v.t.qq.com/share/images/s/b24.png"></a><script type="text/javascript">
                             function postToWb(){
-                                var _t = encodeURI("${article.articleTitle}");
+                                var _content = $("<p>${article.articleContent}<p>").text();
+                                var _t = encodeURI("${article.articleTitle} - ${titleIndex}\n" + _content);
                                 var _url = encodeURIComponent(document.location);
-                                var _appkey = encodeURI("295bcd39428e4c098b31dc599ad07f6d");//你从腾讯获得的appkey
+                                var _appkey = encodeURI("295bcd39428e4c098b31dc599ad07f6d");
                                 var _pic = encodeURI('');//（例如：var _pic='图片url1|图片url2|图片url3....）
                                 var _site = '';//你的网站地址
                                 var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
