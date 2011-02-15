@@ -97,7 +97,8 @@
                 "labels": {
                     "nameErrorLabel": "${nameErrorLabel}",
                     "changeSuccLabel": "${changeSuccLabel}",
-                    "setSuccLabel": "${setSuccLabel}"
+                    "setSuccLabel": "${setSuccLabel}",
+                    "imgErrorLabel": "${imgErrorLabel}"
                 }
             });
             Util.initStatus();

@@ -50,13 +50,19 @@ $.extend(User.prototype, {
     },
 
     setUserSettings: function () {
+        $("#userImg").html("<img src='" + $("#userThumbnailURL").val() + "'"
+            + "class='big-head-img' alt='" + $("#userName").val()
+            + "' title='" + $("#userName").val() + "'/>");
+        $("#userImg img")[0].onerror = function () {
+            $("#tip").text(this.labels.imgErrorLabel);
+            return;
+        }
         var requestJSONObject = {
             "userThumbnailURL": $("#userThumbnailURL").val(),
             "sign": $("#sign").val(),
             "userURL": $("#userURL").val()
         },
         changeSuccLabel = this.labels.changeSuccLabel;
-
         $.ajax({
             url: "/user-settings?action=advanced",
             type: "POST",
