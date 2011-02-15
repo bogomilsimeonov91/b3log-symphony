@@ -20,7 +20,7 @@ package org.b3log.symphony.model;
  * This class defines all common model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 11, 2011
+ * @version 1.0.0.5, Feb 15, 2011
  */
 public final class Common {
 
@@ -80,6 +80,23 @@ public final class Common {
      * Key of logout URL.
      */
     public static final String LOGOUT_URL = "logoutURL";
+    /**
+     * Key of article count.
+     */
+    public static final String STAT_ARTICLE_CNT = "statArticleCnt";
+    /**
+     * Key of comment count.
+     */
+    public static final String STAT_COMMENT_CNT = "statCmtCnt";
+    /**
+     * Key of user count.
+     */
+    public static final String STAT_USER_CNT = "statUserCnt";
+    /**
+     * Key of tag count.
+     */
+    public static final String STAT_TAG_CNT = "statTagCnt";
+
     /**
      * Private default constructor.
      */

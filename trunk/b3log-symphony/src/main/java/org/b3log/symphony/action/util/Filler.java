@@ -16,17 +16,74 @@
 
 package org.b3log.symphony.action.util;
 
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.b3log.symphony.model.Common;
+import org.b3log.symphony.repository.ArticleRepository;
+import org.b3log.symphony.repository.CommentRepository;
+import org.b3log.symphony.repository.TagRepository;
+import org.b3log.symphony.repository.UserRepository;
+import org.b3log.symphony.repository.impl.ArticleGAERepository;
+import org.b3log.symphony.repository.impl.CommentGAERepository;
+import org.b3log.symphony.repository.impl.TagGAERepository;
+import org.b3log.symphony.repository.impl.UserGAERepository;
+
 /**
  * About action. about.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 11, 2011
+ * @version 1.0.0.1, Feb 15, 2011
  */
 public final class Filler {
 
-//    public static void fillCommon() {
-//
-//    }
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER =
+            Logger.getLogger(Filler.class.getName());
+    /**
+     * User repository.
+     */
+    private static final UserRepository USER_REPOS =
+            UserGAERepository.getInstance();
+    /**
+     * Article repository.
+     */
+    private static final ArticleRepository ARTICLE_REPOS =
+            ArticleGAERepository.getInstance();
+    /**
+     * Comment repository.
+     */
+    private static final CommentRepository COMMENT_REPOS =
+            CommentGAERepository.getInstance();
+    /**
+     * Tag repository.
+     */
+    private static final TagRepository TAG_REPOS =
+            TagGAERepository.getInstance();
+
+    /**
+     * Fills the specified data model with commons.
+     *
+     * @param dataModel the specified data model
+     */
+    public static void fillCommon(final Map<String, Object> dataModel) {
+        try {
+            dataModel.put(Common.STAT_USER_CNT, USER_REPOS.count());
+            dataModel.put(Common.STAT_COMMENT_CNT, COMMENT_REPOS.count());
+            dataModel.put(Common.STAT_ARTICLE_CNT, ARTICLE_REPOS.count());
+            dataModel.put(Common.STAT_TAG_CNT, TAG_REPOS.count());
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+
+            dataModel.put(Common.STAT_USER_CNT, "Unavailable");
+            dataModel.put(Common.STAT_COMMENT_CNT, "Unavailable");
+            dataModel.put(Common.STAT_ARTICLE_CNT, "Unavailable");
+            dataModel.put(Common.STAT_TAG_CNT, "Unavailable");
+        }
+    }
+
     /**
      * Private default constructor.
      */

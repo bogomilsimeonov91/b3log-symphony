@@ -32,6 +32,7 @@ import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
@@ -54,7 +55,7 @@ import org.json.JSONObject;
  * Tag entries action. tag-entries.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 9, 2011
+ * @version 1.0.0.4, Feb 15, 2011
  */
 public final class TagEntriesAction extends AbstractCacheablePageAction {
 
@@ -184,6 +185,8 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
 
             ret.putAll(Langs.all());
+
+            Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 

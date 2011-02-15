@@ -33,6 +33,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -49,7 +50,7 @@ import org.json.JSONObject;
  * Index action. index.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 14, 2011
+ * @version 1.0.0.6, Feb 15, 2011
  */
 public final class IndexAction extends AbstractCacheablePageAction {
 
@@ -127,6 +128,8 @@ public final class IndexAction extends AbstractCacheablePageAction {
                                        windowSize);
             ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+
+            Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
