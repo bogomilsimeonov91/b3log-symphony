@@ -76,6 +76,7 @@ $.extend(Index.prototype, {
                 success: function(result, textStatus){
                     switch(result.sc) {
                         case true:
+                            $("#commentContentReply").val("");
                             window.location.reload();
                             break;
                         case false:
