@@ -71,12 +71,10 @@
                         ${originalArticleLink1Label}<#else>
                         ${articlePermalink1Label}</#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
                     </div>
-                    <div>
-                        <a href="javascript:void(0)" onclick="index.postToWb();">
-                            <img alt="${postToWbLabel}" title="${postToWbLabel}"
-                                 src="http://v.t.qq.com/share/images/s/b24.png" />
-                        </a>
-                    </div>
+                    <img onclick="index.postToWb();" alt="${postToWbLabel}" title="${postToWbLabel}"
+                         src="http://v.t.qq.com/share/images/s/b24.png" class="right marginR5"/>
+
+                    <span class="clear"></span>
                     <#if "" != article.sign>
                     <div class="sign">
                         ${article.sign}
@@ -186,7 +184,8 @@
                     "postEntryLabel": "${postEntryLabel}"
                 },
                 "oId": "${article.oId}",
-                "paginationPageCount": "${paginationPageCount}"
+                "paginationPageCount": "${paginationPageCount}",
+                "postToWbTitle": "${article.articleTitle} - ${titleIndex}\n"
             });
             Util.initStatus();
             Util.initPagination();

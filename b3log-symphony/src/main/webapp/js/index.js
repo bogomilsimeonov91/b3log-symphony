@@ -115,13 +115,14 @@ $.extend(Index.prototype, {
     },
     
     postToWb: function () {
-        var _content = $("<p>${article.articleContent}<p>").text();
-        var _t = encodeURI("${article.articleTitle} - ${titleIndex}\n" + _content);
+        var _t = encodeURI(this.postToWbTitle);
         var _url = encodeURIComponent(document.location);
         var _appkey = encodeURI("295bcd39428e4c098b31dc599ad07f6d");
         var _pic = encodeURI('');//（例如：var _pic='图片url1|图片url2|图片url3....）
         var _site = '';//你的网站地址
         var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
-        window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+        window.open( _u,'', 'width=700, height=480, top=' + 
+            (screen.height - 480) / 2 + ', left=' +
+            (screen.width - 700) / 2 + ', toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
     }
 });
