@@ -16,10 +16,10 @@
             <a href="/top-entries" title="${topEntriesLabel}">${topEntriesLabel}</a>
         </li>
         <li>
-            <a href="/about" title="${aboutLabel}">${aboutLabel}</a>
+            <a href="/chinasb" title="CSB">CSB</a>
         </li>
         <li>
-            <a href="/about" title="CSB">CSB</a>
+            <a href="/about" title="${aboutLabel}">${aboutLabel}</a>
         </li>
     </ul>
     <div class="clear"></div>
