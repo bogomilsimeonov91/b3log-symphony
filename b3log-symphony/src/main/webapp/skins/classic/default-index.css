@@ -186,7 +186,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .entry-list dd {
-    margin: 0 5px;
+    margin: 5px;
     padding: 5px;
 }
 
@@ -204,13 +204,16 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #E1EdF3;
 }
 
-.entry-list-top .article-body {
-    padding: 0 10px;
-    border-top: 1px dashed #FFFFFF;
-}
-
 .entry-list-top dd {
     padding: 5px 10px;
+}
+
+.article-body a {
+    color: #505460;
+}
+
+.article-body a:hover {
+    color: #005999;
 }
 
 .form th {
@@ -434,14 +437,18 @@ h1, h2, h3, h4, h5, h6 {
     border-top: 1px solid #E1EDF3;
     margin-top: 5px;
     padding: 5px 5px 0 5px;
+    color: darkgray;
 }
 
 .entry .comment .ref {
-    background: none repeat scroll 0 0 #FFFEC8;
-    border: 1px solid #DDDDDD;
-    font-size: 9pt;
-    margin: 0 0 10px;
-    padding: 2px;
+    background-color: #FFFEC8;
+    border: 1px solid #FFB02C;
+    font-size: 12px;
+    padding: 5px 6px;
+}
+
+.entry .comment>.ref {
+    margin-bottom: 5px;
 }
 
 /* user */

@@ -22,7 +22,7 @@
                     <th width="200px">
                         ${titleLabel}
                     </th>
-                    <th width="412px">
+                    <th width="410px">
                         ${commentContentLabel}
                     </th>
                     <th width="127px" colspan="2">
