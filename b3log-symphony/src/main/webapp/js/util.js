@@ -46,13 +46,15 @@ var Util = {
 
         if ($(".header a").length > 2) {
             var $as = $(".header a"),
-            pathname = window.location.pathname;
+            pathname = window.location.pathname.toLowerCase();
             if (pathname === "/" || pathname.indexOf("/index") === 0) {
                 $as[0].className = "current";
             } else if (pathname.indexOf("/top-entries") === 0){
                 $as[1].className = "current";
             } else if (pathname.indexOf("/about") === 0){
                 $as[2].className = "current";
+            } else if (pathname.indexOf("/chinsb") === 0){
+                $as[3].className = "current";
             }
         }
     },
