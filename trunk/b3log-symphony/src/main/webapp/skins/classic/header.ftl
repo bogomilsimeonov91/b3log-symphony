@@ -18,6 +18,9 @@
         <li>
             <a href="/about" title="${aboutLabel}">${aboutLabel}</a>
         </li>
+        <li>
+            <a href="/about" title="Chinasb">Chinasb</a>
+        </li>
     </ul>
     <div class="clear"></div>
 </div>
