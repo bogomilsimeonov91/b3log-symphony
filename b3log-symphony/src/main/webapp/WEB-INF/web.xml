@@ -19,7 +19,7 @@
 
 <!--
     Description: B3log Symphony web deployment descriptor.
-    Version: 1.0.0.7, Feb 15, 2011
+    Version: 1.0.0.8, Feb 16, 2011
     Author: Liang Ding
 -->
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
@@ -84,7 +84,7 @@
         <url-pattern>/index</url-pattern>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-     <servlet>
+    <servlet>
         <servlet-name>TopEntries</servlet-name>
         <servlet-class>org.b3log.symphony.action.TopEntriesAction</servlet-class>
     </servlet>
@@ -195,6 +195,14 @@
     <servlet-mapping>
         <servlet-name>GetTags</servlet-name>
         <url-pattern>/get-tags</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Chinasb</servlet-name>
+        <servlet-class>org.b3log.symphony.action.ChinasbAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Chinasb</servlet-name>
+        <url-pattern>/chinasb</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Error404</servlet-name>
