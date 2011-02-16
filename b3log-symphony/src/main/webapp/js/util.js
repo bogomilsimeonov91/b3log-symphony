@@ -52,9 +52,9 @@ var Util = {
             } else if (pathname.indexOf("/top-entries") === 0){
                 $as[1].className = "current";
             } else if (pathname.indexOf("/about") === 0){
-                $as[2].className = "current";
-            } else if (pathname.indexOf("/chinsb") === 0){
                 $as[3].className = "current";
+            } else if (pathname.indexOf("/chinasb") === 0){
+                $as[2].className = "current";
             }
         }
     },
