@@ -82,6 +82,7 @@
                 </dd>
             </dl>
             <div id="comments">
+                <#if paginationPageNums?size != 0>
                 <dl class="entry-list">
                     <#list article.articleComments as comment>
                     <dd id="${comment.oId}comment">
@@ -123,7 +124,6 @@
                     </dd>
                     </#list>
                 </dl>
-                <#if paginationPageNums?size != 0>
                 <div id="pagination">
                     <#if paginationPageNums?first != 1>
                     <a href="/entries/${article.oId}?p=1#comments" title="${firstPageLabel}"><<</a>
