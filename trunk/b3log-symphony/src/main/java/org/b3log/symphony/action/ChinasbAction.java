@@ -94,6 +94,8 @@ public final class ChinasbAction extends AbstractCacheablePageAction {
 
         final List<JSONObject> articles = new ArrayList<JSONObject>();
         ret.put(Article.ARTICLES, articles);
+        ret.put(Pagination.PAGINATION_PAGE_COUNT, 0);
+        ret.put(Pagination.PAGINATION_PAGE_NUMS, new ArrayList<Object>());
 
         try {
             final JSONObject queryStringJSONObject =
