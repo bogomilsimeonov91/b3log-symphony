@@ -90,59 +90,60 @@ public final class ChinasbAction extends AbstractCacheablePageAction {
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();
         ret.putAll(Langs.all());
+        Filler.fillCommon(ret);
 
         try {
-            ret.putAll(Langs.all());
 
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
 
             final JSONObject chinasbTag = tagRepository.getByTitle("chinasb");
-            final String tagId = chinasbTag.getString(Keys.OBJECT_ID);
-            final JSONObject result =
-                    tagArticleRepository.getByTagId(tagId, currentPageNum,
-                                                    UserAction.ENTRY_FETCH_SIZE);
-            final JSONArray tagArticleRelations =
-                    result.getJSONArray(Keys.RESULTS);
-            final List<JSONObject> articles = new ArrayList<JSONObject>();
+            if (null != chinasbTag) {
+                final String tagId = chinasbTag.getString(Keys.OBJECT_ID);
+                final JSONObject result =
+                        tagArticleRepository.getByTagId(tagId, currentPageNum,
+                                                        UserAction.ENTRY_FETCH_SIZE);
+                final JSONArray tagArticleRelations =
+                        result.getJSONArray(Keys.RESULTS);
+                final List<JSONObject> articles = new ArrayList<JSONObject>();
 
-            LOGGER.log(Level.FINE, "Getting articles....");
-            for (int i = 0; i < tagArticleRelations.length(); i++) {
-                final JSONObject tagArticleRel =
-                        tagArticleRelations.getJSONObject(i);
-                final JSONObject article =
-                        articleRepository.get(tagArticleRel.getString(
-                        Article.ARTICLE + "_" + Keys.OBJECT_ID));
-                articles.add(article);
+                LOGGER.log(Level.FINE, "Getting articles....");
+                for (int i = 0; i < tagArticleRelations.length(); i++) {
+                    final JSONObject tagArticleRel =
+                            tagArticleRelations.getJSONObject(i);
+                    final JSONObject article =
+                            articleRepository.get(tagArticleRel.getString(
+                            Article.ARTICLE + "_" + Keys.OBJECT_ID));
+                    articles.add(article);
 
-                final String authorId = article.getString(
-                        Common.AUTHOR_ID);
-                final JSONObject author = userRepository.get(authorId);
-                final String name = author.getString(User.USER_NAME);
-                article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
-                final String url = author.getString(User.USER_URL);
-                article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
-                final String sign = Users.getUserSignHTML(author);
-                article.put(Common.SIGN, sign);
-                article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
-                            author.getString(Common.USER_THUMBNAIL_URL));
+                    final String authorId = article.getString(
+                            Common.AUTHOR_ID);
+                    final JSONObject author = userRepository.get(authorId);
+                    final String name = author.getString(User.USER_NAME);
+                    article.put(Article.ARTICLE_AUTHOR_NAME_REF, name);
+                    final String url = author.getString(User.USER_URL);
+                    article.put(Article.ARTICLE_AUTHOR_URL_REF, url);
+                    final String sign = Users.getUserSignHTML(author);
+                    article.put(Common.SIGN, sign);
+                    article.put(Article.ARTICLE_AUTHOR_THUMBNAIL_URL_REF,
+                                author.getString(Common.USER_THUMBNAIL_URL));
+                }
+                LOGGER.log(Level.FINE, "Got articles....");
+
+                ret.put(Article.ARTICLES, articles);
+                final int pageCount =
+                        result.getJSONObject(Pagination.PAGINATION).
+                        getInt(Pagination.PAGINATION_PAGE_COUNT);
+                final int windowSize = 20;
+                final List<Integer> pageNums =
+                        Paginator.paginate(currentPageNum,
+                                           UserAction.ENTRY_FETCH_SIZE,
+                                           pageCount,
+                                           windowSize);
+                ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+                ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
             }
-            LOGGER.log(Level.FINE, "Got articles....");
-
-            ret.put(Article.ARTICLES, articles);
-            final int pageCount =
-                    result.getJSONObject(Pagination.PAGINATION).
-                    getInt(Pagination.PAGINATION_PAGE_COUNT);
-            final int windowSize = 20;
-            final List<Integer> pageNums =
-                    Paginator.paginate(currentPageNum,
-                                       UserAction.ENTRY_FETCH_SIZE, pageCount,
-                                       windowSize);
-            ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
-            ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
-
-            Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
@@ -154,8 +155,6 @@ public final class ChinasbAction extends AbstractCacheablePageAction {
                 LOGGER.severe(ex.getMessage());
             }
         }
-
-        Filler.fillCommon(ret);
 
         return ret;
     }
