@@ -75,7 +75,7 @@ public final class IndexAction extends AbstractCacheablePageAction {
     /**
      * Recent articles count.
      */
-    private static final int RECENT_ARTICLES_CNT =
+    public static final int RECENT_ARTICLES_CNT =
             Integer.valueOf(Symphonys.get("recentEntriesCntPerPage"));
 
     @Override
