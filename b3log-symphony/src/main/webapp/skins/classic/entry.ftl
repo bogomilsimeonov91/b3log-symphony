@@ -191,6 +191,7 @@
             Util.initPagination();
             var editor = new jtbcEditor('commentContent');
             editor.tInit('editor', '/js/lib/jtbceditor/');
+            index.commentShow();
         </script>
     </body>
 </html>
