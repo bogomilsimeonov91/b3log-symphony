@@ -96,18 +96,20 @@ $.extend(User.prototype, {
             "type": "empty",
             "tip": this.labels.tagsCannotEmptyLabel
         }])) {
-            if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]") {
+            var editorUBB = editor.tGetUBB();
+            if (editorUBB.replace(/(^\s*)|(\s*$)/g, "") !== "[br]"
+                && editorUBB.replace(/(^\s*)|(\s*$)/g, "").replace(/\[p\]\[br\]\[\/p\]/g, "") !== "") {
                 var requestJSONObject = {
                     "article": {
                         "articleTitle": $("#title").val(),
                         "articleTags": $("#tags").val().replace(/(^\s*)|(\s*$)/g, ""),
-                        "articleContent": editor.tGetUBB()
+                        "articleContent": editorUBB
                     }
                 };
 
                 $("#addEntryButton").attr("disabled", "true");
                 $("#tip").html("<img src='/skins/classic/images/loading.gif' alt='"
-                + this.labels.loadingLabel + "' title='" + this.labels.loadingLabel + "'/>");
+                    + this.labels.loadingLabel + "' title='" + this.labels.loadingLabel + "'/>");
 
                 $.ajax({
                     url: "/user-add-entry",

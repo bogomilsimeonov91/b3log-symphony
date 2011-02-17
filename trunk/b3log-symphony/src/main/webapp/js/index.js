@@ -30,11 +30,12 @@ $.extend(Index.prototype, {
     },
 
     submitEntryComment: function () {
-        if (editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[br]"
-            && editor.tGetUBB().replace(/(^\s*)|(\s*$)/g, "") !== "[p][br][p]") {
+        var editorUBB = editor.tGetUBB();
+        if (editorUBB.replace(/(^\s*)|(\s*$)/g, "") !== "[br]"
+            && editorUBB.replace(/(^\s*)|(\s*$)/g, "").replace(/\[p\]\[br\]\[\/p\]/g, "") !== "") {
             var requestJSONObject = {
                 "oId": this.oId,
-                "commentContent": editor.tGetUBB().replace("[br]", "")
+                "commentContent": editorUBB
             };
             
             $("#entryCommentButton").attr("disabled", "true");
@@ -130,7 +131,7 @@ $.extend(Index.prototype, {
         var _pic = encodeURI('');//（例如：var _pic='图片url1|图片url2|图片url3....）
         var _site = 'http://www.b3log.org';//你的网站地址
         var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
-        window.open( _u,'', 'width=700, height=480, top=' + 
+        window.open( _u,'', 'width=700, height=480, top=' +
             (screen.height - 480) / 2 + ', left=' +
             (screen.width - 700) / 2 + ', toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
     },
