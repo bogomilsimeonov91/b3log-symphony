@@ -92,8 +92,10 @@ public final class ChinasbAction extends AbstractCacheablePageAction {
         ret.putAll(Langs.all());
         Filler.fillCommon(ret);
 
-        try {
+        final List<JSONObject> articles = new ArrayList<JSONObject>();
+        ret.put(Article.ARTICLES, articles);
 
+        try {
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
@@ -106,7 +108,7 @@ public final class ChinasbAction extends AbstractCacheablePageAction {
                                                         UserAction.ENTRY_FETCH_SIZE);
                 final JSONArray tagArticleRelations =
                         result.getJSONArray(Keys.RESULTS);
-                final List<JSONObject> articles = new ArrayList<JSONObject>();
+
 
                 LOGGER.log(Level.FINE, "Getting articles....");
                 for (int i = 0; i < tagArticleRelations.length(); i++) {
@@ -131,7 +133,6 @@ public final class ChinasbAction extends AbstractCacheablePageAction {
                 }
                 LOGGER.log(Level.FINE, "Got articles....");
 
-                ret.put(Article.ARTICLES, articles);
                 final int pageCount =
                         result.getJSONObject(Pagination.PAGINATION).
                         getInt(Pagination.PAGINATION_PAGE_COUNT);
