@@ -133,5 +133,18 @@ $.extend(Index.prototype, {
         window.open( _u,'', 'width=700, height=480, top=' + 
             (screen.height - 480) / 2 + ', left=' +
             (screen.width - 700) / 2 + ', toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+    },
+
+    commentShow: function () {
+        $(".comment>.ref").each(function () {
+            var $it = $(this);
+            if (this.clientHeight > 129) {
+                $it.hover(function () {
+                    $it.css("max-height", "none");
+                }, function () {
+                    $it.css("max-height", "129px");
+                });
+            }
+        });
     }
 });
