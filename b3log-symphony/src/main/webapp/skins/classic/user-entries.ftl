@@ -31,14 +31,16 @@
                 <#list articles as article>
                 <tr>
                     <td>
-                        <a class="big-font" href="/entries/${article.oId}" target="_blank">
-                            <b>${article.articleTitle}</b>
+                        <a href="/entries/${article.oId}" target="_blank">
+                            ${article.articleTitle}
                         </a>
                     </td>
                     <td>
-                        <#list article.articleTags?split(',') as tagTitle>
-                        <a href="/tags/${tagTitle}" target="_blank">${tagTitle}</a><#if tagTitle_has_next>,</#if>
-                        </#list>
+                        <div class="middle-font">
+                            <#list article.articleTags?split(',') as tagTitle>
+                            <a href="/tags/${tagTitle}" target="_blank">${tagTitle}</a><#if tagTitle_has_next>,</#if>
+                            </#list>
+                        </div>
                     </td>
                     <td align="center" class="small-font" width="95px">
                         ${article.articleCreateDate?string('yyyy-MM-dd HH:mm')}
