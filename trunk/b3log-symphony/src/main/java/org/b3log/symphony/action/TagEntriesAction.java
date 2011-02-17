@@ -55,7 +55,7 @@ import org.json.JSONObject;
  * Tag entries action. tag-entries.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 15, 2011
+ * @version 1.0.0.5, Feb 17, 2011
  */
 public final class TagEntriesAction extends AbstractCacheablePageAction {
 
@@ -117,7 +117,8 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
 
             final List<JSONObject> topAuthors = new ArrayList<JSONObject>();
             final List<String> topAuthorIds = tagUserRepository.getTopTagUsers(
-                    tag.getString(Keys.OBJECT_ID), 5);
+                    tag.getString(Keys.OBJECT_ID), 
+                    TopEntriesAction.TOP_TAG_USER_CNT);
             for (final String topAuthorId : topAuthorIds) {
                 final JSONObject user = userRepository.get(topAuthorId);
 

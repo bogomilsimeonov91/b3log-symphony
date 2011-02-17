@@ -40,6 +40,7 @@ import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.TagUserGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Langs;
+import org.b3log.symphony.util.Symphonys;
 import org.b3log.symphony.util.Users;
 import org.json.JSONObject;
 
@@ -47,7 +48,7 @@ import org.json.JSONObject;
  * Top entries action. top-entries.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 15, 2011
+ * @version 1.0.0.2, Feb 17, 2011
  */
 public final class TopEntriesAction extends AbstractCacheablePageAction {
 
@@ -73,6 +74,20 @@ public final class TopEntriesAction extends AbstractCacheablePageAction {
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
+    /**
+     * Top tags count.
+     */
+    public static final int TOP_TAGS_CNT = Symphonys.getInt("topTagsCnt");
+    /**
+     * Top entries count per tag.
+     */
+    public static final int TOP_ENTRIES_CNT_PER_TAG =
+            Symphonys.getInt("topEntriesCntPerTag");
+    /**
+     * Top tag user count.
+     */
+    public static final int TOP_TAG_USER_CNT =
+            Symphonys.getInt("topTagUserCnt");
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -85,11 +100,8 @@ public final class TopEntriesAction extends AbstractCacheablePageAction {
             ret.putAll(Langs.all());
 
             // Tags
-            final int maxTagCnt = 10;
-            final int maxAuthorCnt = 3;
-            final int maxArticleCnt = 3;
             final List<JSONObject> tags =
-                    tagRepository.getMostUsedTags(maxTagCnt);
+                    tagRepository.getMostUsedTags(TOP_TAGS_CNT);
             List<JSONObject> articles = null;
             LOGGER.log(Level.FINE, "Getting tags....");
             for (int i = 0; i < tags.size(); i++) {
@@ -102,7 +114,8 @@ public final class TopEntriesAction extends AbstractCacheablePageAction {
                 final List<JSONObject> topAuthors = new ArrayList<JSONObject>();
                 tag.put(Tag.TAG_TOP_AUTHORS_REF, (Object) topAuthors);
                 final List<String> topAuthorIds =
-                        tagUserRepository.getTopTagUsers(tagId, maxAuthorCnt);
+                        tagUserRepository.getTopTagUsers(tagId,
+                                                         TOP_TAG_USER_CNT);
                 for (final String topAuthorId : topAuthorIds) {
                     final JSONObject user = userRepository.get(topAuthorId);
 
@@ -123,7 +136,7 @@ public final class TopEntriesAction extends AbstractCacheablePageAction {
                            "Getting top comment articles for tag[title={0}]",
                            tagTitle);
                 articles = tagRepository.getTopArticles(tagTitle,
-                                                        maxArticleCnt);
+                                                        TOP_ENTRIES_CNT_PER_TAG);
                 for (final JSONObject article : articles) {
                     final String authorId = article.getString(
                             Common.AUTHOR_ID);

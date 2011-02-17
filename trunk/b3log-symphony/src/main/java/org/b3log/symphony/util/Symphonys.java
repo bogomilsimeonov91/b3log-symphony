@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * Symphony utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 9, 2011
+ * @version 1.0.0.1, Feb 17, 2011
  */
 public final class Symphonys {
 
@@ -49,14 +49,30 @@ public final class Symphonys {
     }
 
     /**
-     * Gets a configuration property with the specified key.
+     * Gets a configuration string property with the specified key.
      *
      * @param key the specified key
-     * @return property value corresponding to the specified key, returns
-     * {@code null} if not found
+     * @return string property value corresponding to the specified key,
+     * returns {@code null} if not found
      */
     public static String get(final String key) {
         return CFG.getString(key);
+    }
+
+    /**
+     * Gets a configuration integer property with the specified key.
+     *
+     * @param key the specified key
+     * @return integer property value corresponding to the specified key,
+     * returns {@code null} if not found
+     */
+    public static Integer getInt(final String key) {
+        final String stringValue = get(key);
+        if (null == stringValue) {
+            return null;
+        }
+
+        return Integer.valueOf(stringValue);
     }
 
     /**
