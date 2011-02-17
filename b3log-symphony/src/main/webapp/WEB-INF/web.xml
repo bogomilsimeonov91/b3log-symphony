@@ -36,6 +36,7 @@
         <url-pattern>/about</url-pattern>
         <url-pattern>/top-entries</url-pattern>
         <url-pattern>/users/*</url-pattern>
+        <url-pattern>/chinasb</url-pattern>
     </filter-mapping>
     <security-constraint>
         <web-resource-collection>
