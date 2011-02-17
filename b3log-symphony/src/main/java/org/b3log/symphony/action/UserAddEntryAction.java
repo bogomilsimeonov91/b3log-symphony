@@ -159,21 +159,21 @@ public final class UserAddEntryAction extends AbstractAction {
         final JSONObject ret = new JSONObject();
 
         final HttpSession session = request.getSession();
-        Long latestPostTIme =
+        Long latestPostTime =
                 (Long) session.getAttribute(Session.LATEST_POST_TIME);
         final Long currentPostTime = System.currentTimeMillis();
-        if (null == latestPostTIme) {
-            latestPostTIme = 0L;
+        if (null == latestPostTime) {
+            latestPostTime = 0L;
         }
 
         final long minStepPostTime = Long.valueOf(
                 Symphonys.get("minStepPostTime"));
         LOGGER.log(Level.FINER,
                    "Current post time[{0}], the latest post time[{1}]",
-                   new Object[]{currentPostTime, latestPostTIme});
+                   new Object[]{currentPostTime, latestPostTime});
 
         try {
-            if (latestPostTIme > (currentPostTime - minStepPostTime)) {
+            if (latestPostTime > (currentPostTime - minStepPostTime)) {
                 ret.put(Keys.STATUS_CODE, false);
                 ret.put(Keys.MSG, Langs.get("postTooFrequentLabel"));
 
@@ -191,7 +191,7 @@ public final class UserAddEntryAction extends AbstractAction {
             throw new ActionException(e);
         }
 
-        latestPostTIme = currentPostTime;
+        latestPostTime = currentPostTime;
 
         final Transaction transaction = articleRepository.beginTransaction();
 
@@ -246,7 +246,7 @@ public final class UserAddEntryAction extends AbstractAction {
             ret.put(Keys.STATUS_CODE, true);
             ret.put(User.USER_NAME, author.getString(User.USER_NAME));
 
-            session.setAttribute(Session.LATEST_POST_TIME, latestPostTIme);
+            session.setAttribute(Session.LATEST_POST_TIME, latestPostTime);
 
             return ret;
         } catch (final Exception e) {
