@@ -93,6 +93,12 @@ public final class UserAddEntryAction extends AbstractAction {
      */
     private TagRepository tagRepository = TagGAERepository.getInstance();
 
+    /**
+     * Minimum step post time.
+     */
+    public static final long MIN_STEP_POST_TIME =
+            Symphonys.getLong("minStepPostTime");
+
     @Override
     protected Map<?, ?> doFreeMarkerAction(
             final freemarker.template.Template template,
@@ -166,14 +172,12 @@ public final class UserAddEntryAction extends AbstractAction {
             latestPostTime = 0L;
         }
 
-        final long minStepPostTime = Long.valueOf(
-                Symphonys.get("minStepPostTime"));
         LOGGER.log(Level.FINER,
                    "Current post time[{0}], the latest post time[{1}]",
                    new Object[]{currentPostTime, latestPostTime});
 
         try {
-            if (latestPostTime > (currentPostTime - minStepPostTime)) {
+            if (latestPostTime > (currentPostTime - MIN_STEP_POST_TIME)) {
                 ret.put(Keys.STATUS_CODE, false);
                 ret.put(Keys.MSG, Langs.get("postTooFrequentLabel"));
 

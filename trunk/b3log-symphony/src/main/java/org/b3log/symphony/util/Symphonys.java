@@ -76,6 +76,22 @@ public final class Symphonys {
     }
 
     /**
+     * Gets a configuration long property with the specified key.
+     *
+     * @param key the specified key
+     * @return long property value corresponding to the specified key,
+     * returns {@code null} if not found
+     */
+    public static Long getLong(final String key) {
+        final String stringValue = get(key);
+        if (null == stringValue) {
+            return null;
+        }
+
+        return Long.valueOf(stringValue);
+    }
+
+    /**
      * Private default constructor.
      */
     private Symphonys() {
