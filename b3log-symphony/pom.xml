@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Description: B3log Symphony
-    Version: 1.0.0.7, Feb 16, 2011
+    Version: 1.0.0.8, Feb 17, 2011
     Author: Liang Ding
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -24,7 +24,7 @@
             0.4.4
         </org.b3log.latke-repository-gae.version>
         <org.b3log.latke-cache-gae.version>
-            0.4.3
+            0.4.4
         </org.b3log.latke-cache-gae.version>
         <commons-lang.version>2.5</commons-lang.version>
         <gae.version>1.4.2</gae.version>
