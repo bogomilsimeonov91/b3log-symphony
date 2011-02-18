@@ -3,7 +3,7 @@
         ${tagCountLabel1}<span class="blue">${statTagCnt}</span>
         ${userCountLabel1}<span class="blue">${statUserCnt}</span>
         ${cmtCountLabel1}<span class="blue">${statCmtCnt}</span>
-        ${entryCountLabel1}<span class="blue">${statTagCnt}</span>
+        ${entryCountLabel1}<span class="blue">${statArticleCnt}</span>
     </div>
     <ul class="header-navi">
         <li>
