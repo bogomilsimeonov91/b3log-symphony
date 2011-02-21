@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * Symphony utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 17, 2011
+ * @version 1.0.0.2, Feb 21, 2011
  */
 public final class Symphonys {
 
@@ -37,6 +37,10 @@ public final class Symphonys {
      * GAE environment.
      */
     private static final Value GAE_ENV = SystemProperty.environment.value();
+    /**
+     * Host.
+     */
+    public static final String HOST = get("host");
 
     /**
      * Does Symphony runs on development environment?

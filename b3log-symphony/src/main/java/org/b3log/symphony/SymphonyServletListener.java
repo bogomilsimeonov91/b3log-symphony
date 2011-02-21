@@ -39,6 +39,7 @@ import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.servlet.AbstractServletListener;
 import org.b3log.latke.util.freemarker.Templates;
+import org.b3log.symphony.event.CommentNotifier;
 import org.b3log.symphony.util.Skins;
 import org.b3log.symphony.util.Symphonys;
 
@@ -202,6 +203,8 @@ public final class SymphonyServletListener extends AbstractServletListener {
         LOGGER.info("Registering event processor....");
         try {
             final EventManager eventManager = EventManager.getInstance();
+
+            new CommentNotifier(eventManager);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, "Register event processors error", e);
             throw new RuntimeException(e);
