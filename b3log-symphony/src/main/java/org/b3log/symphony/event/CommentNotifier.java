@@ -26,10 +26,9 @@ import org.b3log.symphony.im.Message;
 import org.b3log.symphony.im.qq.QQ;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
-import org.b3log.symphony.repository.CommentRepository;
-import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.util.Symphonys;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 /**
  * This listener is responsible for processing comment reply.
@@ -80,18 +79,21 @@ public final class CommentNotifier
             if (!QQ_ROBOT1.isLoggedIn()) {
                 QQ_ROBOT1.login();
             }
-            
-            final String commentContent =
+
+            final String commentContentHTML =
                     comment.getString(Comment.COMMENT_CONTENT);
+            final String contentText = Jsoup.parse(commentContentHTML).text();
+            final StringBuilder contentBuilder = new StringBuilder(contentText);
             final String commentSharpURL =
                     comment.getString(Comment.COMMENT_SHARP_URL);
+              contentBuilder.append("\r\n").append(commentSharpURL);
 //            final String articleTitle = article.getString(Article.ARTICLE_TITLE);
 //            final String articleLink = "http://" + Symphonys.HOST + article.
 //                    getString(Article.ARTICLE_PERMALINK);
 
             final JSONObject message = new JSONObject();
             message.put(Message.MESSAGE_TO_ACCOUNT, "845765");
-            message.put(Message.MESSAGE_CONTENT, commentContent);
+            message.put(Message.MESSAGE_CONTENT, commentContentHTML);
 
             QQ_ROBOT1.send(message);
         } catch (final Exception e) {

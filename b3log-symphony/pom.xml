@@ -28,6 +28,7 @@
         </org.b3log.latke-cache-gae.version>
         <commons-lang.version>2.5</commons-lang.version>
         <gae.version>1.4.2</gae.version>
+        <jsoup.version>1.5.1</jsoup.version>
         <!-- maven plugin -->
         <maven-license-plugin.version>1.8.0</maven-license-plugin.version>
         <maven-checkstyle-plugin.version>2.5</maven-checkstyle-plugin.version>
@@ -154,6 +155,12 @@
                 <version>${commons-lang.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -204,6 +211,11 @@
             <artifactId>commons-lang</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+            
     </dependencies>
 
     <build>
