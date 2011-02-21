@@ -96,9 +96,6 @@ public final class HTTPClient {
                 line = br.readLine();
             }
 
-            LOGGER.finer(new String(contentBuilder.toString().getBytes(),
-                                    "GB2312"));
-
             return new String(contentBuilder.toString().getBytes(), "UTF-8");
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
