@@ -20,7 +20,7 @@ package org.b3log.symphony.model;
  * This class defines all common model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 15, 2011
+ * @version 1.0.0.6, Feb 21, 2011
  */
 public final class Common {
 
@@ -68,6 +68,10 @@ public final class Common {
      * Key of user thumbnail URL.
      */
     public static final String USER_THUMBNAIL_URL = "userThumbnailURL";
+    /**
+     * Key of user QQ number.
+     */
+    public static final String USER_QQ_NUM = "userQQNum";
     /**
      * Key of tag top users.
      */
