@@ -46,11 +46,6 @@ public final class CommentNotifier
     private static final Logger LOGGER =
             Logger.getLogger(CommentNotifier.class.getName());
     /**
-     * Comment repository.
-     */
-    private CommentRepository commentRepository =
-            CommentGAERepository.getInstance();
-    /**
      * QQ robot 1.
      */
     private static final QQ QQ_ROBOT1;
