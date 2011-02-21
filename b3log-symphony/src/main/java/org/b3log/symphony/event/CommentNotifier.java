@@ -111,7 +111,9 @@ public final class CommentNotifier
             message.put(Message.MESSAGE_TO_ACCOUNT, commenterQQNum);
             message.put(Message.MESSAGE_CONTENT, contentBuilder.toString());
 
-            QQ_ROBOT1.send(message);
+            if (QQ_ROBOT1.isLoggedIn()) {
+                QQ_ROBOT1.send(message);
+            }
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new EventException("Reply notifier error!");
