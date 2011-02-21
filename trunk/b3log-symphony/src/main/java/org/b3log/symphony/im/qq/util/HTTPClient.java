@@ -69,7 +69,7 @@ public final class HTTPClient {
             httpConn.setRequestProperty("Accept-Language", "zh-cn,zh;q=0.5");
             httpConn.setRequestProperty("Accept-Encoding", "gzip,deflate");
             httpConn.setRequestProperty("Accept-Charset",
-                                        "utf-8,GB2312;q=0.7,*;q=0.7");
+                                        "UTF-8;q=0.7,*;q=0.7");
             if (!getCookie().equals("")) {
                 httpConn.setRequestProperty("Cookie", "" + getCookie() + ";");
             }
@@ -129,7 +129,7 @@ public final class HTTPClient {
             httpConn.setRequestProperty("Accept-Language", "zh-cn,zh;q=0.5");
             httpConn.setRequestProperty("Accept-Encoding", "gzip,deflate");
             httpConn.setRequestProperty("Accept-Charset",
-                                        "utf-8,GB2312;q=0.7,*;q=0.7");
+                                        "UTF-8;q=0.7,*;q=0.7");
             if (!(getCookie().equals(""))) {
                 httpConn.setRequestProperty("Cookie", "" + getCookie() + ";");
             }
