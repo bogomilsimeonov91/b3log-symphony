@@ -102,7 +102,7 @@ $.extend(Index.prototype, {
     replyComment: function (oId) {
         if ($("#" + oId + "commentForm").length === 0) {
             if ($("#userStatus span")[0].innerHTML === "") {
-                alert(this.labels.loginFirstLabel2);
+                alert(this.labels.loginFirstLabel1);
                 $("#userStatus span").last().click();
                 return;
             }
