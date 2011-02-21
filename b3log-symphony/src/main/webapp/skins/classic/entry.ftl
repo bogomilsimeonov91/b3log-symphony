@@ -71,8 +71,10 @@
                         ${originalArticleLink1Label}<#else>
                         ${articlePermalink1Label}</#if><a href="${article.articlePermalink}" target="_blank">${article.articlePermalink}</a>
                     </div>
-                    <img onclick="index.postToWb();" alt="${postToWbLabel}" title="${postToWbLabel}"
-                         src="http://v.t.qq.com/share/images/s/b24.png" class="right marginR5"/>
+                    <a href="javascript:index.postToWb();">
+                        <img alt="${postToWbLabel}" title="${postToWbLabel}"
+                             src="http://v.t.qq.com/share/images/s/b24.png" class="right marginR5"/>
+                    </a>
                     <span class="clear"></span>
                     <#if "" != article.sign>
                     <div class="sign">
