@@ -39,7 +39,7 @@ import org.json.JSONObject;
  * User settings. user-settings.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 12, 2011
+ * @version 1.0.0.4, Feb 21, 2011
  */
 public final class UserSettingsAction extends AbstractAction {
 
@@ -67,7 +67,6 @@ public final class UserSettingsAction extends AbstractAction {
         ret.putAll(Langs.all());
 
         final JSONObject user = Users.getCurrentUser();
-
         try {
             LOGGER.log(Level.FINER, "Current logged in user[name={0}]",
                     user.getString(User.USER_NAME));
@@ -122,6 +121,10 @@ public final class UserSettingsAction extends AbstractAction {
 
                     return ret;
                 }
+
+                final String userQQNum =
+                        requestJSONObject.getString(Common.USER_QQ_NUM);
+                userToUpdate.put(Common.USER_QQ_NUM, userQQNum);
 
                 userToUpdate.put(User.USER_NAME, userName);
                 userRepository.update(userId, userToUpdate);
