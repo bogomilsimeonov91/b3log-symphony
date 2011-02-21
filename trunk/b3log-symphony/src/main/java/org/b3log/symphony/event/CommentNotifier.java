@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.event;
 
 import java.util.logging.Level;
@@ -22,10 +21,14 @@ import org.b3log.latke.event.AbstractEventListener;
 import org.b3log.latke.event.Event;
 import org.b3log.latke.event.EventException;
 import org.b3log.latke.event.EventManager;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.im.Message;
 import org.b3log.symphony.im.qq.QQ;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
+import org.b3log.symphony.model.Common;
+import org.b3log.symphony.repository.UserRepository;
+import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Symphonys;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -44,6 +47,10 @@ public final class CommentNotifier
      */
     private static final Logger LOGGER =
             Logger.getLogger(CommentNotifier.class.getName());
+    /**
+     * User repository.
+     */
+    private UserRepository userRepository = UserGAERepository.getInstance();
     /**
      * QQ robot 1.
      */
@@ -80,19 +87,27 @@ public final class CommentNotifier
                 QQ_ROBOT1.login();
             }
 
+            final String commenterId = comment.getString(Comment.COMMENTER_ID);
+            final JSONObject commenter = userRepository.get(commenterId);
+            final String commenterQQNum =
+                    commenter.optString(Common.USER_QQ_NUM);
+            if (Strings.isEmptyOrNull(commenterQQNum)) {
+                return;
+            }
+
             final String commentContentHTML =
                     comment.getString(Comment.COMMENT_CONTENT);
             final String contentText = Jsoup.parse(commentContentHTML).text();
             final StringBuilder contentBuilder = new StringBuilder(contentText);
             final String commentSharpURL =
                     comment.getString(Comment.COMMENT_SHARP_URL);
-              contentBuilder.append("\r\n").append(commentSharpURL);
+            contentBuilder.append("\r\n").append(commentSharpURL);
 //            final String articleTitle = article.getString(Article.ARTICLE_TITLE);
 //            final String articleLink = "http://" + Symphonys.HOST + article.
 //                    getString(Article.ARTICLE_PERMALINK);
 
             final JSONObject message = new JSONObject();
-            message.put(Message.MESSAGE_TO_ACCOUNT, "845765");
+            message.put(Message.MESSAGE_TO_ACCOUNT, commenterQQNum);
             message.put(Message.MESSAGE_CONTENT, contentBuilder.toString());
 
             QQ_ROBOT1.send(message);
