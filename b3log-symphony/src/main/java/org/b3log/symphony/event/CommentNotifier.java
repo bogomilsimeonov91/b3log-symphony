@@ -93,7 +93,7 @@ public final class CommentNotifier
 
             final JSONObject message = new JSONObject();
             message.put(Message.MESSAGE_TO_ACCOUNT, "845765");
-            message.put(Message.MESSAGE_CONTENT, commentContentHTML);
+            message.put(Message.MESSAGE_CONTENT, contentBuilder.toString());
 
             QQ_ROBOT1.send(message);
         } catch (final Exception e) {
