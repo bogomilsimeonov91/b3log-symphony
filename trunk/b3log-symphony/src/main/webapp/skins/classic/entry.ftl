@@ -184,7 +184,7 @@
                     "settingsLabel": "${settingsLabel}",
                     "postEntryLabel": "${postEntryLabel}",
                     "loadingLabel": "${loadingLabel}",
-                    "loginFirstLabel2": "${loginFirstLabel2}"
+                    "loginFirstLabel1": "${loginFirstLabel1}"
                 },
                 "oId": "${article.oId}",
                 "paginationPageCount": "${paginationPageCount}",
