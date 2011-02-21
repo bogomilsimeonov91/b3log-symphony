@@ -69,7 +69,7 @@ public final class UserSettingsAction extends AbstractAction {
         final JSONObject user = Users.getCurrentUser();
         try {
             LOGGER.log(Level.FINER, "Current logged in user[name={0}]",
-                    user.getString(User.USER_NAME));
+                       user.getString(User.USER_NAME));
             final String email = user.getString(User.USER_EMAIL);
 
             ret.put(User.USER_EMAIL, email);
@@ -77,6 +77,7 @@ public final class UserSettingsAction extends AbstractAction {
             ret.put(User.USER_URL, user.getString(User.USER_URL));
             ret.put(Common.USER_THUMBNAIL_URL,
                     user.getString(Common.USER_THUMBNAIL_URL));
+            ret.put(Common.USER_QQ_NUM, user.optString(Common.USER_QQ_NUM));
 
             ret.put(Common.SIGN, user.getString(Common.SIGN));
         } catch (final Exception e) {
@@ -95,15 +96,15 @@ public final class UserSettingsAction extends AbstractAction {
 
         final Transaction transaction = userRepository.beginTransaction();
         try {
-            final JSONObject oldUser = Users.getCurrentUser();
-            final String userId = oldUser.getString(Keys.OBJECT_ID);
+            final JSONObject currentUser = Users.getCurrentUser();
+            final String currentUserId = currentUser.getString(Keys.OBJECT_ID);
 
             final JSONObject queryStringJSONObject =
                     getQueryStringJSONObject(request);
             final String action = queryStringJSONObject.optString("action",
                                                                   "basic");
             final JSONObject userToUpdate = new JSONObject(
-                    oldUser, JSONObject.getNames(oldUser));
+                    currentUser, JSONObject.getNames(currentUser));
 
             if ("basic".equals(action)) {
                 final String userName =
@@ -115,11 +116,16 @@ public final class UserSettingsAction extends AbstractAction {
                     return ret;
                 }
 
-                if (null != userRepository.getByName(userName)) {
-                    ret.put(Keys.STATUS_CODE, false);
-                    ret.put(Keys.MSG, Langs.get("nameDuplicatedLabel"));
+                final JSONObject foundUser = userRepository.getByName(userName);
+                if (null != foundUser) { // XXX: Concurrent problem onder cluster env
+                    final String foundUserId =
+                            foundUser.getString(Keys.OBJECT_ID);
+                    if (!currentUserId.equals(foundUserId)) {
+                        ret.put(Keys.STATUS_CODE, false);
+                        ret.put(Keys.MSG, Langs.get("nameDuplicatedLabel"));
 
-                    return ret;
+                        return ret;
+                    }
                 }
 
                 final String userQQNum =
@@ -127,7 +133,7 @@ public final class UserSettingsAction extends AbstractAction {
                 userToUpdate.put(Common.USER_QQ_NUM, userQQNum);
 
                 userToUpdate.put(User.USER_NAME, userName);
-                userRepository.update(userId, userToUpdate);
+                userRepository.update(currentUserId, userToUpdate);
 
                 transaction.commit();
                 ret.put(Keys.STATUS_CODE, true);
@@ -140,7 +146,7 @@ public final class UserSettingsAction extends AbstractAction {
                 final String sign = requestJSONObject.getString(Common.SIGN);
                 userToUpdate.put(Common.SIGN, sign);
 
-                userRepository.update(userId, userToUpdate);
+                userRepository.update(currentUserId, userToUpdate);
 
                 transaction.commit();
                 ret.put(Keys.STATUS_CODE, true);
