@@ -183,7 +183,8 @@
                     "logoutLabel": "${logoutLabel}",
                     "settingsLabel": "${settingsLabel}",
                     "postEntryLabel": "${postEntryLabel}",
-                    "loadingLabel": "${loadingLabel}"
+                    "loadingLabel": "${loadingLabel}",
+                    "loginFirstLabel2": "${loginFirstLabel2}"
                 },
                 "oId": "${article.oId}",
                 "paginationPageCount": "${paginationPageCount}",
