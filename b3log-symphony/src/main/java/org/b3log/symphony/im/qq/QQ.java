@@ -152,7 +152,7 @@ public final class QQ implements IMClient {
                                     "sid=" + sid
                                     + "&qq=" + loginAccount + "&pwd="
                                     + loginPwd
-                                    + /*&bid_code=3GQQ*/ "&modifySKey=0&toQQchat=true&loginType=1&aid=nLoginHandle");
+                                    + "&bid_code=3GQQ&modifySKey=0&toQQchat=true&loginType=1&aid=nLoginHandle");
 
             if (-1 != result.indexOf("错误，请输入正确的QQ号码")) {
                 ret.put(Keys.STATUS_CODE, false);
