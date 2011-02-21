@@ -62,6 +62,11 @@ public final class HTTPClient {
             httpConn.setReadTimeout(timeout);
             httpConn.setRequestMethod("GET");
             httpConn.setRequestProperty("Host", url.getHost());
+//            httpConn.setRequestProperty("User-Agent",
+//                                        "Mozilla/5.0 (Linux; U; Android 2.2; en-us; "
+//                                        + "Nexus One Build/FRF91) AppleWebKit/533.1 "
+//                                        + "(KHTML, like Gecko) Version/4.0 Mobile "
+//                                        + "Safari/533.1");
             httpConn.setRequestProperty("User-Agent",
                                         "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
             httpConn.setRequestProperty("Accept",
@@ -122,6 +127,11 @@ public final class HTTPClient {
             httpConn.setReadTimeout(timeout);
             httpConn.setRequestMethod("GET");
             httpConn.setRequestProperty("Host", url.getHost());
+//            httpConn.setRequestProperty("User-Agent",
+//                                        "Mozilla/5.0 (Linux; U; Android 2.2; en-us; "
+//                                        + "Nexus One Build/FRF91) AppleWebKit/533.1 "
+//                                        + "(KHTML, like Gecko) Version/4.0 Mobile "
+//                                        + "Safari/533.1");
             httpConn.setRequestProperty("User-Agent",
                                         "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
             httpConn.setRequestProperty("Accept",
@@ -177,6 +187,11 @@ public final class HTTPClient {
             httpConn.setReadTimeout(timeout);
             httpConn.setRequestMethod("POST");
             httpConn.setRequestProperty("Host", url.getHost());
+//            httpConn.setRequestProperty("User-Agent",
+//                                        "Mozilla/5.0 (Linux; U; Android 2.2; en-us; "
+//                                        + "Nexus One Build/FRF91) AppleWebKit/533.1 "
+//                                        + "(KHTML, like Gecko) Version/4.0 Mobile "
+//                                        + "Safari/533.1");
             httpConn.setRequestProperty("User-Agent",
                                         "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
             httpConn.setRequestProperty("Accept",
@@ -230,7 +245,7 @@ public final class HTTPClient {
 
     /**
      * Sets cookie with the specified cookie.
-     * 
+     *
      * @param cookie the specified cookie
      */
     public void setCookie(final String cookie) {
@@ -261,12 +276,11 @@ public final class HTTPClient {
      */
     private String getCookieString(final Map<String, List<String>> headerFields) {
         String ret = null;
-        for (final Map.Entry<String, List<String>> entry 
-                : headerFields.entrySet()) {
-            if (null != entry.getKey()) {
-                final String headerName = entry.getKey().toLowerCase();
+        for (final Map.Entry<String, List<String>> e : headerFields.entrySet()) {
+            if (null != e.getKey()) {
+                final String headerName = e.getKey().toLowerCase();
                 if ("set-cookie".equals(headerName)) {
-                    ret = entry.getValue().get(0);
+                    ret = e.getValue().get(0);
                 }
             }
         }
