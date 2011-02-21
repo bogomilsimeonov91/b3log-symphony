@@ -24,9 +24,14 @@ $.extend(User.prototype, {
             "id": "userName",
             "type": "length",
             "tip": this.labels.nameErrorLabel
+        }, {
+            "id": "userQQNum",
+            "type": "empty",
+            "tip": this.labels.nameErrorLabel
         }])) {
             var requestJSONObject = {
-                "userName": $("#userName").val()
+                "userName": $("#userName").val(),
+                "userQQNum": $("#userQQNum").val()
             },
             changeSuccLabel = this.labels.changeSuccLabel;
 
