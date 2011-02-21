@@ -96,6 +96,9 @@ public final class HTTPClient {
                 line = br.readLine();
             }
 
+            LOGGER.finer(new String(contentBuilder.toString().getBytes(),
+                                    "GBK"));
+
             return new String(contentBuilder.toString().getBytes(), "UTF-8");
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -261,7 +264,8 @@ public final class HTTPClient {
      */
     private String getCookieString(final Map<String, List<String>> headerFields) {
         String ret = null;
-        for (final Map.Entry<String, List<String>> entry : headerFields.entrySet()) {
+        for (final Map.Entry<String, List<String>> entry 
+                : headerFields.entrySet()) {
             if (null != entry.getKey()) {
                 final String headerName = entry.getKey().toLowerCase();
                 if ("set-cookie".equals(headerName)) {
