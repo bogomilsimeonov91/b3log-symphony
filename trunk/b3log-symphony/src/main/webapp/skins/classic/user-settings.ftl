@@ -38,7 +38,7 @@
                         QQ
                     </th>
                     <td>
-                        <input id="qqNumber" value="84588990"/>
+                        <input id="userQQNum" value="${userQQNum}"/>
                     </td>
                 </tr>
                 <tr>
