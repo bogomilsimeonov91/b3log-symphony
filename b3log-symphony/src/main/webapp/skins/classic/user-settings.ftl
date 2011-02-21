@@ -15,7 +15,7 @@
     <body>
         <#include "top.ftl"/>
         <div class="symphony-content settings">
-            <table class="form left" id="userInfoForm" width="300px" cellspacing="10">
+            <table class="form left" id="userInfoForm" width="319px" cellspacing="10">
                 <caption>${basicInfoLabel}</caption>
                 <tr>
                     <th width="57px">
@@ -34,6 +34,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>
+                        QQ
+                    </th>
+                    <td>
+                        <input id="qqNumber" value="84588990"/>
+                    </td>
+                </tr>
+                <tr>
                     <th colspan="2">
                         <span class="tip" id="tipUserInfo"></span>
                         <button onclick="user.setUserInfo();">
@@ -42,7 +50,7 @@
                     </th>
                 </tr>
             </table>
-            <table class="form info" id="userSettingsForm" width="416px" cellspacing="10">
+            <table class="form info" id="userSettingsForm" width="401px" cellspacing="10">
                 <caption>
                     ${settingsInfoLabel}
                 </caption>
