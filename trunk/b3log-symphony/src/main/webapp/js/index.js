@@ -101,6 +101,11 @@ $.extend(Index.prototype, {
 
     replyComment: function (oId) {
         if ($("#" + oId + "commentForm").length === 0) {
+            if ($("#userStatus span")[0].innerHTML === "") {
+                alert(this.labels.loginFirstLabel2);
+                $("#userStatus span").last().click();
+                return;
+            }
             $("#" + this.originalId + "commentForm").remove();
             var replyCommentHTML =
             '<table id="' + oId + 'commentForm" class="form" width="100%" cellspacing="10">\
