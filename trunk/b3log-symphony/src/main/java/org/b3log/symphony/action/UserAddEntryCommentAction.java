@@ -28,10 +28,13 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.ActionException;
 import org.b3log.latke.action.util.PageCaches;
+import org.b3log.latke.event.Event;
+import org.b3log.latke.event.EventManager;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.SymphonyServletListener;
+import org.b3log.symphony.event.EventTypes;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
@@ -57,7 +60,7 @@ import org.json.JSONObject;
  * Adds entry comment submitted locally.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 14, 2011
+ * @version 1.0.0.4, Feb 21, 2011
  */
 public final class UserAddEntryCommentAction extends AbstractAction {
 
@@ -98,6 +101,10 @@ public final class UserAddEntryCommentAction extends AbstractAction {
      */
     private static ArticleCommentRepository articleCommentRepository =
             ArticleCommentGAERepository.getInstance();
+    /**
+     * Event manager.
+     */
+    private EventManager eventManager = EventManager.getInstance();
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -250,7 +257,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             articleCommentRelation.put(Comment.COMMENT + "_" + Keys.OBJECT_ID,
                                        commentId);
             articleCommentRelation.put(Article.ARTICLE_COMMENT_COUNT,
-                    article.getInt(Article.ARTICLE_COMMENT_COUNT) + 1);
+                                       article.getInt(
+                    Article.ARTICLE_COMMENT_COUNT) + 1);
             articleCommentRepository.add(articleCommentRelation);
             // Update article comment
             articleUtils.updateArticleComment(articleId, comment);
@@ -262,6 +270,12 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             ret.put(Keys.OBJECT_ID, commentId);
 
             session.setAttribute(Session.LATEST_POST_TIME, latestPostTIme);
+
+            final JSONObject eventData = new JSONObject();
+            eventData.put(Comment.COMMENT, comment);
+            eventManager.fireEventSynchronously(
+                    new Event<JSONObject>(EventTypes.ADD_COMMENT_TO_ARTICLE,
+                                          eventData));
         } catch (final Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
