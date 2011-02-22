@@ -102,7 +102,6 @@ public final class CommentNotifier
 //            final String articleLink = "http://" + Symphonys.HOST + article.
 //                    getString(Article.ARTICLE_PERMALINK);
 
-            LOGGER.info("!!!!");
             final JSONObject requestJSONObject = new JSONObject();
             requestJSONObject.put("key", Symphonys.get("keyOfSymphony"));
             requestJSONObject.put(Message.MESSAGE_PROCESSOR, "QQ");
