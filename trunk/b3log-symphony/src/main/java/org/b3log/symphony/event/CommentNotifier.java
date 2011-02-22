@@ -146,7 +146,8 @@ public final class CommentNotifier
             final StringBuilder contentBuilder = new StringBuilder(contentText);
             final String commentSharpURL =
                     comment.getString(Comment.COMMENT_SHARP_URL);
-            contentBuilder.append("\r\n").append(commentSharpURL);
+            contentBuilder.append("\r\n").append(commentSharpURL).
+                    append("comment");
 
             if (needToNotifyArticleAuthor) {
                 notifyArticleAuthor(contentBuilder.toString(),
