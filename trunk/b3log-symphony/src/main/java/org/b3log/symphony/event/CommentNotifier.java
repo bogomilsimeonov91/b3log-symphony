@@ -159,6 +159,10 @@ public final class CommentNotifier
                     append(BR).append("----").append(BR).append(contentText).
                     append(BR).append(commentSharpURL).append("comment");
 
+            if (articleAuthorId.equals(originalCmterId)) {
+                needToNotifyArticleAuthor = false;
+            }
+
             if (needToNotifyArticleAuthor) {
                 notifyArticleAuthor(contentBuilder.toString(),
                                     articleAuthorQQNum);
