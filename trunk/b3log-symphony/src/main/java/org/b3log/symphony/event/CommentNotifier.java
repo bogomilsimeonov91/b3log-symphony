@@ -120,8 +120,7 @@ public final class CommentNotifier
                        imServiceURL.toString());
             final HTTPRequest httpRequest =
                     new HTTPRequest(imServiceURL, HTTPMethod.POST);
-            httpRequest.setPayload(requestJSONObject.toString().
-                    getBytes("UTF-8"));
+            httpRequest.setPayload(requestJSONObject.toString().getBytes());
             final Future<HTTPResponse> response =
                     URL_FETCH_SVC.fetchAsync(httpRequest);
 //            LOGGER.log(Level.FINEST, "IM response[sc={0}]",
