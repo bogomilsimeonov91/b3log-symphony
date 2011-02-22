@@ -101,21 +101,25 @@ public final class CommentNotifier
 //            final String articleTitle = article.getString(Article.ARTICLE_TITLE);
 //            final String articleLink = "http://" + Symphonys.HOST + article.
 //                    getString(Article.ARTICLE_PERMALINK);
-            final String imServerIP = Symphonys.get("imServerIP");
-            final String imServerPort = Symphonys.get("imServerPort");
-            final URL imServiceURL =
-                    new URL("http://" + imServerIP + ":" + imServerPort + "/add");
-            final HTTPRequest httpRequest =
-                    new HTTPRequest(imServiceURL, HTTPMethod.PUT);
-            
+
+            LOGGER.info("!!!!");
             final JSONObject requestJSONObject = new JSONObject();
             requestJSONObject.put("key", Symphonys.get("keyOfSymphony"));
             requestJSONObject.put(Message.MESSAGE_PROCESSOR, "QQ");
             requestJSONObject.put(Message.MESSAGE_CONTENT,
-                    contentBuilder.toString());
+                                  contentBuilder.toString());
             requestJSONObject.put(Message.MESSAGE_TO_ACCOUNT, commenterQQNum);
-
             final byte[] payload = requestJSONObject.toString().getBytes();
+
+            final String imServerIP = Symphonys.get("imServerIP");
+            final String imServerPort = Symphonys.get("imServerPort");
+            final URL imServiceURL =
+                    new URL("http://" + imServerIP + ":"
+                            + imServerPort + "/symphony-im/add");
+            LOGGER.log(Level.FINEST, "Adding message to IM service[{0}]",
+                    imServiceURL.toString());
+            final HTTPRequest httpRequest =
+                    new HTTPRequest(imServiceURL, HTTPMethod.PUT);
             httpRequest.setPayload(payload);
 
             URL_FETCH_SVC.fetchAsync(httpRequest);
