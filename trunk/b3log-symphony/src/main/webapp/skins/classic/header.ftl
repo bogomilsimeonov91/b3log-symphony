@@ -16,7 +16,7 @@
             <a href="/top-entries" title="${topEntriesLabel}">${topEntriesLabel}</a>
         </li>
         <li>
-            <a href="/chinasb" title="CSB">CSB</a>
+            <a href="/chinasb" title="Chinasb">CSB</a>
         </li>
         <li>
             <a href="/about" title="${aboutLabel}">${aboutLabel}</a>
