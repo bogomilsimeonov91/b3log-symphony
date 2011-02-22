@@ -52,12 +52,11 @@ public final class AddMessageServlet extends HttpServlet {
     /**
      * QQ robot 1.
      */
-    private static final QQ QQ_ROBOT1;
+    public static final QQ QQ_ROBOT1;
 
     static {
         QQ_ROBOT1 = new QQ(Symphonys.get("qqRobot1Account"),
                            Symphonys.get("qqRobot1Pwd"));
-        QQ_ROBOT1.login();
     }
 
     @Override
