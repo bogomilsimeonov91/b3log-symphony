@@ -44,7 +44,7 @@ public final class IMServletListener implements ServletContextListener {
     /**
      * Live period mills for all QQ robots.
      */
-    private static final long QQ_ROBOTS_LIVE_PERIOD = 1000;
+    private static final long QQ_ROBOTS_LIVE_PERIOD = 1000 * 60 * 10;
 
     @Override
     public void contextInitialized(final ServletContextEvent servletContextEvent) {
