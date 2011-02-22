@@ -86,6 +86,10 @@ public final class CommentNotifier
      * Key of Symphony.
      */
     private static final String KEY = Symphonys.get("keyOfSymphony");
+    /**
+     * BR.
+     */
+    private static final String BR = "\r\n";
 
     /**
      * Constructs a {@link ArticleCommentReplyNotifier} object with the
@@ -150,9 +154,10 @@ public final class CommentNotifier
             final String contentText = Jsoup.parse(commentContentHTML).text();
             final String commentSharpURL =
                     comment.getString(Comment.COMMENT_SHARP_URL);
+
             contentBuilder.append(article.getString(Article.ARTICLE_TITLE)).
-                    append("\r\n").append("----").append(contentText).
-                    append("\r\n").append(commentSharpURL).append("comment");
+                    append(BR).append("----").append(BR).append(contentText).
+                    append(BR).append(commentSharpURL).append("comment");
 
             if (needToNotifyArticleAuthor) {
                 notifyArticleAuthor(contentBuilder.toString(),
