@@ -117,7 +117,10 @@ public final class CommentNotifier
             boolean needToNotifyArticleAuthor = false;
             boolean needToNotifyOriginalCmter = false;
 
-            if (!Strings.isEmptyOrNull(articleAuthorQQNum)) {
+            final String commenterId =
+                    comment.getString(Comment.COMMENTER_ID);
+            if (!Strings.isEmptyOrNull(articleAuthorQQNum)
+                && !commenterId.equals(articleAuthorId)) {
                 needToNotifyArticleAuthor = true;
             }
 
@@ -132,7 +135,8 @@ public final class CommentNotifier
                             originalCmter.optString(Common.USER_QQ_NUM);
                 }
             }
-            if (!Strings.isEmptyOrNull(originalCmterQQNum)) {
+            if (!Strings.isEmptyOrNull(originalCmterQQNum)
+                && !commenterId.equals(originalCmterId)) {
                 needToNotifyOriginalCmter = true;
             }
 
