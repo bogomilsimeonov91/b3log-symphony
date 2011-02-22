@@ -143,14 +143,17 @@ $.extend(Index.prototype, {
     },
 
     commentShow: function () {
-        $(".comment>.ref").each(function () {
-            var $it = $(this);
-            if (this.clientHeight > 129) {
-                $it.hover(function () {
-                    $it.css("max-height", "none");
-                }, function () {
-                    $it.css("max-height", "129px");
-                });
+        $("#comments dd").each(function () {
+            var $it = $(this),
+            $itRef = $it.find(".article-body>.ref");
+            if ($itRef.length === 1) {
+                if ($itRef[0].clientHeight > 129) {
+                    $it.hover(function () {
+                        $itRef.css("max-height", "none");
+                    }, function () {
+                        $itRef.css("max-height", "129px");
+                    });
+                }
             }
         });
     }
