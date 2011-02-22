@@ -64,14 +64,12 @@ $.extend(Index.prototype, {
     },
 
     submitComment: function (oId) {
-        if (Util.validateForm("tipReply", [{
-            "id": "commentContentReply",
-            "type": "empty",
-            "tip": this.labels.commentCannotEmptyLabel
-        }])) {
+        var editorUBB = editorReply.tGetUBB();
+        if (editorUBB.replace(/(^\s*)|(\s*$)/g, "") !== "[br]"
+            && editorUBB.replace(/(^\s*)|(\s*$)/g, "").replace(/\[p\]\[br\]\[\/p\]/g, "") !== "") {
             var requestJSONObject = {
                 "oId": this.oId,
-                "commentContent": $("#commentContentReply").val(),
+                "commentContent": editorUBB,
                 "commentOriginalCommentId": oId
             };
 
@@ -85,8 +83,8 @@ $.extend(Index.prototype, {
                 success: function(result, textStatus){
                     switch(result.sc) {
                         case true:
-                            $("#commentContentReply").val("");
                             window.location.reload();
+                            $("#commentContentReply").val("");
                             break;
                         case false:
                         default:
@@ -96,6 +94,8 @@ $.extend(Index.prototype, {
                     }
                 }
             });
+        } else {
+            $("#tipReply").text(this.labels.commentCannotEmptyLabel);
         }
     },
 
@@ -110,9 +110,9 @@ $.extend(Index.prototype, {
             var replyCommentHTML =
             '<table id="' + oId + 'commentForm" class="form" width="100%" cellspacing="10">\
                 \<tr>\
-                    \<th width="99px">' + this.labels.commentLabel + '</th>\
+                    \<th width="43px"></th>\
                     \<td>\
-                        \<textarea id="commentContentReply"></textarea>\
+                        \<textarea style="width: 100%;height: 100px;" id="commentContentReply"></textarea>\
                     \</td>\
                 \</tr>\
                 \<tr>\
@@ -123,10 +123,11 @@ $.extend(Index.prototype, {
                 \</tr>\
             \</table>';
             $("#" + oId + "comment").append(replyCommentHTML);
-            this.bindSubmitAction(oId + "commentForm");
             this.originalId = oId;
+
+            editorReply = new jtbcEditor('commentContentReply');
+            editorReply.tInit('editorReply', '/js/lib/jtbceditor/');
         }
-        $("#" + oId + "commentForm #commentContentReply").focus();
     },
     
     postToWb: function () {
