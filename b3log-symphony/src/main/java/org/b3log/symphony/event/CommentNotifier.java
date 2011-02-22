@@ -101,10 +101,10 @@ public final class CommentNotifier
                                 eventData,
                                 CommentNotifier.class.getName()});
         try {
-            final String articleAuthorEmail =
-                    article.getString(Article.ARTICLE_AUTHOR_EMAIL_REF);
+            final String articleAuthorId =
+                    article.getString(Common.AUTHOR_ID);
             final JSONObject articleAuthor =
-                    userRepository.getByEmail(articleAuthorEmail);
+                    userRepository.get(articleAuthorId);
             final String articleAuthorQQNum =
                     articleAuthor.optString(Common.USER_QQ_NUM);
             boolean needToNotifyArticleAuthor = false;
