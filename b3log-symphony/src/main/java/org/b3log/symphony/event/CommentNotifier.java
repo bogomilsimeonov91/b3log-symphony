@@ -18,9 +18,11 @@ package org.b3log.symphony.event;
 
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
+import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import java.net.URL;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.event.AbstractEventListener;
@@ -108,23 +110,24 @@ public final class CommentNotifier
             requestJSONObject.put(Message.MESSAGE_CONTENT,
                                   contentBuilder.toString());
             requestJSONObject.put(Message.MESSAGE_TO_ACCOUNT, commenterQQNum);
-            final byte[] payload = requestJSONObject.toString().getBytes();
 
             final String imServerIP = Symphonys.get("imServerIP");
             final String imServerPort = Symphonys.get("imServerPort");
             final URL imServiceURL =
                     new URL("http://" + imServerIP + ":"
-                            + imServerPort + "/symphony-im/add");
+                            + imServerPort + "/symphony-im/msg/add");
             LOGGER.log(Level.FINEST, "Adding message to IM service[{0}]",
-                    imServiceURL.toString());
+                       imServiceURL.toString());
             final HTTPRequest httpRequest =
-                    new HTTPRequest(imServiceURL, HTTPMethod.PUT);
-            httpRequest.setPayload(payload);
-
-            URL_FETCH_SVC.fetchAsync(httpRequest);
+                    new HTTPRequest(imServiceURL, HTTPMethod.POST);
+            httpRequest.setPayload(requestJSONObject.toString().
+                    getBytes("UTF-8"));
+            final Future<HTTPResponse> response =
+                    URL_FETCH_SVC.fetchAsync(httpRequest);
+//            LOGGER.log(Level.FINEST, "IM response[sc={0}]",
+//                       response.get().getResponseCode());
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new EventException("Reply notifier error!");
         }
     }
 
