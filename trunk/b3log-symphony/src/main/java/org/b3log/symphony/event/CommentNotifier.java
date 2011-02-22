@@ -113,9 +113,10 @@ public final class CommentNotifier
 
             final String imServerIP = Symphonys.get("imServerIP");
             final String imServerPort = Symphonys.get("imServerPort");
+            final String imServerName = Symphonys.get("imServerName");
             final URL imServiceURL =
                     new URL("http://" + imServerIP + ":"
-                            + imServerPort + "/symphony-im/msg/add");
+                            + imServerPort + "/" + imServerName + "/msg/add");
             LOGGER.log(Level.FINEST, "Adding message to IM service[{0}]",
                        imServiceURL.toString());
             final HTTPRequest httpRequest =
