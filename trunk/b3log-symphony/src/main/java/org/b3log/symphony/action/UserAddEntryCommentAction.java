@@ -273,6 +273,7 @@ public final class UserAddEntryCommentAction extends AbstractAction {
 
             final JSONObject eventData = new JSONObject();
             eventData.put(Comment.COMMENT, comment);
+            eventData.put(Article.ARTICLE, article);
             eventManager.fireEventSynchronously(
                     new Event<JSONObject>(EventTypes.ADD_COMMENT_TO_ARTICLE,
                                           eventData));
