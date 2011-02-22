@@ -176,7 +176,6 @@
                 "labels": {
                     "captchaCannotEmptyLabel": "${captchaCannotEmptyLabel}",
                     "commentCannotEmptyLabel": "${commentCannotEmptyLabel}",
-                    "commentLabel": "${commentLabel}",
                     "captchaLabel": "${captchaLabel}",
                     "submitLabel": "${submitLabel}",
                     "loginLabel": "${loginLabel}",
@@ -192,7 +191,8 @@
             });
             Util.initStatus();
             Util.initPagination();
-            var editor = new jtbcEditor('commentContent');
+            var editor = new jtbcEditor('commentContent'),
+            editorReply = undefined;
             editor.tInit('editor', '/js/lib/jtbceditor/');
             index.commentShow();
         </script>
