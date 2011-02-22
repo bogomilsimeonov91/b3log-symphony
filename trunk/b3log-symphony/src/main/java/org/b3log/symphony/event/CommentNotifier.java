@@ -63,6 +63,22 @@ public final class CommentNotifier
      */
     private static final URLFetchService URL_FETCH_SVC =
             URLFetchServiceFactory.getURLFetchService();
+    /**
+     * IM server IP.
+     */
+    private static final String IM_SERVER_IP = Symphonys.get("imServerIP");
+    /**
+     * IM server port.
+     */
+    private static final String IM_SERVER_PORT = Symphonys.get("imServerPort");
+    /**
+     * IM server name.
+     */
+    private static final String IM_SERVER_NAME = Symphonys.get("imServerName");
+    /**
+     * Key of Symphony.
+     */
+    private static final String KEY = Symphonys.get("keyOfSymphony");
 
     /**
      * Constructs a {@link ArticleCommentReplyNotifier} object with the
@@ -85,11 +101,35 @@ public final class CommentNotifier
                                 eventData,
                                 CommentNotifier.class.getName()});
         try {
-            final String commenterId = comment.getString(Comment.COMMENTER_ID);
-            final JSONObject commenter = userRepository.get(commenterId);
-            final String commenterQQNum =
-                    commenter.optString(Common.USER_QQ_NUM);
-            if (Strings.isEmptyOrNull(commenterQQNum)) {
+            final String articleAuthorEmail =
+                    article.getString(Article.ARTICLE_AUTHOR_EMAIL_REF);
+            final JSONObject articleAuthor =
+                    userRepository.getByEmail(articleAuthorEmail);
+            final String articleAuthorQQNum =
+                    articleAuthor.optString(Common.USER_QQ_NUM);
+            boolean needToNotifyArticleAuthor = false;
+            boolean needToNotifyOriginalCmter = false;
+
+            if (!Strings.isEmptyOrNull(articleAuthorQQNum)) {
+                needToNotifyArticleAuthor = true;
+            }
+
+            String originalCmterQQNum = null;
+            final String originalCmterId =
+                    comment.optString(Comment.COMMENT_ORIGINAL_COMMENT_ID);
+            if (!Strings.isEmptyOrNull(originalCmterId)) {
+                final JSONObject originalCmter =
+                        userRepository.get(originalCmterId);
+                if (null != originalCmter) {
+                    originalCmterQQNum =
+                            originalCmter.optString(Common.USER_QQ_NUM);
+                }
+            }
+            if (!Strings.isEmptyOrNull(originalCmterQQNum)) {
+                needToNotifyOriginalCmter = true;
+            }
+
+            if (!needToNotifyArticleAuthor && !needToNotifyOriginalCmter) {
                 return;
             }
 
@@ -100,35 +140,83 @@ public final class CommentNotifier
             final String commentSharpURL =
                     comment.getString(Comment.COMMENT_SHARP_URL);
             contentBuilder.append("\r\n").append(commentSharpURL);
-//            final String articleTitle = article.getString(Article.ARTICLE_TITLE);
-//            final String articleLink = "http://" + Symphonys.HOST + article.
-//                    getString(Article.ARTICLE_PERMALINK);
 
-            final JSONObject requestJSONObject = new JSONObject();
-            requestJSONObject.put("key", Symphonys.get("keyOfSymphony"));
-            requestJSONObject.put(Message.MESSAGE_PROCESSOR, "QQ");
-            requestJSONObject.put(Message.MESSAGE_CONTENT,
-                                  contentBuilder.toString());
-            requestJSONObject.put(Message.MESSAGE_TO_ACCOUNT, commenterQQNum);
+            if (needToNotifyArticleAuthor) {
+                notifyArticleAuthor(contentBuilder.toString(),
+                                    articleAuthorQQNum);
+            }
 
-            final String imServerIP = Symphonys.get("imServerIP");
-            final String imServerPort = Symphonys.get("imServerPort");
-            final String imServerName = Symphonys.get("imServerName");
-            final URL imServiceURL =
-                    new URL("http://" + imServerIP + ":"
-                            + imServerPort + "/" + imServerName + "/msg/add");
-            LOGGER.log(Level.FINEST, "Adding message to IM service[{0}]",
-                       imServiceURL.toString());
-            final HTTPRequest httpRequest =
-                    new HTTPRequest(imServiceURL, HTTPMethod.POST);
-            httpRequest.setPayload(requestJSONObject.toString().getBytes("UTF-8"));
-            final Future<HTTPResponse> response =
-                    URL_FETCH_SVC.fetchAsync(httpRequest);
-//            LOGGER.log(Level.FINEST, "IM response[sc={0}]",
-//                       response.get().getResponseCode());
+            if (needToNotifyOriginalCmter) {
+                notifyOriginalCmter(contentBuilder.toString(),
+                                    originalCmterQQNum);
+            }
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
+    }
+
+    /**
+     * Notify original commenter with the specified notification content and QQ
+     * number of the receiver.
+     *
+     * @param content the specified notification content
+     * @param orignalCmterQQNum the specified notification receiver QQ number
+     * @throws Exception exception
+     */
+    private void notifyOriginalCmter(final String content,
+                                     final String orignalCmterQQNum)
+            throws Exception {
+        final JSONObject requestJSONObject = new JSONObject();
+        requestJSONObject.put("key", KEY);
+        requestJSONObject.put(Message.MESSAGE_PROCESSOR, "QQ");
+        requestJSONObject.put(Message.MESSAGE_CONTENT, content);
+        requestJSONObject.put(Message.MESSAGE_TO_ACCOUNT, orignalCmterQQNum);
+
+        final URL imServiceURL =
+                new URL("http://" + IM_SERVER_IP + ":" + IM_SERVER_PORT + "/"
+                        + IM_SERVER_NAME + "/msg/add");
+        LOGGER.log(Level.FINEST, "Adding message to IM service[{0}]",
+                   imServiceURL.toString());
+        final HTTPRequest httpRequest =
+                new HTTPRequest(imServiceURL,
+                                HTTPMethod.POST);
+        httpRequest.setPayload(requestJSONObject.toString().getBytes("UTF-8"));
+        final Future<HTTPResponse> response =
+                URL_FETCH_SVC.fetchAsync(httpRequest);
+        //            LOGGER.log(Level.FINEST, "IM response[sc={0}]",
+        //                       response.get().getResponseCode());
+    }
+
+    /**
+     * Notify author author with the specified notification content and QQ
+     * number of the receiver.
+     *
+     * @param content the specified notification content
+     * @param articleAuthorQQNum the specified notification receiver QQ number
+     * @throws Exception exception
+     */
+    private void notifyArticleAuthor(final String content,
+                                     final String articleAuthorQQNum)
+            throws Exception {
+        final JSONObject requestJSONObject = new JSONObject();
+        requestJSONObject.put("key", KEY);
+        requestJSONObject.put(Message.MESSAGE_PROCESSOR, "QQ");
+        requestJSONObject.put(Message.MESSAGE_CONTENT, content);
+        requestJSONObject.put(Message.MESSAGE_TO_ACCOUNT, articleAuthorQQNum);
+
+        final URL imServiceURL =
+                new URL("http://" + IM_SERVER_IP + ":" + IM_SERVER_PORT + "/"
+                        + IM_SERVER_NAME + "/msg/add");
+        LOGGER.log(Level.FINEST, "Adding message to IM service[{0}]",
+                   imServiceURL.toString());
+        final HTTPRequest httpRequest =
+                new HTTPRequest(imServiceURL,
+                                HTTPMethod.POST);
+        httpRequest.setPayload(requestJSONObject.toString().getBytes("UTF-8"));
+        final Future<HTTPResponse> response =
+                URL_FETCH_SVC.fetchAsync(httpRequest);
+        //            LOGGER.log(Level.FINEST, "IM response[sc={0}]",
+        //                       response.get().getResponseCode());
     }
 
     /**
