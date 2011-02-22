@@ -104,7 +104,7 @@ public final class CommentNotifier
             final String imServerIP = Symphonys.get("imServerIP");
             final String imServerPort = Symphonys.get("imServerPort");
             final URL imServiceURL =
-                    new URL("http://" + imServerIP + ":" + imServerPort);
+                    new URL("http://" + imServerIP + ":" + imServerPort + "/add");
             final HTTPRequest httpRequest =
                     new HTTPRequest(imServiceURL, HTTPMethod.PUT);
             
