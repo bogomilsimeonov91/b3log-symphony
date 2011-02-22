@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
  * This class defines all comment model relevant keys.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 9, 2011
+ * @version 1.0.0.2, Feb 22, 2011
  */
 public final class Comment {
 
@@ -64,6 +64,11 @@ public final class Comment {
      */
     public static final String COMMENT_ORIGINAL_COMMENT_ID =
             "commentOriginalCommentId";
+    /**
+     * Key of original commenter id.
+     */
+    public static final String COMMENT_ORIGINAL_CMTER_ID =
+            "commentOriginalCmterId";
     /**
      * Key of commenter id.
      */
