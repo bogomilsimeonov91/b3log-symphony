@@ -149,6 +149,14 @@ $.extend(User.prototype, {
     },
 
     commentTip: function () {
+        var commentTips = $(".comment-hidden").clone();
+        commentTips.each(function () {
+            this.id = this.id + "comment";
+            this.className = "article-body none";
+        });
+
+        $("#commentTips").append(commentTips);
+        
         $(".comment-hidden").each(function () {
             $(this).hover(function (event) {
                 var pos = $(this).position();

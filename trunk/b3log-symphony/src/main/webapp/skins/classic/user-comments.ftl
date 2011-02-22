@@ -73,12 +73,7 @@
                 ${sumLabel} ${paginationPageCount} ${pageLabel}
             </div>
             </#if>
-            <div class="comment-tip">
-                <#list comments as comment>
-                <div class="article-body none" id="${comment.oId}comment">
-                    ${comment.commentContent}
-                </div>
-                </#list>
+            <div id="commentTips">
             </div>
         </div>
         <div class="footer">
