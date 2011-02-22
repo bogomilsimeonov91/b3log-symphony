@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.b3log.symphony.im;
+package org.b3log.symphony.model;
 
 /**
  * This class defines all instant message model relevant keys.
@@ -40,6 +40,10 @@ public final class Message {
      * Key of message to account.
      */
     public static final String MESSAGE_TO_ACCOUNT = "messageToAccount";
+    /**
+     * Key of message processor.
+     */
+    public static final String MESSAGE_PROCESSOR = "messageProcessor";
 
     /**
      * Private default constructor.

@@ -16,6 +16,11 @@
 
 package org.b3log.symphony.event;
 
+import com.google.appengine.api.urlfetch.HTTPMethod;
+import com.google.appengine.api.urlfetch.HTTPRequest;
+import com.google.appengine.api.urlfetch.URLFetchService;
+import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.event.AbstractEventListener;
@@ -23,11 +28,10 @@ import org.b3log.latke.event.Event;
 import org.b3log.latke.event.EventException;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.util.Strings;
-import org.b3log.symphony.im.Message;
-import org.b3log.symphony.im.qq.QQ;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
+import org.b3log.symphony.model.Message;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Symphonys;
@@ -38,7 +42,7 @@ import org.jsoup.Jsoup;
  * This listener is responsible for processing comment reply.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 21, 2011
+ * @version 1.0.0.1, Feb 22, 2011
  */
 public final class CommentNotifier
         extends AbstractEventListener<JSONObject> {
@@ -53,15 +57,10 @@ public final class CommentNotifier
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
     /**
-     * QQ robot 1.
+     * URL fetch service.
      */
-    private static final QQ QQ_ROBOT1;
-
-    static {
-        final String qqRobot1Account = Symphonys.get("qqRobot1Account");
-        final String qqRobot1Pwd = Symphonys.get("qqRobot1Pwd");
-        QQ_ROBOT1 = new QQ(qqRobot1Account, qqRobot1Pwd);
-    }
+    private static final URLFetchService URL_FETCH_SVC =
+            URLFetchServiceFactory.getURLFetchService();
 
     /**
      * Constructs a {@link ArticleCommentReplyNotifier} object with the
@@ -84,10 +83,6 @@ public final class CommentNotifier
                                 eventData,
                                 CommentNotifier.class.getName()});
         try {
-            if (!QQ_ROBOT1.isLoggedIn()) {
-                QQ_ROBOT1.login();
-            }
-
             final String commenterId = comment.getString(Comment.COMMENTER_ID);
             final JSONObject commenter = userRepository.get(commenterId);
             final String commenterQQNum =
@@ -106,14 +101,24 @@ public final class CommentNotifier
 //            final String articleTitle = article.getString(Article.ARTICLE_TITLE);
 //            final String articleLink = "http://" + Symphonys.HOST + article.
 //                    getString(Article.ARTICLE_PERMALINK);
+            final String imServerIP = Symphonys.get("imServerIP");
+            final String imServerPort = Symphonys.get("imServerPort");
+            final URL imServiceURL =
+                    new URL("http://" + imServerIP + ":" + imServerPort);
+            final HTTPRequest httpRequest =
+                    new HTTPRequest(imServiceURL, HTTPMethod.PUT);
+            
+            final JSONObject requestJSONObject = new JSONObject();
+            requestJSONObject.put("key", Symphonys.get("keyOfSymphony"));
+            requestJSONObject.put(Message.MESSAGE_PROCESSOR, "QQ");
+            requestJSONObject.put(Message.MESSAGE_CONTENT,
+                    contentBuilder.toString());
+            requestJSONObject.put(Message.MESSAGE_TO_ACCOUNT, commenterQQNum);
 
-            final JSONObject message = new JSONObject();
-            message.put(Message.MESSAGE_TO_ACCOUNT, commenterQQNum);
-            message.put(Message.MESSAGE_CONTENT, contentBuilder.toString());
+            final byte[] payload = requestJSONObject.toString().getBytes();
+            httpRequest.setPayload(payload);
 
-            if (QQ_ROBOT1.isLoggedIn()) {
-                QQ_ROBOT1.send(message);
-            }
+            URL_FETCH_SVC.fetchAsync(httpRequest);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new EventException("Reply notifier error!");
