@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.event;
 
 import com.google.appengine.api.urlfetch.HTTPMethod;
@@ -34,7 +33,9 @@ import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Message;
+import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
+import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Symphonys;
 import org.json.JSONObject;
@@ -58,6 +59,11 @@ public final class CommentNotifier
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
+    /**
+     * Comment repository.
+     */
+    private CommentRepository commentRepository = CommentGAERepository.
+            getInstance();
     /**
      * URL fetch service.
      */
@@ -116,7 +122,7 @@ public final class CommentNotifier
 
             String originalCmterQQNum = null;
             final String originalCmterId =
-                    comment.optString(Comment.COMMENT_ORIGINAL_COMMENT_ID);
+                    comment.optString(Comment.COMMENT_ORIGINAL_CMTER_ID);
             if (!Strings.isEmptyOrNull(originalCmterId)) {
                 final JSONObject originalCmter =
                         userRepository.get(originalCmterId);
