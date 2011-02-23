@@ -148,6 +148,8 @@ public final class UserAction extends AbstractCacheablePageAction {
         final JSONObject result = articleRepository.get(query);
         final JSONArray articles =
                 result.getJSONArray(Keys.RESULTS);
+        LOGGER.log(Level.FINER, "User recent entries[size={0}]",
+                articles.length());
         dataModel.put(Article.ARTICLES,
                       CollectionUtils.jsonArrayToList(articles));
         final int pageCount =
