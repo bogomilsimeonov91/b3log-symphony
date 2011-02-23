@@ -60,7 +60,7 @@ import org.json.JSONObject;
  * Adds entry comment submitted locally.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 22, 2011
+ * @version 1.0.0.6, Feb 23, 2011
  */
 public final class UserAddEntryCommentAction extends AbstractAction {
 
@@ -301,7 +301,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
     private static String getCommentSharpURLForArticle(final JSONObject article,
                                                        final String commentId)
             throws JSONException {
-        final String articleLink = article.getString(Article.ARTICLE_PERMALINK);
+        final String articleLink = "http://" + Symphonys.HOST + "/entries/" +
+                article.getString(Keys.OBJECT_ID);
 
         return articleLink + "#" + commentId;
     }
