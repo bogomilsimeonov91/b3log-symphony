@@ -98,7 +98,7 @@
             <div class="clear"></div>
         </div>
         <div class="footer">
-            <#include "user-footer.ftl"/>
+            <#include "footer.ftl"/>
         </div>
         <script type="text/javascript">
             var user = new User({
