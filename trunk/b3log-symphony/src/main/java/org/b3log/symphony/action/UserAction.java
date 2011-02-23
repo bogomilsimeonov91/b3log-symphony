@@ -52,7 +52,7 @@ import org.json.JSONObject;
  * User action. user.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 15, 2011
+ * @version 1.0.0.6, Feb 23, 2011
  */
 public final class UserAction extends AbstractCacheablePageAction {
 
@@ -140,7 +140,7 @@ public final class UserAction extends AbstractCacheablePageAction {
             throws Exception {
         final String userId = user.getString(Keys.OBJECT_ID);
         final Query query = new Query();
-        query.setPageSize(ENTRY_FETCH_SIZE).
+        query.setCurrentPageNum(1).setPageSize(ENTRY_FETCH_SIZE).
                 addFilter(Common.AUTHOR_ID,
                           FilterOperator.EQUAL, userId).
                 addSort(Article.ARTICLE_CREATE_DATE,
@@ -173,7 +173,7 @@ public final class UserAction extends AbstractCacheablePageAction {
             throws Exception {
         final String userId = user.getString(Keys.OBJECT_ID);
         final Query query = new Query();
-        query.setPageSize(CMT_FETCH_SIZE).
+        query.setCurrentPageNum(1).setPageSize(CMT_FETCH_SIZE).
                 addFilter(Comment.COMMENTER_ID, FilterOperator.EQUAL, userId).
                 addSort(Comment.COMMENT_DATE, SortDirection.DESCENDING);
 
