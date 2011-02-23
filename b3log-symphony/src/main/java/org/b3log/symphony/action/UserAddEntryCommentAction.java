@@ -301,8 +301,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
     private static String getCommentSharpURLForArticle(final JSONObject article,
                                                        final String commentId)
             throws JSONException {
-        final String articleLink = "http://" + Symphonys.HOST + "/entries/" +
-                article.getString(Keys.OBJECT_ID);
+        final String articleLink = "http://" + Symphonys.HOST + "/entries/" 
+                + article.getString(Keys.OBJECT_ID);
 
         return articleLink + "#" + commentId;
     }
