@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="footer">
-            <#include "user-footer.ftl"/>
+            <#include "footer.ftl"/>
         </div>
         <iframe name="hideFrame" class="none" id="hideFrame"></iframe>
         <script type="text/javascript">
