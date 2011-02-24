@@ -40,11 +40,9 @@ import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Session;
 import org.b3log.symphony.model.Tag;
-import org.b3log.symphony.repository.ArticleCommentRepository;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.TagRepository;
-import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
@@ -60,7 +58,7 @@ import org.json.JSONObject;
  * Adds entry comment submitted locally.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.6, Feb 23, 2011
+ * @version 1.0.0.7, Feb 24, 2011
  */
 public final class UserAddEntryCommentAction extends AbstractAction {
 
@@ -96,11 +94,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
      */
     private static TagRepository tagRepository =
             TagGAERepository.getInstance();
-    /**
-     * Article-Comment repository.
-     */
-    private static ArticleCommentRepository articleCommentRepository =
-            ArticleCommentGAERepository.getInstance();
     /**
      * Event manager.
      */
@@ -252,16 +245,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             ret.put(Comment.COMMENT_SHARP_URL, commentSharpURL);
             comment.put(Keys.OBJECT_ID, commentId);
             commentRepository.update(commentId, comment);
-            // Add article-comment relation
-            final JSONObject articleCommentRelation = new JSONObject();
-            articleCommentRelation.put(Article.ARTICLE + "_" + Keys.OBJECT_ID,
-                                       articleId);
-            articleCommentRelation.put(Comment.COMMENT + "_" + Keys.OBJECT_ID,
-                                       commentId);
-            articleCommentRelation.put(Article.ARTICLE_COMMENT_COUNT,
-                                       article.getInt(
-                    Article.ARTICLE_COMMENT_COUNT) + 1);
-            articleCommentRepository.add(articleCommentRelation);
             // Update article comment
             articleUtils.updateArticleComment(articleId, comment);
 
