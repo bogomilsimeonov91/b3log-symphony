@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>${titleIndex}</title>
+        <title>${topEntriesLabel} - ${titleIndex}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="${metaKeywords}"/>
+        <meta name="keywords" content="${topEntriesLabel},${titleIndex}"/>
         <meta name="description" content="${metaDescription}"/>
         <meta name="author" content="B3log Team"/>
         <meta name="generator" content="B3log"/>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>${titleIndex}</title>
+        <title>${tag.tagTitle} - ${titleIndex}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="${metaKeywords}"/>
+        <meta name="keywords" content="${tag.tagTitle},${titleIndex}"/>
         <meta name="description" content="${metaDescription}"/>
         <meta name="author" content="B3log Team"/>
         <meta name="generator" content="B3log"/>
