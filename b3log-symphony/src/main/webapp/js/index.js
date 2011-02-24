@@ -149,9 +149,16 @@ $.extend(Index.prototype, {
             if ($itRef.length === 1) {
                 if ($itRef[0].clientHeight > 129) {
                     $it.hover(function () {
-                        $itRef.css("max-height", "none");
+                        var maxHeight = $itRef.attr("scrollHeight");
+                        if ($itRef.height() === 129) {
+                            $itRef.animate({
+                                "maxHeight":maxHeight
+                            }, 600);
+                        }
                     }, function () {
-                        $itRef.css("max-height", "129px");
+                        $itRef.animate({
+                            "maxHeight":129
+                        }, 600);
                     });
                 }
             }
