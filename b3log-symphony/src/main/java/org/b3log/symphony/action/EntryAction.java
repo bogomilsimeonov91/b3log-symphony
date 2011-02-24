@@ -31,16 +31,16 @@ import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
+import org.b3log.latke.repository.FilterOperator;
+import org.b3log.latke.repository.Query;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
-import org.b3log.symphony.repository.ArticleCommentRepository;
 import org.b3log.symphony.repository.ArticleRepository;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
-import org.b3log.symphony.repository.impl.ArticleCommentGAERepository;
 import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -54,7 +54,7 @@ import org.json.JSONObject;
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.7, Feb 15, 2011
+ * @version 1.0.0.8, Feb 24, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -67,11 +67,6 @@ public final class EntryAction extends AbstractCacheablePageAction {
      */
     private static final Logger LOGGER =
             Logger.getLogger(EntryAction.class.getName());
-    /**
-     * Article-Comment repository.
-     */
-    private ArticleCommentRepository articleCommentRepository =
-            ArticleCommentGAERepository.getInstance();
     /**
      * Comment repository.
      */
@@ -132,23 +127,23 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     getQueryStringJSONObject(request);
             final int currentPageNum = queryStringJSONObject.optInt("p", 1);
             final int windowSize = 10;
-            final JSONObject result =
-                    articleCommentRepository.getByArticleId(articleId,
-                                                            currentPageNum,
-                                                            ENTRY_CMTS_PER_PAGE);
+
+            final Query query = new Query();
+            query.setCurrentPageNum(currentPageNum).
+                    setPageSize(ENTRY_CMTS_PER_PAGE).
+                    addFilter(Comment.COMMENT_ENTRY_ID,
+                              FilterOperator.EQUAL,
+                              articleId);
+            final JSONObject result = commentRepository.get(query);
 
             final int pageCount = result.getJSONObject(
                     Pagination.PAGINATION).getInt(
                     Pagination.PAGINATION_PAGE_COUNT);
-            final JSONArray articleCmtRelations =
+            final JSONArray articleCmts =
                     result.getJSONArray(Keys.RESULTS);
 
-            for (int i = 0; i < articleCmtRelations.length(); i++) {
-                final JSONObject articleCmtRelation =
-                        articleCmtRelations.getJSONObject(i);
-                final String cmtId = articleCmtRelation.getString(
-                        Comment.COMMENT + "_" + Keys.OBJECT_ID);
-                final JSONObject cmt = commentRepository.get(cmtId);
+            for (int i = 0; i < articleCmts.length(); i++) {
+                final JSONObject cmt = articleCmts.getJSONObject(i);
 
                 if (!cmt.getBoolean(Common.STATE)) { // This comment is forbidden
                     cmt.put(Comment.COMMENT_CONTENT,
