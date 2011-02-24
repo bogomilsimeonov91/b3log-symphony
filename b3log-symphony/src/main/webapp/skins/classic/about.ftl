@@ -3,7 +3,7 @@
     <head>
         <title>${aboutLabel} - ${titleIndex}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="${metaKeywords}"/>
+        <meta name="keywords" content="${aboutLabel},${titleIndex}"/>
         <meta name="description" content="${metaDescription}"/>
         <meta name="author" content="B3log Team"/>
         <meta name="generator" content="B3log"/>

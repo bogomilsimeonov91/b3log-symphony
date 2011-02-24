@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>CSB - ${titleIndex}</title>
+        <title>${ChinasbLabel} - ${titleIndex}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="${metaKeywords}"/>
+        <meta name="keywords" content="${ChinasbLabel},${titleIndex}"/>
         <meta name="description" content="${metaDescription}"/>
         <meta name="author" content="B3log Team"/>
         <meta name="generator" content="B3log"/>

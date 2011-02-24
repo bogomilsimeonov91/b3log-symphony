@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>${titleIndex}</title>
+        <title>${titleIndex} - ${titleIndex1}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="${metaKeywords}"/>
         <meta name="description" content="${metaDescription}"/>
