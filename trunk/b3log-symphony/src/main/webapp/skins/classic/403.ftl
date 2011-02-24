@@ -3,6 +3,8 @@
     <head>
         <title>403 - ${titleIndex}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="${metaKeywords}"/>
+        <meta name="description" content="${metaDescription}"/>
         <meta name="robots" content="none"/>
         <link type="text/css" rel="stylesheet" href="/styles/base.css"/>
         <link type="text/css" rel="stylesheet" href="/skins/classic/default-index.css"/>
