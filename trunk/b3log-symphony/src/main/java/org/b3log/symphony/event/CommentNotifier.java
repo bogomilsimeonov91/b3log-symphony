@@ -29,6 +29,7 @@ import org.b3log.latke.event.AbstractEventListener;
 import org.b3log.latke.event.Event;
 import org.b3log.latke.event.EventException;
 import org.b3log.latke.event.EventManager;
+import org.b3log.latke.model.User;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
@@ -46,7 +47,7 @@ import org.jsoup.Jsoup;
  * This listener is responsible for processing comment reply.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 22, 2011
+ * @version 1.0.0.2, Feb 24, 2011
  */
 public final class CommentNotifier
         extends AbstractEventListener<JSONObject> {
@@ -155,9 +156,12 @@ public final class CommentNotifier
             final String commentSharpURL =
                     comment.getString(Comment.COMMENT_SHARP_URL);
 
+            final JSONObject commenter = userRepository.get(commenterId);
+            final String commenterName = commenter.getString(User.USER_NAME);
             contentBuilder.append(article.getString(Article.ARTICLE_TITLE)).
                     append(BR).append("----").append(BR).append(contentText).
-                    append(BR).append(commentSharpURL).append("comment");
+                    append(BR).append(commenterName).append(": ").
+                    append(commentSharpURL).append("comment");
 
             if (articleAuthorId.equals(originalCmterId)) {
                 needToNotifyArticleAuthor = false;
