@@ -252,8 +252,7 @@ public final class EntryAction extends AbstractCacheablePageAction {
      * @param repliesBuilder the specified replies composite builder
      * @throws Exception exception
      */
-    // TODO: use local cache instead of GAE memcache to speed up
-    //       getting orinal comments
+    // TODO: use local cache instead of GAE memcache used in Repository
     private void composeReplies(final String originalCommentId,
                                 final StringBuilder repliesBuilder)
             throws Exception {
