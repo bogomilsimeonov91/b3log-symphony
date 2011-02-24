@@ -159,8 +159,8 @@ public final class CommentNotifier
             final JSONObject commenter = userRepository.get(commenterId);
             final String commenterName = commenter.getString(User.USER_NAME);
             contentBuilder.append(article.getString(Article.ARTICLE_TITLE)).
-                    append(BR).append("----").append(BR).append(contentText).
-                    append(BR).append(commenterName).append(": ").
+                    append(BR).append("----").append(BR).append(commenterName).
+                    append(": ").append(contentText).append(BR).
                     append(commentSharpURL).append("comment");
 
             if (articleAuthorId.equals(originalCmterId)) {
