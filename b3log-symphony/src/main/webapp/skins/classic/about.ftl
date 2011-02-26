@@ -18,9 +18,11 @@
     </head>
     <body>
         <#include "top.ftl"/>
-        <div class="symphony-content">
+        <div class="symphony-content about">
             <#include "header.ftl"/>
-            ${aboutContentLabel}
+            <div>
+                ${aboutContentLabel}
+            </div>
         </div>
         <div class="footer">
             <#include "footer.ftl"/>
