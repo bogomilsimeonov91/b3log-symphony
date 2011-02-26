@@ -98,6 +98,10 @@ public final class CommentSender
                 // The author does not set the Solo key
                 // or the author does not set the Solo URL
                 // or this article is not added from Solo
+                LOGGER.log(Level.FINE,
+                           "Can't send comment to Solo[authorURL={0}]",
+                           authorURL);
+
                 return;
             }
 
