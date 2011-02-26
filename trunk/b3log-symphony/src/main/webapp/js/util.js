@@ -36,7 +36,8 @@ var Util = {
                         });
                         break;
                     case false:
-                        $("#userStatus").html("<span onclick=\"window.location.href='"
+                        $("#userStatus").html("<span onclick=\"window.location='/'\" class='index-icon'></span>"
+                            + "<span class='left'>&nbsp;|</span><span onclick=\"window.location.href='"
                             + result.loginURL + "'\" class='login-icon'></span>");
                         $("#commentForm").hide();
                         break;
