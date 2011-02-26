@@ -100,6 +100,7 @@ public final class AddArticleAction extends AbstractAction {
      * <pre>
      * {
      *     "article": {
+     *         "articleOriginalId": "", 
      *         "articleTitle": "",
      *         "articlePermalink": "",
      *         "articleTags": "tag1, tag2, ....",
@@ -165,7 +166,9 @@ public final class AddArticleAction extends AbstractAction {
 
             final JSONObject originalArticle = data.getJSONObject(ARTICLE);
             final JSONObject article = new JSONObject();
-
+            final String originalId =
+                    originalArticle.getString(ARTICLE_ORIGINAL_ID);
+            article.put(ARTICLE_ORIGINAL_ID, originalId);
             final String authorEmail =
                     originalArticle.getString(ARTICLE_AUTHOR_EMAIL_REF).
                     toLowerCase();
