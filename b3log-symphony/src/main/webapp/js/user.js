@@ -67,7 +67,8 @@ $.extend(User.prototype, {
             var requestJSONObject = {
                 "userThumbnailURL": $("#userThumbnailURL").val(),
                 "sign": $("#sign").val(),
-                "userURL": $("#userURL").val()
+                "userURL": $("#userURL").val(),
+                "keyOfSolo": $("#keyOfSolo").val()
             };
             $.ajax({
                 url: "/user-settings?action=advanced",
