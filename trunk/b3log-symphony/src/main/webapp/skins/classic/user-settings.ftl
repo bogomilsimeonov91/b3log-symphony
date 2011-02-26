@@ -68,7 +68,7 @@
                         ${thumbnailURLLabel}
                     </th>
                     <td>
-                        <input id="userThumbnailURL" style="width: 263px;" value="${userThumbnailURL}"/>
+                        <input id="userThumbnailURL" value="${userThumbnailURL}"/>
                     </td>
                 </tr>
                 <tr>
@@ -77,7 +77,7 @@
                     </th>
                     <td>
                         <div class="input-label">http://</div>
-                        <input style="border-left-width: 0;width: 230px;" id="userURL" value="${userURL}"/>
+                        <input style="border-left-width: 0;width: 229px;" id="userURL" value="${userURL}"/>
                     </td>
                 </tr>
                 <tr>
@@ -93,7 +93,7 @@
                         ${signLabel}
                     </th>
                     <td>
-                        <textarea style="width: 263px;" id="sign">${sign}</textarea>
+                        <textarea id="sign">${sign}</textarea>
                     </td>
                 </tr>
                 <tr>
