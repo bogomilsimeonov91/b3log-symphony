@@ -50,7 +50,7 @@ import org.json.JSONObject;
  * B3log Rhythm</a>.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.6, Feb 11, 2011
+ * @version 1.0.0.7, Feb 26, 2011
  */
 public final class AddArticleAction extends AbstractAction {
 
