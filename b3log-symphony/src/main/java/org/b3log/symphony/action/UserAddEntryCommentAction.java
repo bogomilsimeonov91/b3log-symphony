@@ -226,7 +226,7 @@ public final class UserAddEntryCommentAction extends AbstractAction {
                     comment.put(Comment.COMMENT_ORIGINAL_COMMENT_ID,
                                 originalCommentId);
                     comment.put(Comment.COMMENT_ORIGINAL_CMTER_ID,
-                            originalComment.getString(Comment.COMMENTER_ID));
+                                originalComment.getString(Comment.COMMENTER_ID));
                 } else {
                     LOGGER.log(Level.WARNING,
                                "Not found orginal comment[id={0}] of reply[name={1}, content={2}]",
@@ -257,6 +257,11 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             session.setAttribute(Session.LATEST_POST_TIME, latestPostTIme);
 
             final JSONObject eventData = new JSONObject();
+            comment.put(Comment.COMMENTER_NAME_REF, commenterName);
+            comment.put(Comment.COMMENTER_URL_REF,
+                        commenter.optString(User.USER_URL));
+            comment.put(Comment.COMMENTER_EMAIL_REF,
+                        commenter.getString(User.USER_EMAIL));
             eventData.put(Comment.COMMENT, comment);
             eventData.put(Article.ARTICLE, article);
             eventManager.fireEventSynchronously(
@@ -284,8 +289,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
     private static String getCommentSharpURLForArticle(final JSONObject article,
                                                        final String commentId)
             throws JSONException {
-        final String articleLink = "http://" + Symphonys.HOST + "/entries/" 
-                + article.getString(Keys.OBJECT_ID);
+        final String articleLink = "http://" + Symphonys.HOST + "/entries/"
+                                   + article.getString(Keys.OBJECT_ID);
 
         return articleLink + "#" + commentId;
     }
