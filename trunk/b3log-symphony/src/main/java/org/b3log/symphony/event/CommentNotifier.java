@@ -35,9 +35,7 @@ import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Message;
-import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
-import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Symphonys;
 import org.json.JSONObject;
@@ -61,11 +59,6 @@ public final class CommentNotifier
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
-    /**
-     * Comment repository.
-     */
-    private CommentRepository commentRepository = CommentGAERepository.
-            getInstance();
     /**
      * URL fetch service.
      */

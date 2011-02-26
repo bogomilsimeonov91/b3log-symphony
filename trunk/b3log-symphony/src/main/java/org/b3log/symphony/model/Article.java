@@ -32,6 +32,10 @@ public final class Article {
      */
     public static final String ARTICLE = "article";
     /**
+     * Key of article id.
+     */
+    public static final String ARTICLE_ID_REF = "articleId";
+    /**
      * Articles.
      */
     public static final String ARTICLES = "articles";
