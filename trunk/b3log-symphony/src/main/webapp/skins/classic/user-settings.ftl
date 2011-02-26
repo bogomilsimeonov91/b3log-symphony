@@ -77,7 +77,7 @@
                     </th>
                     <td>
                         <div class="input-label">http://</div>
-                        <input id="userURL" value="${userURL}"/>
+                        <input style="border-left-width: 0;width: 230px;" id="userURL" value="${userURL}"/>
                     </td>
                 </tr>
                 <tr>
@@ -85,7 +85,7 @@
                         ${keyOfSolo1Label}
                     </th>
                     <td>
-                        <input style="border-left-width: 0;width: 230px;" id="keyOfSolo" value="${keyOfSolo}"/>
+                        <input id="keyOfSolo" value="${keyOfSolo}"/>
                     </td>
                 </tr>
                 <tr>
