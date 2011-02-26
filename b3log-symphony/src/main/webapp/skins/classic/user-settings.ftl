@@ -77,7 +77,7 @@
                     </th>
                     <td>
                         <div class="input-label">http://</div>
-                        <input style="border-left-width: 0;width: 230px;" id="userURL" value="${userURL}"/>
+                        <input id="userURL" value="${userURL}"/>
                     </td>
                 </tr>
                 <tr>
