@@ -2,7 +2,7 @@
     <img src="http://code.google.com/appengine/images/appengine-noborder-120x30.gif"
 alt="Powered by Google App Engine" />
 </a>
-<a title="B3log Symphony" href="/" class="logo">
+<a title="B3log Symphony" href="http://b3log-symphony.googlecode.com" target="blank" class="logo">
     <span style="color: orange;">B</span>
     <span style="font-size: 9px; color: blue;"><sup>3</sup></span>
     <span style="color: green;">L</span>

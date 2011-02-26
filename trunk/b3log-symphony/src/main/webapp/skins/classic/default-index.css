@@ -29,11 +29,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* architecture */
 .symphony-content{
-    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 6px;
     -moz-box-shadow: 0 0 16px #808A82;
-    -webkit-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 6px;
     -webkit-box-shadow: 0 0 16px #808A82;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 6px;
     box-shadow: 0 0 16px #808A82;
     background-color: #FFFFFF;
     margin: 0 auto;
@@ -78,6 +78,9 @@ h1, h2, h3, h4, h5, h6 {
     float: right;
     margin-bottom: 30px;
     list-style-type: none;
+    -moz-box-shadow: 0 0 6px #808A82;
+    -webkit-box-shadow: 0 0 6px #808A82;
+    box-shadow: 0 0 6px #808A82;
 }
 
 .header-navi li {
@@ -96,20 +99,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .header-navi li a.current, .header-navi li a:hover {
     -moz-border-radius: 5px 5px 5px 5px;
-    -moz-box-shadow: 0 0 5px #505460;
+    -moz-box-shadow: 0 0 3px #505460;
     -webkit-border-radius: 5px 5px 5px 5px;
-    -webkit-box-shadow: 0 0 5px #505460;
+    -webkit-box-shadow: 0 0 3px #505460;
     border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 5px #808A82;
+    box-shadow: 0 0 3px #808A82;
     background-color: #C1CDDD;
     color: #FFFFFF;
-}
-
-/* footer */
-.about {
-    font-weight: bold;
-    color: #505460;
-    text-decoration: none;
 }
 
 /* common */
@@ -496,4 +492,33 @@ h1, h2, h3, h4, h5, h6 {
 
 .user .caption {
     display: block;
+}
+
+/* ablout */
+.about>div:last-child {
+    border-top: 1px dashed #C1CDDD;
+    padding-top: 20px;
+}
+
+/* error page */
+.error {
+    -moz-border-radius: 12px 12px 6px 12px;
+    background-color: #E1EDF3;
+    -moz-box-shadow: 0 0 6px #808A82;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.error a {
+    text-decoration: none;
+}
+
+.error-title {
+    color: #FFB02C;
+    font-family: "Reenie Beanie";
+    font-size: 112px;
+    line-height: 101px;
+    margin-top: 12px;
+    text-align: center;
+    text-shadow: 3px 3px 3px #C1CDDD;
 }
