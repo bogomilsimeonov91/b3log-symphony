@@ -39,7 +39,7 @@ import org.json.JSONObject;
  * User settings. user-settings.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 21, 2011
+ * @version 1.0.0.5, Feb 26, 2011
  */
 public final class UserSettingsAction extends AbstractAction {
 
@@ -75,6 +75,7 @@ public final class UserSettingsAction extends AbstractAction {
             ret.put(User.USER_EMAIL, email);
             ret.put(User.USER_NAME, user.getString(User.USER_NAME));
             ret.put(User.USER_URL, user.getString(User.USER_URL));
+            ret.put(Common.KEY_OF_SOLO, user.optString(Common.KEY_OF_SOLO));
             ret.put(Common.USER_THUMBNAIL_URL,
                     user.getString(Common.USER_THUMBNAIL_URL));
             ret.put(Common.USER_QQ_NUM, user.optString(Common.USER_QQ_NUM));
@@ -138,13 +139,15 @@ public final class UserSettingsAction extends AbstractAction {
                 transaction.commit();
                 ret.put(Keys.STATUS_CODE, true);
             } else if ("advanced".equals(action)) {
-                final String url = requestJSONObject.getString(User.USER_URL);
-                userToUpdate.put(User.USER_URL, url);
+                userToUpdate.put(User.USER_URL,
+                                 requestJSONObject.getString(User.USER_URL));
+                userToUpdate.put(Common.KEY_OF_SOLO,
+                                 requestJSONObject.getString(Common.KEY_OF_SOLO));
                 userToUpdate.put(Common.USER_THUMBNAIL_URL,
                                  requestJSONObject.getString(
                         Common.USER_THUMBNAIL_URL));
-                final String sign = requestJSONObject.getString(Common.SIGN);
-                userToUpdate.put(Common.SIGN, sign);
+                userToUpdate.put(Common.SIGN,
+                                 requestJSONObject.getString(Common.SIGN));
 
                 userRepository.update(currentUserId, userToUpdate);
 
