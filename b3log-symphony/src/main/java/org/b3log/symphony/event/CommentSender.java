@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.event;
 
 import com.google.appengine.api.urlfetch.HTTPMethod;
@@ -99,7 +98,7 @@ public final class CommentSender
                 // or the author does not set the Solo URL
                 // or this article is not added from Solo
                 LOGGER.log(Level.FINE,
-                           "Can't send comment to Solo[authorURL={0}]",
+                           "Can't send comment to Solo[authorURL={0}] caused by wrong settings",
                            authorURL);
 
                 return;
