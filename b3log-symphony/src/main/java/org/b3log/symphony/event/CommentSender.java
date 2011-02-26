@@ -90,9 +90,11 @@ public final class CommentSender
             final String articleId =
                     article.optString(Article.ARTICLE_ORIGINAL_ID);
             final String authorURL = author.optString(User.USER_URL);
+            final String articleFrom = article.getString(Article.ARTICLE_FROM);
             if (Strings.isEmptyOrNull(keyOfSolo)
                 || Strings.isEmptyOrNull(authorURL)
-                || Strings.isEmptyOrNull(articleId)) {
+                || Strings.isEmptyOrNull(articleId)
+                || !"B3log Solo".equals(articleFrom)) {
                 // The author does not set the Solo key
                 // or the author does not set the Solo URL
                 // or this article is not added from Solo
@@ -100,7 +102,7 @@ public final class CommentSender
             }
 
             final URL url = new URL("http://" + authorURL
-                    + "/add-article-from-symphony-comment.do");
+                                    + "/add-article-from-symphony-comment.do");
             final HTTPRequest httpRequest =
                     new HTTPRequest(url, HTTPMethod.POST);
             final JSONObject requestJSONObject = new JSONObject();
