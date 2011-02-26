@@ -106,6 +106,11 @@ public final class Article {
     public static final String ARTICLE_RANDOM_DOUBLE =
             "articleRandomDouble";
     /**
+     * Key of author id.
+     */
+    public static final String ARTICLE_AUTHOR_ID =
+            Common.AUTHOR_ID;
+    /**
      * Date format(yyyy/MM/dd hh:mm:ss).
      */
     public static final DateFormat DATE_FORMAT =
