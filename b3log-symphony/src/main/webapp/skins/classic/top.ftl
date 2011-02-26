@@ -16,6 +16,8 @@
         <span class="left">&nbsp;|&nbsp;</span>
         <a class="left" href="/user-comments">${commentLabel}</a>
         <span class="left">&nbsp;|</span>
+        <span title="${indexLabel}" onclick="window.location='/'" class='index-icon'></span>
+        <span class="left">&nbsp;|</span>
         <span title="${settingsLabel}" onclick="window.location='/user-settings'" class='admin-icon'></span>
         <span class="left">&nbsp;|</span>
         <span title="${logoutLabel}" class="logout-icon"></span>
