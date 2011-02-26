@@ -48,6 +48,10 @@ public final class Comment {
      */
     public static final String COMMENTER_NAME_REF = "commenterName";
     /**
+     * Key of commenter email.
+     */
+    public static final String COMMENTER_EMAIL_REF = "commentEmail";
+    /**
      * Key of comment sharp URL.
      */
     public static final String COMMENT_SHARP_URL = "commentSharpURL";

@@ -100,6 +100,10 @@ public final class Common {
      * Key of tag count.
      */
     public static final String STAT_TAG_CNT = "statTagCnt";
+    /**
+     * Key of key of Solo.
+     */
+    public static final String KEY_OF_SOLO = "keyOfSolo";
 
     /**
      * Private default constructor.
