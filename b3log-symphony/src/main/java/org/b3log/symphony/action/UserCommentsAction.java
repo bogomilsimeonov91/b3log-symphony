@@ -32,6 +32,7 @@ import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.repository.CommentRepository;
 import org.b3log.symphony.repository.UserRepository;
@@ -106,6 +107,8 @@ public final class UserCommentsAction extends AbstractCacheablePageAction {
                                        pageCount, windowSize);
             ret.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+
+            Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
