@@ -33,6 +33,7 @@ import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.ArticleRepository;
@@ -91,6 +92,8 @@ public final class UserEntriesAction extends AbstractCacheablePageAction {
                     getQueryStringJSONObject(request);
 
             fillEntries(queryStringJSONObject, user, ret);
+
+            Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
