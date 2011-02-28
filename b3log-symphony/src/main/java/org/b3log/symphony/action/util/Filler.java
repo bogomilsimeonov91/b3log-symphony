@@ -28,6 +28,7 @@ import org.b3log.symphony.repository.impl.ArticleGAERepository;
 import org.b3log.symphony.repository.impl.CommentGAERepository;
 import org.b3log.symphony.repository.impl.TagGAERepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
+import org.b3log.symphony.util.Symphonys;
 
 /**
  * About action. about.ftl.
@@ -74,6 +75,8 @@ public final class Filler {
             dataModel.put(Common.STAT_COMMENT_CNT, COMMENT_REPOS.count());
             dataModel.put(Common.STAT_ARTICLE_CNT, ARTICLE_REPOS.count());
             dataModel.put(Common.STAT_TAG_CNT, TAG_REPOS.count());
+
+            dataModel.put(Common.HOST, Symphonys.get("host"));
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
