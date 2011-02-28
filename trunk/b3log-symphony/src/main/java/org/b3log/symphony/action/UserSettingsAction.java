@@ -27,6 +27,7 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -39,7 +40,7 @@ import org.json.JSONObject;
  * User settings. user-settings.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 26, 2011
+ * @version 1.0.0.6, Feb 28, 2011
  */
 public final class UserSettingsAction extends AbstractAction {
 
@@ -79,8 +80,9 @@ public final class UserSettingsAction extends AbstractAction {
             ret.put(Common.USER_THUMBNAIL_URL,
                     user.getString(Common.USER_THUMBNAIL_URL));
             ret.put(Common.USER_QQ_NUM, user.optString(Common.USER_QQ_NUM));
-
             ret.put(Common.SIGN, user.getString(Common.SIGN));
+
+            Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
