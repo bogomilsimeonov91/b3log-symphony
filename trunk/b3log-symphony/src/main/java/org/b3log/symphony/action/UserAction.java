@@ -33,6 +33,7 @@ import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.model.Common;
@@ -52,7 +53,7 @@ import org.json.JSONObject;
  * User action. user.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.6, Feb 23, 2011
+ * @version 1.0.0.7, Feb 28, 2011
  */
 public final class UserAction extends AbstractCacheablePageAction {
 
@@ -121,6 +122,8 @@ public final class UserAction extends AbstractCacheablePageAction {
 
             fillEntries(user, ret);
             fillComments(user, ret);
+
+            Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
