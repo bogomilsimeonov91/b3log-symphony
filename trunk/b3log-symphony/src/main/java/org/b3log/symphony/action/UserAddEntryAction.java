@@ -33,6 +33,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Ids;
 import org.b3log.latke.util.Strings;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import static org.b3log.symphony.model.Article.*;
 import org.b3log.symphony.model.Common;
@@ -58,7 +59,7 @@ import org.json.JSONObject;
  * Adds entry submitted locally. user-add-entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 14, 2011
+ * @version 1.0.0.3, Feb 28, 2011
  */
 public final class UserAddEntryAction extends AbstractAction {
 
@@ -129,6 +130,8 @@ public final class UserAddEntryAction extends AbstractAction {
         stringBuilder.append("]");
 
         ret.put(Tag.TAGS, stringBuilder.toString());
+
+        Filler.fillCommon(ret);
 
         return ret;
     }
