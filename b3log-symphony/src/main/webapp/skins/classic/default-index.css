@@ -63,6 +63,10 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
+#top sup {
+    line-height: 12px;
+}
+
 .header .small-font {
     font-size: 12px;
     float: left;
