@@ -45,7 +45,7 @@ import org.jsoup.Jsoup;
  * This listener is responsible for processing comment reply.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 24, 2011
+ * @version 1.0.0.3, Mar 5, 2011
  */
 public final class CommentNotifier
         extends AbstractEventListener<JSONObject> {
@@ -103,8 +103,7 @@ public final class CommentNotifier
         LOGGER.log(Level.FINER,
                    "Processing an event[type={0}, data={1}] in listener[className={2}]",
                    new Object[]{event.getType(),
-                                eventData,
-                                CommentNotifier.class.getName()});
+                                eventData, CommentNotifier.class.getName()});
         try {
             final String articleAuthorId =
                     article.getString(Common.AUTHOR_ID);
@@ -143,9 +142,11 @@ public final class CommentNotifier
             }
 
             final StringBuilder contentBuilder = new StringBuilder();
-            final String commentContentHTML =
+            String commentContentHTML =
                     comment.getString(Comment.COMMENT_CONTENT);
-            final String contentText = Jsoup.parse(commentContentHTML).text();
+            commentContentHTML = replaceEmotions(commentContentHTML);
+            final String contentText = Jsoup.
+                    parse(commentContentHTML).text();
             final String commentSharpURL =
                     comment.getString(Comment.COMMENT_SHARP_URL);
 
@@ -236,6 +237,81 @@ public final class CommentNotifier
                 URL_FETCH_SVC.fetchAsync(httpRequest);
         //            LOGGER.log(Level.FINEST, "IM response[sc={0}]",
         //                       response.get().getResponseCode());
+    }
+
+    /**
+     * Replaces emotions for escape of QQ.
+     *
+     * @param commentHTML the original comment HTML
+     * @return replaced comment content
+     */
+    private static String replaceEmotions(final String commentHTML) {
+        String ret = commentHTML;
+        final String skinDirName = Symphonys.get("skinDirName");
+        ret = ret.replaceAll("<img border=\"0\" src=\"/skins/"
+                             + skinDirName
+                             + "/emotions/0.png\">",
+                             "/wx").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/1.png\">",
+                           "/cy").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/2.png\">",
+                           "/ka").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/3.png\">",
+                           "/kk").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/4.png\">",
+                           "/ll").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/5.png\">",
+                           "/ch").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/6.png\">",
+                           "/zhem").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/7.png\">",
+                           "/fn").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/8.png\">",
+                           "/fd").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/9.png\">",
+                           "/jy").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/10.png\">",
+                           "/kuk").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/11.png\">",
+                           "/tp").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/12.png\">",
+                           "/xin").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/13.png\">",
+                           "/xs").
+                replaceAll("<img border=\"0\" src=\"/skins/"
+                           + skinDirName
+                           + "/emotions/14.png\">",
+                           "/huaix");
+        LOGGER.log(Level.FINEST,
+                   " Comment content with emotions replaced[{0}]", ret);
+
+        return ret;
     }
 
     /**

@@ -33,7 +33,7 @@ import static org.b3log.symphony.model.Skin.*;
  * Skin utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 23, 2011
+ * @version 1.0.0.1, Mar 5, 2011
  */
 public final class Skins {
 
@@ -52,7 +52,7 @@ public final class Skins {
     public void loadSkin() {
         LOGGER.config("Loading skin....");
 
-        final String skinDirName = "classic";
+        final String skinDirName = Symphonys.get("skinDirName");
         final String skinName = getSkinName(skinDirName);
         LOGGER.log(Level.INFO, "Current skin[name={0}]", skinName);
 
