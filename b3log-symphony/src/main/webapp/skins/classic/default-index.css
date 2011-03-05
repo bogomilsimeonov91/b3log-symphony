@@ -1,4 +1,9 @@
 /* css reset */
+*,html,body{
+    margin:0;
+    padding:0;
+}
+
 body{
     background-image: url(images/bg-body.png);
     color: #505460;

@@ -1,8 +1,3 @@
-*,html,body{
-    margin:0;
-    padding:0;
-}
-
 .marginB5{
     margin-bottom: 5px;
 }
@@ -120,3 +115,66 @@
     margin:0 -2px;
 }
 
+/* emotions */
+.ems-classic {
+    background-image: url(/images/ems-classic.png);
+    height: 24px;
+    cursor: pointer;
+    width: 24px;
+}
+
+.em1 {
+    background-position: -24px 0px;
+}
+
+.em2 {
+    background-position: -48px 0px;
+}
+
+.em3 {
+    background-position: -72px 0px;
+}
+
+.em4 {
+    background-position: -96px 0px;
+}
+
+.em5 {
+    background-position: 0px -24px;
+}
+
+.em6 {
+    background-position: -24px -24px;
+}
+
+.em7 {
+    background-position: -48px -24px;
+}
+
+.em8 {
+    background-position: -72px -24px;
+}
+
+.em9 {
+    background-position: -96px -24px;
+}
+
+.em10 {
+    background-position: 0px -48px;
+}
+
+.em11 {
+    background-position: -24px -48px;
+}
+
+.em12 {
+    background-position: -48px -48px;
+}
+
+.em13 {
+    background-position: -72px -48px;
+}
+
+.em14 {
+    background-position: -96px -48px;
+}

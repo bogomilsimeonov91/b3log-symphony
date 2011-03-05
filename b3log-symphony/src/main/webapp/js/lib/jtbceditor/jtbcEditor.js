@@ -2,6 +2,7 @@ function jtbcEditor(_id)
 {
     this.tid = _id;
     this.tName = '';
+    this.tSkin = '';
     this.tValue = '';
     this.tbaseURL = '';
     this.tPanelHeight = 22;
@@ -449,7 +450,7 @@ function jtbcEditor(_id)
             tSourceImageObj = this.tEI(this.tid + '-jtbcEditorToolbar-Source');
             tSourceImageObj.onmouseover = function() {};
             tSourceImageObj.onmouseout = function() {};
-            tSourceImageObj.className = 'jtbcEditorSelected';
+            tSourceImageObj.parentNode.className = 'jtbcEditorSelected';
             this.tEI(this.tid + '-textarea').style.display = '';
             this.tEI(this.tid + '-iframe').style.display = 'none';
             this.tEI(this.tid + '-textarea').value = tHTML;
@@ -471,7 +472,7 @@ function jtbcEditor(_id)
             tSourceImageObj.onmouseout = function() {
                 this.className = ''
                 };
-            tSourceImageObj.className = '';
+            tSourceImageObj.parentNode.className = '';
             this.tEI(this.tid + '-textarea').style.display = 'none';
             this.tEI(this.tid + '-iframe').style.display = '';
             this.tInstance.document.body.innerHTML = tnValue;
@@ -488,8 +489,8 @@ function jtbcEditor(_id)
             for (var tKey1 in tArray1)
             {
                 var tnKey = tArray1[tKey1];
-                if (tnKey == '-' || tnKey == 'separator') tHTMLString1 += '<img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/icon/toolbar.' + tnKey + '.gif" />';
-                else tHTMLString1 += '<img id="' + this.tid + '-jtbcEditorToolbar-' + tnKey + '" src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/icon/' + tnKey + '.gif" onmouseover="this.className = \'jtbcEditorSelected\';" onmouseout="this.className = \'\';" onclick="' + this.tName + '.tsetCommand(\'' + tnKey + '\');" />';
+                if (tnKey == '-' || tnKey == 'separator') tHTMLString1 += '<div class="separator ' + this.tSkin + ' ' + tnKey + '"></div>';
+                else tHTMLString1 += '<span><div id="' + this.tid + '-jtbcEditorToolbar-' + tnKey + '" class="' + this.tSkin + ' ' + tnKey + '" onclick="' + this.tName + '.tsetCommand(\'' + tnKey + '\');" ></div></span>';
             };
             tObj1.innerHTML = tHTMLString1;
         };
@@ -619,7 +620,7 @@ function jtbcEditor(_id)
         for (var ti = 0; ti < 15; ti ++)
         {
             tni += 1;
-            tSmileyTableHTML +='    <td><img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/smiley/' + tni + '.png" onclick="' + this.tName + '.tsetCommand(\'SmileyS\', this.src);" /></td>';
+            tSmileyTableHTML +='    <td><div url="/skins/' + this.tSkin + '/emotions/' + ti + '.png" class="ems-' + this.tSkin + ' em' + ti + '" onclick="' + this.tName + '.tsetCommand(\'SmileyS\', this.getAttribute(\'url\'));" ></div></td>';
             if (tni % tRowNum == 0 && tni != 16)
             {
                 tSmileyTableHTML += '  </tr>';
@@ -692,10 +693,11 @@ function jtbcEditor(_id)
         tColorTableHTML += '</table>';
         this.tLoadMaskShow(tColorTableHTML);
     };
-    this.tInit = function(_name, _baseURL)
+    this.tInit = function(_name, _baseURL, _skin)
     {
         this.tName = _name;
         this.tbaseURL = _baseURL;
+        this.tSkin = _skin;
         var tObj1 = this.tEI(this.tid);
         if (tObj1)
         {
@@ -752,7 +754,7 @@ function jtbcEditor(_id)
             tDiv1.appendChild(tIframe1);
             var tObj3 = this.tFW(this.tid + '-iframe');
             if (this.tEditUBBMode == 1) this.tValue = this.tUBB2XHTML(this.tValue);
-            var tObj3HTML = '<html><head><link href="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/css/iframe.css" rel="stylesheet" type="text/css" /></head><body>' + this.tValue + '</body></html>';
+            var tObj3HTML = '<html><head><link type="text/css" rel="stylesheet" href="/styles/base.css"/><link href="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/css/iframe.css" rel="stylesheet" type="text/css" /></head><body>' + this.tValue + '</body></html>';
             tObj3.document.designMode = 'On';
             tObj3.document.open();
             tObj3.document.writeln(tObj3HTML);
