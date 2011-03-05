@@ -29,7 +29,7 @@
                     <span class="tag-icon" title="${tagRefCountLabel}"></span>&nbsp;
                     <span class="left">&nbsp;${tag.tagReferenceCount}&nbsp;&nbsp;</span>
                     <span class="comment-icon" title="${commentCountLabel}"></span>
-                    <span class="left">&nbsp;${tag.tagCommentCount}</span>
+                    <span>${tag.tagCommentCount}</span>
                 </div>
                 <div class="right">
                     <#list tagTopUsers as topAuthor>
