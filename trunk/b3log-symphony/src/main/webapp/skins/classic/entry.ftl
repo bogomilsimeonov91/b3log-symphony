@@ -193,7 +193,7 @@
             Util.initPagination();
             var editor = new jtbcEditor('commentContent'),
             editorReply = undefined;
-            editor.tInit('editor', '/js/lib/jtbceditor/');
+            editor.tInit('editor', '/js/lib/jtbceditor/', 'classic');
             index.commentShow();
         </script>
     </body>

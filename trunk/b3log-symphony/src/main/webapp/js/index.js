@@ -126,7 +126,7 @@ $.extend(Index.prototype, {
             this.originalId = oId;
 
             editorReply = new jtbcEditor('commentContentReply');
-            editorReply.tInit('editorReply', '/js/lib/jtbceditor/');
+            editorReply.tInit('editorReply', '/js/lib/jtbceditor/', 'classic');
         }
     },
     

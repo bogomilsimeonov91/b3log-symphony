@@ -141,7 +141,7 @@ $.extend(User.prototype, {
         $("#tags").val("");
         $("#content").val("");
         var editor = new jtbcEditor('content');
-        editor.tInit('editor', '/js/lib/jtbceditor/');
+        editor.tInit('editor', '/js/lib/jtbceditor/', "classic");
         $("#tags").completed({
             height: 90,
             data: tags
