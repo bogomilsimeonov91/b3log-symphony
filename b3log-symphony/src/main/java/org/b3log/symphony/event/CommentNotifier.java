@@ -45,7 +45,7 @@ import org.jsoup.Jsoup;
  * This listener is responsible for processing comment reply.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Mar 5, 2011
+ * @version 1.0.0.4, Mar 8, 2011
  */
 public final class CommentNotifier
         extends AbstractEventListener<JSONObject> {
@@ -247,65 +247,49 @@ public final class CommentNotifier
      */
     private static String replaceEmotions(final String commentHTML) {
         String ret = commentHTML;
-        final String skinDirName = Symphonys.get("skinDirName");
-        ret = ret.replaceAll("<img border=\"0\" src=\"/skins/"
-                             + skinDirName
-                             + "/emotions/0.png\">",
+        ret = ret.replace("<img border=\"0\" src=\"/skins/classic"
+                             + "/emotions/00.png\">",
                              "/wx").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/1.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/01.png\">",
                            "/cy").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/2.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/02.png\">",
                            "/ka").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/3.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/03.png\">",
                            "/kk").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/4.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/04.png\">",
                            "/ll").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/5.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/05.png\">",
                            "/ch").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/6.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/06.png\">",
                            "/zhem").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/7.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/07.png\">",
                            "/fn").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/8.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/08.png\">",
                            "/fd").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
-                           + "/emotions/9.png\">",
+                replace("<img border=\"0\" src=\"/skins/classic"
+                           + "/emotions/09.png\">",
                            "/jy").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
+                replace("<img border=\"0\" src=\"/skins/classic"
                            + "/emotions/10.png\">",
                            "/kuk").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
+                replace("<img border=\"0\" src=\"/skins/classic"
                            + "/emotions/11.png\">",
                            "/tp").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
+                replace("<img border=\"0\" src=\"/skins/classic"
                            + "/emotions/12.png\">",
                            "/xin").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
+                replace("<img border=\"0\" src=\"/skins/classic"
                            + "/emotions/13.png\">",
                            "/xs").
-                replaceAll("<img border=\"0\" src=\"/skins/"
-                           + skinDirName
+                replace("<img border=\"0\" src=\"/skins/classic"
                            + "/emotions/14.png\">",
                            "/huaix");
         LOGGER.log(Level.FINEST,
