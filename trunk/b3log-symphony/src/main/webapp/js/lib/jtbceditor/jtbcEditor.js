@@ -620,7 +620,9 @@ function jtbcEditor(_id)
         for (var ti = 0; ti < 15; ti ++)
         {
             tni += 1;
-            tSmileyTableHTML +='    <td><div url="/skins/' + this.tSkin + '/emotions/' + ti + '.png" class="ems-' + this.tSkin + ' em' + ti + '" onclick="' + this.tName + '.tsetCommand(\'SmileyS\', this.getAttribute(\'url\'));" ></div></td>';
+            var emNum = ti;
+            if (ti < 10) {emNum = "0" + ti;}
+            tSmileyTableHTML +='    <td><div url="/skins/' + this.tSkin + '/emotions/em' + emNum + '.png" class="ems-' + this.tSkin + ' em' + ti + '" onclick="' + this.tName + '.tsetCommand(\'SmileyS\', this.getAttribute(\'url\'));" ></div></td>';
             if (tni % tRowNum == 0 && tni != 16)
             {
                 tSmileyTableHTML += '  </tr>';
