@@ -188,6 +188,7 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             commentContent = commentContent.replaceAll("<", "&lt;").
                     replaceAll(">", "&gt;");
             commentContent = UBBDecoder.decode(commentContent);
+            LOGGER.log(Level.FINEST, "Comment[content={0}]", commentContent);
             final String originalCommentId = requestJSONObject.optString(
                     Comment.COMMENT_ORIGINAL_COMMENT_ID);
 
