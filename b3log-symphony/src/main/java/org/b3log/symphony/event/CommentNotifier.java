@@ -247,50 +247,35 @@ public final class CommentNotifier
      */
     private static String replaceEmotions(final String commentHTML) {
         String ret = commentHTML;
-        ret = ret.replace("<img border=\"0\" src=\"/skins/classic"
-                             + "/emotions/00.png\">",
+        ret = ret.replace("<img src='/skins/classic/emotions/em00.png' border=0>",
                              "/wx").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/01.png\">",
+                replace("<img src='/skins/classic/emotions/em01.png' border=0>",
                            "/cy").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/02.png\">",
+                replace("<img src='/skins/classic/emotions/em02.png' border=0>",
                            "/ka").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/03.png\">",
+                replace("<img src='/skins/classic/emotions/em03.png' border=0>",
                            "/kk").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/04.png\">",
+                replace("<img src='/skins/classic/emotions/em04.png' border=0>",
                            "/ll").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/05.png\">",
+                replace("<img src='/skins/classic/emotions/em05.png' border=0>",
                            "/ch").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/06.png\">",
+                replace("<img src='/skins/classic/emotions/em06.png' border=0>",
                            "/zhem").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/07.png\">",
+                replace("<img src='/skins/classic/emotions/em07.png' border=0>",
                            "/fn").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/08.png\">",
+                replace("<img src='/skins/classic/emotions/em08.png' border=0>",
                            "/fd").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/09.png\">",
+                replace("<img src='/skins/classic/emotions/em09.png' border=0>",
                            "/jy").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/10.png\">",
+                replace("<img src='/skins/classic/emotions/em10.png' border=0>",
                            "/kuk").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/11.png\">",
+                replace("<img src='/skins/classic/emotions/em11.png' border=0>",
                            "/tp").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/12.png\">",
+                replace("<img src='/skins/classic/emotions/em12.png' border=0>",
                            "/xin").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/13.png\">",
+                replace("<img src='/skins/classic/emotions/em13.png' border=0>",
                            "/xs").
-                replace("<img border=\"0\" src=\"/skins/classic"
-                           + "/emotions/14.png\">",
+                replace("<img src='/skins/classic/emotions/em14.png' border=0>",
                            "/huaix");
         LOGGER.log(Level.FINEST,
                    " Comment content with emotions replaced[{0}]", ret);
