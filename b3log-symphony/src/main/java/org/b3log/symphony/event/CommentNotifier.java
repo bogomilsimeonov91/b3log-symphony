@@ -45,7 +45,7 @@ import org.jsoup.Jsoup;
  * This listener is responsible for processing comment reply.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Mar 8, 2011
+ * @version 1.0.0.5, Mar 10, 2011
  */
 public final class CommentNotifier
         extends AbstractEventListener<JSONObject> {
@@ -248,35 +248,35 @@ public final class CommentNotifier
     private static String replaceEmotions(final String commentHTML) {
         String ret = commentHTML;
         ret = ret.replace("<img src='/skins/classic/emotions/em00.png' border=0>",
-                             "/wx").
+                             "/wx ").
                 replace("<img src='/skins/classic/emotions/em01.png' border=0>",
-                           "/cy").
+                           "/cy ").
                 replace("<img src='/skins/classic/emotions/em02.png' border=0>",
-                           "/ka").
+                           "/ka ").
                 replace("<img src='/skins/classic/emotions/em03.png' border=0>",
-                           "/kk").
+                           "/kk ").
                 replace("<img src='/skins/classic/emotions/em04.png' border=0>",
-                           "/ll").
+                           "/ll ").
                 replace("<img src='/skins/classic/emotions/em05.png' border=0>",
-                           "/ch").
+                           "/ch ").
                 replace("<img src='/skins/classic/emotions/em06.png' border=0>",
-                           "/zhem").
+                           "/zhem ").
                 replace("<img src='/skins/classic/emotions/em07.png' border=0>",
-                           "/fn").
+                           "/fn ").
                 replace("<img src='/skins/classic/emotions/em08.png' border=0>",
-                           "/fd").
+                           "/fd ").
                 replace("<img src='/skins/classic/emotions/em09.png' border=0>",
-                           "/jy").
+                           "/jy ").
                 replace("<img src='/skins/classic/emotions/em10.png' border=0>",
-                           "/kuk").
+                           "/kuk ").
                 replace("<img src='/skins/classic/emotions/em11.png' border=0>",
-                           "/tp").
+                           "/tp ").
                 replace("<img src='/skins/classic/emotions/em12.png' border=0>",
-                           "/xin").
+                           "/xin ").
                 replace("<img src='/skins/classic/emotions/em13.png' border=0>",
-                           "/xs").
+                           "/xs ").
                 replace("<img src='/skins/classic/emotions/em14.png' border=0>",
-                           "/huaix");
+                           "/huaix ");
         LOGGER.log(Level.FINEST,
                    " Comment content with emotions replaced[{0}]", ret);
 
