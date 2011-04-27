@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Description: B3log Symphony.
-    Version: 1.0.1.0, Feb 28, 2011
+    Version: 1.0.1.1, Apr 27, 2011
     Author: Liang Ding
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -27,13 +27,13 @@
             0.4.4
         </org.b3log.latke-cache-gae.version>
         <commons-lang.version>2.5</commons-lang.version>
-        <gae.version>1.4.2</gae.version>
+        <gae.version>1.4.3</gae.version>
         <jsoup.version>1.5.2</jsoup.version>
         <!-- maven plugin -->
         <maven-license-plugin.version>1.8.0</maven-license-plugin.version>
         <maven-checkstyle-plugin.version>2.5</maven-checkstyle-plugin.version>
         <maven-javancss-plugin.version>2.0</maven-javancss-plugin.version>
-        <maven-gae-plugin.version>0.8.2</maven-gae-plugin.version>
+        <maven-gae-plugin.version>0.8.4</maven-gae-plugin.version>
         <maven-javadoc-plugin.version>2.7</maven-javadoc-plugin.version>
         <!-- Unit Test -->
         <testng.version>5.9</testng.version>
