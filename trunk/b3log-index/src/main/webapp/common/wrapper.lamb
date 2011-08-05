@@ -1,0 +1,20 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<div class="wrapper">
+    <h1><a href="###" id="logo"></a></h1>
+    <form id="search" method="post">
+        <div>
+            <input type="submit" class="submit" value="">
+            <input class="input" type="text" value="Site Search" onblur="if(this.value=='') this.value='Site Search'" onfocus="if(this.value =='Site Search' ) this.value=''">
+        </div>
+    </form>
+    <nav>
+        <ul id="menu">
+            <li id="active"><a href="index.html">首页</a></li>
+            <li><a href="Folio.html">主题</a></li>
+            <li><a href="###">插件</a></li>
+            <li><a href="###">文档</a></li>
+            <li><a href="###">社区</a></li>
+            <li class="end"><a href="###">关于</a></li>
+        </ul>
+    </nav>
+</div>

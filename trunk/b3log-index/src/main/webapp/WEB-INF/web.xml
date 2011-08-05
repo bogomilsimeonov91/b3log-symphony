@@ -16,14 +16,30 @@
     limitations under the License.
 
 -->
-
 <!--
     Description: B3log Index web deployment descriptor.
     Version: 1.0.0.0, Feb 28, 2011
     Author: Liang Ding
 -->
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>FolioServlet</servlet-name>
+        <servlet-class>org.b3log.servlet.FolioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FolioServlet</servlet-name>
+        <url-pattern>/folio</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>org.b3log.servlet.IndexServlet</servlet-class>
+    </servlet>
+    
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

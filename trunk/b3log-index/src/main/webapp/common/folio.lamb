@@ -1,0 +1,320 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<section id="content">
+    <div class="line1 wrapper">
+        <div class="wrapper tabs">
+            <article class="col1">
+                <h2>Skins</h2>
+                <div class="pad">
+                    <ul class="nav">
+                        <li class="selected"><a href="#Favourite">Favourite</a></li>
+                        <li><a href="#3D">3D Objects</a></li>
+                        <li><a href="#Wedding">Wedding</a></li>
+                        <li><a href="#Reportage">Reportage</a></li>
+                        <li><a href="#Advertising">Advertising</a></li>
+                        <li><a href="#Portrait">Portrait</a></li>
+                    </ul>
+                </div>
+            </article>
+            <article class="col2 pad_left1 tab-content" id="Favourite">
+                <h2>Favourite</h2>
+                <ul class="gallery">
+                    <li>
+                        <a href="images/big_img1.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img1.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img2.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img2.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img3.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img3.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img4.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img4.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img5.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img5.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img6.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img6.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img7.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img7.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img8.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img8.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img9.jpg" class="lightbox-image" rel="prettyPhoto[group1]" >
+                            <img src="images/page3_img9.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </article>
+            <article class="col2 pad_left1 tab-content" id="3D">
+                <h2>3D Objects</h2>
+                <ul class="gallery">
+                    <li>
+                        <a href="images/big_img7.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img7.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img8.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img8.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img9.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img9.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img1.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img1.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img2.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img2.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img3.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img3.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img4.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img4.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img5.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img5.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img6.jpg" class="lightbox-image" rel="prettyPhoto[group2]" >
+                            <img src="images/page3_img6.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </article>
+            <article class="col2 pad_left1 tab-content" id="Wedding">
+                <h2>Wedding Category</h2>
+                <ul class="gallery">
+                    <li>
+                        <a href="images/big_img4.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img4.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img5.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img5.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img6.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img6.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img7.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img7.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img8.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img8.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img9.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img9.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img1.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img1.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img2.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img2.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img3.jpg" class="lightbox-image" rel="prettyPhoto[group3]" >
+                            <img src="images/page3_img3.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </article>
+            <article class="col2 pad_left1 tab-content" id="Reportage">
+                <h2>Reportage Category</h2>
+                <ul class="gallery">
+                    <li>
+                        <a href="images/big_img1.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img1.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img2.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img2.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img3.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img3.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img4.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img4.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img5.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img5.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img6.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img6.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img7.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img7.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img8.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img8.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img9.jpg" class="lightbox-image" rel="prettyPhoto[group4]" >
+                            <img src="images/page3_img9.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </article>
+            <article class="col2 pad_left1 tab-content" id="Advertising">
+                <h2>Advertising Category</h2>
+                <ul class="gallery">
+                    <li>
+                        <a href="images/big_img7.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img7.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img8.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img8.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img9.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img9.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img1.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img1.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img2.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img2.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img3.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img3.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img4.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img4.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img5.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img5.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img6.jpg" class="lightbox-image" rel="prettyPhoto[group5]" >
+                            <img src="images/page3_img6.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </article>
+            <article class="col2 pad_left1 tab-content" id="Portrait">
+                <h2>Portrait Category</h2>
+                <ul class="gallery">
+                    <li>
+                        <a href="images/big_img4.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >
+                            <img src="images/page3_img4.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img5.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >	
+                            <img src="images/page3_img5.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img6.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >
+                            <img src="images/page3_img6.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img7.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >
+                            <img src="images/page3_img7.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img8.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >
+                            <img src="images/page3_img8.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img9.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >
+                            <img src="images/page3_img9.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img1.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >
+                            <img src="images/page3_img1.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="images/big_img2.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >
+                            <img src="images/page3_img2.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="end">
+                        <a href="images/big_img3.jpg" class="lightbox-image" rel="prettyPhoto[group6]" >
+                            <img src="images/page3_img3.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</section>

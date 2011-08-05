@@ -1,0 +1,56 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<section id="content2">
+    <div class="line2 wrapper">
+        <div class="wrapper">
+            <article class="col1">
+                <h2>Quick Start</h2>
+                <div class="wrapper">
+                    <figure class="left marg_right1"><img src="images/page1_img2.jpg" alt=""></figure>
+                    <p>
+                        <br/>
+                        B3log Solo 是一个基于 Google App Engine Java 版的博客程序。
+                        从
+                        <a href="http://code.google.com/p/b3log-solo/wiki/UserGuide">这里</a>
+                        开始，快速搭建你的个人博客吧！
+                        <a href="http://code.google.com/p/b3log-solo/downloads/list">下载地址</a>
+                    </p>
+                </div>
+                <div class="pad">
+                    <p>
+			你想先预览一下，好吧：）这里有个
+                        <a href="http://demo.b3log.org/">demo</a>
+                        (用户名[b3log.solo@gmail.com]密码[b3logsolo])。如果你对
+                        <a href="http://code.google.com/p/b3log-solo/source/checkout">源代码</a>
+                        很感兴趣，非常欢迎您对任何方面的性能优化和产品改进建议，让
+                        <a href="http://code.google.com/p/b3log-solo/issues/list">issue</a>
+                        “飞”起来！
+                        <br>
+                        <br>
+                        我们的社区
+                        <a href="http://symphony.b3log.org/">Symphony</a>
+                        自由•平等•奔放，在这里可以讨论交流分享，快来吧！ 
+                    </p>
+                </div>
+            </article>
+            <article class="col3 pad_left1">
+                <h2>Coming Soon</h2>
+                <div class="pad">
+                    <div class="wrapper">
+                        <span class="date"><span>30</span>Aug</span>
+                        <p>
+                            <a href="#" class="link1">0.3.0正式版发布</a><br>
+				0.3.0会增加插件机制，使用户很方便的扩展自己想要的功能，您的插件也可以给他人带来方便：）
+                        </p>
+                    </div>
+                    <div class="wrapper">
+                        <span class="date"><span>00</span>Aug</span>
+                        <p>
+                            <a href="#" class="link1">持续更新</a><br>
+				B3log会努力更好，开发更多方便的特性功能
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

@@ -19,12 +19,12 @@
 
     <!-- Version -->
     <properties>
-        <gae.version>1.4.2</gae.version>
+        <gae.version>1.5.2</gae.version>
         <!-- maven plugin -->
         <maven-license-plugin.version>1.8.0</maven-license-plugin.version>
-        <maven-checkstyle-plugin.version>2.5</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.version>2.6</maven-checkstyle-plugin.version>
         <maven-javancss-plugin.version>2.0</maven-javancss-plugin.version>
-        <maven-gae-plugin.version>0.8.2</maven-gae-plugin.version>
+        <maven-gae-plugin.version>0.8.4</maven-gae-plugin.version>
         <maven-javadoc-plugin.version>2.7</maven-javadoc-plugin.version>
         <!-- Unit Test -->
         <testng.version>5.9</testng.version>
@@ -116,7 +116,12 @@
             <classifier>jdk15</classifier>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -139,80 +144,6 @@
             </plugin>
 
             <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <version>${maven-license-plugin.version}</version>
-                <configuration>
-                    <basedir>${basedir}</basedir>
-                    <header>src/main/resources/etc/header.txt</header>
-                    <quiet>false</quiet>
-                    <failIfMissing>true</failIfMissing>
-                    <aggregate>true</aggregate>
-                    <strictCheck>true</strictCheck>
-                    <includes>
-                        <include>**/src/*/java/**/*.java</include>
-                        <include>**/src/*/webapp/js/*.js</include>
-                        <include>**/src/*/resources/*.properties</include>
-                        <include>**/src/*/webapp/WEB-INF/*.xml</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/src/main/java/**/package-info.java</exclude>
-                        <exclude>**/src/*/webapp/js/lib/*.js</exclude>
-                        <exclude>**/src/main/java/freemarker/core/TextBlock.java</exclude>
-                        <exclude>**/src/main/java/com/**/*.java</exclude>
-                    </excludes>
-
-                    <useDefaultExcludes>true</useDefaultExcludes>
-                    <mapping>
-                        <java>SLASHSTAR_STYLE</java>
-                    </mapping>
-                    <useDefaultMapping>true</useDefaultMapping>
-                    <properties>
-                        <year>2009, 2010, 2011</year>
-                        <devTeam>B3log Team</devTeam>
-                    </properties>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- For source code style check -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
-                <configuration>
-                    <configLocation>${basedir}/src/main/resources/etc/beyondtrack_checks.xml</configLocation>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <!-- TODO: realy need this? -->
-                    <excludes>
-                        freemarker/core/TextBlock.java,
-                        com/**/*.java,
-                    </excludes>
-                    <consoleOutput>true</consoleOutput>
-                    <failOnViolation>true</failOnViolation>
-                    <failsOnError>true</failsOnError>
-                    <encoding>UTF-8</encoding>
-                    <!-- Do NOT skip code style check before committing -->
-                    <skip>false</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -221,19 +152,11 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-                <configuration>
-                    <show>private</show>
                 </configuration>
             </plugin>
 
