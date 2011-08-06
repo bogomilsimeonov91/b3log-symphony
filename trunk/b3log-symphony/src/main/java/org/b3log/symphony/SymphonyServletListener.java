@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony;
 
 import com.google.appengine.api.images.Image;
@@ -34,7 +33,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.http.HttpSessionEvent;
 import org.b3log.latke.Latkes;
-import org.b3log.latke.RunsOnEnv;
+import org.b3log.latke.RuntimeEnv;
 import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.servlet.AbstractServletListener;
@@ -48,7 +47,7 @@ import org.b3log.symphony.util.Symphonys;
  * B3log Symphony servlet listener.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 26, 2011
+ * @version 1.0.0.5, Aug 6, 2011
  */
 public final class SymphonyServletListener extends AbstractServletListener {
 
@@ -98,7 +97,7 @@ public final class SymphonyServletListener extends AbstractServletListener {
 
     @Override
     public void contextInitialized(final ServletContextEvent servletContextEvent) {
-        Latkes.setRunsOnEnv(RunsOnEnv.GAE);
+        Latkes.setRuntimeEnv(RuntimeEnv.GAE);
         super.contextInitialized(servletContextEvent);
 
         if (!Symphonys.runsOnDevEnv()) {
@@ -118,6 +117,10 @@ public final class SymphonyServletListener extends AbstractServletListener {
 
         final boolean enablePageCache =
                 Boolean.valueOf(Symphonys.get("enablePageCache"));
+        if (enablePageCache) {
+            Latkes.enablePageCache();
+        }
+        
         Templates.enableCache(enablePageCache);
 
         if (!enablePageCache) {
@@ -205,8 +208,8 @@ public final class SymphonyServletListener extends AbstractServletListener {
         try {
             final EventManager eventManager = EventManager.getInstance();
 
-            new CommentNotifier(eventManager);
-            new CommentSender(eventManager);
+            eventManager.registerListener(new CommentNotifier());
+            eventManager.registerListener(new CommentSender());
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, "Register event processors error", e);
             throw new RuntimeException(e);

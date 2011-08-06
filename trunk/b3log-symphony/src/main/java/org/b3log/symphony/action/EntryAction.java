@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
@@ -54,7 +53,7 @@ import org.json.JSONObject;
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.8, Feb 24, 2011
+ * @version 1.0.0.9, Aug 6, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -123,9 +122,12 @@ public final class EntryAction extends AbstractCacheablePageAction {
             final List<JSONObject> comments = new ArrayList<JSONObject>();
 
             final String articleId = article.getString(Keys.OBJECT_ID);
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+            String p = request.getParameter("p");
+            if (Strings.isEmptyOrNull(p)) {
+                p = "1";
+            }
+
+            final int currentPageNum = Integer.parseInt(p);
             final int windowSize = 10;
 
             final Query query = new Query();
@@ -213,11 +215,20 @@ public final class EntryAction extends AbstractCacheablePageAction {
             }
         }
 
+        request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                             "Unspecified");
+
         return ret;
     }
 
     @Override
-    protected String getPageName(final String requestURI) {
+    protected String getTemplateName(final String requestURI) {
         return "entry.ftl";
     }
 

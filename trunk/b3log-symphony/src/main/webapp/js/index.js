@@ -44,6 +44,7 @@ $.extend(Index.prototype, {
             $.ajax({
                 url: "/user-add-comment",
                 type: "POST",
+                contentType: "application/json",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
                     switch(result.sc) {
@@ -79,6 +80,7 @@ $.extend(Index.prototype, {
             $.ajax({
                 url: "/user-add-comment",
                 type: "POST",
+                contentType: "application/json",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
                     switch(result.sc) {

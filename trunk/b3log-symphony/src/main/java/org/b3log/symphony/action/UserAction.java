@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
@@ -53,7 +52,7 @@ import org.json.JSONObject;
  * User action. user.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.7, Feb 28, 2011
+ * @version 1.0.0.8, Aug 6, 2011
  */
 public final class UserAction extends AbstractCacheablePageAction {
 
@@ -117,9 +116,6 @@ public final class UserAction extends AbstractCacheablePageAction {
             ret.put(Common.USER_THUMBNAIL_URL,
                     user.getString(Common.USER_THUMBNAIL_URL));
 
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-
             fillEntries(user, ret);
             fillComments(user, ret);
 
@@ -127,6 +123,15 @@ public final class UserAction extends AbstractCacheablePageAction {
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
+
+        request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                             "Unspecified");
 
         return ret;
     }
@@ -152,7 +157,7 @@ public final class UserAction extends AbstractCacheablePageAction {
         final JSONArray articles =
                 result.getJSONArray(Keys.RESULTS);
         LOGGER.log(Level.FINER, "User recent entries[size={0}]",
-                articles.length());
+                   articles.length());
         dataModel.put(Article.ARTICLES,
                       CollectionUtils.jsonArrayToList(articles));
         final int pageCount =
@@ -198,7 +203,7 @@ public final class UserAction extends AbstractCacheablePageAction {
     }
 
     @Override
-    protected String getPageName(final String requestURI) {
+    protected String getTemplateName(final String requestURI) {
         return "user.ftl";
     }
 }

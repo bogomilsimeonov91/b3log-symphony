@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
@@ -33,6 +32,7 @@ import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
@@ -49,7 +49,7 @@ import org.json.JSONObject;
  * User entries action. user-entries.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 15, 2011
+ * @version 1.0.0.6, Aug 6, 2011
  */
 public final class UserEntriesAction extends AbstractCacheablePageAction {
 
@@ -88,33 +88,45 @@ public final class UserEntriesAction extends AbstractCacheablePageAction {
             ret.put(Common.USER_THUMBNAIL_URL,
                     user.getString(Common.USER_THUMBNAIL_URL));
 
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-
-            fillEntries(queryStringJSONObject, user, ret);
+            fillEntries(request, user, ret);
 
             Filler.fillCommon(ret);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
 
+        request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                             "Unspecified");
+
         return ret;
     }
 
     /**
-     * Fills the specified data model with entries by the specified query string
-     * json object and user.
+     * Fills the specified data model with entries by the specified HTTP servlet
+     * request and user.
      *
-     * @param queryStringJSONObject the specified query string json object
+     * @param request the specified HTTP servlet request
      * @param user the specified user
      * @param dataModel the specified data model
      * @throws Exception exception
      */
-    private void fillEntries(final JSONObject queryStringJSONObject,
+    private void fillEntries(final HttpServletRequest request,
                              final JSONObject user,
                              final Map<String, Object> dataModel)
             throws Exception {
-        final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+        String p = request.getParameter("p");
+        if (Strings.isEmptyOrNull(p)) {
+            p = "1";
+        }
+
+        final int currentPageNum = Integer.parseInt(p);
+
         final String userId = user.getString(Keys.OBJECT_ID);
         final Query query = new Query();
         query.setCurrentPageNum(currentPageNum).setPageSize(
@@ -149,7 +161,7 @@ public final class UserEntriesAction extends AbstractCacheablePageAction {
     }
 
     @Override
-    protected String getPageName(final String requestURI) {
+    protected String getTemplateName(final String requestURI) {
         return "user-entries.ftl";
     }
 }
