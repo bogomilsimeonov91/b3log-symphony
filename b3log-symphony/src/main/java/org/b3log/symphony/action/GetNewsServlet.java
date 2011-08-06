@@ -85,58 +85,55 @@ public final class GetNewsServlet extends HttpServlet {
                          final HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
 
-        final StringBuilder stringBuilder = new StringBuilder("[");
+        final JSONObject ret = new JSONObject();
         final List<JSONObject> articles = new ArrayList<JSONObject>();
         try {
-            final JSONObject tag = tagRepository.getByTitle("B3log 公告");
-            if (null != tag) {
-                final String tagId = tag.getString(Keys.OBJECT_ID);
-                final JSONObject result =
-                        tagArticleRepository.getByTagId(tagId, 1,
-                                                        Integer.MAX_VALUE);
-                final JSONArray tagArticleRelations =
-                        result.getJSONArray(Keys.RESULTS);
+            final JSONObject tag = tagRepository.getByTitle("B3log Announcement");
 
-                LOGGER.log(Level.FINE, "Getting articles....");
-                for (int i = 0; i < tagArticleRelations.length(); i++) {
-                    final JSONObject tagArticleRel =
-                            tagArticleRelations.getJSONObject(i);
-                    final JSONObject article =
-                            articleRepository.get(tagArticleRel.getString(
-                            Article.ARTICLE + "_" + Keys.OBJECT_ID));
+            if (null == tag) {
+                LOGGER.info("Not found B3log Announcement");
+                return;
+            }
 
-                    final String authorId = article.getString(
-                            Common.AUTHOR_ID);
-                    if ("1297514560963".equals(authorId)) { // Author is 88250 ;-)
-                        articles.add(article);
-                    }
+            final String tagId = tag.getString(Keys.OBJECT_ID);
+            final JSONObject result =
+                    tagArticleRepository.getByTagId(tagId, 1,
+                                                    Integer.MAX_VALUE);
+            final JSONArray tagArticleRelations =
+                    result.getJSONArray(Keys.RESULTS);
 
-                    if (articles.size() >= NEWS_FETCH_SIZE) {
-                        break;
-                    }
+            LOGGER.log(Level.FINE, "Getting articles....");
+            for (int i = 0; i < tagArticleRelations.length(); i++) {
+                final JSONObject tagArticleRel =
+                        tagArticleRelations.getJSONObject(i);
+                final JSONObject article =
+                        articleRepository.get(tagArticleRel.getString(
+                        Article.ARTICLE + "_" + Keys.OBJECT_ID));
+
+                final String authorId = article.getString(
+                        Common.AUTHOR_ID);
+                if ("1297514560963".equals(authorId)) { // Author is 88250 ;-)
+                    articles.add(article);
                 }
 
-                LOGGER.log(Level.FINE, "Got articles[size={0}]", articles.size());
-
-                for (int i = 0; i < articles.size(); i++) {
-                    final JSONObject article = articles.get(i);
-                    stringBuilder.append(article.toString());
-                    
-                    if (i < articles.size() - 1) {
-                        stringBuilder.append(",");
-                    }
+                if (articles.size() >= NEWS_FETCH_SIZE) {
+                    break;
                 }
             }
+
+            LOGGER.log(Level.FINE, "Got articles[size={0}]", articles.size());
+
+            ret.put(Article.ARTICLES, articles);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
 
-        stringBuilder.append("]");
-
         final PrintWriter printWriter = response.getWriter();
 
-        printWriter.write(stringBuilder.toString());
+        printWriter.write(ret.toString());
         printWriter.flush();
         printWriter.close();
     }
