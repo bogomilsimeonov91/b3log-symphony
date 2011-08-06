@@ -88,10 +88,13 @@ public final class GetNewsServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
 
+        final String callback = request.getParameter("callback");
+
         final JSONObject ret = new JSONObject();
         final List<JSONObject> articles = new ArrayList<JSONObject>();
         try {
-            final JSONObject tag = tagRepository.getByTitle("B3log Announcement");
+            final JSONObject tag =
+                    tagRepository.getByTitle("B3log Announcement");
 
             if (null == tag) {
                 LOGGER.info("Not found B3log Announcement");
@@ -133,8 +136,7 @@ public final class GetNewsServlet extends HttpServlet {
 
         final PrintWriter printWriter = response.getWriter();
 
-        printWriter.write(ret.toString());
-        printWriter.flush();
+        printWriter.print(callback + "(" + ret.toString() + ")");
         printWriter.close();
     }
 }
