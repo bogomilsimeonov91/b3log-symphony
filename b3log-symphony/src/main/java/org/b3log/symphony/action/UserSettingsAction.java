@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
@@ -25,8 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
@@ -40,7 +41,7 @@ import org.json.JSONObject;
  * User settings. user-settings.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.6, Feb 28, 2011
+ * @version 1.0.0.7, Aug 6, 2011
  */
 public final class UserSettingsAction extends AbstractAction {
 
@@ -87,6 +88,15 @@ public final class UserSettingsAction extends AbstractAction {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
 
+        request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                             "Unspecified");
+
         return ret;
     }
 
@@ -102,10 +112,11 @@ public final class UserSettingsAction extends AbstractAction {
             final JSONObject currentUser = Users.getCurrentUser();
             final String currentUserId = currentUser.getString(Keys.OBJECT_ID);
 
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-            final String action = queryStringJSONObject.optString("action",
-                                                                  "basic");
+            String action = request.getParameter("action");
+            if (Strings.isEmptyOrNull(action)) {
+                action = "basic";
+            }
+
             final JSONObject userToUpdate = new JSONObject(
                     currentUser, JSONObject.getNames(currentUser));
 

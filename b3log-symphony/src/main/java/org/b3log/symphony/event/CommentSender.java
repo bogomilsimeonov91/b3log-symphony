@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 import org.b3log.latke.event.AbstractEventListener;
 import org.b3log.latke.event.Event;
 import org.b3log.latke.event.EventException;
-import org.b3log.latke.event.EventManager;
 import org.b3log.latke.model.User;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
@@ -40,7 +39,7 @@ import org.json.JSONObject;
  * This listener is responsible for sending comment to B3log Solo.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 26, 2011
+ * @version 1.0.0.1, Aug 6, 2011
  */
 public final class CommentSender
         extends AbstractEventListener<JSONObject> {
@@ -59,16 +58,6 @@ public final class CommentSender
      * User repository.
      */
     private UserRepository userRepository = UserGAERepository.getInstance();
-
-    /**
-     * Constructs a {@link ArticleSender} object with the specified event
-     * manager.
-     *
-     * @param eventManager the specified event manager
-     */
-    public CommentSender(final EventManager eventManager) {
-        super(eventManager);
-    }
 
     @Override
     public void action(final Event<JSONObject> event) throws EventException {

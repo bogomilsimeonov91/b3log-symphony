@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action.error;
 
 import org.b3log.latke.action.ActionException;
@@ -28,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.util.Strings;
+import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.ErrorPage;
 import org.b3log.symphony.util.Langs;
 import org.json.JSONObject;
@@ -36,7 +36,7 @@ import org.json.JSONObject;
  * 500. 500.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 9, 2011
+ * @version 1.0.0.1, Aug 6, 2011
  */
 public final class Error500Action extends AbstractAction {
 
@@ -49,7 +49,6 @@ public final class Error500Action extends AbstractAction {
      */
     private static final Logger LOGGER =
             Logger.getLogger(Error500Action.class.getName());
-   
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
@@ -83,6 +82,8 @@ public final class Error500Action extends AbstractAction {
                 LOGGER.severe(ex.getMessage());
             }
         }
+
+        Filler.fillCommon(ret);
 
         return ret;
     }

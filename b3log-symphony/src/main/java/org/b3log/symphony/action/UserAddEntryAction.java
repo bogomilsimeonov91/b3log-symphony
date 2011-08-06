@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import com.dlog4j.util.UBBDecoder;
@@ -93,7 +92,6 @@ public final class UserAddEntryAction extends AbstractAction {
      * Tag repository.
      */
     private TagRepository tagRepository = TagGAERepository.getInstance();
-
     /**
      * Minimum step post time.
      */
@@ -290,6 +288,8 @@ public final class UserAddEntryAction extends AbstractAction {
      * otherwise
      */
     private static boolean isInvalid(final JSONObject data) {
+        LOGGER.log(Level.FINEST, "Data[{0}]", data);
+        
         final JSONObject article = data.optJSONObject(ARTICLE);
         if (null == article) {
             return true;

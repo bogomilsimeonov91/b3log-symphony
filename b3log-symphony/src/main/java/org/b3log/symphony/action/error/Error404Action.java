@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action.error;
 
 import org.b3log.latke.action.ActionException;
@@ -27,13 +26,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.service.LangPropsService;
+import org.b3log.symphony.action.util.Filler;
 import org.json.JSONObject;
 
 /**
  * 404. 404.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 9, 2011
+ * @version 1.0.0.1, Aug 6, 2011
  */
 public final class Error404Action extends AbstractCacheablePageAction {
 
@@ -84,6 +84,8 @@ public final class Error404Action extends AbstractCacheablePageAction {
                 LOGGER.severe(ex.getMessage());
             }
         }
+
+        Filler.fillCommon(ret);
 
         return ret;
     }

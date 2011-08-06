@@ -38,6 +38,7 @@ $.extend(User.prototype, {
             $.ajax({
                 url: "/user-settings?action=basic",
                 type: "POST",
+                contentType: "application/json",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
                     switch (result.sc) {
@@ -73,6 +74,7 @@ $.extend(User.prototype, {
             $.ajax({
                 url: "/user-settings?action=advanced",
                 type: "POST",
+                contentType: "application/json",
                 data: JSON.stringify(requestJSONObject),
                 success: function(result, textStatus){
                     switch (result.sc) {
@@ -120,6 +122,7 @@ $.extend(User.prototype, {
                 $.ajax({
                     url: "/user-add-entry",
                     type: "POST",
+                    contentType: "application/json",
                     data: JSON.stringify(requestJSONObject),
                     success: function(result, textStatus){
                         if (result.sc) {

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action.admin;
 
 import java.util.HashMap;
@@ -29,6 +28,7 @@ import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.MD5;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -41,7 +41,7 @@ import org.json.JSONObject;
  * Admin settings. admin-settings.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Feb 9, 2011
+ * @version 1.0.0.1, Aug 6, 2011
  */
 public final class AdminSettingsAction extends AbstractAction {
 
@@ -119,10 +119,11 @@ public final class AdminSettingsAction extends AbstractAction {
 
             final String userId = oldUser.getString(Keys.OBJECT_ID);
 
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-            final String action = queryStringJSONObject.optString("action",
-                                                                  "basic");
+            String action = request.getParameter("action");
+            if (Strings.isEmptyOrNull(action)) {
+                action = "basic";
+            }
+            
             final JSONObject userToUpdate = new JSONObject(
                     oldUser, JSONObject.getNames(oldUser));
 

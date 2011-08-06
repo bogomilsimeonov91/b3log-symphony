@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
@@ -31,7 +30,7 @@ import org.json.JSONObject;
  * About action. about.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 15, 2011
+ * @version 1.0.0.2, Aug 6, 2011
  */
 public final class AboutAction extends AbstractCacheablePageAction {
 
@@ -54,6 +53,15 @@ public final class AboutAction extends AbstractCacheablePageAction {
         ret.putAll(Langs.all());
 
         Filler.fillCommon(ret);
+
+        request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                             "Unspecified");
 
         return ret;
     }

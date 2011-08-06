@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Description: B3log Symphony.
-    Version: 1.0.1.1, Apr 27, 2011
+    Version: 1.0.1.2, Aug 6, 2011
     Author: Liang Ding
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -19,18 +19,19 @@
 
     <!-- Version -->
     <properties>
-        <org.b3log.latke.version>0.4.7</org.b3log.latke.version>
+        <org.b3log.latke.version>0.5.0-SNAPSHOT</org.b3log.latke.version>
         <org.b3log.latke-repository-gae.version>
-            0.4.4
+            0.5.0-SNAPSHOT
         </org.b3log.latke-repository-gae.version>
         <org.b3log.latke-cache-gae.version>
-            0.4.4
+            0.5.0-SNAPSHOT
         </org.b3log.latke-cache-gae.version>
+        <freemarker-gae.version>2.3.18</freemarker-gae.version>
         <commons-lang.version>2.5</commons-lang.version>
-        <gae.version>1.4.3</gae.version>
+        <gae.version>1.5.2</gae.version>
         <jsoup.version>1.5.2</jsoup.version>
         <!-- maven plugin -->
-        <maven-license-plugin.version>1.8.0</maven-license-plugin.version>
+        <maven-license-plugin.version>1.9.0</maven-license-plugin.version>
         <maven-checkstyle-plugin.version>2.5</maven-checkstyle-plugin.version>
         <maven-javancss-plugin.version>2.0</maven-javancss-plugin.version>
         <maven-gae-plugin.version>0.8.4</maven-gae-plugin.version>
@@ -134,6 +135,12 @@
                 <artifactId>latke-cache-gae</artifactId>
                 <version>${org.b3log.latke-cache-gae.version}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker-gae</artifactId>
+                <version>${freemarker-gae.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.testng</groupId>
@@ -174,6 +181,10 @@
                     <artifactId>mail</artifactId>
                     <groupId>javax.mail</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>freemarker</artifactId>
+                    <groupId>org.freemarker</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -185,6 +196,11 @@
         <dependency>
             <groupId>org.b3log</groupId>
             <artifactId>latke-cache-gae</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker-gae</artifactId>
         </dependency>
 
         <dependency>

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.HashMap;
@@ -32,6 +31,7 @@ import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.repository.CommentRepository;
@@ -47,7 +47,7 @@ import org.json.JSONObject;
  * User comments. user-comments.ftl
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.3, Feb 15, 2011
+ * @version 1.0.0.4, Aug 6, 2011
  */
 public final class UserCommentsAction extends AbstractCacheablePageAction {
 
@@ -82,9 +82,12 @@ public final class UserCommentsAction extends AbstractCacheablePageAction {
         final JSONObject user = Users.getCurrentUser();
 
         try {
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+            String p = request.getParameter("p");
+            if (Strings.isEmptyOrNull(p)) {
+                p = "1";
+            }
+
+            final int currentPageNum = Integer.parseInt(p);
 
             final String userId = user.getString(Keys.OBJECT_ID);
             final Query query = new Query();
@@ -112,6 +115,15 @@ public final class UserCommentsAction extends AbstractCacheablePageAction {
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
+
+        request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                             "Unspecified");
 
         return ret;
     }

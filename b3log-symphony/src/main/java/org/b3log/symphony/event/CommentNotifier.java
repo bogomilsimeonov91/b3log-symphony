@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.event;
 
 import com.google.appengine.api.urlfetch.HTTPMethod;
@@ -28,7 +27,6 @@ import java.util.logging.Logger;
 import org.b3log.latke.event.AbstractEventListener;
 import org.b3log.latke.event.Event;
 import org.b3log.latke.event.EventException;
-import org.b3log.latke.event.EventManager;
 import org.b3log.latke.model.User;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
@@ -45,7 +43,7 @@ import org.jsoup.Jsoup;
  * This listener is responsible for processing comment reply.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Mar 10, 2011
+ * @version 1.0.0.6, Aug 6, 2011
  */
 public final class CommentNotifier
         extends AbstractEventListener<JSONObject> {
@@ -84,16 +82,6 @@ public final class CommentNotifier
      * BR.
      */
     private static final String BR = "\r\n";
-
-    /**
-     * Constructs a {@link ArticleCommentReplyNotifier} object with the
-     * specified event manager.
-     *
-     * @param eventManager the specified event manager
-     */
-    public CommentNotifier(final EventManager eventManager) {
-        super(eventManager);
-    }
 
     @Override
     public void action(final Event<JSONObject> event) throws EventException {
@@ -145,8 +133,7 @@ public final class CommentNotifier
             String commentContentHTML =
                     comment.getString(Comment.COMMENT_CONTENT);
             commentContentHTML = replaceEmotions(commentContentHTML);
-            final String contentText = Jsoup.
-                    parse(commentContentHTML).text();
+            final String contentText = Jsoup.parse(commentContentHTML).text();
             final String commentSharpURL =
                     comment.getString(Comment.COMMENT_SHARP_URL);
 
@@ -247,36 +234,37 @@ public final class CommentNotifier
      */
     private static String replaceEmotions(final String commentHTML) {
         String ret = commentHTML;
-        ret = ret.replace("<img src='/skins/classic/emotions/em00.png' border=0>",
-                             "/wx ").
+        ret = ret.replace(
+                "<img src='/skins/classic/emotions/em00.png' border=0>",
+                          "/wx ").
                 replace("<img src='/skins/classic/emotions/em01.png' border=0>",
-                           "/cy ").
+                        "/cy ").
                 replace("<img src='/skins/classic/emotions/em02.png' border=0>",
-                           "/ka ").
+                        "/ka ").
                 replace("<img src='/skins/classic/emotions/em03.png' border=0>",
-                           "/kk ").
+                        "/kk ").
                 replace("<img src='/skins/classic/emotions/em04.png' border=0>",
-                           "/ll ").
+                        "/ll ").
                 replace("<img src='/skins/classic/emotions/em05.png' border=0>",
-                           "/ch ").
+                        "/ch ").
                 replace("<img src='/skins/classic/emotions/em06.png' border=0>",
-                           "/zhem ").
+                        "/zhem ").
                 replace("<img src='/skins/classic/emotions/em07.png' border=0>",
-                           "/fn ").
+                        "/fn ").
                 replace("<img src='/skins/classic/emotions/em08.png' border=0>",
-                           "/fd ").
+                        "/fd ").
                 replace("<img src='/skins/classic/emotions/em09.png' border=0>",
-                           "/jy ").
+                        "/jy ").
                 replace("<img src='/skins/classic/emotions/em10.png' border=0>",
-                           "/kuk ").
+                        "/kuk ").
                 replace("<img src='/skins/classic/emotions/em11.png' border=0>",
-                           "/tp ").
+                        "/tp ").
                 replace("<img src='/skins/classic/emotions/em12.png' border=0>",
-                           "/xin ").
+                        "/xin ").
                 replace("<img src='/skins/classic/emotions/em13.png' border=0>",
-                           "/xs ").
+                        "/xs ").
                 replace("<img src='/skins/classic/emotions/em14.png' border=0>",
-                           "/huaix ");
+                        "/huaix ");
         LOGGER.log(Level.FINEST,
                    " Comment content with emotions replaced[{0}]", ret);
 

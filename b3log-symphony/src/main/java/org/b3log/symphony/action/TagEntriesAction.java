@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
@@ -32,6 +31,7 @@ import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
@@ -55,7 +55,7 @@ import org.json.JSONObject;
  * Tag entries action. tag-entries.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Feb 17, 2011
+ * @version 1.0.0.6, Aug 6, 2011
  */
 public final class TagEntriesAction extends AbstractCacheablePageAction {
 
@@ -111,13 +111,18 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
                 return ret;
             }
 
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
+            String p = request.getParameter("p");
+            if (Strings.isEmptyOrNull(p)) {
+                p = "1";
+            }
+
+            final int currentPageNum = Integer.parseInt(p);
+
             ret.put(Tag.TAG, tag);
 
             final List<JSONObject> topAuthors = new ArrayList<JSONObject>();
             final List<String> topAuthorIds = tagUserRepository.getTopTagUsers(
-                    tag.getString(Keys.OBJECT_ID), 
+                    tag.getString(Keys.OBJECT_ID),
                     TopEntriesAction.TOP_TAG_USER_CNT);
             for (final String topAuthorId : topAuthorIds) {
                 final JSONObject user = userRepository.get(topAuthorId);
@@ -134,8 +139,6 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
             }
 
             ret.put(Common.TAG_TOP_USERS, topAuthors);
-
-            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
 
             final int fetchSize = 20;
             final List<JSONObject> articles = new ArrayList<JSONObject>();
@@ -200,11 +203,20 @@ public final class TagEntriesAction extends AbstractCacheablePageAction {
             }
         }
 
+        request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                             "Unspecified");
+
         return ret;
     }
 
     @Override
-    protected String getPageName(final String requestURI) {
+    protected String getTemplateName(final String requestURI) {
         return "tag-entries.ftl";
     }
 

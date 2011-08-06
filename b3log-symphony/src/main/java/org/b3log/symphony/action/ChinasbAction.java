@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.io.IOException;
@@ -31,6 +30,7 @@ import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.Paginator;
 import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
@@ -51,7 +51,7 @@ import org.json.JSONObject;
  * Chinasb action. chinasb.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 17, 2011
+ * @version 1.0.0.2, Aug 6, 2011
  */
 public final class ChinasbAction extends AbstractCacheablePageAction {
 
@@ -98,9 +98,12 @@ public final class ChinasbAction extends AbstractCacheablePageAction {
         ret.put(Pagination.PAGINATION_PAGE_NUMS, new ArrayList<Object>());
 
         try {
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+            String p = request.getParameter("p");
+            if (Strings.isEmptyOrNull(p)) {
+                p = "1";
+            }
+
+            final int currentPageNum = Integer.parseInt(p);
 
             final JSONObject chinasbTag = tagRepository.getByTitle("chinasb");
             if (null != chinasbTag) {
@@ -158,6 +161,15 @@ public final class ChinasbAction extends AbstractCacheablePageAction {
                 LOGGER.severe(ex.getMessage());
             }
         }
+
+        request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                             "Unspecified");
+        request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                             "Unspecified");
 
         return ret;
     }

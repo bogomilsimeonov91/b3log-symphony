@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import org.b3log.latke.action.ActionException;
@@ -33,6 +32,7 @@ import org.b3log.latke.model.User;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.SortDirection;
 import org.b3log.latke.util.CollectionUtils;
+import org.b3log.latke.util.Strings;
 import org.b3log.symphony.action.util.Filler;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
@@ -50,7 +50,7 @@ import org.json.JSONObject;
  * Index action. index.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.6, Feb 15, 2011
+ * @version 1.0.0.7, Aug 6, 2011
  */
 public final class IndexAction extends AbstractCacheablePageAction {
 
@@ -88,15 +88,18 @@ public final class IndexAction extends AbstractCacheablePageAction {
         try {
             ret.putAll(Langs.all());
 
-            final JSONObject queryStringJSONObject =
-                    getQueryStringJSONObject(request);
-            final int currentPageNum = queryStringJSONObject.optInt("p", 1);
+            String p = request.getParameter("p");
+            if (Strings.isEmptyOrNull(p)) {
+                p = "1";
+            }
+
+            final int currentPageNum = Integer.parseInt(p);
 
             final Query query = new Query();
             query.setCurrentPageNum(currentPageNum).
                     setPageSize(RECENT_ARTICLES_CNT).
                     addSort(Article.ARTICLE_CREATE_DATE,
-                    SortDirection.DESCENDING);
+                            SortDirection.DESCENDING);
             LOGGER.log(Level.FINE, "Getting articles....");
             final JSONObject result = articleRepository.get(query);
 
@@ -130,6 +133,15 @@ public final class IndexAction extends AbstractCacheablePageAction {
             ret.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
 
             Filler.fillCommon(ret);
+
+            request.setAttribute(AbstractCacheablePageAction.CACHED_LINK,
+                                 "Unspecified");
+            request.setAttribute(AbstractCacheablePageAction.CACHED_OID,
+                                 "Unspecified");
+            request.setAttribute(AbstractCacheablePageAction.CACHED_TITLE,
+                                 "Unspecified");
+            request.setAttribute(AbstractCacheablePageAction.CACHED_TYPE,
+                                 "Unspecified");
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
