@@ -119,6 +119,15 @@ public final class GetNewsServlet extends HttpServlet {
                 final String authorId = article.getString(
                         Common.AUTHOR_ID);
                 if ("1297514560963".equals(authorId)) { // Author is 88250 ;-)
+                    article.remove(Article.ARTICLE_COMMENT_COUNT);
+                    article.remove(Article.ARTICLE_CONTENT);
+                    article.remove(Article.ARTICLE_FROM);
+                    article.remove(Article.ARTICLE_TAGS);
+                    article.remove(Article.ARTICLE_AUTHOR_ID);
+                    article.remove(Common.STATE);
+                    article.remove(Common.HOST);
+                    article.remove(Common.VERSION);
+
                     articles.add(article);
                 }
 
