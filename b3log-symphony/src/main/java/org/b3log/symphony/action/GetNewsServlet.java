@@ -71,7 +71,7 @@ public final class GetNewsServlet extends HttpServlet {
     /**
      * News fetch size.
      */
-    private static int NEWS_FETCH_SIZE = 10;
+    private static final int NEWS_FETCH_SIZE = 10;
 
     @Override
     protected void doPost(final HttpServletRequest request,
