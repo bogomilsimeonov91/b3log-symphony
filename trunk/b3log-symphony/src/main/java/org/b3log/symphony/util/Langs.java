@@ -41,7 +41,7 @@ public final class Langs {
 
     static {
         try {
-            LANGS = LANG_PROP_SVC.getAll(Latkes.getDefaultLocale());
+            LANGS = LANG_PROP_SVC.getAll(Latkes.getLocale());
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
