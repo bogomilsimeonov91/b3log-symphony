@@ -33,7 +33,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.http.HttpSessionEvent;
 import org.b3log.latke.Latkes;
-import org.b3log.latke.RuntimeEnv;
 import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.servlet.AbstractServletListener;
