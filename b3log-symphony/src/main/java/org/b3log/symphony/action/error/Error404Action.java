@@ -58,7 +58,7 @@ public final class Error404Action extends AbstractCacheablePageAction {
 
     static {
         try {
-            langs = LANG_PROP_SVC.getAll(Latkes.getDefaultLocale());
+            langs = LANG_PROP_SVC.getAll(Latkes.getLocale());
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }

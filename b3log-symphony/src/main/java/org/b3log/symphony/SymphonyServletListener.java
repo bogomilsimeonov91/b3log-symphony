@@ -47,7 +47,7 @@ import org.b3log.symphony.util.Symphonys;
  * B3log Symphony servlet listener.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Aug 6, 2011
+ * @version 1.0.0.6, Aug 8, 2011
  */
 public final class SymphonyServletListener extends AbstractServletListener {
 
@@ -97,7 +97,6 @@ public final class SymphonyServletListener extends AbstractServletListener {
 
     @Override
     public void contextInitialized(final ServletContextEvent servletContextEvent) {
-        Latkes.setRuntimeEnv(RuntimeEnv.GAE);
         super.contextInitialized(servletContextEvent);
 
         if (!Symphonys.runsOnDevEnv()) {
