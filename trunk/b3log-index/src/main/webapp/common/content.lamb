@@ -1,0 +1,58 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<section id="content">
+    <div class="line1">
+        <div class="line2 wrapper">
+            <div class="wrapper">
+                <article class="col1">
+                    <h2><cufon class="cufon cufon-canvas" alt="Shortly " style="width: 102px; height: 40px; "><canvas width="128" height="51" style="width: 128px; height: 51px; top: -9px; left: -2px; "></canvas><cufontext>Shortly </cufontext></cufon><cufon class="cufon cufon-canvas" alt="About " style="width: 89px; height: 40px; "><canvas width="115" height="51" style="width: 115px; height: 51px; top: -9px; left: -2px; "></canvas><cufontext>About </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Me" style="width: 42px; height: 40px; "><canvas width="58" height="51" style="width: 58px; height: 51px; top: -9px; left: -2px; "></canvas><cufontext>Me</cufontext></cufon></h2>
+                    <figure><img src="images/page1_img1.jpg" alt="" class="pad_bot1"></figure>
+                    <div class="pad">
+                        <p>	
+											This Photographer’s Portfolio is one of <a href="http://blog.templatemonster.com/free-website-templates/ " target="_blank">free website templates</a> created by TemplateMonster.com team
+                        </p>
+                    </div>
+                </article>
+                <article class="col2 pad_left1">
+                    <h2><cufon class="cufon cufon-canvas" alt="Experiences" style="width: 166px; height: 40px; "><canvas width="184" height="51" style="width: 184px; height: 51px; top: -9px; left: -2px; "></canvas><cufontext>Experiences</cufontext></cufon></h2>
+                    <div class="pad">
+                        <ul class="list1">
+                            <li><a href="#">Fashion Show</a>Maecenas ut ipsum id nibh cursus sagittis sit...</li>
+                            <li><a href="#">Animals Photo Session</a>Mauris iaculis semper magna in eleifend. Phasellus a...</li>
+                            <li><a href="#">Sport Shots</a>Quisque ipsum ipsum, tincidunt eu euismod non, blandit...</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="col3 pad_left1">
+                    <h2><cufon class="cufon cufon-canvas" alt="What’s " style="width: 97px; height: 40px; "><canvas width="123" height="51" style="width: 123px; height: 51px; top: -9px; left: -2px; "></canvas><cufontext>What’s </cufontext></cufon><cufon class="cufon cufon-canvas" alt="New" style="width: 64px; height: 40px; "><canvas width="71" height="51" style="width: 71px; height: 51px; top: -9px; left: -2px; "></canvas><cufontext>New</cufontext></cufon></h2>
+                    <div class="pad">
+                        <div class="wrapper">
+                            <span class="date"><span><cufon class="cufon cufon-canvas" alt="22" style="width: 46px; height: 53px; "><canvas width="66" height="67" style="width: 66px; height: 67px; top: -12px; left: -2px; "></canvas><cufontext>22</cufontext></cufon></span><cufon class="cufon cufon-canvas" alt="may" style="width: 48px; height: 30px; "><canvas width="60" height="38" style="width: 60px; height: 38px; top: -7px; left: -1px; "></canvas><cufontext>may</cufontext></cufon></span>
+                            <p>	
+                                <a href="#" class="link1">Sed ut perspiciatis</a><br>
+												This <a href="http://blog.templatemonster.com/2011/05/16/free-website-template-photographers-portfolio/ " target="_blank">Free Website Template</a> goes with two packages. With PSD source files and without.
+                            </p>
+                        </div>
+                        <div class="wrapper">
+                            <span class="date"><span><cufon class="cufon cufon-canvas" alt="28" style="width: 47px; height: 53px; "><canvas width="66" height="67" style="width: 66px; height: 67px; top: -12px; left: -2px; "></canvas><cufontext>28</cufontext></cufon></span><cufon class="cufon cufon-canvas" alt="may" style="width: 48px; height: 30px; "><canvas width="60" height="38" style="width: 60px; height: 38px; top: -7px; left: -1px; "></canvas><cufontext>may</cufontext></cufon></span>
+                            <p>
+                                <a href="#" class="link1">Doperiam eaque ipsa </a><br>
+												Quae ab illo inventore veritatis et quasi archiecto beatae vitaedic explicaob emo enim ipsam.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="wrapper buttons">
+                <article class="col1">
+                    <a href="#" class="button">Read More</a>
+                </article>
+                <article class="col2 pad_left1">
+                    <a href="#" class="button">Read More</a>
+                </article>
+                <article class="col3 pad_left1">
+                    <a href="#" class="button">News Archive</a>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
