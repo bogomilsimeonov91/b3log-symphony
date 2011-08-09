@@ -18,6 +18,7 @@ package org.b3log.symphony.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,6 +128,12 @@ public final class GetNewsServlet extends HttpServlet {
                     article.remove(Common.STATE);
                     article.remove(Common.HOST);
                     article.remove(Common.VERSION);
+
+                    // XXX: change the type of date to long while persist
+                    final Date createDate =
+                            (Date) article.get(Article.ARTICLE_CREATE_DATE);
+                    article.put(Article.ARTICLE_CREATE_DATE,
+                                createDate.getTime());
 
                     articles.add(article);
                 }
