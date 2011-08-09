@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.repository.impl;
 
 import java.util.logging.Level;
@@ -58,15 +57,15 @@ public final class UserGAERepository extends AbstractGAERepository
         // TODO: ugly, resolve it in Latke repository component
         final String name = userToUpdate.optString(User.USER_NAME);
         Query query = new Query().addFilter(User.USER_NAME,
-                                                  FilterOperator.EQUAL,
-                                                  name);
-        String cacheKey = INSTANCE_ID + query.hashCode() + "_"+ getName();
+                                            FilterOperator.EQUAL,
+                                            name);
+        String cacheKey = CACHE_KEY_PREFIX + query.hashCode() + "_" + getName();
         CACHE.remove(cacheKey);
         final String email = userToUpdate.optString(User.USER_EMAIL);
         query = new Query().addFilter(User.USER_EMAIL,
-                                                  FilterOperator.EQUAL,
-                                                  email.toLowerCase());
-        cacheKey = INSTANCE_ID + query.hashCode() + "_"+ getName();
+                                      FilterOperator.EQUAL,
+                                      email.toLowerCase());
+        cacheKey = CACHE_KEY_PREFIX + query.hashCode() + "_" + getName();
         CACHE.remove(cacheKey);
     }
 
