@@ -249,8 +249,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             // Update article comment
             articleUtils.updateArticleComment(articleId, comment);
 
-            PageCaches.removeAll();
-
             transaction.commit();
             ret.put(Keys.STATUS_CODE, true);
             ret.put(Keys.OBJECT_ID, commentId);
@@ -275,6 +273,8 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             throw new ActionException(e);
         }
+        
+        PageCaches.removeAll();
 
         return ret;
     }
