@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.action;
 
 import java.util.Date;
@@ -26,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
+import org.b3log.latke.cache.CacheFactory;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.util.Strings;
@@ -50,7 +50,7 @@ import org.json.JSONObject;
  * B3log Rhythm</a>.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.7, Feb 26, 2011
+ * @version 1.0.0.8, Sep 4, 2011
  */
 public final class AddArticleAction extends AbstractAction {
 
@@ -218,6 +218,8 @@ public final class AddArticleAction extends AbstractAction {
             articleUtils.addTagArticleRelation(tags, article);
 
             transaction.commit();
+
+            CacheFactory.getCache("").removeAll(); // TODO: just clear all caches
 
             ret.put(Keys.STATUS_CODE, true);
 
