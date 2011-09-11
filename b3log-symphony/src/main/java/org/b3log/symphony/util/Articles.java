@@ -36,7 +36,7 @@ import org.json.JSONObject;
  * Article utilities.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 14, 2011
+ * @version 1.0.0.3, Sep 11, 2011
  */
 public final class Articles {
 
@@ -134,13 +134,13 @@ public final class Articles {
         newArticle.put(Article.ARTICLE_LAST_CMTER_ID,
                        comment.get(Comment.COMMENTER_ID));
 
-        articleRepository.updateAsync(articleId, newArticle);
+        articleRepository.update(articleId, newArticle);
 
         final List<JSONObject> tagArticleRelations =
                 tagArticleRepository.getByArticleId(articleId);
         for (final JSONObject tagArticleRelation : tagArticleRelations) {
             tagArticleRelation.put(Article.ARTICLE_COMMENT_COUNT, commentCnt);
-            tagArticleRepository.updateAsync(
+            tagArticleRepository.update(
                     tagArticleRelation.getString(Keys.OBJECT_ID),
                     tagArticleRelation);
         }
