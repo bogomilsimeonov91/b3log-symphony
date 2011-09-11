@@ -274,8 +274,6 @@ public final class UserAddEntryCommentAction extends AbstractAction {
             throw new ActionException(e);
         }
         
-        PageCaches.removeAll();
-
         return ret;
     }
 
