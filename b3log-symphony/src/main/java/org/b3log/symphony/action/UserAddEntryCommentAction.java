@@ -27,7 +27,6 @@ import javax.servlet.http.HttpSession;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.action.ActionException;
-import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.event.Event;
 import org.b3log.latke.event.EventManager;
 import org.b3log.latke.model.User;
