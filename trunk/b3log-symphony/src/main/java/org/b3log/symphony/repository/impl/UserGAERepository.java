@@ -33,7 +33,7 @@ import org.json.JSONObject;
  * User Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.7, Feb 11, 2011
+ * @version 1.0.0.8, Sep 11, 2011
  */
 public final class UserGAERepository extends AbstractGAERepository
         implements UserRepository {
@@ -52,7 +52,7 @@ public final class UserGAERepository extends AbstractGAERepository
     @Override
     public void update(final String id, final JSONObject userToUpdate)
             throws RepositoryException {
-        super.updateAsync(id, userToUpdate);
+        super.update(id, userToUpdate);
 
         // TODO: ugly, resolve it in Latke repository component
         final String name = userToUpdate.optString(User.USER_NAME);
