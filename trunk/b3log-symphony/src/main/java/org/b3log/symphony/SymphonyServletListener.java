@@ -46,7 +46,7 @@ import org.b3log.symphony.util.Symphonys;
  * B3log Symphony servlet listener.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.6, Aug 8, 2011
+ * @version 1.0.0.7, Sep 11, 2011
  */
 public final class SymphonyServletListener extends AbstractServletListener {
 
@@ -105,10 +105,9 @@ public final class SymphonyServletListener extends AbstractServletListener {
         }
 
         LOGGER.log(Level.INFO,
-                   "Application[id={0}, version={1}, instanceReplicaId={2}]",
+                   "Application[id={0}, version={1}]",
                    new Object[]{SystemProperty.applicationId.get(),
-                                SystemProperty.applicationVersion.get(),
-                                SystemProperty.instanceReplicaId.get()});
+                                SystemProperty.applicationVersion.get()});
 
         registerEventProcessor();
         skinUtils.loadSkin();
