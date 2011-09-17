@@ -39,7 +39,7 @@ import org.json.JSONObject;
  * This listener is responsible for sending comment to B3log Solo.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Aug 6, 2011
+ * @version 1.0.0.2, Sep 17, 2011
  */
 public final class CommentSender
         extends AbstractEventListener<JSONObject> {
@@ -109,6 +109,8 @@ public final class CommentSender
                                   comment.getString(Comment.COMMENTER_URL_REF));
             requestJSONObject.put(Comment.COMMENT_CONTENT,
                                   comment.getString(Comment.COMMENT_CONTENT));
+            requestJSONObject.put(Comment.COMMENT_SHARP_URL, 
+                                  comment.getString(Comment.COMMENT_SHARP_URL));
             httpRequest.setPayload(
                     requestJSONObject.toString().getBytes("UTF-8"));
 //            final Future<HTTPResponse> futureResponse =
