@@ -16,14 +16,15 @@
 package org.b3log.symphony.util;
 
 import com.dlog4j.util.UBBDecoder;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.Transaction;
+import org.b3log.latke.user.GeneralUser;
+import org.b3log.latke.user.UserService;
+import org.b3log.latke.user.UserServiceFactory;
 import org.b3log.latke.util.Ids;
 import org.b3log.symphony.action.EntryAction;
 import org.b3log.symphony.model.Common;
@@ -105,8 +106,7 @@ public final class Users {
      * @return the current user, {@code null} if not found
      */
     public static JSONObject getCurrentUser() {
-        final com.google.appengine.api.users.User currentUser =
-                USER_SVC.getCurrentUser();
+        final GeneralUser currentUser = USER_SVC.getCurrentUser();
         if (null == currentUser) {
             return null;
         }

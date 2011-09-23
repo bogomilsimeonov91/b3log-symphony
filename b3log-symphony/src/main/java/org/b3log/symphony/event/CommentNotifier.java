@@ -15,11 +15,6 @@
  */
 package org.b3log.symphony.event;
 
-import com.google.appengine.api.urlfetch.HTTPMethod;
-import com.google.appengine.api.urlfetch.HTTPRequest;
-import com.google.appengine.api.urlfetch.HTTPResponse;
-import com.google.appengine.api.urlfetch.URLFetchService;
-import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import java.net.URL;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -28,6 +23,11 @@ import org.b3log.latke.event.AbstractEventListener;
 import org.b3log.latke.event.Event;
 import org.b3log.latke.event.EventException;
 import org.b3log.latke.model.User;
+import org.b3log.latke.servlet.HTTPRequestMethod;
+import org.b3log.latke.urlfetch.HTTPRequest;
+import org.b3log.latke.urlfetch.HTTPResponse;
+import org.b3log.latke.urlfetch.URLFetchService;
+import org.b3log.latke.urlfetch.URLFetchServiceFactory;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
@@ -185,11 +185,14 @@ public final class CommentNotifier
         LOGGER.log(Level.FINEST, "Adding message to IM service[{0}]",
                    imServiceURL.toString());
         final HTTPRequest httpRequest =
-                new HTTPRequest(imServiceURL,
-                                HTTPMethod.POST);
+                new HTTPRequest();
+        httpRequest.setURL(imServiceURL);
+        httpRequest.setRequestMethod(HTTPRequestMethod.POST);
+
         httpRequest.setPayload(requestJSONObject.toString().getBytes("UTF-8"));
+        @SuppressWarnings("unchecked")
         final Future<HTTPResponse> response =
-                URL_FETCH_SVC.fetchAsync(httpRequest);
+                (Future<HTTPResponse>) URL_FETCH_SVC.fetchAsync(httpRequest);
         //            LOGGER.log(Level.FINEST, "IM response[sc={0}]",
         //                       response.get().getResponseCode());
     }
@@ -216,12 +219,13 @@ public final class CommentNotifier
                         + IM_SERVER_NAME + "/msg/add");
         LOGGER.log(Level.FINEST, "Adding message to IM service[{0}]",
                    imServiceURL.toString());
-        final HTTPRequest httpRequest =
-                new HTTPRequest(imServiceURL,
-                                HTTPMethod.POST);
+        final HTTPRequest httpRequest = new HTTPRequest();
+        httpRequest.setURL(imServiceURL);
+        httpRequest.setRequestMethod(HTTPRequestMethod.POST);
         httpRequest.setPayload(requestJSONObject.toString().getBytes("UTF-8"));
+        @SuppressWarnings("unchecked")
         final Future<HTTPResponse> response =
-                URL_FETCH_SVC.fetchAsync(httpRequest);
+                (Future<HTTPResponse>) URL_FETCH_SVC.fetchAsync(httpRequest);
         //            LOGGER.log(Level.FINEST, "IM response[sc={0}]",
         //                       response.get().getResponseCode());
     }
@@ -236,7 +240,7 @@ public final class CommentNotifier
         String ret = commentHTML;
         ret = ret.replace(
                 "<img src='/skins/classic/emotions/em00.png' border=0>",
-                          "/wx ").
+                "/wx ").
                 replace("<img src='/skins/classic/emotions/em01.png' border=0>",
                         "/cy ").
                 replace("<img src='/skins/classic/emotions/em02.png' border=0>",

@@ -16,8 +16,6 @@
 
 package org.b3log.symphony.action;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import org.b3log.latke.action.ActionException;
 import java.util.Map;
 import java.util.logging.Level;
@@ -27,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
+import org.b3log.latke.user.UserService;
+import org.b3log.latke.user.UserServiceFactory;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.util.Users;
 import org.json.JSONObject;

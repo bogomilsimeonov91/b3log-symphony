@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.util;
 
-import com.google.appengine.api.utils.SystemProperty;
-import com.google.appengine.api.utils.SystemProperty.Environment.Value;
 import java.util.ResourceBundle;
+import org.b3log.latke.Latkes;
+import org.b3log.latke.RuntimeMode;
 
 /**
  * Symphony utilities.
@@ -34,10 +33,6 @@ public final class Symphonys {
     private static final ResourceBundle CFG =
             ResourceBundle.getBundle("symphony");
     /**
-     * GAE environment.
-     */
-    private static final Value GAE_ENV = SystemProperty.environment.value();
-    /**
      * Host.
      */
     public static final String HOST = get("host");
@@ -49,7 +44,7 @@ public final class Symphonys {
      * {@code false} otherwise
      */
     public static boolean runsOnDevEnv() {
-        return SystemProperty.Environment.Value.Development == GAE_ENV;
+        return RuntimeMode.DEVELOPMENT == Latkes.getRuntimeMode();
     }
 
     /**

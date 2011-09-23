@@ -25,7 +25,7 @@
         </org.b3log.latke-gae.version>
         <freemarker-gae.version>2.3.18</freemarker-gae.version>
         <commons-lang.version>2.5</commons-lang.version>
-        <gae.version>1.5.3</gae.version>
+        <gae.version>1.5.4</gae.version>
         <jsoup.version>1.5.2</jsoup.version>
         <!-- maven plugin -->
         <maven-license-plugin.version>1.9.0</maven-license-plugin.version>
@@ -145,6 +145,7 @@
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-api-1.0-sdk</artifactId>
                 <version>${gae.version}</version>
+                <scope>runtime</scope>
             </dependency>
 
             <dependency>
