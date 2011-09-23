@@ -74,6 +74,7 @@ public final class Articles {
                                    tag.getString(Keys.OBJECT_ID));
             tagArticleRelation.put(Article.ARTICLE + "_" + Keys.OBJECT_ID,
                                    article.getString(Keys.OBJECT_ID));
+            tagArticleRelation.put(Article.ARTICLE_COMMENT_COUNT, 0);
 
             tagArticleRepository.add(tagArticleRelation);
         }

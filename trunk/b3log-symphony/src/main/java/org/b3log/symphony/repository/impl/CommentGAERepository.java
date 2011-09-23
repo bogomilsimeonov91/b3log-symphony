@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.repository.impl;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.QueryResultIterable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.Keys;
+import org.b3log.latke.repository.AbstractRepository;
+import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.RepositoryException;
-import org.b3log.latke.repository.gae.AbstractGAERepository;
+import org.b3log.latke.repository.SortDirection;
+import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Comment;
 import org.b3log.symphony.repository.CommentRepository;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -38,7 +36,7 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.5, Jan 17, 2011
  */
-public final class CommentGAERepository extends AbstractGAERepository
+public final class CommentGAERepository extends AbstractRepository
         implements CommentRepository {
 
     /**
@@ -46,48 +44,29 @@ public final class CommentGAERepository extends AbstractGAERepository
      */
     private static final Logger LOGGER =
             Logger.getLogger(CommentGAERepository.class.getName());
-   
-    /**
-     * Key of the recent comments cache count.
-     */
-    private static final String KEY_RECENT_COMMENTS_CACHE_CNT =
-            "mostRecentCommentsCacheCnt";
-
-    @Override
-    public String getName() {
-        return Comment.COMMENT;
-    }
 
     @Override
     public List<JSONObject> getRecentComments(final int num)
             throws RepositoryException {
-        final String cacheKey = KEY_RECENT_COMMENTS_CACHE_CNT + "["
-                                + num + "]";
-        @SuppressWarnings("unchecked")
-        List<JSONObject> ret = (List<JSONObject>) CACHE.get(cacheKey);
-        if (null != ret) {
-            LOGGER.log(Level.FINEST, "Got the recent comments from cache");
-        } else {
-            ret = new ArrayList<JSONObject>();
-            final Query query = new Query(getName());
-            query.addSort(Keys.OBJECT_ID,
-                          Query.SortDirection.DESCENDING);
-            final PreparedQuery preparedQuery = getDatastoreService().prepare(
-                    query);
-            final QueryResultIterable<Entity> queryResultIterable =
-                    preparedQuery.asQueryResultIterable(FetchOptions.Builder.
-                    withLimit(num));
+        final Query query = new Query();
+        query.addSort(Keys.OBJECT_ID, SortDirection.DESCENDING);
+        query.setCurrentPageNum(1);
+        query.setPageSize(num);
 
-            for (final Entity entity : queryResultIterable) {
-                final JSONObject comment = entity2JSONObject(entity);
-                ret.add(comment);
-            }
+        List<JSONObject> ret = new ArrayList<JSONObject>();
+        try {
+            final JSONObject result = get(query);
 
-            CACHE.put(cacheKey, ret);
+            final JSONArray array = result.getJSONArray(Keys.RESULTS);
 
-            LOGGER.log(Level.FINEST,
-                       "Got the recent comments, then put it into cache");
+            ret = CollectionUtils.jsonArrayToList(array);
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            return ret;
         }
+
+        LOGGER.log(Level.FINEST,
+                   "Got the recent comments, then put it into cache");
 
         return ret;
     }
@@ -102,9 +81,12 @@ public final class CommentGAERepository extends AbstractGAERepository
     }
 
     /**
-     * Private default constructor.
+     * Private constructor.
+     * 
+     * @param name the specified name
      */
-    private CommentGAERepository() {
+    private CommentGAERepository(final String name) {
+        super(name);
     }
 
     /**
@@ -119,7 +101,7 @@ public final class CommentGAERepository extends AbstractGAERepository
          * Singleton.
          */
         private static final CommentGAERepository SINGLETON =
-                new CommentGAERepository();
+                new CommentGAERepository(Comment.COMMENT);
 
         /**
          * Private default constructor.

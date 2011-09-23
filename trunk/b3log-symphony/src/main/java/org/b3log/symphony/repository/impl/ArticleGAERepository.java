@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.repository.impl;
 
 import java.util.logging.Logger;
-import org.b3log.latke.repository.gae.AbstractGAERepository;
+import org.b3log.latke.repository.AbstractRepository;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.repository.ArticleRepository;
 
@@ -27,7 +26,7 @@ import org.b3log.symphony.repository.ArticleRepository;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.0, Jan 28, 2011
  */
-public final class ArticleGAERepository extends AbstractGAERepository
+public final class ArticleGAERepository extends AbstractRepository
         implements ArticleRepository {
 
     /**
@@ -35,11 +34,6 @@ public final class ArticleGAERepository extends AbstractGAERepository
      */
     private static final Logger LOGGER =
             Logger.getLogger(ArticleGAERepository.class.getName());
-
-    @Override
-    public String getName() {
-        return Article.ARTICLE;
-    }
 
     /**
      * Gets the {@link ArticleGAERepository} singleton.
@@ -51,9 +45,12 @@ public final class ArticleGAERepository extends AbstractGAERepository
     }
 
     /**
-     * Private default constructor.
+     * Private constructor.
+     * 
+     * @param name the specified name
      */
-    private ArticleGAERepository() {
+    private ArticleGAERepository(final String name) {
+        super(name);
     }
 
     /**
@@ -68,7 +65,7 @@ public final class ArticleGAERepository extends AbstractGAERepository
          * Singleton.
          */
         private static final ArticleGAERepository SINGLETON =
-                new ArticleGAERepository();
+                new ArticleGAERepository(Article.ARTICLE);
 
         /**
          * Private default constructor.
