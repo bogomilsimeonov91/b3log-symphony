@@ -17,8 +17,8 @@
 package org.b3log.symphony.repository;
 
 import java.util.List;
+import org.b3log.latke.repository.Repository;
 import org.b3log.latke.repository.RepositoryException;
-import org.b3log.latke.repository.gae.GAERepository;
 import org.json.JSONObject;
 
 /**
@@ -27,7 +27,7 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.1, Feb 14, 2011
  */
-public interface TagArticleRepository extends GAERepository {
+public interface TagArticleRepository extends Repository {
 
     /**
      * Gets tag-article relations by the specified article id.
