@@ -16,7 +16,7 @@
 
 package org.b3log.symphony.repository;
 
-import org.b3log.latke.repository.gae.GAERepository;
+import org.b3log.latke.repository.Repository;
 
 /**
  * Article repository.
@@ -24,6 +24,6 @@ import org.b3log.latke.repository.gae.GAERepository;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.1, Jan 31, 2011
  */
-public interface ArticleRepository extends GAERepository {
+public interface ArticleRepository extends Repository {
 
 }
