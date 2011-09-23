@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.Transaction;
+import org.b3log.latke.util.Ids;
 import org.b3log.symphony.action.EntryAction;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.repository.impl.UserGAERepository;
@@ -137,7 +138,7 @@ public final class Users {
         final JSONObject ret = new JSONObject();
 
         ret.put(User.USER_EMAIL, userEmail.toLowerCase());
-        ret.put(User.USER_NAME, UserGAERepository.genTimeMillisId());
+        ret.put(User.USER_NAME, Ids.genTimeMillisId());
         ret.put(User.USER_URL, "");
         ret.put(Common.STATE, Common.AVAILABLE);
         ret.put(Common.SIGN, "");
@@ -147,7 +148,7 @@ public final class Users {
         final Transaction transaction = USER_REPOSITORY.beginTransaction();
         try {
             USER_REPOSITORY.add(ret);
-            
+
             transaction.commit();
         } catch (final RepositoryException e) {
             if (transaction.isActive()) {

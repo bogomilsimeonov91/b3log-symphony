@@ -13,29 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.repository.impl;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import static com.google.appengine.api.datastore.FetchOptions.Builder.*;
-import com.google.appengine.api.datastore.QueryResultList;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.Keys;
-import org.b3log.latke.model.Pagination;
 import org.b3log.latke.model.User;
+import org.b3log.latke.repository.AbstractRepository;
+import org.b3log.latke.repository.FilterOperator;
+import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.RepositoryException;
-import org.b3log.latke.repository.gae.AbstractGAERepository;
+import org.b3log.latke.repository.SortDirection;
+import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Tag;
 import org.b3log.symphony.repository.TagUserRepository;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -44,7 +39,7 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.0, Jan 31, 2011
  */
-public final class TagUserGAERepository extends AbstractGAERepository
+public final class TagUserGAERepository extends AbstractRepository
         implements TagUserRepository {
 
     /**
@@ -54,28 +49,21 @@ public final class TagUserGAERepository extends AbstractGAERepository
             Logger.getLogger(TagUserGAERepository.class.getName());
 
     @Override
-    public String getName() {
-        return Tag.TAG + "_" + User.USER;
-    }
-
-    @Override
     public List<JSONObject> getByUserId(final String userId)
             throws RepositoryException {
-        final Query query = new Query(getName());
+        final Query query = new Query();
         query.addFilter(User.USER + "_" + Keys.OBJECT_ID,
-                        Query.FilterOperator.EQUAL, userId);
-        final PreparedQuery preparedQuery = getDatastoreService().prepare(query);
-        final Iterable<Entity> entities = preparedQuery.asIterable();
+                        FilterOperator.EQUAL, userId);
 
-        final List<JSONObject> ret = new ArrayList<JSONObject>();
-        for (final Entity entity : entities) {
-            final Map<String, Object> properties = entity.getProperties();
-            final JSONObject e = new JSONObject(properties);
+        try {
+            final JSONObject result = get(query);
+            final JSONArray array = result.getJSONArray(Keys.RESULTS);
 
-            ret.add(e);
+            return CollectionUtils.jsonArrayToList(array);
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            return Collections.emptyList();
         }
-
-        return ret;
     }
 
     @Override
@@ -83,83 +71,67 @@ public final class TagUserGAERepository extends AbstractGAERepository
                                  final int currentPageNum,
                                  final int pageSize)
             throws RepositoryException {
-        final Query query = new Query(getName());
+        final Query query = new Query();
         query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        Query.FilterOperator.EQUAL, tagId);
+                        FilterOperator.EQUAL, tagId);
         query.addSort(User.USER + "_" + Keys.OBJECT_ID,
-                      Query.SortDirection.DESCENDING);
+                      SortDirection.DESCENDING);
 
-        final PreparedQuery preparedQuery = getDatastoreService().prepare(query);
-        final int count = preparedQuery.countEntities(
-                FetchOptions.Builder.withDefaults());
-        final int pageCount =
-                (int) Math.ceil((double) count / (double) pageSize);
+        query.setCurrentPageNum(currentPageNum);
+        query.setPageSize(pageSize);
 
-        final JSONObject ret = new JSONObject();
-        final JSONObject pagination = new JSONObject();
-        try {
-            ret.put(Pagination.PAGINATION, pagination);
-            pagination.put(Pagination.PAGINATION, pagination);
-            pagination.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
-
-            final int offset = pageSize * (currentPageNum - 1);
-            final QueryResultList<Entity> queryResultList =
-                    preparedQuery.asQueryResultList(
-                    withOffset(offset).limit(pageSize));
-            final JSONArray results = new JSONArray();
-            ret.put(Keys.RESULTS, results);
-            for (final Entity entity : queryResultList) {
-                final Map<String, Object> properties = entity.getProperties();
-                final JSONObject e = new JSONObject(properties);
-
-                results.put(e);
-            }
-        } catch (final JSONException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            throw new RepositoryException(e);
-        }
-
-        return ret;
+        return get(query);
     }
 
     @Override
     public JSONObject getByTagIdAndUserId(final String tagId,
                                           final String userId)
             throws RepositoryException {
-        final Query query = new Query(getName());
+        final Query query = new Query();
         query.addFilter(User.USER + "_" + Keys.OBJECT_ID,
-                        Query.FilterOperator.EQUAL, userId);
+                        FilterOperator.EQUAL, userId);
         query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        Query.FilterOperator.EQUAL, tagId);
-        final PreparedQuery preparedQuery = getDatastoreService().
-                prepare(query);
+                        FilterOperator.EQUAL, tagId);
 
-        final Entity entity = preparedQuery.asSingleEntity();
-        if (null == entity) {
-            return null;
+        try {
+            final JSONObject result = get(query);
+            final JSONArray tags = result.getJSONArray(Keys.RESULTS);
+            if (0 == tags.length()) {
+                return null;
+            }
+
+            return tags.getJSONObject(0);
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            
+            throw new RepositoryException(e);
         }
-
-        return entity2JSONObject(entity);
     }
 
     @Override
     public List<String> getTopTagUsers(final String tagId,
                                        final int fetchSize) {
-        final Query query = new Query(getName());
+        final Query query = new Query();
         query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        Query.FilterOperator.EQUAL, tagId);
-        query.addSort(Tag.TAG_REFERENCE_COUNT, Query.SortDirection.DESCENDING);
+                        FilterOperator.EQUAL, tagId);
+        query.addSort(Tag.TAG_REFERENCE_COUNT, SortDirection.DESCENDING);
+        query.setCurrentPageNum(1).setPageSize(fetchSize);
 
-        final PreparedQuery preparedQuery = getDatastoreService().prepare(query);
-        final List<Entity> entities =
-                preparedQuery.asList(FetchOptions.Builder.withLimit(fetchSize));
+        try {
+            final JSONObject result = get(query);
+            final JSONArray array = result.getJSONArray(Keys.RESULTS);
 
-        final List<String> ret = new ArrayList<String>();
-        for (final Entity entity : entities) {
-            ret.add((String) entity.getProperty(User.USER + "_" + Keys.OBJECT_ID));
+            final List<String> ret = new ArrayList<String>();
+            for (int i = 0; i < array.length(); i++) {
+                final JSONObject tagUser = array.getJSONObject(i);
+                ret.add(tagUser.getString(User.USER + "_" + Keys.OBJECT_ID));
+            }
+
+            return ret;
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            return Collections.emptyList();
         }
-
-        return ret;
     }
 
     /**
@@ -172,9 +144,12 @@ public final class TagUserGAERepository extends AbstractGAERepository
     }
 
     /**
-     * Private default constructor.
+     * Private constructor.
+     * 
+     * @param name the specified name
      */
-    private TagUserGAERepository() {
+    private TagUserGAERepository(final String name) {
+        super(name);
     }
 
     /**
@@ -189,7 +164,7 @@ public final class TagUserGAERepository extends AbstractGAERepository
          * Singleton.
          */
         private static final TagUserGAERepository SINGLETON =
-                new TagUserGAERepository();
+                new TagUserGAERepository(Tag.TAG + "_" + User.USER);
 
         /**
          * Private default constructor.

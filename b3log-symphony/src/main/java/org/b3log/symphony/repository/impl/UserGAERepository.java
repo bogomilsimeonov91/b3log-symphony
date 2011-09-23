@@ -20,10 +20,10 @@ import java.util.logging.Logger;
 import org.b3log.latke.Keys;
 import org.b3log.latke.model.Role;
 import org.b3log.latke.model.User;
+import org.b3log.latke.repository.AbstractRepository;
 import org.b3log.latke.repository.FilterOperator;
 import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.RepositoryException;
-import org.b3log.latke.repository.gae.AbstractGAERepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +35,7 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.8, Sep 11, 2011
  */
-public final class UserGAERepository extends AbstractGAERepository
+public final class UserGAERepository extends AbstractRepository
         implements UserRepository {
 
     /**
@@ -43,31 +43,6 @@ public final class UserGAERepository extends AbstractGAERepository
      */
     private static final Logger LOGGER =
             Logger.getLogger(UserGAERepository.class.getName());
-
-    @Override
-    public String getName() {
-        return User.USER;
-    }
-
-    @Override
-    public void update(final String id, final JSONObject userToUpdate)
-            throws RepositoryException {
-        super.update(id, userToUpdate);
-
-        // TODO: ugly, resolve it in Latke repository component
-        final String name = userToUpdate.optString(User.USER_NAME);
-        Query query = new Query().addFilter(User.USER_NAME,
-                                            FilterOperator.EQUAL,
-                                            name);
-        String cacheKey = CACHE_KEY_PREFIX + query.hashCode() + "_" + getName();
-        CACHE.remove(cacheKey);
-        final String email = userToUpdate.optString(User.USER_EMAIL);
-        query = new Query().addFilter(User.USER_EMAIL,
-                                      FilterOperator.EQUAL,
-                                      email.toLowerCase());
-        cacheKey = CACHE_KEY_PREFIX + query.hashCode() + "_" + getName();
-        CACHE.remove(cacheKey);
-    }
 
     @Override
     public JSONObject getByName(final String name) throws RepositoryException {
@@ -117,9 +92,12 @@ public final class UserGAERepository extends AbstractGAERepository
     }
 
     /**
-     * Private default constructor.
+     * Private constructor.
+     * 
+     * @param name the specified name
      */
-    private UserGAERepository() {
+    private UserGAERepository(final String name) {
+        super(name);
     }
 
     /**
@@ -134,7 +112,7 @@ public final class UserGAERepository extends AbstractGAERepository
          * Singleton.
          */
         private static final UserGAERepository SINGLETON =
-                new UserGAERepository();
+                new UserGAERepository(User.USER);
 
         /**
          * Private default constructor.

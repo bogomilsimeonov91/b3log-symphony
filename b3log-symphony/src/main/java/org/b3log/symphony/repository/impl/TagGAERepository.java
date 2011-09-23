@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.repository.impl;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.QueryResultIterable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.Keys;
+import org.b3log.latke.repository.AbstractRepository;
+import org.b3log.latke.repository.FilterOperator;
+import org.b3log.latke.repository.Query;
 import org.b3log.latke.repository.RepositoryException;
-import org.b3log.latke.repository.gae.AbstractGAERepository;
+import org.b3log.latke.repository.SortDirection;
+import org.b3log.latke.util.CollectionUtils;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.model.Tag;
@@ -43,7 +42,7 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.4, Feb 14, 2011
  */
-public final class TagGAERepository extends AbstractGAERepository
+public final class TagGAERepository extends AbstractRepository
         implements TagRepository {
 
     /**
@@ -61,11 +60,6 @@ public final class TagGAERepository extends AbstractGAERepository
      */
     private ArticleRepository articleRepository =
             ArticleGAERepository.getInstance();
-
-    @Override
-    public String getName() {
-        return Tag.TAG;
-    }
 
     @Override
     public List<JSONObject> getArticles(final String tagTitle,
@@ -105,7 +99,7 @@ public final class TagGAERepository extends AbstractGAERepository
 
     @Override
     public List<JSONObject> getTopArticles(final String tagTitle,
-                                              final int fetchSize)
+                                           final int fetchSize)
             throws RepositoryException {
         final List<JSONObject> ret = new ArrayList<JSONObject>();
         try {
@@ -113,8 +107,8 @@ public final class TagGAERepository extends AbstractGAERepository
             final String tagId = tag.getString(Keys.OBJECT_ID);
             final JSONObject result =
                     tagArticleRepository.getTopByTagId(tagId,
-                                                    1,
-                                                    fetchSize);
+                                                       1,
+                                                       fetchSize);
             final JSONArray tagArticleRelations =
                     result.getJSONArray(Keys.RESULTS);
 
@@ -147,57 +141,42 @@ public final class TagGAERepository extends AbstractGAERepository
     @Override
     public JSONObject getByTitle(final String tagTitle)
             throws RepositoryException {
-        final String cacheKey = "getByTitle[" + tagTitle + "]";
-        JSONObject ret = (JSONObject) CACHE.get(cacheKey);
+        final Query query = new Query();
+        query.addFilter(Tag.TAG_TITLE_LOWER_CASE, FilterOperator.EQUAL,
+                        tagTitle.toLowerCase());
+        try {
+            final JSONObject result = get(query);
+            final JSONArray array = result.getJSONArray(Keys.RESULTS);
 
-        if (null == ret) {
-            final Query query = new Query(Tag.TAG);
-            query.addFilter(Tag.TAG_TITLE_LOWER_CASE,
-                            Query.FilterOperator.EQUAL, tagTitle.toLowerCase());
-            final PreparedQuery preparedQuery = getDatastoreService().prepare(
-                    query);
-            final Entity entity = preparedQuery.asSingleEntity();
-            if (null == entity) {
+            if (0 == array.length()) {
                 return null;
             }
 
-            ret = entity2JSONObject(entity);
-            CACHE.put(cacheKey, ret);
-        }
+            return array.getJSONObject(0);
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
-        return ret;
+            return null;
+        }
     }
 
     @Override
     public List<JSONObject> getMostUsedTags(final int num) {
-        final String cacheKey = "getMostUsedTags[" + num + "]";
-        @SuppressWarnings("unchecked")
-        List<JSONObject> ret =
-                (List<JSONObject>) CACHE.get(cacheKey);
-        if (null != ret) {
-            LOGGER.log(Level.FINEST, "Got the most used tags from cache");
-        } else {
-            final Query query = new Query(getName());
-            query.addSort(Tag.TAG_REFERENCE_COUNT,
-                          Query.SortDirection.DESCENDING);
-            final PreparedQuery preparedQuery = getDatastoreService().prepare(
-                    query);
-            final QueryResultIterable<Entity> queryResultIterable =
-                    preparedQuery.asQueryResultIterable(FetchOptions.Builder.
-                    withLimit(num));
+        final Query query = new Query();
+        query.addSort(Tag.TAG_REFERENCE_COUNT,
+                          SortDirection.DESCENDING);
+        query.setCurrentPageNum(1);
+        query.setPageSize(num);
 
-            ret = new ArrayList<JSONObject>();
-            for (final Entity entity : queryResultIterable) {
-                final JSONObject tag = entity2JSONObject(entity);
-                ret.add(tag);
-            }
-            CACHE.put(cacheKey, ret);
+        try {
+            final JSONObject result = get(query);
+            final JSONArray array = result.getJSONArray(Keys.RESULTS);
 
-            LOGGER.log(Level.FINEST,
-                       "Got the most used tags, then put it into cache");
+            return CollectionUtils.jsonArrayToList(array);
+        } catch (final Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            return Collections.emptyList();
         }
-
-        return ret;
     }
 
     /**
@@ -210,9 +189,12 @@ public final class TagGAERepository extends AbstractGAERepository
     }
 
     /**
-     * Private default constructor.
+     * Private constructor.
+     * 
+     * @param name the specified name
      */
-    private TagGAERepository() {
+    private TagGAERepository(final String name) {
+        super(name);
     }
 
     /**
@@ -227,7 +209,7 @@ public final class TagGAERepository extends AbstractGAERepository
          * Singleton.
          */
         private static final TagGAERepository SINGLETON =
-                new TagGAERepository();
+                new TagGAERepository(Tag.TAG);
 
         /**
          * Private default constructor.
