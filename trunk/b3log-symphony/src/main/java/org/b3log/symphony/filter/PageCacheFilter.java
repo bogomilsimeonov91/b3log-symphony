@@ -16,7 +16,6 @@
 
 package org.b3log.symphony.filter;
 
-import com.google.appengine.api.utils.SystemProperty;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.b3log.latke.cache.Cache;
@@ -101,8 +100,7 @@ public final class PageCacheFilter implements Filter {
 
         final String queryString = httpServletRequest.getQueryString();
 
-        String pageCacheKey = SystemProperty.instanceReplicaId.get()
-                              + "_" + requestURI;
+        String pageCacheKey = requestURI;
         if (!Strings.isEmptyOrNull(queryString)) {
             pageCacheKey += "?" + queryString;
         }

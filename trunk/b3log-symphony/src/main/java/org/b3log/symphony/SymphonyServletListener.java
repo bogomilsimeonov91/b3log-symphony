@@ -15,9 +15,6 @@
  */
 package org.b3log.symphony;
 
-import com.google.appengine.api.images.Image;
-import com.google.appengine.api.images.ImagesServiceFactory;
-import com.google.appengine.api.utils.SystemProperty;
 import java.io.BufferedInputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -35,6 +32,8 @@ import javax.servlet.http.HttpSessionEvent;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.action.util.PageCaches;
 import org.b3log.latke.event.EventManager;
+import org.b3log.latke.image.Image;
+import org.b3log.latke.image.ImageServiceFactory;
 import org.b3log.latke.servlet.AbstractServletListener;
 import org.b3log.latke.util.freemarker.Templates;
 import org.b3log.symphony.event.CommentNotifier;
@@ -98,17 +97,6 @@ public final class SymphonyServletListener extends AbstractServletListener {
     public void contextInitialized(final ServletContextEvent servletContextEvent) {
         super.contextInitialized(servletContextEvent);
 
-        if (!Symphonys.runsOnDevEnv()) {
-            LOGGER.info("B3log Symphony runs on [production] environment");
-        } else {
-            LOGGER.info("B3log Symphony runs on [development] environment");
-        }
-
-        LOGGER.log(Level.INFO,
-                   "Application[id={0}, version={1}]",
-                   new Object[]{SystemProperty.applicationId.get(),
-                                SystemProperty.applicationVersion.get()});
-
         registerEventProcessor();
         skinUtils.loadSkin();
 
@@ -117,7 +105,7 @@ public final class SymphonyServletListener extends AbstractServletListener {
         if (enablePageCache) {
             Latkes.enablePageCache();
         }
-        
+
         Templates.enableCache(enablePageCache);
 
         if (!enablePageCache) {
@@ -182,7 +170,8 @@ public final class SymphonyServletListener extends AbstractServletListener {
                 bufferedInputStream.close();
 
                 final Image captchaChar =
-                        ImagesServiceFactory.makeImage(captchaCharData);
+                        ImageServiceFactory.getImageService().makeImage(
+                        captchaCharData);
 
                 CAPTCHAS.put(imageName, captchaChar);
             }

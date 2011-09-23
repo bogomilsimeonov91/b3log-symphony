@@ -13,13 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.event;
 
-import com.google.appengine.api.urlfetch.HTTPMethod;
-import com.google.appengine.api.urlfetch.HTTPRequest;
-import com.google.appengine.api.urlfetch.URLFetchService;
-import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +22,10 @@ import org.b3log.latke.event.AbstractEventListener;
 import org.b3log.latke.event.Event;
 import org.b3log.latke.event.EventException;
 import org.b3log.latke.model.User;
+import org.b3log.latke.servlet.HTTPRequestMethod;
+import org.b3log.latke.urlfetch.HTTPRequest;
+import org.b3log.latke.urlfetch.URLFetchService;
+import org.b3log.latke.urlfetch.URLFetchServiceFactory;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.model.Comment;
@@ -96,8 +95,9 @@ public final class CommentSender
 
             final URL url = new URL("http://" + authorURL
                                     + "/add-article-from-symphony-comment.do");
-            final HTTPRequest httpRequest =
-                    new HTTPRequest(url, HTTPMethod.POST);
+            final HTTPRequest httpRequest = new HTTPRequest();
+            httpRequest.setURL(url);
+            httpRequest.setRequestMethod(HTTPRequestMethod.POST);
             final JSONObject requestJSONObject = new JSONObject();
             requestJSONObject.put(Common.KEY_OF_SOLO, keyOfSolo);
             requestJSONObject.put(Article.ARTICLE_ID_REF, articleId);
@@ -109,7 +109,7 @@ public final class CommentSender
                                   comment.getString(Comment.COMMENTER_URL_REF));
             requestJSONObject.put(Comment.COMMENT_CONTENT,
                                   comment.getString(Comment.COMMENT_CONTENT));
-            requestJSONObject.put(Comment.COMMENT_SHARP_URL, 
+            requestJSONObject.put(Comment.COMMENT_SHARP_URL,
                                   comment.getString(Comment.COMMENT_SHARP_URL));
             httpRequest.setPayload(
                     requestJSONObject.toString().getBytes("UTF-8"));
