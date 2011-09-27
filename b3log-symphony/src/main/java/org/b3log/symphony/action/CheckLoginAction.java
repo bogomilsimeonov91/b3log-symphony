@@ -26,7 +26,7 @@ import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractAction;
 import org.b3log.latke.model.User;
 import org.b3log.latke.user.UserService;
-import org.b3log.latke.user.UserServiceFactory;
+import org.b3log.latke.user.gae.GAEUserService;
 import org.b3log.symphony.model.Common;
 import org.b3log.symphony.util.Users;
 import org.json.JSONObject;
@@ -51,7 +51,7 @@ public final class CheckLoginAction extends AbstractAction {
     /**
      * User service.
      */
-    private UserService userService = UserServiceFactory.getUserService();
+    private UserService userService = new GAEUserService();
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
