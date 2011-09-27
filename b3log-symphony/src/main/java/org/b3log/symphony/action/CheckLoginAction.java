@@ -68,7 +68,7 @@ public final class CheckLoginAction extends AbstractAction {
             throws ActionException {
         final JSONObject ret = new JSONObject();
 
-        final JSONObject currentUser = Users.getCurrentUser();
+        final JSONObject currentUser = Users.getCurrentUser(request);
         try {
             ret.put(Keys.STATUS_CODE, false);
 

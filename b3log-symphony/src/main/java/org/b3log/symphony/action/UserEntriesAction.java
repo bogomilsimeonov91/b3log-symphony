@@ -81,7 +81,7 @@ public final class UserEntriesAction extends AbstractCacheablePageAction {
 
         ret.putAll(Langs.all());
 
-        final JSONObject user = Users.getCurrentUser();
+        final JSONObject user = Users.getCurrentUser(request);
         try {
             final String userName = user.getString(User.USER_NAME);
             ret.put(User.USER_NAME, userName);

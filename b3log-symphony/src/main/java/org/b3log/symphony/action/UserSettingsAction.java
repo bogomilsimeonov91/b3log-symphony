@@ -68,7 +68,7 @@ public final class UserSettingsAction extends AbstractAction {
 
         ret.putAll(Langs.all());
 
-        final JSONObject user = Users.getCurrentUser();
+        final JSONObject user = Users.getCurrentUser(request);
         try {
             LOGGER.log(Level.FINER, "Current logged in user[name={0}]",
                        user.getString(User.USER_NAME));
@@ -109,7 +109,7 @@ public final class UserSettingsAction extends AbstractAction {
 
         final Transaction transaction = userRepository.beginTransaction();
         try {
-            final JSONObject currentUser = Users.getCurrentUser();
+            final JSONObject currentUser = Users.getCurrentUser(request);
             final String currentUserId = currentUser.getString(Keys.OBJECT_ID);
 
             String action = request.getParameter("action");

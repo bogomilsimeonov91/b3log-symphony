@@ -171,7 +171,7 @@ public final class UserAddEntryCommentAction extends AbstractAction {
         String articleId = null;
         String commentContent = null;
 
-        final JSONObject commenter = Users.getCurrentUser();
+        final JSONObject commenter = Users.getCurrentUser(request);
 
         final Transaction transaction = commentRepository.beginTransaction();
         String commentId;
