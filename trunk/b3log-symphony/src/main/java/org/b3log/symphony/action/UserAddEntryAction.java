@@ -206,7 +206,7 @@ public final class UserAddEntryAction extends AbstractAction {
             final String articleId = Ids.genTimeMillisId();
             article.put(Keys.OBJECT_ID, articleId);
 
-            final JSONObject user = Users.getCurrentUser();
+            final JSONObject user = Users.getCurrentUser(request);
             final String authorEmail = user.getString(User.USER_EMAIL);
             final JSONObject author = userRepository.getByEmail(authorEmail);
             if (null != author) {

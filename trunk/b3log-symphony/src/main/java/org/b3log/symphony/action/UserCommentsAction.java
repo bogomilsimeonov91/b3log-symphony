@@ -79,7 +79,7 @@ public final class UserCommentsAction extends AbstractCacheablePageAction {
 
         ret.putAll(Langs.all());
 
-        final JSONObject user = Users.getCurrentUser();
+        final JSONObject user = Users.getCurrentUser(request);
 
         try {
             String p = request.getParameter("p");

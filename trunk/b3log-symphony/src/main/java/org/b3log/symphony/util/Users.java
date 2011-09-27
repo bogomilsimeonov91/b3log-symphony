@@ -19,12 +19,13 @@ import com.dlog4j.util.UBBDecoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
 import org.b3log.latke.model.User;
 import org.b3log.latke.repository.RepositoryException;
 import org.b3log.latke.repository.Transaction;
 import org.b3log.latke.user.GeneralUser;
 import org.b3log.latke.user.UserService;
-import org.b3log.latke.user.UserServiceFactory;
+import org.b3log.latke.user.gae.GAEUserService;
 import org.b3log.latke.util.Ids;
 import org.b3log.symphony.action.EntryAction;
 import org.b3log.symphony.model.Common;
@@ -53,8 +54,7 @@ public final class Users {
     /**
      * User service.
      */
-    private static final UserService USER_SVC =
-            UserServiceFactory.getUserService();
+    private static final UserService USER_SVC = new GAEUserService();
 
     /**
      * Gets the specified user's sign as HTML content.
@@ -103,10 +103,12 @@ public final class Users {
     /**
      * Gets the current user.
      *
+     * @param request the specified request
      * @return the current user, {@code null} if not found
      */
-    public static JSONObject getCurrentUser() {
-        final GeneralUser currentUser = USER_SVC.getCurrentUser();
+    public static JSONObject getCurrentUser(
+            final HttpServletRequest request) {
+        final GeneralUser currentUser = USER_SVC.getCurrentUser(request);
         if (null == currentUser) {
             return null;
         }
