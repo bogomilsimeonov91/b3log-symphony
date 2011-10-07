@@ -50,7 +50,7 @@ import org.json.JSONObject;
  * Index action. index.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.7, Aug 6, 2011
+ * @version 1.0.0.8, Oct 7, 2011
  */
 public final class IndexAction extends AbstractCacheablePageAction {
 
@@ -124,7 +124,7 @@ public final class IndexAction extends AbstractCacheablePageAction {
             final int pageCount =
                     result.getJSONObject(Pagination.PAGINATION).
                     getInt(Pagination.PAGINATION_PAGE_COUNT);
-            final int windowSize = 20;
+            final int windowSize = 15;
             final List<Integer> pageNums =
                     Paginator.paginate(currentPageNum,
                                        UserAction.ENTRY_FETCH_SIZE, pageCount,
