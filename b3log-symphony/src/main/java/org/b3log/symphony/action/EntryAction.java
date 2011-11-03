@@ -105,7 +105,6 @@ public final class EntryAction extends AbstractCacheablePageAction {
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
-            final freemarker.template.Template template,
             final HttpServletRequest request,
             final HttpServletResponse response) throws ActionException {
         final Map<String, Object> ret = new HashMap<String, Object>();

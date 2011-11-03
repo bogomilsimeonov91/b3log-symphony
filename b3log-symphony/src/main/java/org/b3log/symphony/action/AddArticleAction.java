@@ -87,7 +87,6 @@ public final class AddArticleAction extends AbstractAction {
 
     @Override
     protected Map<?, ?> doFreeMarkerAction(
-            final freemarker.template.Template template,
             final HttpServletRequest request,
             final HttpServletResponse response) throws ActionException {
         throw new UnsupportedOperationException("Not supported yet.");
