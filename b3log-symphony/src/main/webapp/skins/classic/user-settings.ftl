@@ -1,18 +1,8 @@
+<#include "macro-head.ftl">
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
-        <title>${titleUser}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="${metaKeywords}"/>
-        <meta name="description" content="${metaDescription}"/>
-        <meta name="robots" content="none"/>
-        <link type="text/css" rel="stylesheet" href="/styles/base.css"/>
-        <link type="text/css" rel="stylesheet" href="/skins/classic/default-index.css"/>
-        <link rel="icon" type="image/png" href="/favicon.png"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/lib/json2.js"></script>
-        <script type="text/javascript" src="/js/util.js"></script>
-        <script type="text/javascript" src="/js/user.js"></script>
+        <@head title="${titleUser} - ${titleIndex}"></@head>
     </head>
     <body>
         <#include "top.ftl"/>
@@ -32,7 +22,7 @@
                         ${userNameLabel}
                     </th>
                     <td>
-                        <input id="userName" value="${userName}"/>
+                        <input id="userName" value="${userName}" type="text" />
                     </td>
                 </tr>
                 <tr>
@@ -40,7 +30,7 @@
                         QQ
                     </th>
                     <td>
-                        <input id="userQQNum" value="${userQQNum}"/>
+                        <input id="userQQNum" value="${userQQNum}" type="text" />
                     </td>
                 </tr>
                 <tr>
@@ -68,7 +58,7 @@
                         ${thumbnailURLLabel}
                     </th>
                     <td>
-                        <input id="userThumbnailURL" value="${userThumbnailURL}"/>
+                        <input id="userThumbnailURL" value="${userThumbnailURL}" type="text" />
                     </td>
                 </tr>
                 <tr>
@@ -77,7 +67,7 @@
                     </th>
                     <td>
                         <div class="input-label">http://</div>
-                        <input style="border-left-width: 0;width: 229px;" id="userURL" value="${userURL}"/>
+                        <input type="text" style="border-left-width: 0;width: 229px;" id="userURL" value="${userURL}" />
                     </td>
                 </tr>
                 <tr>
@@ -85,7 +75,7 @@
                         ${keyOfSolo1Label}
                     </th>
                     <td>
-                        <input id="keyOfSolo" value="${keyOfSolo}"/>
+                        <input id="keyOfSolo" value="${keyOfSolo}" type="text" />
                     </td>
                 </tr>
                 <tr>
