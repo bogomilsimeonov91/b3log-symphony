@@ -1,23 +1,11 @@
+<#include "macro-head.ftl">
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
-        <title>${article.articleTitle} - ${titleIndex}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <@head title="${article.articleTitle} - ${titleIndex}">
         <meta name="keywords" content="${article.articleTitle},${titleIndex}"/>
         <meta name="description" content="${metaDescription}"/>
-        <meta name="author" content="B3log Team"/>
-        <meta name="generator" content="B3log"/>
-        <meta name="copyright" content="B3log"/>
-        <meta name="revised" content="B3log, 2011"/>
-        <meta http-equiv="Window-target" content="_top"/>
-        <link type="text/css" rel="stylesheet" href="/styles/base.css"/>
-        <link type="text/css" rel="stylesheet" href="/skins/classic/default-index.css"/>
-        <link rel="icon" type="image/png" href="/favicon.png"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/lib/json2.js"></script>
-        <script type="text/javascript" src="/js/lib/jtbceditor/jtbcEditor.js"></script>
-        <script type="text/javascript" src="/js/util.js"></script>
-        <script type="text/javascript" src="/js/index.js"></script>
+        </@head>
     </head>
     <body>
         <#include "top.ftl"/>
@@ -168,9 +156,10 @@
                 </table>
             </div>
         </div>
-        <div class="footer">
-            <#include "footer.ftl"/>
-        </div>
+        <#include "footer.ftl"/>
+        <script type="text/javascript" src="/js/lib/json2.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js/lib/jtbceditor/jtbcEditor.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js/index.js" charset="utf-8"></script>
         <script type="text/javascript">
             var index = new Index({
                 "labels": {

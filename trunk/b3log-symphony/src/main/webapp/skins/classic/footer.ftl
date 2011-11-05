@@ -1,12 +1,10 @@
-<a href="http://code.google.com/appengine" target="_blank">
-    <img src="http://code.google.com/appengine/images/appengine-noborder-120x30.gif"
-alt="Powered by Google App Engine" />
-</a>
-<a title="B3log Symphony" href="http://${host}" class="logo">
-    <span style="color: orange;">B</span>
-    <span style="font-size: 9px; color: blue;"><sup>3</sup></span>
-    <span style="color: green;">L</span>
-    <span style="color: red;">O</span>
-    <span style="color: blue;">G</span>&nbsp;
-    <span style="color: red; font-weight: bold;">Symphony</span>
-</a>, ver ${version}
+<div class="footer">
+    &copy; - 2011
+    <a title="B3log Symphony" href="http://${host}">
+        ${b3logLabel}
+        <b style="color: red;">Symphony</b>
+    </a>, ver ${version} <br/>
+    Theme by <a href="http://vanessa.b3log.org" target="_blank">Vanessa</a>. 
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/util.js" charset="utf-8"></script>

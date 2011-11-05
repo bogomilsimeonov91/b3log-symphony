@@ -1,20 +1,11 @@
+<#include "macro-head.ftl">
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
-        <title>${userName} - ${titleIndex}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <@head title="${userName} - ${titleIndex}">
         <meta name="keywords" content="${userName},${titleIndex}"/>
         <meta name="description" content="${metaDescription}"/>
-        <meta name="author" content="B3log Team"/>
-        <meta name="generator" content="B3log"/>
-        <meta name="copyright" content="B3log"/>
-        <meta name="revised" content="B3log, 2011"/>
-        <meta http-equiv="Window-target" content="_top"/>
-        <link type="text/css" rel="stylesheet" href="/styles/base.css"/>
-        <link type="text/css" rel="stylesheet" href="/skins/classic/default-index.css"/>
-        <link rel="icon" type="image/png" href="/favicon.png"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/util.js"></script>
+        </@head>
     </head>
     <body>
         <#include "top.ftl"/>
@@ -40,9 +31,9 @@
                 <#list articles as article>
                 <#if article_index % 2 == 0>
                 <dd class="even">
-                <#else>
+                    <#else>
                 <dd class="odd">
-                </#if>
+                    </#if>
                     <h3 title="${article.articleTitle}">
                         <a href="/entries/${article.oId}" class="big-font">${article.articleTitle}</a>
                         &nbsp;&nbsp;&nbsp;
@@ -79,9 +70,9 @@
                 <#list comments as comment>
                 <#if comment_index % 2 == 0>
                 <dd class="even">
-                <#else>
+                    <#else>
                 <dd class="odd">
-                </#if>
+                    </#if>
                     <div class="left">
                         <a href="/entries/${comment.commentEntryId}" class="big-font">
                             ${comment.commentEntryTitle}
@@ -103,9 +94,7 @@
                 </#list>
             </dl>
         </div>
-        <div class="footer">
-            <#include "footer.ftl"/>
-        </div>
+        <#include "footer.ftl"/>
         <script type="text/javascript">
             Util.initStatus();
             Util.initPagination();

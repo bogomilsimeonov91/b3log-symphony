@@ -1,16 +1,12 @@
+<#include "macro-head.ftl">
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
-        <title>${titleUser}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <@head title="${titleUser} - ${titleIndex}">
         <meta name="keywords" content="${metaKeywords}"/>
         <meta name="description" content="${metaDescription}"/>
         <meta name="robots" content="none"/>
-        <link type="text/css" rel="stylesheet" href="/styles/base.css"/>
-        <link type="text/css" rel="stylesheet" href="/skins/classic/default-index.css"/>
-        <link rel="icon" type="image/png" href="/favicon.png"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/util.js"></script>
+        </@head>
     </head>
     <body>
         <#include "top.ftl"/>
@@ -92,9 +88,7 @@
             </div>
             </#if>
         </div>
-        <div class="footer">
-            <#include "footer.ftl"/>
-        </div>
+        <#include "footer.ftl"/>
         <script type="text/javascript">
             Util.initStatus();
             Util.initPagination();

@@ -29,11 +29,9 @@ var Util = {
             success: function(result, textStatus){
                 switch(result.sc) {
                     case true:
-                        $("#userStatus span")[0].innerHTML = "<a href='/users/" + result.userName + "'>"
-                        + result.userName + "</a>";
-                        $("#userStatus span").last().click(function () {
-                            window.location.href = result.logoutURL;
-                        });
+                        $("#userStatus a").first().before("<a href='/users/" + result.userName + "'>"
+                        + result.userName + "</a>");
+                        $("#userStatus a").last().attr("href", result.logoutURL);
                         break;
                     case false:
                         $("#userStatus").html("<span onclick=\"window.location='/'\" class='index-icon'></span>"

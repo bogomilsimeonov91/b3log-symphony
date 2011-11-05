@@ -1,26 +1,15 @@
 <div id="top">
-    <a href="http://${host}" class="logo">
-        <span style="color: orange;margin-left:0px;">B</span>
-        <span style="font-size: 9px; color: blue;"><sup>3</sup></span>
-        <span style="color: green;">L</span>
-        <span style="color: red;">O</span>
-        <span style="color: blue;">G</span>&nbsp;
+    <a href="http://${host}" class="hover">
+        ${b3logLabel}
         <span style="color: red; font-weight: bold;">Symphony</span>
     </a>
     <span class="right" id="userStatus">
-        <span class='left'></span>
-        <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-add-entry">${postEntryLabel}</a>
-        <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-entries">${entryLabel}</a>
-        <span class="left">&nbsp;|&nbsp;</span>
-        <a class="left" href="/user-comments">${commentLabel}</a>
-        <span class="left">&nbsp;|</span>
-        <span title="${indexLabel}" onclick="window.location='/'" class='index-icon'></span>
-        <span class="left">&nbsp;|</span>
-        <span title="${settingsLabel}" onclick="window.location='/user-settings'" class='admin-icon'></span>
-        <span class="left">&nbsp;|</span>
-        <span title="${logoutLabel}" class="logout-icon"></span>
+        <a href="/user-add-entry">${postEntryLabel}</a>
+        <a href="/user-entries">${entryLabel}</a>
+        <a href="/user-comments">${commentLabel}</a>
+        <a href="/">${indexLabel}</a>
+        <a href="/user-settings">${settingsLabel}</a>
+        <a>${logoutLabel}</a>
     </span>
     <div class="clear"></div>
 </div>
