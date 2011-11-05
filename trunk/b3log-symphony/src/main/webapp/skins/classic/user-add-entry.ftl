@@ -17,8 +17,8 @@
                 <label for="content">${contentLabel}</label>
                 <textarea id="content" style="width: 100%;height: 360px;"></textarea>
                 <label for="tags">${tagsLabel}</label><br/>
-                <input id="tags" value="" class="marginB5" type="text" />
-                <div align="right" class="marginT12">
+                <input id="tags" value="" class="marginRigth5" type="text" />
+                <div align="right" class="marginTop20">
                     <span class="tip" id="tip"></span>
                     <button id="addEntryButton" onclick="user.postEntry();">
                         ${submitLabel}

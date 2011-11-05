@@ -1,6 +1,6 @@
 <div class="footer">
     &copy; - 2011
-    <a title="B3log Symphony" href="http://${host}">
+    <a title="B3log Symphony" href="/">
         ${b3logLabel}
         <b style="color: red;">Symphony</b>
     </a>, ver ${version} <br/>

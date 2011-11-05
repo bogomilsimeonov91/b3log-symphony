@@ -103,9 +103,9 @@ $.extend(Index.prototype, {
 
     replyComment: function (oId) {
         if ($("#" + oId + "commentForm").length === 0) {
-            if ($("#userStatus span")[0].innerHTML === "") {
+            if ($("#userStatus a")[0].innerHTML === "") {
                 alert(this.labels.loginFirstLabel);
-                $("#userStatus span").last().click();
+                $("#userStatus a").last().click();
                 return;
             }
             $("#" + this.originalId + "commentForm").remove();

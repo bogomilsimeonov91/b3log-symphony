@@ -10,7 +10,7 @@
     <body>
         <#include "top.ftl"/>
         <div class="symphony-content user">
-            <div class="marginB20">
+            <div class="marginBottom20">
                 <a href="/users/${userName}">
                     <img alt="${userName}" title="${userName}"
                          src="${userThumbnailURL}" class="big-head-img left"/>
@@ -27,7 +27,7 @@
                 <span class="clear"></span>
             </div>
             <h2 class="caption">${lastEntryLabel}</h2>
-            <dl class="entry-list-top marginB20">
+            <dl class="entry-list-top marginBottom20">
                 <#list articles as article>
                 <#if article_index % 2 == 0>
                 <dd class="even">
