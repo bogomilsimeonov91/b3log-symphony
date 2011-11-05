@@ -1,5 +1,5 @@
 <div id="top">
-    <a href="http://${host}" class="hover">
+    <a href="/" class="hover">
         ${b3logLabel}
         <span style="color: red; font-weight: bold;">Symphony</span>
     </a>

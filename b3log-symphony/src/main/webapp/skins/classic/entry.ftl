@@ -11,7 +11,7 @@
         <#include "top.ftl"/>
         <div class="symphony-content entry">
             <#include "header.ftl"/>
-            <dl class="marginB20">
+            <dl class="marginBottom20">
                 <dd>
                     <a href="/users/${article.articleAuthorName}">
                         <img src="${article.articleAuthorThumbnailURL}" class="big-head-img left"
@@ -61,7 +61,7 @@
                     </div>
                     <a href="javascript:index.postToWb();">
                         <img alt="${postToWbLabel}" title="${postToWbLabel}"
-                             src="http://v.t.qq.com/share/images/s/b24.png" class="right marginR5"/>
+                             src="http://v.t.qq.com/share/images/s/b24.png" class="right marginRigth5"/>
                     </a>
                     <span class="clear"></span>
                     <#if "" != article.sign>
@@ -81,7 +81,7 @@
                                  alt="${comment.commenterName}" title="${comment.commenterName}"/>
                         </a>
                         <div class="left title-tag">
-                            <div class="marginB5">
+                            <div class="marginRigth5">
                                 <span class="left">
                                     by
                                     <#if comment.commenterURL != "">
