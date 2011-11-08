@@ -21,15 +21,10 @@
     Description: Cron job for GAE. See
                  http://code.google.com/intl/en/appengine/docs/java/config/cron.html
                  for more details.
-    Version: 1.0.0.0, Jan 23, 2011
+    Version: 1.0.0.1, Nov 8, 2011
     Author: Liang Ding
 -->
 <cronentries>
-    
-    <cron>
-        <url>/</url>
-        <description>Avoiding Symphony to shutdown on GAE.</description>
-        <schedule>every 1 minutes</schedule>
-    </cron>
+   
 
 </cronentries>
