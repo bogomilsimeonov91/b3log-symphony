@@ -1,3 +1,2 @@
 User-agent: *
-Disallow: /user-add-entry
-Disallow: /user-add-comment
+Disallow: /*
