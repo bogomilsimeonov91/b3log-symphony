@@ -33,7 +33,7 @@ import org.json.JSONObject;
  * User Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.8, Sep 11, 2011
+ * @version 1.0.0.9, Nov 11, 2011
  */
 public final class UserGAERepository extends AbstractRepository
         implements UserRepository {
@@ -48,7 +48,7 @@ public final class UserGAERepository extends AbstractRepository
     public JSONObject getByName(final String name) throws RepositoryException {
         final Query query = new Query().addFilter(User.USER_NAME,
                                                   FilterOperator.EQUAL,
-                                                  name);
+                                                  name).setPageCount(1);
         final JSONArray result = get(query).optJSONArray(Keys.RESULTS);
 
         return result.optJSONObject(0);
@@ -58,7 +58,8 @@ public final class UserGAERepository extends AbstractRepository
     public JSONObject getByEmail(final String email) throws RepositoryException {
         final Query query = new Query().addFilter(User.USER_EMAIL,
                                                   FilterOperator.EQUAL,
-                                                  email.toLowerCase());
+                                                  email.toLowerCase()).
+                setPageCount(1);
         final JSONArray result = get(query).optJSONArray(Keys.RESULTS);
 
         return result.optJSONObject(0);

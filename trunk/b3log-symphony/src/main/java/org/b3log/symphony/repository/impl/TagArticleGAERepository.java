@@ -36,7 +36,7 @@ import org.json.JSONObject;
  * Tag-Article relation Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.1, Feb 14, 2011
+ * @version 1.0.0.2, Nov 11, 2011
  */
 public final class TagArticleGAERepository extends AbstractRepository
         implements TagArticleRepository {
@@ -50,9 +50,11 @@ public final class TagArticleGAERepository extends AbstractRepository
     @Override
     public List<JSONObject> getByArticleId(final String articleId)
             throws RepositoryException {
-        final Query query = new Query();
-        query.addFilter(Article.ARTICLE + "_" + Keys.OBJECT_ID,
-                        FilterOperator.EQUAL, articleId);
+        final Query query = new Query().addFilter(Article.ARTICLE + "_"
+                                                  + Keys.OBJECT_ID,
+                                                  FilterOperator.EQUAL,
+                                                  articleId).
+                setPageCount(1);
 
         try {
             final JSONObject result = get(query);
@@ -70,13 +72,13 @@ public final class TagArticleGAERepository extends AbstractRepository
                                  final int currentPageNum,
                                  final int pageSize)
             throws RepositoryException {
-        final Query query = new Query();
-        query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        FilterOperator.EQUAL, tagId);
-        query.addSort(Article.ARTICLE + "_" + Keys.OBJECT_ID,
-                      SortDirection.DESCENDING);
-        query.setCurrentPageNum(currentPageNum);
-        query.setPageSize(pageSize);
+        final Query query = new Query().addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
+                                                  FilterOperator.EQUAL, tagId).
+                addSort(Article.ARTICLE + "_" + Keys.OBJECT_ID,
+                        SortDirection.DESCENDING).
+                setCurrentPageNum(currentPageNum).
+                setPageSize(pageSize).
+                setPageCount(1);
 
         return get(query);
     }

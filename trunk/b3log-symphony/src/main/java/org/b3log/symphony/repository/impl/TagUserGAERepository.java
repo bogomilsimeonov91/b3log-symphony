@@ -37,7 +37,7 @@ import org.json.JSONObject;
  * Tag-User relation Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.0, Jan 31, 2011
+ * @version 1.0.0.1, Nov 11, 2011
  */
 public final class TagUserGAERepository extends AbstractRepository
         implements TagUserRepository {
@@ -51,9 +51,10 @@ public final class TagUserGAERepository extends AbstractRepository
     @Override
     public List<JSONObject> getByUserId(final String userId)
             throws RepositoryException {
-        final Query query = new Query();
-        query.addFilter(User.USER + "_" + Keys.OBJECT_ID,
-                        FilterOperator.EQUAL, userId);
+        final Query query = new Query().addFilter(User.USER + "_"
+                                                  + Keys.OBJECT_ID,
+                                                  FilterOperator.EQUAL, userId).
+                setPageCount(1);
 
         try {
             final JSONObject result = get(query);
@@ -71,14 +72,13 @@ public final class TagUserGAERepository extends AbstractRepository
                                  final int currentPageNum,
                                  final int pageSize)
             throws RepositoryException {
-        final Query query = new Query();
-        query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        FilterOperator.EQUAL, tagId);
-        query.addSort(User.USER + "_" + Keys.OBJECT_ID,
-                      SortDirection.DESCENDING);
-
-        query.setCurrentPageNum(currentPageNum);
-        query.setPageSize(pageSize);
+        final Query query = new Query().addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
+                                                  FilterOperator.EQUAL, tagId).
+                addSort(User.USER + "_" + Keys.OBJECT_ID,
+                        SortDirection.DESCENDING).
+                setCurrentPageNum(currentPageNum).
+                setPageSize(pageSize).
+                setPageCount(1);
 
         return get(query);
     }
@@ -87,11 +87,11 @@ public final class TagUserGAERepository extends AbstractRepository
     public JSONObject getByTagIdAndUserId(final String tagId,
                                           final String userId)
             throws RepositoryException {
-        final Query query = new Query();
-        query.addFilter(User.USER + "_" + Keys.OBJECT_ID,
-                        FilterOperator.EQUAL, userId);
-        query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        FilterOperator.EQUAL, tagId);
+        final Query query = new Query().addFilter(User.USER + "_"
+                                                  + Keys.OBJECT_ID,
+                                                  FilterOperator.EQUAL, userId).
+                addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
+                          FilterOperator.EQUAL, tagId).setPageCount(1);
 
         try {
             final JSONObject result = get(query);
@@ -103,7 +103,7 @@ public final class TagUserGAERepository extends AbstractRepository
             return tags.getJSONObject(0);
         } catch (final Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            
+
             throw new RepositoryException(e);
         }
     }
@@ -111,11 +111,10 @@ public final class TagUserGAERepository extends AbstractRepository
     @Override
     public List<String> getTopTagUsers(final String tagId,
                                        final int fetchSize) {
-        final Query query = new Query();
-        query.addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
-                        FilterOperator.EQUAL, tagId);
-        query.addSort(Tag.TAG_REFERENCE_COUNT, SortDirection.DESCENDING);
-        query.setCurrentPageNum(1).setPageSize(fetchSize);
+        final Query query = new Query().addFilter(Tag.TAG + "_" + Keys.OBJECT_ID,
+                                                  FilterOperator.EQUAL, tagId).
+                addSort(Tag.TAG_REFERENCE_COUNT, SortDirection.DESCENDING).
+                setCurrentPageNum(1).setPageSize(fetchSize).setPageCount(1);
 
         try {
             final JSONObject result = get(query);

@@ -34,7 +34,7 @@ import org.json.JSONObject;
  * Comment Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.5, Jan 17, 2011
+ * @version 1.0.0.6, Nov 11, 2011
  */
 public final class CommentGAERepository extends AbstractRepository
         implements CommentRepository {
@@ -48,10 +48,11 @@ public final class CommentGAERepository extends AbstractRepository
     @Override
     public List<JSONObject> getRecentComments(final int num)
             throws RepositoryException {
-        final Query query = new Query();
-        query.addSort(Keys.OBJECT_ID, SortDirection.DESCENDING);
-        query.setCurrentPageNum(1);
-        query.setPageSize(num);
+        final Query query = new Query().addSort(Keys.OBJECT_ID,
+                                                SortDirection.DESCENDING).
+                setCurrentPageNum(1).
+                setPageSize(num).
+                setPageCount(1);
 
         List<JSONObject> ret = new ArrayList<JSONObject>();
         try {
