@@ -152,6 +152,7 @@ public final class UserAction extends AbstractCacheablePageAction {
                           FilterOperator.EQUAL, userId).
                 addSort(Article.ARTICLE_CREATE_DATE,
                         SortDirection.DESCENDING);
+        // TODO: add entry count into user repository
         final JSONObject result = articleRepository.get(query);
         final JSONArray articles =
                 result.getJSONArray(Keys.RESULTS);
@@ -185,7 +186,7 @@ public final class UserAction extends AbstractCacheablePageAction {
         query.setCurrentPageNum(1).setPageSize(CMT_FETCH_SIZE).
                 addFilter(Comment.COMMENTER_ID, FilterOperator.EQUAL, userId).
                 addSort(Comment.COMMENT_DATE, SortDirection.DESCENDING);
-
+        // TODO: add comment count into user repository
         final JSONObject result = commentRepository.get(query);
         final JSONArray commentArray = result.getJSONArray(Keys.RESULTS);
 
