@@ -138,9 +138,12 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     setPageCount(1);
             final JSONObject result = commentRepository.get(query);
 
-            final int pageCount = result.getJSONObject(
-                    Pagination.PAGINATION).getInt(
-                    Pagination.PAGINATION_PAGE_COUNT);
+            final int commentCount =
+                    article.getInt(Article.ARTICLE_COMMENT_COUNT);
+            final int pageCount =
+                    (int) Math.ceil((double) commentCount
+                                    / (double) ENTRY_CMTS_PER_PAGE);
+
             final JSONArray articleCmts =
                     result.getJSONArray(Keys.RESULTS);
 
