@@ -40,7 +40,7 @@ import org.json.JSONObject;
  * Tag Google App Engine repository.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.4, Feb 14, 2011
+ * @version 1.0.0.5, Nov 11, 2011
  */
 public final class TagGAERepository extends AbstractRepository
         implements TagRepository {
@@ -141,7 +141,7 @@ public final class TagGAERepository extends AbstractRepository
     @Override
     public JSONObject getByTitle(final String tagTitle)
             throws RepositoryException {
-        final Query query = new Query();
+        final Query query = new Query().setPageCount(1);
         query.addFilter(Tag.TAG_TITLE_LOWER_CASE, FilterOperator.EQUAL,
                         tagTitle.toLowerCase());
         try {
@@ -162,11 +162,11 @@ public final class TagGAERepository extends AbstractRepository
 
     @Override
     public List<JSONObject> getMostUsedTags(final int num) {
-        final Query query = new Query();
-        query.addSort(Tag.TAG_REFERENCE_COUNT,
-                          SortDirection.DESCENDING);
-        query.setCurrentPageNum(1);
-        query.setPageSize(num);
+        final Query query = new Query().addSort(Tag.TAG_REFERENCE_COUNT,
+                                                SortDirection.DESCENDING).
+                setCurrentPageNum(1).
+                setPageSize(num).
+                setPageCount(1);
 
         try {
             final JSONObject result = get(query);
