@@ -53,7 +53,7 @@ import org.json.JSONObject;
  * Entry action. entry.ftl.
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.9, Aug 6, 2011
+ * @version 1.0.1.0, Nov 11, 2011
  */
 public final class EntryAction extends AbstractCacheablePageAction {
 
@@ -134,7 +134,8 @@ public final class EntryAction extends AbstractCacheablePageAction {
                     setPageSize(ENTRY_CMTS_PER_PAGE).
                     addFilter(Comment.COMMENT_ENTRY_ID,
                               FilterOperator.EQUAL,
-                              articleId);
+                              articleId).
+                    setPageCount(1);
             final JSONObject result = commentRepository.get(query);
 
             final int pageCount = result.getJSONObject(
