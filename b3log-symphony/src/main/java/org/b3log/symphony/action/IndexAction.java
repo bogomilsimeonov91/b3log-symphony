@@ -94,11 +94,11 @@ public final class IndexAction extends AbstractCacheablePageAction {
 
             final int currentPageNum = Integer.parseInt(p);
 
-            final Query query = new Query();
-            query.setCurrentPageNum(currentPageNum).
+            final Query query = new Query().setCurrentPageNum(currentPageNum).
                     setPageSize(RECENT_ARTICLES_CNT).
                     addSort(Article.ARTICLE_CREATE_DATE,
-                            SortDirection.DESCENDING);
+                            SortDirection.DESCENDING).
+                    setPageCount(1);
             LOGGER.log(Level.FINE, "Getting articles....");
             final JSONObject result = articleRepository.get(query);
 
