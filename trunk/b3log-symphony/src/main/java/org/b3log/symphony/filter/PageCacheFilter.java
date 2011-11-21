@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.filter;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.b3log.latke.cache.Cache;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.logging.Level;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -33,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.b3log.latke.Keys;
 import org.b3log.latke.action.AbstractCacheablePageAction;
 import org.b3log.latke.action.util.PageCaches;
+import org.b3log.latke.cache.Cache;
 import org.b3log.latke.util.Strings;
 import org.b3log.symphony.model.Article;
 import org.b3log.symphony.util.Symphonys;
@@ -46,7 +45,7 @@ import org.json.JSONObject;
  * </p>
  *
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
- * @version 1.0.0.2, Feb 10, 2011
+ * @version 1.0.0.3, Nov 21, 2011
  * @see org.b3log.latke.action.AbstractCacheablePageAction#afterDoFreeMarkerTemplateAction(
  * javax.servlet.http.HttpServletRequest,
  * javax.servlet.http.HttpServletResponse,
@@ -60,11 +59,10 @@ public final class PageCacheFilter implements Filter {
      */
     private static final Logger LOGGER =
             Logger.getLogger(PageCacheFilter.class.getName());
-
     /**
      * Enables page cache?
      */
-    private static final boolean PAGE_CACHE_ENABLED = 
+    private static final boolean PAGE_CACHE_ENABLED =
             Boolean.valueOf(Symphonys.get("enablePageCache"));
 
     @Override
@@ -92,6 +90,12 @@ public final class PageCacheFilter implements Filter {
                 (HttpServletResponse) response;
 
         final String requestURI = httpServletRequest.getRequestURI();
+        if (!"/get-news".equals(requestURI)) {
+            // XXX: Redicts to http://b3log-solo.googlecode.com temp
+            httpServletResponse.sendRedirect("http://b3log-solo.googlecode.com");
+            return;
+        }
+
         if (requestURI.endsWith(".ftl")) {
             httpServletResponse.sendRedirect("/");
 
@@ -115,7 +119,7 @@ public final class PageCacheFilter implements Filter {
             cachedPageContentObject = null;
             LOGGER.log(Level.FINEST, "Page cache is disabled");
         }
-        
+
         if (null == cachedPageContentObject) {
             httpServletRequest.setAttribute(Keys.PAGE_CACHE_KEY,
                                             pageCacheKey);
