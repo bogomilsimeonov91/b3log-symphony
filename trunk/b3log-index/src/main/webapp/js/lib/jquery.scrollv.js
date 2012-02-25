@@ -97,6 +97,9 @@
                 if (i === $scrollvContentItems.length - 1) {
                     marginTB = (winHeight - headerHeight - footerHeight - $it.height()) / 2;
                 }
+                
+                marginTB = marginTB > 0 ? marginTB : 10;
+                
                 $it.css({
                     "marginTop": marginTB,
                     "marginBottom": marginTB
@@ -108,7 +111,7 @@
             settings.footerHeight = footerHeight;
             
             this._scrollEvent(target);
-            this._goto(id);
+            this._goto(id, settings);
         },
 
         _scrollEvent: function (target) {
@@ -146,14 +149,16 @@
             });
         },
         
-        _goto: function (id) {
-            var $navItem = $("#" + id + "a");
+        _goto: function (id, settings) {
+            var $navItem = $("#" + id + " a");
             $navItem.click(function () {
                 var $it = $(this);
                 $navItem.removeClass("current");
                 $it.addClass("current");
                 
-                $(window).scrollTop()
+                var currentContent = $("#" + id + "Content > div").get($it.data("index")),
+                top = currentContent.offsetTop - settings.headerHeight - parseInt(currentContent.style.marginTop);
+                $(window).scrollTop(top);
             });
         },
 

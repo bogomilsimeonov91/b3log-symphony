@@ -12,7 +12,7 @@
                 <div class="left">
                     <img src="images/logo.png" title="B3log" />
                 </div>
-                <div class="intro-intro left">
+                <div class="header-intro left">
                     <a rel="nofollow" href="http://code.google.com/p/b3log-solo/">B3log Solo</a> 
                     是款开源（<a rel="nofollow" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a>）的博客程序，不仅可以运行在 <a rel="nofollow" href="http://code.google.com/appengine">Google App Engine</a> 上，也可以运行在标准 Servlet 容器上。
                     当前最新版本：<a rel="nofollow" href="https://b3log-solo.googlecode.com/files/b3log-solo-0.4.0-beta2.zip">0.4.0 beta2</a>。 
@@ -22,16 +22,16 @@
                 <div class="nav" id="nav">
                     <ul>
                         <li>
-                            <a href="javascript:void(0)" class="color-1 current">Intro</a>
+                            <a href="javascript:void(0)" data-index="0" class="color-1 current">Intro</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" class="color-2">Theme</a>
+                            <a href="javascript:void(0)" data-index="1" class="color-2">Theme</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" class="color-3">Time Line</a>
+                            <a href="javascript:void(0)" data-index="2"  class="color-3">Time Line</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" class="color-4">About</a>
+                            <a href="javascript:void(0)" data-index="3"  class="color-4">About</a>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="line">
                     <div class="wrapper">
                         <div class="module">
-                            <ul class="left">
+                            <ul class="left intro-list">
                                 <li>基于标签的文章分类 </li>
                                 <li>Ping Google Blog Search Engine  </li>
                                 <li>
@@ -55,15 +55,17 @@
                                 <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/sitemap">Sitemap</a> 输出 </li>
                                 <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/comment_reply">评论回复及邮件提醒</a> </li>
                                 <li>自定义页面 </li>
+                            </ul>
+                            <ul class="left intro-list">
                                 <li>置顶/相关/随机/<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/external_articles">站外相关</a>文章 </li>
                                 <li>文章、页面永久链接（Permalink） </li>
-                            </ul>
-                            <ul class="left">
                                 <li>
                                     文章草稿夹、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/article_sign">签名档</a>、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/has_update">更新提示</a> 
                                 </li>
                                 <li>缓存管理 </li>
                                 <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/multi_users">多用户</a> </li>
+                            </ul>
+                            <ul class="left intro-list">
                                 <li>多语言 </li>
                                 <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/skin">换肤</a> </li>
                                 <li>插件 </li>
@@ -77,29 +79,33 @@
                 <div class="wrapper">
                     <div class="left module" id="news">
                     </div>
-                    <div class="right module" style="width: 411px">
-                        <div class="panel" style="background: -moz-linear-gradient(center top , #FF9900 0%, #FF6633 100%) repeat scroll 0 0 transparent">
-                            <h2><a target="_blank" href="http://demo.b3log.org">Demo</a> & Doc</h2>
-                            用户名[b3log.solo@gmail.com]<br/>
-                            密码[b3logsolo]
+                    <div class="right module" style="width: 491px;background-color: rgba(38, 38, 38,0.65)">
+                        <div class="panel bg-1">
+                            <h2 class="color-1">Download</h2>
+                            <a class="color-1" target="_blank" href="http://code.google.com/p/b3log-solo/downloads/list">本地下载</a>
+                            <a class="color-1" target="_blank" href="http://code.google.com/p/b3log-solo/downloads/list?can=1&q=%E7%9A%AE%E8%82%A4&colspec=Filename+Summary+Uploaded+Size+DownloadCount+UploadedBy">皮肤下载</a>
+                            <a class="color-1" target="_blank" href="http://b3log-solo.googlecode.com/svn/trunk/b3log-solo">源码下载</a>
                         </div>
-                        <div class="panel">
-                            <h2>Download</h2>
-                            <a target="_blank" href="http://demo.b3log.org">Sources</a><br/>
-                            <a target="_blank" href="http://demo.b3log.org">Zip</a>
-                            <a target="_blank" href="http://demo.b3log.org">Skins</a>
+                        <div class="panel bg-2">
+                            <h2 class="color-2">Demo</h2>
+                            &nbsp;<b>演示地址</b>&nbsp;
+                            <a href="http://demo.b3log.org" target="_blank">
+                                http://demo.b3log.org
+                            </a><br/>
+                            &nbsp;<b>用户名</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b3log.solo@gmail.com<br/>
+                            &nbsp;<b>密码</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b3logsolo
                         </div>
-                        <div class="panel">
-                            <h2>Issues</h2>
-                            <a target="_blank" href="http://demo.b3log.org">Report</a><br/>
-                            <a target="_blank" href="http://demo.b3log.org">View</a>
-                            <a target="_blank" href="http://demo.b3log.org">Doc</a>
+                        <div class="panel bg-3">
+                            <h2 class="color-3">Issues & Doc</h2>
+                            &nbsp; <a target="_blank" href="http://code.google.com/p/b3log-solo/wiki/pre_installation">使用文档</a><br/>
+                            &nbsp; <a target="_blank" href="http://code.google.com/p/b3log-solo/issues/list">issues 列表</a><br/>
+                            &nbsp; <a target="_blank" href="http://code.google.com/p/b3log-solo/issues/entry">报告 bug & 添加特性</a>
                         </div>
-                        <div class="panel">
-                            <h2>Dev</h2>
-                            <a target="_blank" href="http://demo.b3log.org">Skins</a><br/>
-                            <a target="_blank" href="http://demo.b3log.org">Plug-in</a><br/>
-                            <a target="_blank" href="http://demo.b3log.org">Java</a>
+                        <div class="panel bg-4">
+                            <h2 class="color-4">Dev</h2>
+                            <a target="_blank" href="http://code.google.com/p/b3log-solo/wiki/develop_steps">皮肤开发</a>
+                            <a target="_blank" href="https://docs.google.com/document/pub?id=15H7Q3EBo-44v61Xp_epiYY7vK_gPJLkQaT7T1gkE64w&pli=1" style="margin-left: 80px;">插件开发</a>
+                            <a target="_blank" href="http://code.google.com/p/b3log-solo/wiki/pre_dev" style="margin-left: 130px;">底层开发</a>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -112,90 +118,14 @@
                 <table cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <div data-theme="mobile">
+                            <div>
                                 <img src="images/themes/mobile.png" />  
                                 <span style="opacity: 0;"></span>
                             </div>
                         </td>
                         <td>
-                            <div data-theme="neoease">
-                                <img src="images/themes/neoease.png" />    
-                                <span></span>
-                            </div>
-                        </td>
-                        <td>
                             <div>
-                                <img src="images/themes/i-nove.png" />    
-                                <span></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <img src="images/themes/owmx-3.0.png" />    
-                                <span></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <img src="images/themes/community.png" />    
-                                <span></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="height: 134px;">
-                                <img src="images/themes/i-nove.png" style="height: 134px;" />    
-                                <span style="height: 134px;"></span>
-                            </div>
-                        </td>
-                        <td rowspan="3" colspan="4" id="themesCenter">
-                            <div class="center" id="themesneoease">
-                                <img src="images/themes/neoease.png" />    
-                                <span class="info">
-                                    Author: <a>Vanessaneoease</a>
-                                    <br/>
-                                    <a>Download</a>
-                                </span>
-                            </div>
-                            <div class="center none" id="themesfavourite">
-                                <img src="images/themes/favourite.png" />    
-                                <span class="info">
-                                    Author: <a>Vanessa</a>
-                                    <br/>
-                                    <a>Download</a>
-                                </span>
-                            </div>
-                            <div class="center none" id="themesAndrea">
                                 <img src="images/themes/andrea.png" />    
-                                <span class="info">
-                                    Author: <a>Vanessa</a>
-                                    <br/>
-                                    <a>Download</a>
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="height: 134px;">
-                                <img src="images/themes/andrea.png" style="height: 134px;" />    
-                                <span style="height: 134px;"></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="height: 134px;">
-                                <img src="images/themes/favourite.png" style="height: 134px;" />    
-                                <span style="height: 134px;"></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div>
-                                <img src="images/themes/i-nove.png" />    
                                 <span></span>
                             </div>
                         </td>
@@ -207,19 +137,71 @@
                         </td>
                         <td>
                             <div>
+                                <img src="images/themes/community.png" />    
+                                <span></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
                                 <img src="images/themes/favourite.png" />    
                                 <span></span>
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="height: 134px;">
+                                <img src="images/themes/tree-house.png" style="height: 134px;" />    
+                                <span style="height: 134px;"></span>
+                            </div>
+                        </td>
+                        <td rowspan="3" colspan="4" id="themesCenter">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="height: 134px;">
+                                <img src="images/themes/i-nove.png" style="height: 134px;" />    
+                                <span style="height: 134px;"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="height: 134px;">
+                                <img src="images/themes/neoease.png" style="height: 134px;" />    
+                                <span style="height: 134px;"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <div>
-                                <img src="images/themes/i-nove.png" />    
+                                <img src="images/themes/owmx.png" />    
                                 <span></span>
                             </div>
                         </td>
                         <td>
                             <div>
-                                <img src="images/themes/i-nove.png" />    
+                                <img src="images/themes/shawn.png" />    
+                                <span></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <img src="images/themes/coda.png" />    
+                                <span></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <img src="images/themes/5stylesm.png" />    
+                                <span></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <img src="images/themes/idream.png" />    
                                 <span></span>
                             </div>
                         </td>
@@ -267,20 +249,21 @@
                     </div>
                 </div>
                 <div class="wrapper">
-                    <div class="module panel">
-                        <h2>
+                    <div class="module panel bg-1">
+                        <h2 class="color-1">
                             Team
                         </h2>
-                        XXXXXX
                     </div>
-                    <div class="module panel">
-                        <h2>
+                    <div class="module panel bg-2">
+                        <h2 class="color-2">
                             Join in
                         </h2>
-                        XXXXXX
+                        我们期待您能和 B3log 一起成长（至少让 B3log 给您带来快乐）<br>
+                        我们期待在 B3log 的创作过程中，在自由、平等、奔放的主题下，您能够尽可能的展现您的个性，实现您的创意（我们希望您能参考别人的建议，也期待您能保持自己的风格）<br>
+                        <a class="right" href="http://code.google.com/p/b3log-solo/wiki/join_us">更多</a>
                     </div>
-                    <div class="module panel" style="float: right; margin-right: 0;">
-                        <h2>
+                    <div class="module panel bg-3">
+                        <h2 class="color-3">
                             Contact
                         </h2>
                         XXXXXX

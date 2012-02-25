@@ -12,14 +12,24 @@
     padding: 0;
 }
 
+body {
+    background-image: url("../images/background.png");
+    color: #FFF;
+    min-height: 600px;
+    min-width: 990px;
+    font-family: sans-serif,\5fae\8f6f\96c5\9ed1;
+    font-size: 12px;
+}
+
 a {
-    color: #6AD00F;
+    color: #ebebeb;
+    font-weight: bold;
     text-decoration: none;
 }
 
 a:hover {
-    color: #519619;
-    text-shadow: 0 0 1px #FFFFFF;
+    color: #CA5C00;
+    text-decoration: underline;
 }
 
 ul {
@@ -52,55 +62,56 @@ ul {
 }
 
 .color-1 {
-    color: #991E28;
+    color: #ca5c00;
 }
 
 .color-2 {
-    color: #D5452B;
+    color: #b132ca;
 }
 
 .color-3 {
-    color: #A88615;
+    color: #00732d;
 }
 
 .color-4 {
-    color: #788118;
-}
-
-.color-5 {
-    color: #2E6B44;
-}
-
-.color-6 {
-    color: #32824F;
+    color: #d69e00;
 }
 
 .line {
-    background: url("../images/line-2.png") repeat-x scroll center bottom transparent;
-    padding-bottom: 56px;
+    padding-bottom: 20px;
     margin-bottom: 20px;
 }
 
 .module {
-    background-color: rgba(38, 38, 38, 0.75);
+    background-color: rgba(165, 165, 165, 0.65);
     border-radius: 6px 6px 6px 6px;
     padding: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .wrapper {
     width: 990px;
     margin: 0 auto;
 }
+
+.bg-1 {
+    background: -moz-linear-gradient(center top , #FF9900 0%, #FF6633 100%) repeat scroll 0 0 transparent
+}
+
+.bg-2 {
+    background: -moz-linear-gradient(center top , #C986C4 0%, #C953F7 100%) repeat scroll 0 0 transparent
+}
+
+.bg-3 {
+    background: -moz-linear-gradient(center top , #00D666  0%,  #00aa33 100%) repeat scroll 0 0 transparent
+}
+
+.bg-4 {
+    background: -moz-linear-gradient(center top ,  #FFE038  0%,   #FFbc6b 100%) repeat scroll 0 0 transparent
+}
 /* end common */
 
 /* start frame */
-body {
-    /* background-image: url("../images/background.png");*/
-    color: #FFF;
-    min-height: 600px;
-    min-width: 990px;
-}
-
 #navContent {
     padding-top: 135px;
 }
@@ -109,31 +120,42 @@ body {
 /* start nav */
 .nav {
     background: url("../images/nav-bg.png") no-repeat scroll left bottom transparent;
-    height: 103px;
+    height: 126px;
     position: fixed;
     right: 10px;
     text-align: center;
     top: 0;
-    width: 118px;
-    box-shadow: 0 0 12px #FFFFFF;
+    width: 126px;
     z-index: 2;
+    line-height: 26px;
+    font-size: 16px;
 }
 
-.nav ul {
-    background-color: #231F20;
+.nav a {
+    font-family: sans-serif,\5fae\8f6f\96c5\9ed1;
 }
 
 .nav .current {
-    color: red;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0 0 2px #231F20;
 }
 
 .header {
-    background: url("../images/line-1.png") repeat-x scroll center bottom #EEE;
-    margin-top: 0;
+    background: url("../images/header-bg.png") repeat-x scroll left bottom rgba(38, 38, 38, 0.65);
     position: fixed;
     z-index: 1;
-    padding-bottom: 46px;
     width: 100%;
+}
+
+.header img {
+    margin-top: 30px;
+}
+
+.header-intro {
+    font-size: 20px;
+    margin: 20px;
+    width: 671px;
 }
 /* end nav */
 
@@ -145,29 +167,77 @@ body {
 /* end footer */
 
 /* start part intro */
-.intro-intro {
-    width: 700px;
-    font-size: 23px;
+.intro-list {
+    font-size: 16px;
+    line-height: 30px;
+    list-style: square;
+    margin: 20px 70px 20px 35px;
 }
 
 #news {
-    background: url("../images/loader.gif") no-repeat scroll center center rgba(38, 38, 38, 0.75);
-    min-height: 189px;
-    width: 520px;
+    background: url("../images/ajax-loader.gif") no-repeat scroll center center rgba(195, 195, 195, 0.65);
+    line-height: 23px;
+    min-height: 208px;
+    overflow: hidden;
+    padding-left: 30px;
+    width: 409px;
+}
+
+#news span {
+    color: #CA5C00;
+    margin-right: 10px;
+}
+
+#news a { 
+    color: #FFF;
+    font-weight: normal;
+}
+
+#news a:hover {
+    color: #EBEBEB;
 }
 
 .intro div.panel {
-    background-color: #DDDDDD;
-    box-shadow: 0 0 3px #000000;
+    box-shadow: 0 0 2px #EEEEEE;
     float: left;
     height: 94px;
-    width: 50%;
+    padding: 5px;
+    width: 235px;
+}
+
+.intro div.panel h2 {
+    border-bottom: 1px solid;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.intro div.bg-1 a {
+    background-color: #FFF;
+    border: 1px solid;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.7);
+    float: left;
+    margin: 14px 9px;
+    padding: 2px 5px;
+}
+
+.intro div.bg-1 a:hover {
+    box-shadow: 1px 1px 1px #FFF;
+    text-decoration: none;
+    background-color: rgba(235, 235, 235, 0.9);
+}
+
+.intro div.bg-4 a {
+    display: block;
+    font-size: 13px;
+    margin-left: 30px;
+    color: #FFF;
 }
 /* end part intro */
 
 /* start part themes */
 #themes div {
-    box-shadow: 0 0 3px #000000;
+    box-shadow: 0 0 1px rgba(38, 38, 38, 0.65);
     float: left;
     height: 120px;
     overflow: hidden;
@@ -175,9 +245,17 @@ body {
     margin: 3px;
 }
 
+#themes div:hover {
+    box-shadow: 0 0 3px #CA5C00;
+}
+
 #themes div.center {
-    height: 418px; 
+    height: 414px; 
     width: 786px;
+}
+
+#themes div.center:hover {
+    box-shadow: 0 0 1px rgba(38, 38, 38, 0.65);
 }
 
 #themes img { 
@@ -189,22 +267,23 @@ body {
 }
 
 #themes span {
-    background-color: #000000;
+    background-color: rgba(38, 38, 38, 0.7);
     display: block;
     height: 120px;
     left: 0;
-    opacity: 0.5;
     position: absolute;
     top: 0;
     width: 192px;
 }
 
 #themes span.info {
-    height: 44px;
-    left: 600px;
-    opacity: 0.7;
-    padding: 0 10px;
-    top: 376px;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 34px;
+    left: 671px;
+    padding: 5px 10px;
+    text-align: center;
+    top: 370px;
+    width: 95px;
 }
 /* end part themes */
 
@@ -217,5 +296,15 @@ body {
     float: left;
     margin-right: 21px;
     width: 296px;
+}
+
+.about .panel h2 {
+    border-bottom: 1px solid;
+    margin-bottom: 5px;
+}
+
+.about .bg-3 {
+    float: right;
+    margin-right: 0;
 }
 /* end part about */
