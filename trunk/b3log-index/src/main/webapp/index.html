@@ -15,7 +15,7 @@
                 <div class="header-intro left">
                     <a rel="nofollow" href="http://code.google.com/p/b3log-solo/">B3log Solo</a> 
                     是款开源（<a rel="nofollow" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a>）的博客程序，不仅可以运行在 <a rel="nofollow" href="http://code.google.com/appengine">Google App Engine</a> 上，也可以运行在标准 Servlet 容器上。
-                    当前最新版本：<a rel="nofollow" href="https://b3log-solo.googlecode.com/files/b3log-solo-0.4.0-beta2.zip">0.4.0 beta2</a>。 
+                    当前最新版本：<a rel="nofollow" href="https://b3log-solo.googlecode.com/files/b3log-solo-0.4.0.zip">0.4.0</a>。 
                 </div>   
                 <div class="clear"></div>
 
@@ -38,45 +38,41 @@
             </div>
         </div>
         <!-- start main -->
-        <div id="navContent">
+        <div id="navContent" class="wrapper">
             <!-- start intro -->
             <div class="intro">
-                <div class="line">
-                    <div class="wrapper">
-                        <div class="module">
-                            <ul class="left intro-list">
-                                <li>基于标签的文章分类 </li>
-                                <li>Ping Google Blog Search Engine  </li>
-                                <li>
-                                    博客/标签 
-                                    <a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/feed">Atom/RSS</a> 
-                                    输出
-                                </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/sitemap">Sitemap</a> 输出 </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/comment_reply">评论回复及邮件提醒</a> </li>
-                                <li>自定义页面 </li>
-                            </ul>
-                            <ul class="left intro-list">
-                                <li>置顶/相关/随机/<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/external_articles">站外相关</a>文章 </li>
-                                <li>文章、页面永久链接（Permalink） </li>
-                                <li>
-                                    文章草稿夹、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/article_sign">签名档</a>、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/has_update">更新提示</a> 
-                                </li>
-                                <li>缓存管理 </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/multi_users">多用户</a> </li>
-                            </ul>
-                            <ul class="left intro-list">
-                                <li>多语言 </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/skin">换肤</a> </li>
-                                <li>插件 </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/metaweblog">MetaWeblog API</a> </li>
-                                <li><b>高性能，低配额</b></li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
+                <div class="module line">
+                    <ul class="left intro-list">
+                        <li>基于标签的文章分类 </li>
+                        <li>Ping Google Blog Search Engine  </li>
+                        <li>
+                            博客/标签 
+                            <a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/feed">Atom/RSS</a> 
+                            输出
+                        </li>
+                        <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/sitemap">Sitemap</a> 输出 </li>
+                        <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/comment_reply">评论回复及邮件提醒</a> </li>
+                        <li>自定义页面 </li>
+                    </ul>
+                    <ul class="left intro-list">
+                        <li>置顶/相关/随机/<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/external_articles">站外相关</a>文章 </li>
+                        <li>文章、页面永久链接（Permalink） </li>
+                        <li>
+                            文章草稿夹、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/article_sign">签名档</a>、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/has_update">更新提示</a> 
+                        </li>
+                        <li>缓存管理 </li>
+                        <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/multi_users">多用户</a> </li>
+                    </ul>
+                    <ul class="left intro-list">
+                        <li>多语言 </li>
+                        <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/skin">换肤</a> </li>
+                        <li>插件 </li>
+                        <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/metaweblog">MetaWeblog API</a> </li>
+                        <li><b>高性能，低配额</b></li>
+                    </ul>
+                    <div class="clear"></div>
                 </div>
-                <div class="wrapper">
+                <div>
                     <div class="left module" id="news">
                     </div>
                     <div class="right module" style="width: 491px;background-color: rgba(38, 38, 38,0.65)">
@@ -114,7 +110,7 @@
             <!-- end intro -->
 
             <!-- start themes -->
-            <div id="themes" class="wrapper">
+            <div id="themes">
                 <table cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
@@ -211,77 +207,79 @@
             <!-- end themes -->
 
             <!-- start time line -->
-            <div class="wrapper" style="background-color: gray;height: 200px">
+            <div style="background-color: gray;height: 200px">
 
             </div>
             <!-- end time line -->
 
             <!-- start about -->
             <div class="about">
-                <div class="line">
-                    <div class="wrapper">
-                        <div class="module">
-                            <ul>
-                                <li>基于标签的文章分类 </li>
-                                <li>Ping Google Blog Search Engine  </li>
-                                <li>
-                                    博客/标签 
-                                    <a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/feed">Atom/RSS</a> 
-                                    输出
-                                </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/sitemap">Sitemap</a> 输出 </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/comment_reply">评论回复及邮件提醒</a> </li>
-                                <li>自定义页面 </li>
-                                <li>置顶/相关/随机/<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/external_articles">站外相关</a>文章 </li>
-                                <li>文章、页面永久链接（Permalink） </li>
-                                <li>
-                                    文章草稿夹、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/article_sign">签名档</a>、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/has_update">更新提示</a> 
-                                </li>
-                                <li>缓存管理 </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/multi_users">多用户</a> </li>
-                                <li>多语言 </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/skin">换肤</a> </li>
-                                <li>插件 </li>
-                                <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/metaweblog">MetaWeblog API</a> </li>
-                                <li><b>高性能，低配额</b></li>
-                            </ul>
-                        </div> 
-                    </div>
-                </div>
-                <div class="wrapper">
+                <div class="module line">
+                    <ul>
+                        <li>基于标签的文章分类 </li>
+                        <li>Ping Google Blog Search Engine  </li>
+                        <li>
+                            博客/标签 
+                            <a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/feed">Atom/RSS</a> 
+                            输出
+                        </li>
+                        <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/sitemap">Sitemap</a> 输出 </li>
+                        <li><a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/comment_reply">评论回复及邮件提醒</a> </li>
+                        <li>自定义页面 </li>
+                        <li>置顶/相关/随机/<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/external_articles">站外相关</a>文章 </li>
+                        <li>文章、页面永久链接（Permalink） </li>
+                        <li>
+                            文章草稿夹、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/article_sign">签名档</a>、<a rel="nofollow" href="http://code.google.com/p/b3log-solo/wiki/has_update">更新提示</a> 
+                        </li>
+                        <li>缓存管理 </li>
+                    </ul>
+                    <a class="right" href="http://me.alipay.com/b3log" target="_blank" title="捐赠">
+                        <img src="images/alipay-me.png" />
+                    </a>
+                    <div class="clear"></div>
+                </div> 
+                <div>
                     <div class="module panel bg-1">
                         <h2 class="color-1">
                             Team
                         </h2>
+                        自由•平等•奔放<br>
+                        成员：
+                        <a href="http://88250.b3log,org" target="_blank">88250</a>,
+                        <a href="http://vanessa.b3log.org" target="_blank">Vanessa</a>,
+                        <a href="http://lamb.b3log.org" target="_blank">Lamb</a>,
+                        <a href="http://jiangzezhou.b3log.org/" target="_blank">jboat</a>,
+                        <a href="http://love.b3log.org/" target="_blank">mainlove</a>,
+                        <a href="http://dx.b3log.org/" target="_blank">dx</a>.<br>
+                        <a class="right" target="_blank" href="http://code.google.com/p/b3log-solo/wiki/about_us">更多</a>
                     </div>
                     <div class="module panel bg-2">
                         <h2 class="color-2">
                             Join in
                         </h2>
-                        我们期待您能和 B3log 一起成长（至少让 B3log 给您带来快乐）<br>
-                        我们期待在 B3log 的创作过程中，在自由、平等、奔放的主题下，您能够尽可能的展现您的个性，实现您的创意（我们希望您能参考别人的建议，也期待您能保持自己的风格）<br>
-                        <a class="right" href="http://code.google.com/p/b3log-solo/wiki/join_us">更多</a>
+                        我们期待您能和 B3log 共同成长<br><br><br>
+                        <a class="right" target="_blank" href="http://code.google.com/p/b3log-solo/wiki/join_us">更多</a>
                     </div>
                     <div class="module panel bg-3">
                         <h2 class="color-3">
                             Contact
                         </h2>
-                        XXXXXX
+                        QQ 群：13139268 <br>
+                        Google Code: <a href="https://code.google.com/p/b3log-solo/issues/entry" target="_blank">New Issue</a>
+                        <br><br>
+                        <span class="right">可到团队各成员的博客进行留言 ^^</span>
                     </div>
                     <div class="clear"></div>
                 </div>
             </div>
             <!-- end about -->
-
         </div>
         <!-- end main -->
 
         <div class="footer">
             <div class="wrapper">
-                <span style="color: gray;">© 2012</span> - 
-                <a class="logo" target="_blank" href="http://b3log-solo.googlecode.com">
-                    <span style="color: orange;">B</span><span style="color: blue;"><sup>3</sup></span><span style="color: green;">L</span><span style="color: red;">O</span><span style="color: blue;">G</span> 
-                </a>
+                © 2012 - 
+                <a target="_blank" href="http://b3log-solo.googlecode.com"><span style="color: orange;">B</span><span style="color: blue;"><sup>3</sup></span><span style="color: green;">L</span><span style="color: red;">O</span><span style="color: blue;">G</span></a>
                 Theme by <a target="_blank" href="http://vanessa.b3log.org">Vanessa</a>.
             </div>
         </div>

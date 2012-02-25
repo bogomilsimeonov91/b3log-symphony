@@ -77,8 +77,8 @@
             settings = inst.settings;
             var winHeight = document.documentElement.clientHeight,
             winWidth = document.documentElement.clientWidth;
-            if (winHeight < 675) {
-                winHeight = 675;
+            if (winHeight < 650) {
+                winHeight = 650;
             }
             if (winWidth < 990) {
                 winWidth = 990;
@@ -89,20 +89,22 @@
             headerHeight = $(".header").height() + parseInt($(".header").css("paddingBottom")),
             footerHeight = $(".footer").height() + parseInt($(".footer").css("padding-top")) * 2;
             
+            // set nav position
             $scrollvNav.css("right", (winWidth - 990) / 2);
            
+            // set each panel padding
             $scrollvContentItems.each(function (i) {
                 var $it = $(this);
-                var marginTB = (winHeight - headerHeight - $it.height()) / 2;
+                var paddingTB = (winHeight - headerHeight - $it.height()) / 2;
                 if (i === $scrollvContentItems.length - 1) {
-                    marginTB = (winHeight - headerHeight - footerHeight - $it.height()) / 2;
+                    paddingTB = (winHeight - headerHeight - footerHeight - $it.height()) / 2;
                 }
                 
-                marginTB = marginTB > 0 ? marginTB : 10;
+                paddingTB = paddingTB > 0 ? paddingTB : 10;
                 
                 $it.css({
-                    "marginTop": marginTB,
-                    "marginBottom": marginTB
+                    "paddingTop": paddingTB,
+                    "paddingBottom": paddingTB
                 });
             });
 
@@ -116,23 +118,22 @@
 
         _scrollEvent: function (target) {
             var inst = this._getInst(target);
-            var id = inst.id,
-            settings = inst.settings;
+            var id = inst.id;
             var $scrollvContentItems = $("#" + id + "Content>div"),
-            panelHeight = settings.winHeight - settings.headerHeight,  
-            preHeight = parseInt(panelHeight / 2),
             space = [],
             $navItem = $("#" + id + " a");
 
-            for (var i = 0; i < $scrollvContentItems.length; i++) {
+            $scrollvContentItems.each(function (i) {
+                var $it = $(this);
+                var height = parseInt($it.height() + parseInt($it.css("paddingTop")) * 2);
                 if (i === 0) {
-                    space.push([0, preHeight])
+                    space.push([0, parseInt(height / 2)]);
                 } else if (i === $scrollvContentItems.length - 1) {
-                    space.push([preHeight + panelHeight * (i - 1), document.documentElement.offsetHeight]);
+                    space.push([space[i - 1][1], document.body.offsetHeight]);
                 } else {
-                    space.push([preHeight + panelHeight * (i - 1), preHeight + panelHeight * i]);
+                    space.push([space[i - 1][1], space[i - 1][1] + height]);
                 }
-            }
+            });
             
             $(window).scroll(function () {
                 var top = document.documentElement.scrollTop,
@@ -157,7 +158,7 @@
                 $it.addClass("current");
                 
                 var currentContent = $("#" + id + "Content > div").get($it.data("index")),
-                top = currentContent.offsetTop - settings.headerHeight - parseInt(currentContent.style.marginTop);
+                top = currentContent.offsetTop - settings.headerHeight;
                 $(window).scrollTop(top);
             });
         },

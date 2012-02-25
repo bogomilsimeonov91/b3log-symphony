@@ -37,7 +37,7 @@ var Index = {
                 }
                 
                 var listHTML = "<ul>";
-                for (var i = 0; i < articles.length; i++) {
+                for (var i = 0; i < articles.length && i < 9; i++) {
                     var article = articles[i];
                     var articleLiHtml = "<li>"
                     + "<span>[" + Index._getDate(article.articleCreateDate) 

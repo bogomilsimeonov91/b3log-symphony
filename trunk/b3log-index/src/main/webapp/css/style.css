@@ -3,7 +3,7 @@
  * b3log index style
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.1, Jan 8, 2012
+ * @version 1.0.0.1, Feb 25, 2012
 */
 
 /* start reset */
@@ -15,9 +15,9 @@
 body {
     background-image: url("../images/background.png");
     color: #FFF;
-    min-height: 600px;
+    min-height: 650px;
     min-width: 990px;
-    font-family: sans-serif,\5fae\8f6f\96c5\9ed1;
+    font-family: \5fae\8f6f\96c5\9ed1, sans-serif;
     font-size: 12px;
 }
 
@@ -34,6 +34,10 @@ a:hover {
 
 ul {
     list-style: none;
+}
+
+img {
+    vertical-align: middle;
 }
 /* end reset */
 
@@ -113,7 +117,7 @@ ul {
 
 /* start frame */
 #navContent {
-    padding-top: 135px;
+    padding-top: 121px;
 }
 /* end frame */
 
@@ -222,9 +226,9 @@ ul {
 }
 
 .intro div.bg-1 a:hover {
-    box-shadow: 1px 1px 1px #FFF;
+    box-shadow: 0 0 1px #FFF;
     text-decoration: none;
-    background-color: rgba(235, 235, 235, 0.9);
+    background-color: rgba(235, 235, 235, 0.7);
 }
 
 .intro div.bg-4 a {
@@ -296,6 +300,7 @@ ul {
     float: left;
     margin-right: 21px;
     width: 296px;
+    height: 99px;
 }
 
 .about .panel h2 {
