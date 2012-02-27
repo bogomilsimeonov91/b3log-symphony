@@ -51,7 +51,6 @@ import org.b3log.symphony.util.Symphonys;
 import org.b3log.symphony.util.Tags;
 import org.b3log.symphony.util.Users;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -259,12 +258,7 @@ public final class UserAddEntryAction extends AbstractAction {
             }
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
-            try {
-                ret.put(Keys.STATUS_CODE, false);
-            } catch (final JSONException ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
+            ret.put(Keys.STATUS_CODE, false);
 
             return ret;
         }
@@ -288,7 +282,7 @@ public final class UserAddEntryAction extends AbstractAction {
      */
     private static boolean isInvalid(final JSONObject data) {
         LOGGER.log(Level.FINEST, "Data[{0}]", data);
-        
+
         final JSONObject article = data.optJSONObject(ARTICLE);
         if (null == article) {
             return true;

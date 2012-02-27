@@ -63,7 +63,7 @@ public final class TimeZones {
         System.setProperty("user.timezone", timeZoneId);
         Article.DATE_FORMAT.setTimeZone(timeZone);
         Comment.DATE_FORMAT.setTimeZone(timeZone);
-        Templates.CONFIGURATION.setTimeZone(timeZone);
+        Templates.MAIN_CFG.setTimeZone(timeZone);
     }
 
     /**

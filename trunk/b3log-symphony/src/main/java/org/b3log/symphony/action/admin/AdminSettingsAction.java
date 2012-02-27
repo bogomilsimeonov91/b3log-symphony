@@ -34,7 +34,6 @@ import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.repository.impl.UserGAERepository;
 import org.b3log.symphony.util.Errors;
 import org.b3log.symphony.util.Langs;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -122,7 +121,7 @@ public final class AdminSettingsAction extends AbstractAction {
             if (Strings.isEmptyOrNull(action)) {
                 action = "basic";
             }
-            
+
             final JSONObject userToUpdate = new JSONObject(
                     oldUser, JSONObject.getNames(oldUser));
 
@@ -170,13 +169,8 @@ public final class AdminSettingsAction extends AbstractAction {
             }
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
-            try {
-                ret.put(Keys.STATUS_CODE, false);
-                ret.put(Keys.MSG, "Internal Error!");
-            } catch (final JSONException ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
+            ret.put(Keys.STATUS_CODE, false);
+            ret.put(Keys.MSG, "Internal Error!");
         }
 
         return ret;

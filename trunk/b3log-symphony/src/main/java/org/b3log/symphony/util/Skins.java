@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.b3log.symphony.util;
 
 import java.io.File;
@@ -59,8 +58,7 @@ public final class Skins {
         try {
             final String webRootPath = SymphonyServletListener.getWebRoot();
             final String skinPath = webRootPath + SKINS + "/" + skinDirName;
-            Templates.CONFIGURATION.setDirectoryForTemplateLoading(
-                    new File(skinPath));
+            Templates.MAIN_CFG.setDirectoryForTemplateLoading(new File(skinPath));
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
@@ -144,8 +142,7 @@ public final class Skins {
 
             return ret.getProperty("name");
         } catch (final Exception e) {
-            LOGGER.log(Level.SEVERE, "Read skin configuration error[msg={0}]", e.
-                    getMessage());
+            LOGGER.log(Level.SEVERE, "Read skin configuration error[msg={0}]", e.getMessage());
 
             return null;
         }
