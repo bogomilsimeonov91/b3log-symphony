@@ -42,7 +42,6 @@ import org.b3log.symphony.util.Langs;
 import org.b3log.symphony.util.Symphonys;
 import org.b3log.symphony.util.Tags;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -187,8 +186,7 @@ public final class AddArticleAction extends AbstractAction {
             article.put(ARTICLE_TITLE, originalArticle.getString(ARTICLE_TITLE));
             final String tagString = originalArticle.getString(ARTICLE_TAGS);
             article.put(ARTICLE_TAGS, Tags.removeWhitespaces(tagString));
-            final String permalink = "http://" + host + originalArticle.
-                    getString(ARTICLE_PERMALINK);
+            final String permalink = "http://" + host + originalArticle.getString(ARTICLE_PERMALINK);
             article.put(ARTICLE_PERMALINK, permalink);
             article.put(ARTICLE_CONTENT,
                         originalArticle.getString(ARTICLE_CONTENT));
@@ -229,13 +227,8 @@ public final class AddArticleAction extends AbstractAction {
             }
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
 
-            try {
-                ret.put(Keys.STATUS_CODE, false);
-                ret.put(Keys.MSG, e.getMessage());
-            } catch (final JSONException ex) {
-                LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new ActionException(ex);
-            }
+            ret.put(Keys.STATUS_CODE, false);
+            ret.put(Keys.MSG, e.getMessage());
 
             return ret;
         }

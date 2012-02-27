@@ -109,7 +109,7 @@ public final class PageCacheFilter implements Filter {
             pageCacheKey += "?" + queryString;
         }
 
-        final Cache<String, Object> cache = PageCaches.getCache();
+        final Cache<String, ?> cache = PageCaches.getCache();
         LOGGER.log(Level.FINER, "Request[pageCacheKey={0}]", pageCacheKey);
         LOGGER.log(Level.FINEST, "Page cache[cachedCount={0}, maxCount={1}]",
                    new Object[]{cache.getCachedCount(), cache.getMaxCount()});

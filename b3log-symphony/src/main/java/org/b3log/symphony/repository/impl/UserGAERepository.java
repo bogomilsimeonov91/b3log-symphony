@@ -35,20 +35,16 @@ import org.json.JSONObject;
  * @author <a href="mailto:DL88250@gmail.com">Liang Ding</a>
  * @version 1.0.0.9, Nov 11, 2011
  */
-public final class UserGAERepository extends AbstractRepository
-        implements UserRepository {
+public final class UserGAERepository extends AbstractRepository implements UserRepository {
 
     /**
      * Logger.
      */
-    private static final Logger LOGGER =
-            Logger.getLogger(UserGAERepository.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserGAERepository.class.getName());
 
     @Override
     public JSONObject getByName(final String name) throws RepositoryException {
-        final Query query = new Query().addFilter(User.USER_NAME,
-                                                  FilterOperator.EQUAL,
-                                                  name).setPageCount(1);
+        final Query query = new Query().addFilter(User.USER_NAME, FilterOperator.EQUAL, name).setPageCount(1);
         final JSONArray result = get(query).optJSONArray(Keys.RESULTS);
 
         return result.optJSONObject(0);
@@ -56,9 +52,7 @@ public final class UserGAERepository extends AbstractRepository
 
     @Override
     public JSONObject getByEmail(final String email) throws RepositoryException {
-        final Query query = new Query().addFilter(User.USER_EMAIL,
-                                                  FilterOperator.EQUAL,
-                                                  email.toLowerCase()).
+        final Query query = new Query().addFilter(User.USER_EMAIL, FilterOperator.EQUAL, email.toLowerCase()).
                 setPageCount(1);
         final JSONArray result = get(query).optJSONArray(Keys.RESULTS);
 
@@ -66,8 +60,7 @@ public final class UserGAERepository extends AbstractRepository
     }
 
     @Override
-    public boolean isAdminEmail(final String email)
-            throws RepositoryException {
+    public boolean isAdminEmail(final String email) throws RepositoryException {
         final JSONObject user = getByEmail(email);
 
         if (null == user) {
@@ -112,8 +105,7 @@ public final class UserGAERepository extends AbstractRepository
         /**
          * Singleton.
          */
-        private static final UserGAERepository SINGLETON =
-                new UserGAERepository(User.USER);
+        private static final UserGAERepository SINGLETON = new UserGAERepository(User.USER);
 
         /**
          * Private default constructor.
