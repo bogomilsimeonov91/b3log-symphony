@@ -84,20 +84,16 @@
                 winWidth = 990;
             }
             
-            var $scrollvNav = $("#" + id),
-            $scrollvContentItems = $("#" + id + "Content>div"),
+            var $scrollvContentItems = $("#" + id + "Content>div"),
             headerHeight = $(".header").height() + parseInt($(".header").css("paddingBottom")),
             footerHeight = $(".footer").height() + parseInt($(".footer").css("padding-top")) * 2;
             
-            // set nav position
-            $scrollvNav.css("right", (winWidth - 990) / 2);
-           
             // set each panel padding
             $scrollvContentItems.each(function (i) {
                 var $it = $(this);
-                var paddingTB = (winHeight - headerHeight - $it.height()) / 2;
+                var paddingTB = parseInt((winHeight - headerHeight - $it.height()) / 3);
                 if (i === $scrollvContentItems.length - 1) {
-                    paddingTB = (winHeight - headerHeight - footerHeight - $it.height()) / 2;
+                    paddingTB = parseInt((winHeight - headerHeight - footerHeight - $it.height()) / 3);
                 }
                 
                 paddingTB = paddingTB > 0 ? paddingTB : 10;
@@ -106,6 +102,8 @@
                     "paddingTop": paddingTB,
                     "paddingBottom": paddingTB
                 });
+                
+                $it.find(".line").css("marginBottom", paddingTB);
             });
 
             settings.winHeight = winHeight;
