@@ -71,22 +71,52 @@ var Index = {
     initThemes: function () {
         Index._initThemesHTML();
         
-        var $themes = $("#themes");
         
-        $themes.find("div").mouseover(function () {
-            var $it = $(this);
-            if ($it.find("span").css("opacity") === "0" || $it.hasClass("center")) {
-                return;    
+        var imageLength =  $("#themesScroll img").length,
+        imageWidth = 161,
+        groupLength = 5;
+        var $themesScrollPanel = $("#themesScrollPanel");
+        $themesScrollPanel.width(imageWidth * imageLength);
+        
+        $themesScrollPanel.data("current", 0);
+        
+        $("#themesPre").click(function () {
+            var current = $themesScrollPanel.data("current"); 
+            if (current <= 0) {
+                return;
             }
+            current--;
             
-            var imageArray = $it.find("img").attr("src").split("/");
+            $themesScrollPanel.data("current", current);
+            $themesScrollPanel.animate({
+                "left": -(imageWidth * groupLength) * current + 10 + current * 5 +  "px"
+            }, 1000);
+        });
+        
+        
+        $("#themesNext").click(function () {
+            var current = $themesScrollPanel.data("current"); 
+            if (current >= Math.ceil(imageLength / groupLength) - 1) {
+                return;
+            }
+            current++;
+            
+            $themesScrollPanel.data("current", current);
+            $themesScrollPanel.animate({
+                "left": -(imageWidth * groupLength) * current + 10 + current * 5 + "px"
+            }, 1000);
+        });
+        
+        
+        $themesScrollPanel.find("img").click(function () {
+            var $it = $(this);
+            var imageArray = $it.attr("src").split("/");
             var image = imageArray[imageArray.length - 1];
+            $("#themesPreview > div").hide();
+            $("#themes" + image.split(".")[0]).show();
             
-            $themes.find("span").css("opacity", "0.7");
-            $it.find("span").css("opacity", "0");
-            
-            $("#themesCenter>div").hide();
-            $("#themes" + image.substring(0, image.length - 4)).show();
+             $themesScrollPanel.find("img").removeClass();
+            $it.addClass("selected");
         });
     },
     
@@ -100,34 +130,41 @@ var Index = {
         downloads = [],
         images = ['mobile', 'andrea', 'classic', 'community', 'favourite', 'tree-house',
         'i-nove', 'neoease', 'owmx', 'shawn', 'coda', '5stylesm', 'idream'],
-        centerHTML = "",
-        className = "";
+        previewHTML = "", 
+        previewClass = "",
+        scrollHTML = "",
+        scrollClass = "selected";
         
         for (var j = 0; j < 9; j++) {
             downloads[j] = 'code.google.com/p/b3log-solo/downloads/list';
         //'code.google.com/p/b3log-solo/downloads/list?can=1&q=%E7%9A%AE%E8%82%A4&colspec=Filename+Summary+Uploaded+Size+DownloadCount+UploadedBy';
         }
         
-        downloads[0] = 'code.google.com/p/b3log-solo/downloads/list';
-        downloads[2] = 'code.google.com/p/b3log-solo/downloads/list';
         downloads[9] = 'code.google.com/p/blogskins/downloads/list';
         downloads[10] = 'code.google.com/p/blogskins/downloads/list';
         downloads[11] = 'code.google.com/p/noday/downloads/list';
         downloads[12] = 'code.google.com/p/noday/downloads/list';
         
         for (var i = 0; i < images.length; i++) {
-            centerHTML += '<div class="center ' + className + '" id="themes' + images[i] 
+            previewHTML += '<div class="preview ' + previewClass + '" id="themes' + images[i] 
             + '"><img src="images/themes/' + images[i] + '.png"/>'
             + '<span class="info"><a href="http://' + authorUrls[i] + '" target="_blank">' + authors[i] + '</a><br/>'
             + '<a href="http://' + downloads[i] + '" target="_blank">Download</a>'
             + '</span></div>';
-        
             if (i === 0) {
-                className = "none";
+                previewClass = "none";
             }
         }
         
-        $("#themesCenter").html(centerHTML);
+        for (var k = 0; k < images.length; k++) {
+            scrollHTML += '<img src="images/themes/' + images[k] + '.png" class=' + scrollClass + ' />';
+            if (k === 0) {
+                scrollClass = "";
+            }
+        }
+        
+        $("#themesPreview").html(previewHTML);
+        $("#themesScrollPanel").html(scrollHTML);
     }
     
 };
