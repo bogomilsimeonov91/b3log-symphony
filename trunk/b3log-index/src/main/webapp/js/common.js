@@ -17,7 +17,7 @@
  * @fileoverview b3log index js.
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.1, Jan 9, 2012
+ * @version 1.0.0.5, Feb 27, 2012
  */
 var Index = {
     getNews: function () {
