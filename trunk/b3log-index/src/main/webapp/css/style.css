@@ -3,7 +3,7 @@
  * b3log index style
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.4, Feb 27, 2012
+ * @version 1.0.0.5, Feb 28, 2012
 */
 
 /* start reset */
@@ -96,6 +96,8 @@ img {
 .wrapper {
     width: 990px;
     margin: 0 auto;
+    -moz-user-select: none;
+    user-select: none;
 }
 
 .bg-1 {
@@ -123,23 +125,32 @@ img {
 
 /* start nav */
 .nav {
-    height: 126px;
+    background: url("../images/header-bg.png") repeat-x scroll -94px 129px rgba(48, 43, 39, 0.1);
+    border-radius: 50px 50px 5px 5px;
+    top: 0;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    cursor: move;
+    font-family: Neucha;
+    font-size: 24px;
+    padding: 6px;
     position: fixed;
-    right: 0;
+    left: 0px;
     text-align: center;
-    top: 200px;
-    width: 126px;
-    z-index: 2;
-    line-height: 26px;
-    font-size: 16px;
+    width: 100px;
+    height: 119px;
+    overflow: hidden;
+    line-height: 29px;
+    -moz-user-select: none;
+    user-select: none;
 }
 
-.nav a {
-    font-family: sans-serif,\5fae\8f6f\96c5\9ed1;
+.nav:hover {
+    border-radius: 5px;
+    transition: border-radius 1000ms ease;
 }
 
 .nav .current {
-    font-size: 18px;
+    font-size: 26px;
     font-weight: bold;
     text-shadow: 0 0 2px #231F20;
 }
@@ -166,7 +177,8 @@ img {
 
 /* start footer */
 .footer {
-    background-color: rgba(48, 43, 39, 0.7);
+    background: url("../images/header-bg.png") repeat-x scroll 0 48px rgba(48, 43, 39, 0.7);
+    border-bottom: 1px solid #FFFFFF;
     padding: 15px 0;
 }
 /* end footer */
@@ -315,6 +327,15 @@ img {
 /* end part time line */
 
 /* start part about */
+.about ul {
+    margin: 20px 20px 0;
+}
+
+.about p {
+    font-size: 14px;
+    margin: 5px 5px 10px 20px;
+}
+
 .about .panel {
     float: left;
     margin-right: 21px;

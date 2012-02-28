@@ -17,8 +17,36 @@
  * @fileoverview b3log index js.
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.5, Feb 27, 2012
+ * @version 1.0.0.6, Feb 28, 2012
  */
+
+var Cookie = {
+    readCookie: function (name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return "";
+    },
+
+    eraseCookie: function (name) {
+        this.createCookie(name,"",-1);
+    },
+
+    createCookie: function (name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime()+(days*24*60*60*1000));
+            expires = "; expires="+date.toGMTString();
+        }
+        document.cookie = name+"="+value+expires+"; path=/";
+    }
+};
+
 var Index = {
     getNews: function () {
         $.ajax({
@@ -115,7 +143,7 @@ var Index = {
             $("#themesPreview > div").hide();
             $("#themes" + image.split(".")[0]).show();
             
-             $themesScrollPanel.find("img").removeClass();
+            $themesScrollPanel.find("img").removeClass();
             $it.addClass("selected");
         });
     },
@@ -165,12 +193,94 @@ var Index = {
         
         $("#themesPreview").html(previewHTML);
         $("#themesScrollPanel").html(scrollHTML);
-    }
+    },
     
+    moveNav: function (id) {
+        var $nav = $("#" + id),
+        winWidth = $(window).width(),
+        winHeight = $(window).height();
+         
+        var top = "",
+        left =  "";
+        
+        if (Cookie.readCookie("top") === "") {
+            top = winHeight - $nav.height() - $(".footer").height() - 3 + "px";
+            left =  winWidth - 15 - $nav.width() + "px";
+        
+            Cookie.createCookie("top", top, 365);
+            Cookie.createCookie("left", left, 365);
+        } else {
+            top = Cookie.readCookie("top");
+            left = Cookie.readCookie("left");
+        }
+       
+        $nav.css({
+            "top": top,
+            "left": left
+        });
+        
+        $nav.mousedown(function(event) {
+            var _document = document;
+            if (!event) {
+                event = window.event;
+            }
+            var nav = $nav[0];
+            var x = event.clientX - parseInt(nav.style.left),
+            y = event.clientY - parseInt(nav.style.top);
+            _document.ondragstart = "return false;";
+            _document.onselectstart = "return false;";
+            _document.onselect = "document.selection.empty();";
+
+            if (this.setCapture) {
+                this.setCapture();
+            } else if (window.captureEvents) {
+                window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+            }
+
+            _document.onmousemove = function(event) {
+                if (!event) {
+                    event = window.event;
+                }
+                var positionX = event.clientX - x,
+                positionY = event.clientY - y;
+                if (positionX < 0) {
+                    positionX = 0;
+                }
+                if (positionX > winWidth - $(nav).width()) {
+                    positionX = winWidth - $(nav).width();
+                }
+                if (positionY < 0) {
+                    positionY = 0;
+                }
+                if (positionY > winHeight - $(nav).height() - 11) {
+                    positionY = winHeight - $(nav).height() - 11;
+                }
+                nav.style.left = positionX + "px";
+                nav.style.top = positionY + "px";
+            };
+
+            _document.onmouseup = function() {
+                if (this.releaseCapture) {
+                    this.releaseCapture();
+                } else if(window.captureEvents) {
+                    window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+                }
+                _document.onmousemove = null;
+                _document.onmouseup = null;
+                _document.ondragstart = null;
+                _document.onselectstart = null;
+                _document.onselect = null;
+                
+                Cookie.createCookie("top", nav.style.top, 365);
+                Cookie.createCookie("left", nav.style.left, 365);
+            }
+        });
+    }
 };
 
 (function () {
     Index.getNews();
     Index.initThemes();
+    Index.moveNav("nav");
     $("#nav").scrollv();
 })();
