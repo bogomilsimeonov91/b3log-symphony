@@ -19,7 +19,7 @@
 
     <!-- Version -->
     <properties>
-        <gae.version>1.5.2</gae.version>
+        <gae.version>1.6.2.1</gae.version>
         <!-- maven plugin -->
         <maven-license-plugin.version>1.8.0</maven-license-plugin.version>
         <maven-checkstyle-plugin.version>2.6</maven-checkstyle-plugin.version>
