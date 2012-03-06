@@ -115,6 +115,12 @@ img {
 .bg-4 {
     background: -moz-linear-gradient(center top ,  #FFE038  0%,   #FFbc6b 100%) repeat scroll 0 0 transparent
 }
+
+.panel h2 {
+    border-bottom: 1px solid;
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+}
 /* end common */
 
 /* start frame */
@@ -222,12 +228,6 @@ img {
     width: 235px;
 }
 
-.intro div.panel h2 {
-    border-bottom: 1px solid;
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
 .intro div.bg-1 a {
     background-color: #FCFCFB;
     border: 1px solid #CA5C00;
@@ -322,10 +322,6 @@ img {
 }
 /* end part themes */
 
-/* start part time line */
-
-/* end part time line */
-
 /* start part about */
 .about ul {
     margin: 20px 20px 0;
@@ -343,13 +339,58 @@ img {
     height: 99px;
 }
 
-.about .panel h2 {
-    border-bottom: 1px solid;
-    margin-bottom: 5px;
-}
-
 .about .bg-3 {
     float: right;
     margin-right: 0;
 }
 /* end part about */
+
+/* start part time line */
+.date {
+    cursor: pointer;
+    float: left;
+    line-height: 24px;
+    margin: 0 21px;
+    padding: 0;
+    text-align: center;
+    width: 55px;
+}
+
+.time-line .line {
+    position: relative;
+}
+
+.hr {
+    background: none repeat scroll 0 0 #CA5C00;
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    height: 2px;
+    position: absolute;
+    top: 23px;
+    width: 100%;
+}
+
+.time-line .module {
+    background-color: rgba(195, 195, 195, 0.7);
+}
+
+.time-line .event {
+    margin: 10px 90px;
+}
+
+.time-line img {
+    float: left;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.time-line dl {
+    float: left;
+    width: 290px;
+    margin: 20px 40px;
+}
+
+.time-line dd {
+    margin-bottom: 10px;
+}
+/* end part time line */
