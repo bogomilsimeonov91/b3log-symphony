@@ -17,7 +17,7 @@
  * @fileoverview scroll top and down.
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.5, Feb 27, 2012
+ * @version 1.0.0.6, Mar 22, 2012
  */
 (function ($) {
     $.fn.extend({
@@ -94,6 +94,8 @@
                 var paddingTB = parseInt((winHeight - headerHeight - $it.height()) / 3);
                 if (i === $scrollvContentItems.length - 1) {
                     paddingTB = parseInt((winHeight - headerHeight - footerHeight - $it.height()) / 3);
+                } else if (i === 1) {
+                    paddingTB = parseInt((winHeight - $it.height()) / 3);
                 }
                 
                 paddingTB = paddingTB > 0 ? paddingTB : 10;
@@ -125,11 +127,13 @@
                 var $it = $(this);
                 var height = parseInt($it.height() + parseInt($it.css("paddingTop")) * 2);
                 if (i === 0) {
-                    space.push([0, parseInt(height / 2)]);
+                    space.push([0, height]);
                 } else if (i === $scrollvContentItems.length - 1) {
                     space.push([space[i - 1][1], document.body.offsetHeight]);
-                } else {
+                } else if (i === 2) {
                     space.push([space[i - 1][1], space[i - 1][1] + height]);
+                } else {
+                    space.push([space[i - 1][1], space[i - 1][1] + parseInt(height/2)]);
                 }
             });
             
@@ -145,6 +149,12 @@
                 
                 $navItem.removeClass("current");
                 $($navItem.get(current)).addClass("current");
+                
+                if (current === 1) {
+                    $(".header").slideUp();
+                } else {
+                    $(".header").slideDown();
+                }
             });
         },
         
@@ -152,11 +162,17 @@
             var $navItem = $("#" + id + " a");
             $navItem.click(function () {
                 var $it = $(this);
+                var index = $it.data("index");
                 $navItem.removeClass("current");
                 $it.addClass("current");
                 
-                var currentContent = $("#" + id + "Content > div").get($it.data("index")),
+                var currentContent = $("#" + id + "Content > div").get(index),
                 top = currentContent.offsetTop - settings.headerHeight;
+                
+                if (index === 1) {
+                    top += $(".header").height();
+                }
+                
                 $(window).scrollTop(top);
             });
         },
