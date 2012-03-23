@@ -17,7 +17,7 @@
  * @fileoverview b3log index js.
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.6, Feb 28, 2012
+ * @version 1.0.0.7, Mar 22, 2012
  */
 
 var Cookie = {
@@ -101,7 +101,7 @@ var Index = {
         
         
         var imageLength =  $("#themesScroll img").length,
-        imageWidth = 161,
+        imageWidth = 164,
         groupLength = 5;
         var $themesScrollPanel = $("#themesScrollPanel");
         $themesScrollPanel.width(imageWidth * imageLength);
@@ -117,7 +117,7 @@ var Index = {
             
             $themesScrollPanel.data("current", current);
             $themesScrollPanel.animate({
-                "left": -(imageWidth * groupLength) * current + 10 + current * 5 +  "px"
+                "left": -(imageWidth * groupLength) * current +  "px"
             }, 1000);
         });
         
@@ -131,7 +131,7 @@ var Index = {
             
             $themesScrollPanel.data("current", current);
             $themesScrollPanel.animate({
-                "left": -(imageWidth * groupLength) * current + 10 + current * 5 + "px"
+                "left": -(imageWidth * groupLength) * current + "px"
             }, 1000);
         });
         
