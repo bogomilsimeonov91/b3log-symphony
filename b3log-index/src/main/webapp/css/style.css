@@ -87,6 +87,7 @@ img {
 
 .module {
     background-color: rgba(79, 79, 60, 0.7);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#7C7C6D', endColorstr='#7C7C6D'); 
     border-radius: 6px 6px 6px 6px;
     padding: 10px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
@@ -148,6 +149,7 @@ img {
 /* start nav */
 .nav {
     background: url("../images/header-bg.png") repeat-x scroll -94px 129px rgba(48, 43, 39, 0.1);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#D2D2C9', endColorstr='#D2D2C9'); 
     border-radius: 50px 50px 5px 5px;
     top: 0;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
@@ -158,7 +160,7 @@ img {
     position: fixed;
     left: 0px;
     text-align: center;
-    width: 100px;
+    width: 110px;
     height: 119px;
     overflow: hidden;
     line-height: 29px;
@@ -180,6 +182,7 @@ img {
 
 .header {
     background: url("../images/header-bg.png") repeat-x scroll left 113px rgba(48, 43, 39, 0.7);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66635D', endColorstr='#66635D'); 
     border-bottom: 1px solid #FFFFFF;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     position: fixed;
@@ -201,6 +204,7 @@ img {
 /* start footer */
 .footer {
     background: url("../images/header-bg.png") repeat-x scroll 0 48px rgba(48, 43, 39, 0.7);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66635D', endColorstr='#66635D'); 
     border-bottom: 1px solid #FFFFFF;
     padding: 15px 0;
 }
@@ -216,6 +220,7 @@ img {
 
 #news {
     background: url("../images/ajax-loader.gif") no-repeat scroll center center rgba(195, 195, 195, 0.7);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#D3D3CB', endColorstr='#D3D3CB'); 
     line-height: 23px;
     min-height: 208px;
     overflow: hidden;
@@ -277,6 +282,7 @@ img {
     position: relative;
     width: 800px;
     background-color: rgba(195, 195, 195, 0.7);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#D3D3CB', endColorstr='#D3D3CB'); 
 }
 
 #themesPreview .preview {
@@ -288,12 +294,13 @@ img {
 
 #themesPreview span.info {
     background-color: rgba(48, 43, 39, 0.7);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66635D', endColorstr='#66635D'); 
     height: 34px;
     left: 705px;
     padding: 5px 10px;
     position: absolute;
     text-align: center;
-    top: 554px;
+    top: 443px;
     width: 95px;
     border-left: 1px solid #FFF;
     border-top: 1px solid #FFF;
