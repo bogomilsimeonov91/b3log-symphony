@@ -17,7 +17,7 @@
  * @fileoverview scroll top and down.
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.7, Mar 28, 2012
+ * @version 1.0.0.8, Mar 29, 2012
  */
 (function ($) {
     $.fn.extend({
@@ -140,7 +140,7 @@
             });
             
             $(window).scroll(function () {
-                var top = document.documentElement.scrollTop,
+                var top = document.documentElement.scrollTop || document.body.scrollTop,
                 current = 0;
                 for (var j = 0; j < space.length; j++) {
                     if (top >= space[j][0] && top < space[j][1]) {
