@@ -275,12 +275,22 @@ var Index = {
                 Cookie.createCookie("left", nav.style.left, 365);
             }
         });
+    },
+    
+    initTimeline: function () {
+        var height = $(window).height() - 80;
+        $(".time-line").height(height);
+        $("#timeline").height(height);
+        
+        var timeline = new VMM.Timeline();
+        timeline.init();
     }
 };
 
 (function () {
     Index.getNews();
     Index.initThemes();
+    Index.initTimeline();
     Index.moveNav("nav");
     $("#nav").scrollv();
 })();
