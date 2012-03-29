@@ -282,6 +282,14 @@ var Index = {
         $(".time-line").height(height);
         $("#timeline").height(height);
         
+        if ($.browser.msie/*TODO: && $.browser.version < 9*/) {
+            var e = "time, section".split(', ');
+            var i = e.length;
+            while (i--){
+                document.createElement(e[i]);
+            } 
+            return;
+        }
         var timeline = new VMM.Timeline();
         timeline.init();
     }
