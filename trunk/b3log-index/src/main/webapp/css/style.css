@@ -3,7 +3,7 @@
  * b3log index style
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.6, Mar 22, 2012
+ * @version 1.0.0.7, Mar 29, 2012
 */
 
 /* start reset */
@@ -101,19 +101,35 @@ img {
 }
 
 .bg-1 {
-    background: -moz-linear-gradient(center top , #FF9900 0%, #FF6633 100%) repeat scroll 0 0 transparent
+    background-image: -moz-linear-gradient(center top , #FF9900 0%, #FF6633 100%);
+    background-image: -ms-linear-gradient(center top , #FF9900 0%, #FF6633 100%);
+    background-image: -o-linear-gradient(center top , #FF9900 0%, #FF6633 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#FF9900),to(#FF6633));
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9900', endColorstr='#FF6633');
 }
 
 .bg-2 {
-    background: -moz-linear-gradient(center top , #C986C4 0%, #C953F7 100%) repeat scroll 0 0 transparent
+    background: -moz-linear-gradient(center top , #C986C4 0%, #C953F7 100%);
+    background-image: -ms-linear-gradient(center top , #C986C4 0%, #C953F7 100%);
+    background-image: -o-linear-gradient(center top , #C986C4 0%, #C953F7 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#C986C4),to(#C953F7));
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#C986C4', endColorstr='#C953F7');
 }
 
 .bg-3 {
-    background: -moz-linear-gradient(center top , #00D666  0%,  #00aa33 100%) repeat scroll 0 0 transparent
+    background: -moz-linear-gradient(center top , #00D666  0%,  #00aa33 100%);
+    background-image: -ms-linear-gradient(center top , #00D666 0%, #00aa33 100%);
+    background-image: -o-linear-gradient(center top , #00D666 0%, #00aa33 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#00D666),to(#00aa33));
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00D666', endColorstr='#00aa33');
 }
 
 .bg-4 {
-    background: -moz-linear-gradient(center top ,  #FFE038  0%,   #FFbc6b 100%) repeat scroll 0 0 transparent
+    background: -moz-linear-gradient(center top ,  #FFE038  0%,   #FFbc6b 100%);
+    background-image: -ms-linear-gradient(center top , #FFE038 0%, #FFbc6b 100%);
+    background-image: -o-linear-gradient(center top , #FFE038 0%, #FFbc6b 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#FFE038),to(#FFbc6b));
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFE038', endColorstr='#FFbc6b');
 }
 
 .panel h2 {
@@ -137,7 +153,7 @@ img {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     cursor: move;
     font-family: Neucha;
-    font-size: 24px;
+    font-size: 20px;
     padding: 6px;
     position: fixed;
     left: 0px;
@@ -157,7 +173,7 @@ img {
 }
 
 .nav .current {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: bold;
     text-shadow: 0 0 2px #231F20;
 }

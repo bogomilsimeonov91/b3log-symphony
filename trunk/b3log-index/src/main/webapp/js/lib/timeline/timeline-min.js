@@ -9,7 +9,7 @@
  * By John Resig http://ejohn.org/
  * MIT Licensed.
 ================================================== */function trace(a){
-    window.console?console.log(a):typeof jsTrace!="undefined"&&jsTrace.send(a)
+   // window.console?console.log(a):typeof jsTrace!="undefined"&&jsTrace.send(a)
 }
 function onYouTubePlayerAPIReady(){
     VMM.ExternalAPI.youtube.onAPIReady()
