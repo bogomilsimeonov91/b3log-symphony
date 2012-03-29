@@ -5,6 +5,7 @@
         <title>B3log - 自由•平等•奔放</title>
         <link href='http://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css' charset="utf-8" />
         <link type="text/css" rel="stylesheet" href="css/style.css" charset="utf-8" />
+        <link type="text/css" rel="stylesheet" href="js/lib/timeline/timeline.css" charset="utf-8" />
         <link rel="icon" type="image/png" href="/favicon.png" />
     </head>
     <body onselectstart="return false">
@@ -30,10 +31,10 @@
                     <a href="javascript:void(0)" data-index="0" class="color-1 current">Intro</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)" data-index="1" class="color-2">Theme</a>
+                    <a href="javascript:void(0)" data-index="1"  class="color-3">About</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)" data-index="2"  class="color-3">About</a>
+                    <a href="javascript:void(0)" data-index="2" class="color-2">Theme</a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" data-index="3"  class="color-4">Time Line</a>
@@ -112,19 +113,6 @@
             </div>
             <!-- end intro -->
 
-            <!-- start themes -->
-            <div id="themes">
-                <div id="themesPreview" class="module line"></div>
-                <div id="themesScroll" class="module">
-                    <div id="themesScrollPanel"></div>
-                </div>
-                <div class="pos-rel">
-                    <div id="themesPre"></div>
-                    <div id="themesNext"></div>
-                </div>
-            </div>
-            <!-- end themes -->
-
             <!-- start about -->
             <div class="about">
                 <div class="module line">
@@ -199,198 +187,229 @@
             </div>
             <!-- end about -->
 
+            <!-- start themes -->
+            <div id="themes">
+                <div id="themesPreview" class="module line"></div>
+                <div id="themesScroll" class="module">
+                    <div id="themesScrollPanel"></div>
+                </div>
+                <div class="pos-rel">
+                    <div id="themesPre"></div>
+                    <div id="themesNext"></div>
+                </div>
+            </div>
+            <!-- end themes -->
+
             <!-- start time line -->
             <div class="time-line">
-                <div class="line">
-                    <div class="hr"></div>
-                    <div>
-                        <div class="date module bg-1 color-1">
-                            <div>08-10</div>
-                            <div>2010</div>
-                        </div>
-                        <div class="date module bg-2 color-2">
-                            <div>09-09</div>
-                            <div>2010</div>
-                        </div>
-                        <div class="date module bg-3 color-3">
-                            <div>10-13</div>
-                            <div>2010</div>
-                        </div>
-                        <div class="date module bg-4 color-4">
-                            <div>11-12</div>
-                            <div>2010</div>
-                        </div>
-                        <div class="date module bg-1 color-1">
-                            <div>11-15</div>
-                            <div>2010</div>
-                        </div>
-                        <div class="date module bg-2 color-2">
-                            <div>02-23</div>
-                            <div>2011</div>
-                        </div>
-                        <div class="date module bg-3 color-3">
-                            <div>06-11</div>
-                            <div>2011</div>
-                        </div>
-                        <div class="date module bg-4 color-4">
-                            <div>06-17</div>
-                            <div>2011</div>
-                        </div>
-                        <div class="date module bg-1 color-1">
-                            <div>08-20</div>
-                            <div>2011</div>
-                        </div>
-                        <div class="date module bg-2 color-2">
-                            <div>02-19</div>
-                            <div>2012</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="module">
-                    <div class="event none">
-                        <img src="images/timeline/2010810-1.jpg" />
-                        <dl>
-                            <dt>
-                            <h3>2011-8-10 项目成立</h3>
-                            <a href="http://88250.b3log.org" target="_blank">88250（D）</a> 
-                            &
-                            <a href="http://vanessa.b3log.org" target="_blank">Vanessa（V）</a>
-                            </dt>
-                            <dd>
-                                09 年本科云大毕业，目前准备离开支付宝，奔向美丽的云南。
-                                <br>V 是前端程序员，D 是 Java 程序员，快乐的小两口。
-                            </dd>
-                            <dd>
-                                负责任务：
-                                <br>B3log 系列项目发起人。从上到下、从前到后、从内到外的维持着 B3log 系列项目的活跃性。经常梦到有人来分担这艰巨的任务 -_-
-                            </dd>
-                            <dd>
-                                两句话飘过：
-                                <br>D：我靠，又有人加入团队，但不做贡献，搞毛啊。
-                                <br>V：快来人收购我们吧
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/2010810-2.jpg" />
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event none">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2010-09-09 B3log Solo 0.1.0 Preview 1</h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event none">
-                        <img src="images/timeline/favicon-90.png" />
-                        <dl>
-                            <dt>
-                            <h3>2010-10-13 B3log Solo 0.1.0 正式发布</h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2010-11-12 B3log Solo 0.2.0 正式发布</h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/favicon-90.png" />
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2010-11-15 Lamb </h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/favicon-90.png" />
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2011-02-23 DX </h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/favicon-90.png" />
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2011-06-11 J </h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/favicon-90.png" />
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2011-06-17 Y </h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/favicon-90.png" />
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2011-08-25 0.3.0 </h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/favicon-90.png" />
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2012-02-19 0.4.0</h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/favicon-90.png" />
-                        <div class="clear"></div>
-                    </div>
-                    <div class="event">
-                        <img src="images/logo.png" />
-                        <dl>
-                            <dt>
-                            <h3>2012-03-04 DVLY 齐聚上海 </h3>
-                            </dt>
-                            <dd>
-                            </dd>
-                        </dl>
-                        <img src="images/timeline/favicon-90.png" />
-                        <div class="clear"></div>
-                    </div>
+                <div id="timeline">
+                    <section>												
+                        <time>2010,8,10</time>								
+                        <h2>B3log 成立</h2>						
+                        <article>						
+                            <p>
+                                在 <a href="http://88250.b3log.org" target="_blank">D</a>（后端）和
+                                <a href="http://vanessa.b3log.org" target="_blank">V</a>（前端）不断日积月累的努力下，B3log 终于成立了！
+                            </p>
+                        </article>
+                        <figure>						
+                            <img src="images/logo.png">		
+                            <cite>PS 了一晚上才诞生的 logo</cite>
+                        </figure>
+                    </section>
+                    <ul>
+                        <li>
+                            <time>2010,9,9</time>	
+                            <h3>B3log Solo 0.1.0 Preview1</h3>						
+                            <article>										
+                                <p>
+                                    经过一个月的奋斗已经初步成型，终于勇敢的发布了 
+                                    <a href="http://88250.b3log.org/articles/2010/09/08/1283986560000.html" target="_blank">Preview 1</a>
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/favicon-90.png">
+                                <figcaption>面对 favicon 不会 PS 的孩子很受伤 T-T</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2010,10,13</time>	
+                            <h3>B3log Solo 0.1.0</h3>						
+                            <article>										
+                                <p>
+                                    在不断的修修补补中，在
+                                    <a href="http://88250.b3log.org/articles/2010/09/26/1285519372666.html" target="_blank">Preview2</a>后，
+                                    <a href="http://88250.b3log.org/articles/2010/10/13/1286980002007.html" target="_blank">0.1.0</a> 正式版终于发布了。
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/daniel.jpg">
+                                <figcaption>咯咯，我就是传说中的 D</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2010,11,12</time>	
+                            <h3>B3log Solo 0.2.0</h3>						
+                            <article>										
+                                <p>
+                                    在间隔 13 天后的 
+                                    <a href="http://88250.b3log.org/articles/2010/10/26/1288097886428.html" target="_blank">0.1.1</a>
+                                    发布后， <a href="http://88250.b3log.org/articles/2010/10/26/1288097886428.html" target="_blank">0.2.0</a>
+                                    诞生了。
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/vanessa.jpg">
+                                <cite>咔咔，我就是神出鬼没的 V</cite>	
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2010,11,15</time>	
+                            <h3>Lamb 加入</h3>						
+                            <article>										
+                                <p>
+                                    有创意才有新意   <br/>
+                                    实现梦想，即使在中国！ 
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/lamb.png">
+                                <figcaption>羔羊是我，我是 <a href="http://lamb.b3log.org" target="_blank">Lamb</a></figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2011,2,23</time>	
+                            <h3>DX 加入</h3>						
+                            <article>										
+                                <p>
+                                    负责任务：相信会更多。<br/>
+                                    一句话飘过：Two heads are always better than one. 
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/dx.jpg">
+                                <figcaption>土星盐是我，我是 <a href="http://dx.b3log.org" target="_blank">DX</a></figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2011,6,11</time>	
+                            <h3>Jboat 加入</h3>						
+                            <article>										
+                                <p>
+                                    大三学生，热爱开源，处于实习和出去找工作的边缘，技术菜鸟，很可能是刚好在你之前加入的那一个。<br/>
+                                    负责任务：B3log Solo 团队建设及文档编写。<br/>
+                                    一句话飘过：热爱生活，相信积累。 
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/jboat.jpg">
+                                <figcaption>Smile to see the distance， 我是 <a href="http://jiangzezhou.b3log.org" target="_blank">Jboat</a></figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2011,6,17</time>	
+                            <h3>Mainlove</h3>						
+                            <article>										
+                                <p>
+                                    有人为你往前冲是一种幸福，有人为你往后退，是一种奢华的幸福。<br/>
+                                    努力地帮大家写点代码，好让 D & V 早日生儿育女。 
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/mainlove.png">
+                                <figcaption>有人为你往前冲是一种幸福,我是 <a href="http://love.b3log.org" target="_blank">Mainlove</a></figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2011,8,25</time>	
+                            <h3>B3log solo 0.3.0</h3>						
+                            <article>										
+                                <p>
+                                    走过 <a href="http://88250.b3log.org/b3log-solo-release-021.html" target="_blank">0.2.1</a>、
+                                    <a href="http://88250.b3log.org/b3log-solo-release-025-beta1.html" target="_blank">0.2.5 Beta1</a>、
+                                    <a href="http://88250.b3log.org/b3log-solo-release-025-beta2.html" target="_blank">0.2.5 Beta2</a>、
+                                    <a href="http://88250.b3log.org/b3log-solo-release-025.html" target="_blank">0.2.5</a>、
+                                    <a href="http://88250.b3log.org/b3log-solo-release-026.html" target="_blank">0.2.6</a> 后，
+                                    <a href="http://88250.b3log.org/b3log-solo-release-030.html" target="_blank">0.3.0</a> 总算诞生了。
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/030.jpg">
+                                <figcaption>0.3.0 活跃贡献者的大名</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2011,9,4</time>	
+                            <h3>b3log.org 二级域名开放</h3>						
+                            <article>										
+                                <p>
+                                    亲，还在为别人不能访问你的博客而苦恼？<br/>
+                                    亲，你不绑定自己的域名？<br/>
+                                    那，亲，不要再犹豫了，
+                                    <a href="http://88250.b3log.org/apply-b3log-domain.html" target="_blank">
+                                        快来申请 b3log.org 二级域名 
+                                    </a>吧！
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/logo.png">
+                                <figcaption> 
+                                    <img src="images/timeline/20110904.jpg">
+                                    <br/>
+                                    亲们，快来申请吧！
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2011,10,14</time>	
+                            <h3>收到第一笔捐助</h3>						
+                            <article>										
+                                <p>
+                                    长期维护一个开源项目的确是不容易的。在有一个小团队都为这个项目努力的时候，更应该坚持下去。<br/>
+                                    期待更多的童鞋加入 B3log 团队，一起推进中国开源软件的发展，方便他人。
+                                    <a href="https://me.alipay.com/b3log" target="_blank"><img src="images/alipay-me.png"></a>
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/ly.jpg">
+                                <figcaption>首位捐赠者头像，他是 <a href="http://www.lyzane.com" target="_blank">胸毛</a></figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2012,2,19</time>	
+                            <h3>0.4.0</h3>						
+                            <article>										
+                                <p>
+                                    这一年换了工作，比较繁忙。虽然发布了 
+                                    <a href="http://88250.b3log.org/b3log-solo-release-031.html" target="_blank">0.3.1</a>、
+                                    <a href="http://88250.b3log.org/b3log-solo-release-035.html" target="_blank">0.3.5</a>、
+                                    <a href="http://88250.b3log.org/b3log-solo-release-040-beta1.html" target="_blank">0.4.0 Beta1</a>、
+                                    <a href="http://88250.b3log.org/b3log-solo-release-040-beta2.html" target="_blank">0.4.0 Beta2</a>，
+                                    但
+                                    <a href="http://88250.b3log.org/b3log-solo-release-040-final.html" target="_blank">0.4.0</a>
+                                    一直拖到现在，在此只能说声抱歉，请大家期待五月份将要发布的 0.4.1！
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/20120219.jpg">
+                                <figcaption>今天是也是 V 的生日</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <time>2012,3,4</time>	
+                            <h3>DVLY 齐聚上海</h3>						
+                            <article>										
+                                <p>
+                                    有缘千里来相会，无缘对面不相识。<br/>
+                                    在阴雨连绵的三月，团队成员 D、Vanessa、Laml、Mainlove（Y）终于在上海会面了。DX、Jboat 就差你们俩了！
+                                </p>
+                            </article>
+                            <figure>						
+                                <img src="images/timeline/20120304.png">
+                                <figcaption>地铁离别照</figcaption>
+                            </figure>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <!-- end time line -->
@@ -406,18 +425,7 @@
         </div>
         <script type="text/javascript" src="js/lib/jquery.min.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/lib/jquery.scrollv.js" charset="utf-8"></script>
+        <script type="text/javascript" src="js/lib/timeline/timeline-min.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/common.js" charset="utf-8"></script>
-
-
-
-
-
-
-        <script src="js/lib/timelinr/jquery.timelinr.js" type="text/javascript" charset="utf-8"></script>
-        <script type="text/javascript"> 
-            $(function(){
-                //    $().timelinr()
-            });
-        </script>
     </body>
 </html>
