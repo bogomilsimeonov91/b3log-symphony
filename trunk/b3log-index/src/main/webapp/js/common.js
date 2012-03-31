@@ -17,7 +17,7 @@
  * @fileoverview b3log index js.
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.7, Mar 22, 2012
+ * @version 1.0.0.8, Mar 30, 2012
  */
 
 var Cookie = {
@@ -283,11 +283,6 @@ var Index = {
         $("#timeline").height(height);
         
         if ($.browser.msie/*TODO: && $.browser.version < 9*/) {
-            var e = "time, section".split(', ');
-            var i = e.length;
-            while (i--){
-                document.createElement(e[i]);
-            } 
             return;
         }
         var timeline = new VMM.Timeline();
