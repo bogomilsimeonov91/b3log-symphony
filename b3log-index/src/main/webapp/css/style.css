@@ -3,7 +3,7 @@
  * b3log index style
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.7, Mar 29, 2012
+ * @version 1.0.0.8, Mar 31, 2012
 */
 
 /* start reset */
@@ -203,10 +203,11 @@ img {
 
 /* start footer */
 .footer {
-    background: url("../images/header-bg.png") repeat-x scroll 0 48px rgba(48, 43, 39, 0.7);
+    background-color: rgba(48, 43, 39, 0.7);
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66635D', endColorstr='#66635D'); 
     border-bottom: 1px solid #FFFFFF;
     padding: 15px 0;
+    text-align: right;
 }
 /* end footer */
 
