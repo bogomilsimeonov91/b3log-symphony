@@ -17,7 +17,7 @@
  * @fileoverview b3log index js.
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.8, Mar 30, 2012
+ * @version 1.0.0.9, Apr 1, 2012
  */
 
 var Cookie = {
@@ -175,7 +175,7 @@ var Index = {
         
         for (var i = 0; i < images.length; i++) {
             previewHTML += '<div class="preview ' + previewClass + '" id="themes' + images[i] 
-            + '"><img src="images/themes/' + images[i] + '.png"/>'
+            + '"><img src="images/themes/' + images[i] + '.jpg"/>'
             + '<span class="info"><a href="http://' + authorUrls[i] + '" target="_blank">' + authors[i] + '</a><br/>'
             + '<a href="http://' + downloads[i] + '" target="_blank">Download</a>'
             + '</span></div>';
@@ -185,7 +185,7 @@ var Index = {
         }
         
         for (var k = 0; k < images.length; k++) {
-            scrollHTML += '<img src="images/themes/' + images[k] + '.png" class=' + scrollClass + ' />';
+            scrollHTML += '<img src="images/themes/' + images[k] + '.jpg" class=' + scrollClass + ' />';
             if (k === 0) {
                 scrollClass = "";
             }
