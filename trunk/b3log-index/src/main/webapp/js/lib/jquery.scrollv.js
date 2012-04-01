@@ -153,8 +153,11 @@
                 $($navItem.get(current)).addClass("current");
                 
                 if (current > 1) {
-                    $(".header").slideUp();
+                    $(".header").slideUp("normal", function () {
+                        $("#sHeader").show();
+                    });
                 } else {
+                    $("#sHeader").hide();
                     $(".header").slideDown();
                 }
             });

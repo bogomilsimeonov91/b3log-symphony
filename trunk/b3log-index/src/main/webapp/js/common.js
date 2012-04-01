@@ -212,6 +212,7 @@ var Index = {
         } else {
             top = Cookie.readCookie("top");
             left = Cookie.readCookie("left");
+            $("#dragImg").hide();
         }
        
         $nav.css({
@@ -219,7 +220,14 @@ var Index = {
             "left": left
         });
         
+        $("#dragImg").css({
+            "top": parseInt(top) - 12 + "px",
+            "left": left
+        });
+        
         $nav.mousedown(function(event) {
+            $("#dragImg").hide();
+                
             var _document = document;
             if (!event) {
                 event = window.event;
@@ -287,6 +295,25 @@ var Index = {
         }
         var timeline = new VMM.Timeline();
         timeline.init();
+    },
+    
+    share: function () {
+        var title = encodeURIComponent("B3log - 免费的个人独立博客，自由•平等•奔放"),
+        url = "http://www.b3log.org",
+        pic = "http://www.b3log.org/images/logo.png";
+        
+        var urls = {};
+        urls.tencent = "http://share.v.t.qq.com/index.php?c=share&a=index&title=" + title + 
+        "&url=" + url + "&pic=" + pic;
+        urls.sina = "http://v.t.sina.com.cn/share/share.php?title=" + 
+        title + "&url=" + url + "&pic=" + pic;
+        urls.google = "https://plus.google.com/share?url=" + url;
+        urls.twitter = "https://twitter.com/intent/tweet?status=" + title + " " + url;
+        
+        $(".share span").click(function() {
+            var key = this.className.replace("-ico", "");
+            window.open(urls[key], "_blank", "top=100,left=200,width=648,height=618");
+        });
     }
 };
 
@@ -295,5 +322,19 @@ var Index = {
     Index.initThemes();
     Index.initTimeline();
     Index.moveNav("nav");
+    Index.share();
+    $("#sHeader").mouseover(function () {
+        $(".header").show();
+        $("#sHeader").hide();
+    });
+    $(".header").mouseout(function () {
+        var item = $("#nav a");
+        if (item[2].className.indexOf("current") > -1
+            || item[3].className.indexOf("current") > -1) {
+            $(".header").hide();
+            $("#sHeader").show();
+        }
+    });
+    
     $("#nav").scrollv();
 })();
