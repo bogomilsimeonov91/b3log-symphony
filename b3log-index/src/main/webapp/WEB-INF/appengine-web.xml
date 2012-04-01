@@ -33,19 +33,15 @@
         <include path="/favicon.ico" />
         <include path="/favicon.png" />
         <include path="/robots.txt" />
-        <include path="/js/**.js" />
-        <include path="/css/**.css" />
-        <include path="/css/ie/**.css" />
-        <include path="/js/**.htm" />
-        <include path="/js/**.html" />
-        <include path="/js/**.gif" />
-        <include path="/js/**.png" />
-        <include path="/styles/**.css" />
-        <include path="/images/**.png" />
-        <include path="/images/**.jpg" />
-        <include path="/images/**.gif" />
-        <include path="/**.htm" />
-        <include path="/**.html" />
+        <include path="/js/**/*.js" />
+        <include path="/css/*.css" />
+        <include path="/js/**/*.css" />
+        <include path="/js/**/*.js" />
+        <include path="/js/**/*.png" />
+        <include path="/images/**/*.png" />
+        <include path="/images/**/*.jpg" />
+        <include path="/images/**/*.gif" />
+        <include path="/*.html" />
     </static-files>
 </appengine-web-app>
 
