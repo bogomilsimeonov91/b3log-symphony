@@ -94,6 +94,13 @@ img {
     border: 1px solid #FFF;
 }
 
+.module-title {
+    display: block;
+    border-bottom: 1px solid;
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+}
+
 .wrapper {
     width: 990px;
     margin: 0 auto;
@@ -132,12 +139,6 @@ img {
     background-image: -webkit-gradient(linear,left top,left bottom,from(#FFD04D),to(#FDBB00));
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFD04D', endColorstr='#FDBB00');
 }
-
-.panel h2 {
-    border-bottom: 1px solid;
-    margin-bottom: 8px;
-    padding-bottom: 2px;
-}
 /* end common */
 
 /* start frame */
@@ -166,7 +167,7 @@ img {
     line-height: 29px;
     -moz-user-select: none;
     user-select: none;
-    z-index: 2;
+    z-index: 2001;
 }
 
 .nav:hover {
@@ -382,5 +383,17 @@ img {
 .about .bg-3 {
     float: right;
     margin-right: 0;
+}
+
+.about .module-title:hover {
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.about .color-2:hover {
+    color: #B132CA;
+}
+.about .color-3:hover {
+    color: #00732D;
 }
 /* end part about */

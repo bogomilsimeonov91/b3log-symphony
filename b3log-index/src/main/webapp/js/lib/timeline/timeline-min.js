@@ -9,7 +9,7 @@
  * By John Resig http://ejohn.org/
  * MIT Licensed.
 ================================================== */function trace(a){
-   // window.console?console.log(a):typeof jsTrace!="undefined"&&jsTrace.send(a)
+// window.console?console.log(a):typeof jsTrace!="undefined"&&jsTrace.send(a)
 }
 function onYouTubePlayerAPIReady(){
     VMM.ExternalAPI.youtube.onAPIReady()
@@ -2719,6 +2719,10 @@ if(typeof VMM!="undefined"&&typeof VMM.Timeline=="undefined"){
             VMM.Element.attribute(F,"rel","tooltip");
             VMM.bindEvent(".zoom-in",L,"click");
             VMM.bindEvent(".zoom-out",M,"click");
+            
+            jQuery(".zoom-in").click();
+            jQuery(".zoom-in").click();
+            
             D.tooltip({
                 selector:"div[rel=tooltip]",
                 placement:"right"
