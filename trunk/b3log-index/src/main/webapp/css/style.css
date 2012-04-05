@@ -153,7 +153,7 @@ img {
     background-color: rgba(78, 75, 70, 0.1);
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#D7D7D0', endColorstr='#D7D7D0'); 
     border-radius: 50px 50px 5px 5px;
-    top: 0;
+    top: 1800px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     cursor: move;
     font-family: Neucha;
@@ -196,6 +196,7 @@ img {
 #dragImg {
     position: fixed;
     z-index: 2003;
+    top: 1800px;
 }
 
 .tencent-ico, .sina-ico, .twitter-ico, .google-ico {
