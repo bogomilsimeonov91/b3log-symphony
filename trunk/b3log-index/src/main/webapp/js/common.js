@@ -204,11 +204,8 @@ var Index = {
         left =  "";
         
         if (Cookie.readCookie("top") === "") {
-            top = winHeight - $nav.height() - $(".footer").height() - 3 + "px";
+            top = winHeight - $nav.height() - $(".footer").height() - 35 + "px";
             left =  winWidth - 15 - $nav.width() + "px";
-        
-            Cookie.createCookie("top", top, 365);
-            Cookie.createCookie("left", left, 365);
         } else {
             top = Cookie.readCookie("top");
             left = Cookie.readCookie("left");
@@ -226,8 +223,6 @@ var Index = {
         });
         
         $nav.mousedown(function(event) {
-            $("#dragImg").hide();
-                
             var _document = document;
             if (!event) {
                 event = window.event;
@@ -265,6 +260,8 @@ var Index = {
                 }
                 nav.style.left = positionX + "px";
                 nav.style.top = positionY + "px";
+                
+                $("#dragImg").hide();
             };
 
             _document.onmouseup = function() {

@@ -3,7 +3,7 @@
  * timeline style for lt IE9
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.2, Mar 30, 2012
+ * @version 1.0.0.3, Apr 5, 2012
 */
 
 #timeline {
@@ -44,6 +44,8 @@
     position: absolute;
     right: 60px;
     top: 0px;
+    width: 360px;
+    text-align: center;
 }
 
 #timeline cite, #timeline figcaption {
@@ -52,5 +54,4 @@
     font-size: 11px;
     line-height: 14px;
     margin-top: 5px;
-    text-align: center;
 }
