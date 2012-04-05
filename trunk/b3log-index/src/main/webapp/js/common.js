@@ -17,7 +17,7 @@
  * @fileoverview b3log index js.
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.9, Apr 1, 2012
+ * @version 1.0.1.1, Apr 2, 2012
  */
 
 var Cookie = {
@@ -314,27 +314,40 @@ var Index = {
             var key = this.className.replace("-ico", "");
             window.open(urls[key], "_blank", "top=100,left=200,width=648,height=618");
         });
+    },
+    
+    initHeader: function () {
+        var item = $("#nav a");
+        
+        $("#sHeader").mouseover(function () {
+            $(".header").show();
+            $("#sHeader").hide();
+        });
+    
+        $(".header").mouseout(function () {
+            if (item[2].className.indexOf("current") > -1
+                || item[3].className.indexOf("current") > -1) {
+                $(".header").hide();
+                $("#sHeader").show();
+            }
+        });
+        
+        $(".header").mouseover(function () {
+            if (item[2].className.indexOf("current") > -1
+                || item[3].className.indexOf("current") > -1) {
+                $(".header").show();
+                $("#sHeader").hide();
+            }
+        });
     }
 };
 
 (function () {
     Index.getNews();
+    Index.initHeader();
     Index.initThemes();
     Index.initTimeline();
-    Index.moveNav("nav");
     Index.share();
-    $("#sHeader").mouseover(function () {
-        $(".header").show();
-        $("#sHeader").hide();
-    });
-    $(".header").mouseout(function () {
-        var item = $("#nav a");
-        if (item[2].className.indexOf("current") > -1
-            || item[3].className.indexOf("current") > -1) {
-            $(".header").hide();
-            $("#sHeader").show();
-        }
-    });
-    
+    Index.moveNav("nav");
     $("#nav").scrollv();
 })();
