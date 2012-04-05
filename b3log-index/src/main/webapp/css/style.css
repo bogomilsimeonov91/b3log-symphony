@@ -3,7 +3,7 @@
  * b3log index style
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.9, Apr 1, 2012
+ * @version 1.0.1.0, Apr 5, 2012
 */
 
 /* start reset */
@@ -38,6 +38,7 @@ ul {
 
 img {
     vertical-align: middle;
+    border: 0;
 }
 /* end reset */
 
@@ -87,7 +88,7 @@ img {
 
 .module {
     background-color: rgba(139, 135, 126, 0.7);
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A6A49A', endColorstr='#A6A49A'); 
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#7A7873', endColorstr='#7A7873'); 
     border-radius: 6px 6px 6px 6px;
     padding: 10px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
@@ -113,7 +114,7 @@ img {
     background-image: -ms-linear-gradient(center top , #FF9900 0%, #FF6633 100%);
     background-image: -o-linear-gradient(center top , #FF9900 0%, #FF6633 100%);
     background-image: -webkit-gradient(linear,left top,left bottom,from(#FF9900),to(#FF6633));
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9900', endColorstr='#FF6633');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF9900', endColorstr='#FF6633');
 }
 
 .bg-2 {
@@ -121,7 +122,7 @@ img {
     background-image: -ms-linear-gradient(center top , #C986C4 0%, #C953F7 100%);
     background-image: -o-linear-gradient(center top , #C986C4 0%, #C953F7 100%);
     background-image: -webkit-gradient(linear,left top,left bottom,from(#C986C4),to(#C953F7));
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#C986C4', endColorstr='#C953F7');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#C986C4', endColorstr='#C953F7');
 }
 
 .bg-3 {
@@ -129,7 +130,7 @@ img {
     background-image: -ms-linear-gradient(center top , #00D666 0%, #00aa33 100%);
     background-image: -o-linear-gradient(center top , #00D666 0%, #00aa33 100%);
     background-image: -webkit-gradient(linear,left top,left bottom,from(#00D666),to(#00aa33));
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00D666', endColorstr='#00aa33');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00D666', endColorstr='#00aa33');
 }
 
 .bg-4 {
@@ -137,7 +138,7 @@ img {
     background-image: -ms-linear-gradient(center top , #FFD04D 0%, #FDBB00 100%);
     background-image: -o-linear-gradient(center top , #FFD04D 0%, #FDBB00 100%);
     background-image: -webkit-gradient(linear,left top,left bottom,from(#FFD04D),to(#FDBB00));
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFD04D', endColorstr='#FDBB00');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFD04D', endColorstr='#FDBB00');
 }
 /* end common */
 
@@ -194,6 +195,7 @@ img {
 
 #dragImg {
     position: fixed;
+    z-index: 2003;
 }
 
 .tencent-ico, .sina-ico, .twitter-ico, .google-ico {
@@ -219,6 +221,7 @@ img {
 
 .share span:hover {
     opacity: 0.7;
+    filter: alpha(opacity=70);
 }
 
 .header {
@@ -261,6 +264,7 @@ img {
     border-bottom: 1px solid #FFFFFF;
     padding: 15px 0;
     text-align: right;
+    height: 17px;
 }
 /* end footer */
 
@@ -295,6 +299,10 @@ img {
 
 #news a:hover {
     color: #333;
+}
+
+.intro .line {
+    height: 222px;
 }
 
 .intro div.panel {
@@ -406,6 +414,11 @@ img {
 /* end part themes */
 
 /* start part about */
+.about .line {
+    float: left;
+    width: 968px;
+}
+
 .about .module {
     position: relative;
 }
