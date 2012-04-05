@@ -10,18 +10,15 @@
         <link type="text/css" rel="stylesheet" href="js/lib/timeline/timeline.css" charset="utf-8" />
         <!--[if lt IE 9]>
            <link type="text/css" rel="stylesheet" href="js/lib/timeline/timeline-ltie9.css" charset="utf-8" />
-        <![endif]-->
-        <script type="text/javascript" src="js/lib/jquery.min.js" charset="utf-8"></script>
-        <script type="text/javascript">
+         <script type="text/javascript">
             (function () {
-                if ($.browser.msie/*TODO: && $.browser.version < 9*/) {
-                    var element = ['time', 'section', 'article', 'figure', 'figcaption'];
-                    for (var i = 0; i < element.length; i++) {
-                        document.createElement(element[i]);
-                    }
+                var element = ['time', 'section', 'article', 'figure', 'figcaption'];
+                for (var i = 0; i < element.length; i++) {
+                    document.createElement(element[i]);
                 }
             })();
         </script>
+        <![endif]-->
         <link rel="icon" type="image/png" href="/favicon.png" />
     </head>
     <body onselectstart="return false">
@@ -29,6 +26,8 @@
             <div class="wrapper">
                 <div class="left">
                     <a href="http://www.b3log.org" title="B3log"><img src="images/logo.png" title="B3log" /></a>
+                    <br/>
+                    <span id="killBrowser"></span>
                 </div>
                 <div class="header-intro left">
                     <a rel="nofollow" href="http://code.google.com/p/b3log-solo/" target="_blank">B3log Solo</a> 
@@ -42,7 +41,7 @@
         <div id="sHeader">
             <span style="color: orange;">B</span><span style="color: blue;"><sup>3</sup></span><span style="color: green;">L</span><span style="color: red;">O</span><span style="color: blue;">G</span>
         </div>
-        
+
         <div class="nav" id="nav">
             <ul>
                 <li>
@@ -510,6 +509,7 @@
                 © 2010-2012 B3log.ORG
             </div>
         </div>
+        <script type="text/javascript" src="js/lib/jquery.min.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/lib/jquery.scrollv.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/lib/timeline/timeline-min.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/common.js" charset="utf-8"></script>

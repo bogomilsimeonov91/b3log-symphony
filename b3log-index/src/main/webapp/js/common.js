@@ -204,7 +204,7 @@ var Index = {
         left =  "";
         
         if (Cookie.readCookie("top") === "") {
-            top = winHeight - $nav.height() - $(".footer").height() - 35 + "px";
+            top = winHeight - $nav.height() - $(".footer").height() - 40 + "px";
             left =  winWidth - 15 - $nav.width() + "px";
         } else {
             top = Cookie.readCookie("top");
@@ -287,7 +287,7 @@ var Index = {
         $(".time-line").height(height);
         $("#timeline").height(height);
         
-        if ($.browser.msie/*TODO: && $.browser.version < 9*/) {
+        if ($.browser.msie && $.browser.version < 9) {
             return;
         }
         var timeline = new VMM.Timeline();
@@ -336,15 +336,30 @@ var Index = {
                 $("#sHeader").hide();
             }
         });
+    },
+    
+    killBrowser: function () {
+        if ($.browser.msie) {
+            if ($.browser.version < 7) {
+                window.location = "/kill-browser.html";
+                return;
+            }
+            
+            if ($.browser.version < 9) {
+                $("#killBrowser").html("请使用<a href='/kill-browser.html' target='_blank'>高级浏览器</a> ^^");
+            } 
+        }
+         
     }
 };
 
 (function () {
-    Index.getNews();
+    Index.killBrowser();
     Index.initHeader();
     Index.initThemes();
-    Index.initTimeline();
     Index.share();
+    Index.getNews();
     Index.moveNav("nav");
+    Index.initTimeline();
     $("#nav").scrollv();
 })();
