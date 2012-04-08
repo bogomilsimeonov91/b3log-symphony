@@ -62,32 +62,28 @@
 
 
 #sHeader {
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#7A7873', endColorstr='#7A7873'); 
+     background: url("../images/header-bg.png") repeat-x scroll -78px 33px #7B7973;
 }
 
 
 .footer {
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#7A7873', endColorstr='#7A7873'); 
+    background-color: #7B7973;
 }
 
-#news {
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C2', endColorstr='#C5C5C2'); 
+#themes .module, #news {
+    background-color: #C3C3C1;
 }
 
-#themes .module {
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C2', endColorstr='#C5C5C2'); 
-}
-
-#themesPreview span.info {
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#7A7873', endColorstr='#7A7873');
-}
-
-.module {
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#7A7873', endColorstr='#7A7873'); 
+.module, #themesPreview span.info {
+   background-color: #A6A49A;
 }
 
 .nav {
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#D7D7D0', endColorstr='#D7D7D0'); 
+    background-color: #D5D5CD;
+}
+
+.nav ul {
+    background-position: -94px 115px;
 }
 
 .share span:hover {
