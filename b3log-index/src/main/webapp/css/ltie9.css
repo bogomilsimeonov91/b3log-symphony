@@ -1,9 +1,9 @@
 @charset "utf-8";
 /*
- * timeline style for lt IE9
+ * style for lt IE9
  *
  * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.0.3, Apr 5, 2012
+ * @version 1.0.0.4, Apr 8, 2012
 */
 
 #timeline {
@@ -57,7 +57,7 @@
 }
 
 .header {
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#7A7873', endColorstr='#7A7873'); 
+    background: url("../images/header-bg.png") repeat-x scroll left 111px #7B7973;
 }
 
 
